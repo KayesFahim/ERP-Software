@@ -1,15 +1,18 @@
 <?php
 
-use Kreait\Firebase\Factory;
-use Kreait\Firebase\Auth;
-require __DIR__.'/vendor/autoload.php';
-
-
-$factory = (new Factory)
-    ->withServiceAccount('serviceAccount.json')
-    ->withDatabaseUri('https://flyfar-erp-software-default-rtdb.firebaseio.com/');
-
-    $auth = $factory->createAuth();
-    $database = $factory->createDatabase();
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
+    $dbname = "erp";
+    
+    // Create connection
+    $conn = new mysqli($servername, $username, $password, $dbname);
+    // Check connection
+    if ($conn->connect_error) {
+      die("Connection failed: " . $conn->connect_error);
+    }else{
+        echo 'Conncetion is Successfully';
+    }
+    
 
 ?>

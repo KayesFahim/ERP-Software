@@ -3,18 +3,6 @@ require_once "config.php";
 
 $token_id = $_GET['id'];
 
-class Fruit {
-    public $joinAt;
-    public $salary;
-  
-    function __construct($joinAt) {
-      $this->joinAt = $joinAt;
-    }
-    function get_joinAt() {
-      return $this->joinAt;
-    }
-  }
-
 
 
 $path = 'Employee/'.$token_id.'/JobInfo';
@@ -23,7 +11,6 @@ $reference = $database->getReference($path);
 
 $value = $reference->getValue();
 
-$apple = new Fruit($value);
 
 
 ?>
@@ -41,7 +28,7 @@ $apple = new Fruit($value);
     <h1 class="my-5">Hi, <b><?php echo $token_id; ?></b>. Welcome to our site.</h1>
     <h6> <?php 
     foreach($value as $x){
-        echo $apple->get_joinAt;
+        echo $x;
         echo '</br>';
 
     }

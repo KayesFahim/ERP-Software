@@ -4,12 +4,11 @@
 
     $error ='';
 
-    $email = $_POST['userEmail'];
-    $clearTextPassword = $_POST['userPassword'];
 
-    echo $email;
-    echo $clearTextPassword;
+    if(!empty($_POST['userEmail']) && !empty($_POST['userPassword'])){
 
+        $email = $_POST['userEmail'];
+        $clearTextPassword = $_POST['userPassword'];
     if (empty($email)) {
           echo "Email is empty";
         }elseif(empty($clearTextPassword)){
@@ -25,6 +24,12 @@
             }
 
     }
+
+
+    }else{
+
+    }
+ 
              
 ?>
 
