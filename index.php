@@ -4,7 +4,6 @@
 
     $error ='';
 
-
     if(!empty($_POST['userEmail']) && !empty($_POST['userPassword'])){
 
         $email = $_POST['userEmail'];
@@ -15,8 +14,7 @@
             echo "Password is empty";
         }else{
 
-            $signInResult = $auth->signInWithEmailAndPassword($email, $clearTextPassword);
-            $user_Id = $signInResult->firebaseUserId();
+            
             if($user_Id == NULL){
                 $error = 'Login Credentials Is Incorrect';
             }else{
@@ -63,6 +61,14 @@
                     </div>
                     <h3 class="title">login form</h3>
                     <div class="form_group">
+                            <select class="form_control" aria-label=".form-select-lg example" style="padding-right: 50px;">
+                                <option selected>Select your Role</option>
+                                <option value="1">Administrator</option>
+                                <option value="2">HR/Admin</option>
+                                <option value="3">Employee</option>
+                            </select>
+                    </div>
+                    <div class="form_group">
                         <span class="icon">
                       <i class="fab fa-accessible-icon"></i>
                         </span>
@@ -75,10 +81,9 @@
                         </span>
                         <input class="form_control" type="password" name="userPassword" placeholder="password">
                     </div>
+                    
 
-
-                   <button  class= "btn  signin" > Log in </button>
-
+                   <a href="dashboard.php" class= "btn  signin"> Log in </a>
 
                 </form>
 
