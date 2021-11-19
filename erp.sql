@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.1.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 18, 2021 at 03:30 PM
--- Server version: 10.4.21-MariaDB
--- PHP Version: 8.0.12
+-- Generation Time: Nov 19, 2021 at 05:13 AM
+-- Server version: 10.4.18-MariaDB
+-- PHP Version: 8.0.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -20,36 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `erp`
 --
-
--- --------------------------------------------------------
-
---
--- Table structure for table `academicinfo`
---
-
-CREATE TABLE `academicinfo` (
-  `id` int(10) NOT NULL,
-  `EMP_ID` varchar(20) NOT NULL,
-  `schoolname` varchar(100) NOT NULL,
-  `sscresult` varchar(50) NOT NULL,
-  `sscpassingyear` varchar(50) NOT NULL,
-  `collegename` varchar(300) NOT NULL,
-  `hscresult` varchar(50) NOT NULL,
-  `hscpassingyear` varchar(50) NOT NULL,
-  `universityname` varchar(100) NOT NULL,
-  `cgpa` varchar(50) NOT NULL,
-  `uvpassingyear` varchar(50) NOT NULL,
-  `pastcompanyname` varchar(10) NOT NULL,
-  `workduration` varchar(100) NOT NULL,
-  `resigncause` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `academicinfo`
---
-
-INSERT INTO `academicinfo` (`id`, `EMP_ID`, `schoolname`, `sscresult`, `sscpassingyear`, `collegename`, `hscresult`, `hscpassingyear`, `universityname`, `cgpa`, `uvpassingyear`, `pastcompanyname`, `workduration`, `resigncause`) VALUES
-(1, 'FFI-1000', 'Charsindhur M.L High School', '4.81', '2014', 'Milestone College', '4.83', '2016', 'North Sout', '2.86', '2021', 'Multiply D', '2 year', 'Long Dista');
 
 -- --------------------------------------------------------
 
@@ -74,6 +44,39 @@ INSERT INTO `employee` (`id`, `EMP_ID`, `email`, `name`, `phone`, `department`) 
 (1000, 'FFI-1000', 'fahim@flyfarint.com', 'Kayes Hossan Fuad', '01322903298', 'Fly Far Tech'),
 (1001, 'FFI-1001', 'ali@flyfarint.com', 'Ahmed Ali', '01755572096', 'Creative'),
 (1002, 'FFI-1002', 'ashik@flyfarint.com', 'Ashik Rahman', '01755572098', 'Creative');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `employee_academicinfo`
+--
+
+CREATE TABLE `employee_academicinfo` (
+  `id` int(10) NOT NULL,
+  `EMP_ID` varchar(10) NOT NULL,
+  `schoolname` varchar(100) NOT NULL,
+  `sscresult` varchar(100) NOT NULL,
+  `sscpassingyear` varchar(100) NOT NULL,
+  `sscsessionyear` varchar(100) NOT NULL,
+  `collegename` varchar(100) NOT NULL,
+  `hscresult` varchar(100) NOT NULL,
+  `hscpassingyear` varchar(100) NOT NULL,
+  `hscsessionyear` varchar(100) NOT NULL,
+  `universityname` varchar(100) NOT NULL,
+  `cgpa` varchar(100) NOT NULL,
+  `uvpassingyear` varchar(100) NOT NULL,
+  `uvsessionyear` varchar(100) NOT NULL,
+  `pastcompanyname` varchar(100) NOT NULL,
+  `workduration` varchar(100) NOT NULL,
+  `resigncause` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `employee_academicinfo`
+--
+
+INSERT INTO `employee_academicinfo` (`id`, `EMP_ID`, `schoolname`, `sscresult`, `sscpassingyear`, `sscsessionyear`, `collegename`, `hscresult`, `hscpassingyear`, `hscsessionyear`, `universityname`, `cgpa`, `uvpassingyear`, `uvsessionyear`, `pastcompanyname`, `workduration`, `resigncause`) VALUES
+(1, 'FFI-1000', 'Charsindhur M.L High School', '4.81', '2014', '20122014', 'Milestone College ,Uttara Dhaka', '4.83', '2016', '2014-2016', 'North South University', '2.86', '2021', '2017-2021', 'Multiply Digital', '2 Year', 'To Far');
 
 -- --------------------------------------------------------
 
@@ -174,6 +177,12 @@ ALTER TABLE `employee`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `employee_academicinfo`
+--
+ALTER TABLE `employee_academicinfo`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `employee_info`
 --
 ALTER TABLE `employee_info`
@@ -200,6 +209,12 @@ ALTER TABLE `vendor`
 --
 ALTER TABLE `employee`
   MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1003;
+
+--
+-- AUTO_INCREMENT for table `employee_academicinfo`
+--
+ALTER TABLE `employee_academicinfo`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `employee_info`

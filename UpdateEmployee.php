@@ -18,7 +18,9 @@ $Emp_Phone;
 $Emp_Dept;
 
 //basic Variable
-$Emp_fname; $Emp_mName; $Emp_Religion; $Emp_Marital; $Emp_Blood; $Emp_Telephone; $Emp_Birth; 
+$Emp_fname;
+$Emp_mName;
+$Emp_Religion; $Emp_Marital; $Emp_Blood; $Emp_Telephone; $Emp_Birth; 
 $Emp_tempAddress; $Emp_parmaAddress; $Emp_NID; $Emp_Passport; $Emp_Insurance; $Emp_BirthId;
 $Emp_BankName; $Emp_BankAccNo; $Emp_BankBranchName; $Emp_PfAccN0;
 
@@ -33,9 +35,9 @@ $Emp_confirmationdate; $Emp_incrementdate; $Emp_regdate;
 //Academic Info
 
 $Emp_PrevCompany; $Emp_Duartion; $Emp_Isuue;
-$Emp_ScName; $Emp_ScResult; $Emp_ScPassYear;
-$Emp_ClName; $Emp_ClResult; $Emp_ClPassYear;
-$Emp_UVName; $Emp_UVResult; $Emp_UVPassYear;
+$Emp_ScName; $Emp_ScResult; $Emp_ScPassYear; $Emp_ScSession;
+$Emp_ClName; $Emp_ClResult; $Emp_ClPassYear; $Emp_ClSession;
+$Emp_UVName; $Emp_UVResult; $Emp_UVPassYear; $Emp_UvSession;
 
 
 //Employee Info
@@ -98,7 +100,7 @@ if ($result->num_rows > 0) {
 
 //Academic Info
 
-$sql = "SELECT * FROM `academicinfo` WHERE `EMP_ID`='$EmployeeId'";
+$sql = "SELECT * FROM `employee_academicinfo` WHERE `EMP_ID`='$EmployeeId'";
 $result = $conn->query($sql);
 if ($result->num_rows > 0) {
 	while($row = $result->fetch_assoc()) {
@@ -107,22 +109,18 @@ if ($result->num_rows > 0) {
         $Emp_Isuue = $row["resigncause"];	
         $Emp_ScName = $row["schoolname"];	
         $Emp_ScResult = $row["sscresult"];	
-        $Emp_ScPassYear = $row["sscpassingyear"];	
+        $Emp_ScPassYear = $row["sscpassingyear"];
+		$Emp_ScSession = $row["sscsessionyear"];
         $Emp_ClName = $row["collegename"];	
         $Emp_ClResult = $row["hscresult"];	
-        $Emp_ClPassYear = $row["hscpassingyear"];	
+        $Emp_ClPassYear = $row["hscpassingyear"];
+		$Emp_ClSession = $row["hscsessionyear"];
         $Emp_UVName = $row["universityname"];	
         $Emp_UVResult = $row["cgpa"];	
-        $Emp_UVPassYear = $row["uvpassingyear"];	
-        							
- }
+        $Emp_UVPassYear = $row["uvpassingyear"];
+		$Emp_UvSession = $row["uvsessionyear"];
+	}
 }
-
-
-
-
-
-
 											
 ?>
 
@@ -254,7 +252,7 @@ if ($result->num_rows > 0) {
                             <span>Main</span>
                         </li>
                         <li>
-                            <a href="Dashborad.php"><i class="fe fe-home"></i> <span>Dashboard</span></a>
+                            <a href="dashboard.php"><i class="fe fe-home"></i> <span>Dashboard</span></a>
                         </li>
                         <li>
                             <a href="salesQuotation.php"><i class="fe fe-layout"></i> <span>Sales Quotation</span></a>
@@ -701,7 +699,7 @@ if ($result->num_rows > 0) {
                                                         <div class="col-md-2">
                                                             <div class="form-group">
 																<label>Academic Session</label>
-																<input type="text" value="<?php echo $Emp_UVPassYear ?>" class="form-control">
+																<input type="text" value="<?php echo $Emp_UvSession ?>" class="form-control">
 															</div>                                                            
 														</div>                                                      
 													</div>
@@ -736,7 +734,7 @@ if ($result->num_rows > 0) {
                                                         <div class="col-md-2">
                                                             <div class="form-group">
 																<label>Academic Session</label>
-																<input type="text" value="<?php echo $Emp_Insurance ?>" class="form-control">
+																<input type="text" value="<?php echo $Emp_ClSession ?>" class="form-control">
 															</div>                                                            
 														</div>                                                      
 													</div>
@@ -771,7 +769,7 @@ if ($result->num_rows > 0) {
                                                         <div class="col-md-2">
                                                             <div class="form-group">
 																<label>Academic Session</label>
-																<input type="text" value="<?php echo $Emp_UVPassYear ?>" class="form-control">
+																<input type="text" value="<?php echo $Emp_ScSession ?>" class="form-control">
 															</div>                                                            
 														</div>                                                      
 													</div>

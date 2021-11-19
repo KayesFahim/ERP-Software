@@ -134,7 +134,7 @@
                             <span>Main</span>
                         </li>
                         <li>
-                            <a href="Dashborad.php"><i class="fe fe-home"></i> <span>Dashboard</span></a>
+                            <a href="dashboard.php"><i class="fe fe-home"></i> <span>Dashboard</span></a>
                         </li>
                         <li>
                             <a href="salesQuotation.php"><i class="fe fe-layout"></i> <span>Sales Quotation</span></a>
@@ -198,7 +198,7 @@
                         <div class="col-sm-12">
                             <h3 class="page-title">Dashboard</h3>
                             <ul class="breadcrumb">
-                                <li class="breadcrumb-item"> <a href="Dashborad.php">Dashboard</a></li>
+                                <li class="breadcrumb-item"> <a href="dashboard.php">Dashboard</a></li>
                                 <li class="breadcrumb-item active">Dashboard</li>
                             </ul>
                         </div>

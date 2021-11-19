@@ -144,7 +144,7 @@ echo "0 results";
                             <span>Main</span>
                         </li>
                         <li>
-                            <a href="Dashborad.php"><i class="fe fe-home"></i> <span>Dashboard</span></a>
+                            <a href="dashboard.php"><i class="fe fe-home"></i> <span>Dashboard</span></a>
                         </li>
                         <li>
                             <a href="salesQuotation.php"><i class="fe fe-layout"></i> <span>Sales Quotation</span></a>

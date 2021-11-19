@@ -1,16 +1,6 @@
 <?php
 require_once "config.php";
 
-$token_id = $_GET['id'];
-
-
-
-$path = 'Employee/'.$token_id.'/JobInfo';
-
-$reference = $database->getReference($path);
-
-$value = $reference->getValue();
-
 
 
 ?>
