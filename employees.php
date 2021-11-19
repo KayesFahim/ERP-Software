@@ -130,8 +130,8 @@ include 'config.php';
 		</div>
 		<!-- /Header -->
 
-		<!-- Sidebar -->
-		<div class="sidebar" id="sidebar">
+		 <!-- Sidebar -->
+		 <div class="sidebar" id="sidebar">
             <div class="sidebar-inner slimscroll">
                 <div id="sidebar-menu" class="sidebar-menu">
                     <ul>
@@ -153,6 +153,14 @@ include 'config.php';
                         <li>
                             <a href="expense.php"><i class="fe fe-layout"></i> <span>Expense</span></a>
                         </li>
+						<li>
+							<a data-toggle="dropdown"><i class="fe fe-layout"></i> <span>Accounting</span></a>
+								<ul>
+									<li><a href="CashEquivalent.php"><i class="fe fe-layout"></i> <span>Cash And Cash</span></a></li>
+									<li><a href="access.php"><i class="fe fe-layout"></i> <span>Acces control</span></a> </li>
+									<li><a href="#"><i class="fe fe-layout"></i> Portal</a></li>
+								</ul>
+						</li>
                         <li>
                             <a href="moneyReceipt.php"><i class="fe fe-layout"></i> <span>Money Receipt</span></a>
                         </li>
@@ -175,15 +183,6 @@ include 'config.php';
 
                         <li>
                             <a href="refund.php"><i class="fe fe-layout"></i> <span>Refund</span></a>
-                        </li>
-                        <li>
-                            <a href="accounting.php"><i class="fe fe-layout"></i> <span>Accounting</span></a>
-                            <li>
-                                <a href="reservation.php"><i class="fe fe-layout"></i> <span>Reservation</span></a>
-                                <li>
-                                    <a href="access.php"><i class="fe fe-layout"></i> <span>Acces control</span></a>
-                                </li>
-                            </li>
                         </li>
 
                     </ul>

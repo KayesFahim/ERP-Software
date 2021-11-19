@@ -139,6 +139,14 @@
                         <li>
                             <a href="Bill.php"><i class="fe fe-layout"></i> <span>Bill</span></a>
                         </li>
+						<li>
+							<a data-toggle="dropdown"><i class="fe fe-layout"></i> <span>Accounting</span></a>
+								<ul>
+									<li><a href="CashEquivalent.php"><i class="fe fe-layout"></i> <span>Cash And Cash</span></a></li>
+									<li><a href="access.php"><i class="fe fe-layout"></i> <span>Acces control</span></a> </li>
+									<li><a href="#"><i class="fe fe-layout"></i> Portal</a></li>
+								</ul>
+						</li>
                         <li>
                             <a href="expense.php"><i class="fe fe-layout"></i> <span>Expense</span></a>
                         </li>
@@ -165,15 +173,7 @@
                         <li>
                             <a href="refund.php"><i class="fe fe-layout"></i> <span>Refund</span></a>
                         </li>
-                        <li>
-                            <a href="accounting.php"><i class="fe fe-layout"></i> <span>Accounting</span></a>
-                            <li>
-                                <a href="reservation.php"><i class="fe fe-layout"></i> <span>Reservation</span></a>
-                                <li>
-                                    <a href="access.php"><i class="fe fe-layout"></i> <span>Acces control</span></a>
-                                </li>
-                            </li>
-                        </li>
+                        
 
                     </ul>
                 </div>
