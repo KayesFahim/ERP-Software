@@ -1,18 +1,9 @@
-<?php
-
-include 'config.php';
-
-
-?>
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-	<title>Employees</title>
+	<title>Third Page</title>
 	<!-- Favicon -->
 	<link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.png">
 	<!-- Bootstrap CSS -->
@@ -38,7 +29,8 @@ include 'config.php';
 			<!-- Logo -->
 			<div class="header-left">
 				<a href="index.php" class="logo">
-					<img src="logo.png" alt="Logo">
+					<!-- <img src="assets/img/logo.png" alt="Logo"> -->
+					<h2>YOUR LOGO</h2>
 				</a>
 				<a href="index.php" class="logo logo-small">
 					<!-- <img src="assets/img/logo-small.png" alt="Logo" width="30" height="30"> -->
@@ -86,7 +78,7 @@ include 'config.php';
 												<img class="avatar-img rounded-circle" alt="User Image" src="assets/img/profile.jpg">
 											</span>
 											<div class="media-body">
-												<p class="noti-details"><span class="noti-title">Ashik </span> Schedule <span class="noti-title">Her appointment</span></p>
+												<p class="noti-details"><span class="noti-title">Farhana </span> Schedule <span class="noti-title">her appointment</span></p>
 												<p class="noti-time"><span class="notification-time">4 mins ago</span></p>
 											</div>
 										</div>
@@ -96,7 +88,7 @@ include 'config.php';
 							</ul>
 						</div>
 						<div class="topnav-dropdown-footer">
-							<a href="#"> View all Notifications</a>
+							<a href="#">View all Notifications</a>
 						</div>
 					</div>
 				</li>
@@ -130,8 +122,8 @@ include 'config.php';
 		</div>
 		<!-- /Header -->
 
-		 <!-- Sidebar -->
-		 <div class="sidebar" id="sidebar">
+		<!-- Sidebar -->
+		<div class="sidebar" id="sidebar">
             <div class="sidebar-inner slimscroll">
                 <div id="sidebar-menu" class="sidebar-menu">
                     <ul>
@@ -184,6 +176,15 @@ include 'config.php';
                         <li>
                             <a href="refund.php"><i class="fe fe-layout"></i> <span>Refund</span></a>
                         </li>
+                        <li>
+                            <a href="accounting.php"><i class="fe fe-layout"></i> <span>Accounting</span></a>
+                            <li>
+                                <a href="reservation.php"><i class="fe fe-layout"></i> <span>Reservation</span></a>
+                                <li>
+                                    <a href="access.php"><i class="fe fe-layout"></i> <span>Acces control</span></a>
+                                </li>
+                            </li>
+                        </li>
 
                     </ul>
                 </div>
@@ -200,71 +201,172 @@ include 'config.php';
 				<div class="page-header">
 					<div class="row">
 						<div class="col-sm-12">
-							<h3 class="page-title">Portal </h3>
+							<h3 class="page-title">Money Receipt</h3>
 							<ul class="breadcrumb">
-								<li class="breadcrumb-item"><a href="Employees.php">Dashboard</a></li>
-								<li class="breadcrumb-item active">Portal</li>
+								<li class="breadcrumb-item"><a href="project.php">Dashboard</a></li>
+								<li class="breadcrumb-item active">Money Receipt</li>
 							</ul>
 						</div>
 					</div>
 				</div>
 				<!-- /Page Header -->
-				<!-- Contant -->
 				
 					<div class="col-md-12">
-						
+						<div class="row">
+							<div class="col-md-12">
+								<div class="card">
+									<div class="card-header">
+										<h4 class="text-danger card-title">Vendor Details</h4>
+									</div>
+									<div class="card-body">
+										<form action="#">
+											<div class="row">
+												<div class="col-md-12">
+													<h4 class="card-title">Details</h4>
+													<div class="row">
+														<div class="col-md-3">
+															<div class="form-group">
+																<label>Name:</label>
+																<input type="text" class="form-control">
+															</div>
+														</div>
+														<div class="col-md-3">
+															<div class="form-group">
+																<label>Email: </label>
+																<input type="email" class="form-control">
+															</div>
+														</div>
+														<div class="col-md-3">
+															<div class="form-group">
+																<label>Expense No :</label>
+																<input type="number" class="form-control">
+															</div>
+														</div>
+													</div>
+													<div class="row">
+														<div class="col-md-3">
+															<div class="form-group">
+																<label>Phone :</label>
+																<input type="number" class="form-control">
+															</div>
+														</div>
+
+														<div class="col-md-3">
+															<div class="form-group">
+																<label>Date :</label>
+																<input type="date" class="form-control">
+															</div>
+														</div>
+													</div>
+													<div class="row">
+														<div class="col-md-6">
+															<div class="form-group">
+																<label>Address :</label>
+																<input type="text" class="form-control">
+															</div>
+														</div>
+														<div class="col-md-3">
+															<div class="form-group">
+																<label>BCC :</label>
+																<input type="text" class="form-control">
+															</div>
+														</div>
+													</div>
+													<div class="row">
+														<div class="col-md-3">
+															<div class="form-group">
+																<label>Payment Method:</label>
+																<div class="form-group row">
+																	<div class="col-lg-12">
+																		<select class="select form-control">
+																			<option>Select</option>
+																			<option value="1">Bank</option>
+																			<option value="2">Mobile Banking</option>
+																		</select>
+																	</div>
+																</div>
+															</div>
+														</div>
+														<div class="col-md-3">
+															<div class="form-group">
+																<label>Payment A/C:</label>
+																<div class="form-group row">
+																	<div class="col-lg-12">
+																		<select class="select form-control">
+																			<option>Total Payable</option>
+																			<option value="1">A+</option>
+																			<option value="2">O+</option>
+																			<option value="3">B+</option>
+																			<option value="4">AB+</option>
+																		</select>
+																	</div>
+																</div>
+															</div>
+														</div>
+														<div class="col-md-3">
+															<div class="form-group">
+																<label>Amount: </label>
+																<input type="number" class="form-control">
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="text-right">
+												<button type="submit" class="btn btn-primary"> Generate</button>
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
+					
+
 					<div class="col-md-12">
 							<div class="card">
 								<div class="card-header">
-									<h4 class="card-title">Portal Detail</h4>
-									<div class="text-right">
-										<a href="AddEmployee.php" class="btn btn-primary"> Add +</a>
-									</div>
+									<h4 class="card-title">Expense Detail</h4>
 								</div>
-								
 								<div class="card-body">
+
 									<div class="table-responsive">
 										<table class="datatable table table-stripped">
 											<thead>
 												<tr>
-													<th>No</th>
-													<th>Portal Name</th>
-													<th>Username</th>
+													<th>Reciept No:</th>
+													<th>Customer</th>
+													<th>Created By</th>
+													<th>Issue Date</th>
+                                                    <th>Payment Method</th>
 													<th>Amount</th>
-													<th>Action</th>
+                                                    <th>Action</th>
 												</tr>
 											</thead>
 											<tbody>
-
-												<?php
-
-												$sql = "SELECT id, EMP_ID, email, name, phone, department FROM bank ORDER BY ID DESC";
-												$result = $conn->query($sql);
-												if ($result->num_rows > 0) {
-  												while($row = $result->fetch_assoc()) {													  													 
-													echo "<tr><td>".$row["EMP_ID"]."</td>
-															<td>".$row["name"]."</td> 
-														 	<td>".$row["email"]."</td>
-															<td>".$row["phone"]."</td>
-														 	<td>".$row["department"]."</td>
-															<td><a href='UpdateEmployee.php' class='btn btn-primary'> View </a><td>
-															</tr>";   											
-												  }
-												} else {
-  												echo "0 results";
-											    }
-												?>
-
-
+												<tr>
+													<td>Tiger Nixon</td>
+													<td>System Architect</td>
+													<td>Edinburgh</td>
+													<td>2011/04/25</td>
+                                                    <td>Bank Card<td>
+				                                      <th>Action</th>
+                                                    <td>
+                                                    <button type="submit" class="btn btn-primary"><i class="fe fe-print"></i> Print</button>
+                                                    <button type="submit" class="btn btn-success"><i class="fe fe-edit"></i> Edit</button>
+                                                    <button type="submit" class="btn btn-danger"><i class="fe fe-trash"></i> Delete</button>
+                                                    </td>
+												</tr>
 											</tbody>
 										</table>
 									</div>
 								</div>
 							</div>
 						</div>
-					<div class="col-md-3">						
-					</div>
+                    </div>
+										
+						<!-- End Contant -->
+					</div>			
 				</div>
 				<!-- /Page Wrapper -->
 			</div>

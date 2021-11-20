@@ -30,11 +30,11 @@
 
             <!-- Logo -->
             <div class="header-left">
-                <a href="index.html" class="logo">
+                <a href="index.php" class="logo">
                     <!-- <img src="assets/img/logo.png" alt="Logo"> -->
                     <h2>YOUR LOGO</h2>
                 </a>
-                <a href="index.html" class="logo logo-small">
+                <a href="index.php" class="logo logo-small">
                     <!-- <img src="assets/img/logo-small.png" alt="Logo" width="30" height="30"> -->
                     <h4>YOUR LOGO</h4>
                 </a>
@@ -118,7 +118,7 @@
                         </div>
                         <a class="dropdown-item" href="">My Profile</a>
                         <a class="dropdown-item" href="">Settings</a>
-                        <a class="dropdown-item" href="login.html">Logout</a>
+                        <a class="dropdown-item" href="login.php">Logout</a>
                     </div>
                 </li>
                 <!-- /User Menu -->
@@ -137,16 +137,16 @@
                             <span>Main</span>
                         </li>
                         <li>
-                            <a href="dashboard.html"><i class="fe fe-home"></i> <span>Dashboard</span></a>
+                            <a href="dashboard.php"><i class="fe fe-home"></i> <span>Dashboard</span></a>
                         </li>
                         <li>
-                            <a href="salesQuotation.html"><i class="fe fe-layout"></i> <span>Sales Quotation</span></a>
+                            <a href="salesQuotation.php"><i class="fe fe-layout"></i> <span>Sales Quotation</span></a>
                         </li>
                         <li>
-                            <a href="invoice.html"><i class="fe fe-layout"></i> <span>Invoice</span></a>
+                            <a href="invoice.php"><i class="fe fe-layout"></i> <span>Invoice</span></a>
                         </li>
                         <li>
-                            <a href="Bill.html"><i class="fe fe-layout"></i> <span>Bill</span></a>
+                            <a href="Bill.php"><i class="fe fe-layout"></i> <span>Bill</span></a>
                         </li>
                         <li>
 							<a data-toggle="dropdown"><i class="fe fe-layout"></i> <span>Accounting</span></a>
@@ -157,30 +157,30 @@
 								</ul>
 						</li>
                         <li>
-                            <a href="expense.html"><i class="fe fe-layout"></i> <span>Expense</span></a>
+                            <a href="expense.php"><i class="fe fe-layout"></i> <span>Expense</span></a>
                         </li>
                         <li>
-                            <a href="moneyReceipt.html"><i class="fe fe-layout"></i> <span>Money Receipt</span></a>
-                        </li>
-
-                        <li>
-                            <a href="payment.html"><i class="fe fe-layout"></i> <span>Payment</span></a>
-                        </li>
-                        <li>
-                            <a href="transfer.html"><i class="fe fe-layout"></i> <span>Transfer</span></a>
-                        </li>
-                        <li>
-                            <a href="project.html"><i class="fe fe-layout"></i> <span>Project</span></a>
-                        </li>
-                        <li>
-                            <a href="employees.html"><i class="fe fe-layout"></i> <span>Employees</span></a>
-                        </li>
-                        <li>
-                            <a href="Report.html"><i class="fe fe-layout"></i> <span>Report</span></a>
+                            <a href="moneyReceipt.php"><i class="fe fe-layout"></i> <span>Money Receipt</span></a>
                         </li>
 
                         <li>
-                            <a href="refund.html"><i class="fe fe-layout"></i> <span>Refund</span></a>
+                            <a href="payment.php"><i class="fe fe-layout"></i> <span>Payment</span></a>
+                        </li>
+                        <li>
+                            <a href="transfer.php"><i class="fe fe-layout"></i> <span>Transfer</span></a>
+                        </li>
+                        <li>
+                            <a href="project.php"><i class="fe fe-layout"></i> <span>Project</span></a>
+                        </li>
+                        <li>
+                            <a href="employees.php"><i class="fe fe-layout"></i> <span>Employees</span></a>
+                        </li>
+                        <li>
+                            <a href="Report.php"><i class="fe fe-layout"></i> <span>Report</span></a>
+                        </li>
+
+                        <li>
+                            <a href="refund.php"><i class="fe fe-layout"></i> <span>Refund</span></a>
                         </li>
 
                     </ul>
@@ -198,10 +198,10 @@
                 <div class="page-header">
                     <div class="row">
                         <div class="col-sm-12">
-                            <h3 class="page-title">Second Page</h3>
+                            <h3 class="page-title">Create New Money Reciept</h3>
                             <ul class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="transfer.html">Dashboard</a></li>
-                                <li class="breadcrumb-item active">Transfer</li>
+                                <li class="breadcrumb-item"><a href="transfer.php">Dashboard</a></li>
+                                <li class="breadcrumb-item active">Create New Money Reciept</li>
                             </ul>
                         </div>
                     </div>
@@ -213,7 +213,7 @@
                         <div class="d-flex">
                             <div class="card flex-fill">
                                 <div class="card-header">
-                                    <p class="text-danger text-center">Pending Invoices</p>
+                                    <p class="text-danger text-center">Create New Money Reciept</p>
                                     <div class="form-group row">
                                         <label class="col-lg-3 col-form-label">Year</label>
                                         <div class="col-lg-9">

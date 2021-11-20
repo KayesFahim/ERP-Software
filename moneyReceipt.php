@@ -219,7 +219,7 @@ include 'config.php';
 								<div class="card-header">
 									<h4 class="card-title">Money Reciept Details</h4>
 									<div class="text-right">
-										<a href="AddEmployee.php" class="btn btn-primary"> Create +</a>
+										<a href="AddMoneyReciept.php" class="btn btn-primary"> Create +</a>
 									</div>
 								</div>
 								
@@ -233,18 +233,18 @@ include 'config.php';
 													<th>Amount</th>
 													<th>Created By</th>
 													<th>Customer</th>
-													<th>Customer</th>
 													<th>Action</th>
 												</tr>
 											</thead>
 											<tbody>
 											<tr>
-													<th>No</th>
-													<th>Bank Name</th>
-													<th>Account No:</th>
-													<th>Branch</th>
-													<th>Amount</th>
-													<th>Action</th>
+													<td>1</td>
+													<td>10 Minutes Ago</td>
+													<td>10,10000</td>
+													<td>Ali</td>
+													<td>Xyz</td>
+													<td><a href='UpdateEmployee.php' class='btn btn-success'> Edit </a> 
+													<a href='UpdateEmployee.php' class='btn btn-danger'> View </a><td>
 												</tr>
 
 											</tbody>
