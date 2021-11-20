@@ -1,9 +1,18 @@
+<?php
+
+include 'config.php';
+
+
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-	<title>Third Page</title>
+	<title>Employees</title>
 	<!-- Favicon -->
 	<link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.png">
 	<!-- Bootstrap CSS -->
@@ -29,8 +38,7 @@
 			<!-- Logo -->
 			<div class="header-left">
 				<a href="index.php" class="logo">
-					<!-- <img src="assets/img/logo.png" alt="Logo"> -->
-					<h2>YOUR LOGO</h2>
+					<img src="logo.png" alt="Logo">
 				</a>
 				<a href="index.php" class="logo logo-small">
 					<!-- <img src="assets/img/logo-small.png" alt="Logo" width="30" height="30"> -->
@@ -78,7 +86,7 @@
 												<img class="avatar-img rounded-circle" alt="User Image" src="assets/img/profile.jpg">
 											</span>
 											<div class="media-body">
-												<p class="noti-details"><span class="noti-title">Farhana </span> Schedule <span class="noti-title">her appointment</span></p>
+												<p class="noti-details"><span class="noti-title">Ashik </span> Schedule <span class="noti-title">Her appointment</span></p>
 												<p class="noti-time"><span class="notification-time">4 mins ago</span></p>
 											</div>
 										</div>
@@ -88,7 +96,7 @@
 							</ul>
 						</div>
 						<div class="topnav-dropdown-footer">
-							<a href="#">View all Notifications</a>
+							<a href="#"> View all Notifications</a>
 						</div>
 					</div>
 				</li>
@@ -122,8 +130,8 @@
 		</div>
 		<!-- /Header -->
 
-		<!-- Sidebar -->
-		<div class="sidebar" id="sidebar">
+		 <!-- Sidebar -->
+		 <div class="sidebar" id="sidebar">
             <div class="sidebar-inner slimscroll">
                 <div id="sidebar-menu" class="sidebar-menu">
                     <ul>
@@ -142,6 +150,9 @@
                         <li>
                             <a href="Bill.php"><i class="fe fe-layout"></i> <span>Bill</span></a>
                         </li>
+                        <li>
+                            <a href="expense.php"><i class="fe fe-layout"></i> <span>Expense</span></a>
+                        </li>
 						<li>
 							<a data-toggle="dropdown"><i class="fe fe-layout"></i> <span>Accounting</span></a>
 								<ul>
@@ -150,9 +161,6 @@
 									<li><a href="#"><i class="fe fe-layout"></i> Portal</a></li>
 								</ul>
 						</li>
-                        <li>
-                            <a href="expense.php"><i class="fe fe-layout"></i> <span>Expense</span></a>
-                        </li>
                         <li>
                             <a href="moneyReceipt.php"><i class="fe fe-layout"></i> <span>Money Receipt</span></a>
                         </li>
@@ -176,15 +184,6 @@
                         <li>
                             <a href="refund.php"><i class="fe fe-layout"></i> <span>Refund</span></a>
                         </li>
-                        <li>
-                            <a href="Accounting"><i class="fe fe-layout"></i> <span>Accounting</span></a>
-                            <li>
-                                <a href="Reservation"><i class="fe fe-layout"></i> <span>Reservation</span></a>
-                                <li>
-                                    <a href="access.php"><i class="fe fe-layout"></i> <span>Acces control</span></a>
-                                </li>
-                            </li>
-                        </li>
 
                     </ul>
                 </div>
@@ -201,293 +200,61 @@
 				<div class="page-header">
 					<div class="row">
 						<div class="col-sm-12">
-							<h3 class="page-title">Second Page</h3>
+							<h3 class="page-title">Money Reciept</h3>
 							<ul class="breadcrumb">
-								<li class="breadcrumb-item"><a href="moneyReceipt.php">Dashboard</a></li>
-								<li class="breadcrumb-item active">moneyReceipt</li>
+								<li class="breadcrumb-item"><a href="Employees.php">Dashboard</a></li>
+								<li class="breadcrumb-item active">Money Reciept</li>
 							</ul>
 						</div>
 					</div>
 				</div>
 				<!-- /Page Header -->
 				<!-- Contant -->
-				<div class="row">
-					<div class="col-md-3">
-						<div class="d-flex">
-							<div class="card flex-fill">
-								<div class="card-header">
-									<p class="text-danger text-center" >Pending Invoices</p>
-									<div class="form-group row">
-										<label class="col-lg-3 col-form-label">Year</label>
-										<div class="col-lg-9">
-											<select class="select form-control">
-												<option>Select Year</option>
-												<option value="1">A+</option>
-												<option value="2">O+</option>
-												<option value="3">B+</option>
-												<option value="4">AB+</option>
-											</select>
-										</div>
-									</div>
-								</div>
-								<div class="card-body">
-									<form action="#">
-										<ul style="list-style: none;">
-											<li><a href=""> January </a></li>
-											<li><a href=""> Februry </a></li>
-											<li><a href=""> March </a></li>
-											<li><a href=""> April </a></li>
-											<li><a href=""> May </a></li>
-											<li><a href=""> June </a></li>
-											<li><a href=""> July </a></li>
-											<li><a href=""> August </a></li>
-											<li><a href=""> September </a></li>
-											<li><a href=""> Octuber </a></li>
-											<li><a href=""> November </a></li>
-											<li><a href=""> December </a></li>
-										</ul>
-									</form>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-9">
-						<div class="row">
-							<div class="col-md-12">
-								<div class="card">
-									<div class="card-header">
-										<h4 class="text-danger card-title">Vendor Details</h4>
-									</div>
-									<div class="card-body">
-										<form action="#">
-											<div class="row">
-												<div class="col-md-12">
-													<h4 class="card-title">Personal details</h4>
-													<div class="row">
-														<div class="col-md-3">
-															<div class="form-group">
-																<label>Name:</label>
-																<input type="text" class="form-control">
-															</div>
-														</div>
-														<div class="col-md-3">
-															<div class="form-group">
-																<label>Email: </label>
-																<input type="email" class="form-control">
-															</div>
-														</div>
-														<div class="col-md-3">
-															<div class="form-group">
-																<label>Expense No :</label>
-																<input type="number" class="form-control">
-															</div>
-														</div>
-														<div class="col-md-3">
-															<div class="text-center" style="margin-top:33px">
-																<button type="submit" class="btn btn-success"><i class="fe fe-print"></i> Print</button>
-															</div>
-														</div>
-													</div>
-													<div class="row">
-														<div class="col-md-3">
-															<div class="form-group">
-																<label>Phone :</label>
-																<input type="number" class="form-control">
-															</div>
-														</div>
-														<div class="col-md-3">
-															<div class="form-group">
-																<label>CC :</label>
-																<input type="text" class="form-control">
-															</div>
-														</div>
-														<div class="col-md-3">
-															<div class="form-group">
-																<label>Date :</label>
-																<input type="date" class="form-control">
-															</div>
-														</div>
-													</div>
-													<div class="row">
-														<div class="col-md-6">
-															<div class="form-group">
-																<label>Address :</label>
-																<input type="text" class="form-control">
-															</div>
-														</div>
-														<div class="col-md-3">
-															<div class="form-group">
-																<label>BCC :</label>
-																<input type="text" class="form-control">
-															</div>
-														</div>
-													</div>
-													<div class="row">
-														<div class="col-md-3">
-															<div class="form-group">
-																<label>Payment Method:</label>
-																<div class="form-group row">
-																	<div class="col-lg-12">
-																		<select class="select form-control">
-																			<option>Total Payable</option>
-																			<option value="1">A+</option>
-																			<option value="2">O+</option>
-																			<option value="3">B+</option>
-																			<option value="4">AB+</option>
-																		</select>
-																	</div>
-																</div>
-															</div>
-														</div>
-														<div class="col-md-3">
-															<div class="form-group">
-																<label>Payment A/C:</label>
-																<div class="form-group row">
-																	<div class="col-lg-12">
-																		<select class="select form-control">
-																			<option>Total Payable</option>
-																			<option value="1">A+</option>
-																			<option value="2">O+</option>
-																			<option value="3">B+</option>
-																			<option value="4">AB+</option>
-																		</select>
-																	</div>
-																</div>
-															</div>
-														</div>
-														<div class="col-md-3">
-															<div class="form-group">
-																<label>Net Input:</label>
-																<input type="number" class="form-control">
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
-											<div class="text-right">
-												<button type="submit" class="btn btn-primary">+</button>
-											</div>
-										</form>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-3">
+				
+					<div class="col-md-12">
 						
 					</div>
-					<div class="col-md-9">
+					<div class="col-md-12">
 							<div class="card">
 								<div class="card-header">
-									<h4 class="card-title">Expense Detail</h4>
+									<h4 class="card-title">Money Reciept Details</h4>
+									<div class="text-right">
+										<a href="AddEmployee.php" class="btn btn-primary"> Create +</a>
+									</div>
 								</div>
+								
 								<div class="card-body">
-
 									<div class="table-responsive">
 										<table class="datatable table table-stripped">
 											<thead>
 												<tr>
-													<th>Date</th>
-													<th>Discription</th>
-													<th>A/C Catagory</th>
-													<th>Qty</th>
-													<th>Rate</th>
+													<th>Reciept ID</th>
+													<th>Issue Date</th>
 													<th>Amount</th>
+													<th>Created By</th>
+													<th>Customer</th>
+													<th>Customer</th>
+													<th>Action</th>
 												</tr>
 											</thead>
 											<tbody>
-												<tr>
-													<td>Tiger Nixon</td>
-													<td>System Architect</td>
-													<td>Edinburgh</td>
-													<td>61</td>
-													<td>2011/04/25</td>
-													<td>$320,800</td>
+											<tr>
+													<th>No</th>
+													<th>Bank Name</th>
+													<th>Account No:</th>
+													<th>Branch</th>
+													<th>Amount</th>
+													<th>Action</th>
 												</tr>
+
 											</tbody>
 										</table>
 									</div>
 								</div>
 							</div>
 						</div>
-					<div class="col-md-3">
-						
+					<div class="col-md-3">						
 					</div>
-					<div class="col-md-9">
-						<div class="row">
-							<div class="col-md-12">
-								<div class="card">
-									<div class="card-body">
-										<form action="#">
-											<div class="row">
-												<div class="col-md-12">
-													<div class="row">
-														<div class="col-md-4">
-															<div class="form-group">
-																<label>Massage:</label>
-																<input type="text" class="form-control">
-															</div>
-														</div>
-														<div class="col-md-4">
-															<div class="form-group" style="margin-top: 32px;">
-																<button type="submit" class="btn btn-warning">Send Mail</button>
-															</div>
-														</div>
-														<div class="col-md-4">
-															<div class="form-group">
-																<label>Total :</label>
-																<input type="number" class="form-control">
-															</div>
-														</div>
-													</div>
-													<div class="row">
-														<div class="col-md-4">
-															<div class="form-group">
-																<label>Attachment:</label>
-																<input type="file" class="form-control">
-															</div>
-														</div>
-														<div class="col-md-4">
-															<div class="form-group" style="margin-top: 32px;">
-																<button type="submit" class="btn btn-info">Send SMS</button>
-															</div>
-														</div>
-													</div>
-													<div class="row">
-														<div class="col-md-4">
-															<div class="form-group">
-																<label>Ref Name:</label>
-																<input type="text" class="form-control">
-															</div>
-														</div>
-														<div class="col-md-4">
-															<div class="form-group" style="margin-top: 32px;">
-																<button type="submit" class="btn btn-info"><i class="fe fe-print"></i>   Print</button>
-															</div>
-														</div>
-													</div>
-													<div class="row">
-														<div class="col-md-4">
-															<div class="form-group">
-																<label>Ref Phone No:</label>
-																<input type="number" class="form-control">
-															</div>
-														</div>
-													</div>
-
-													<div class="text-right">
-														<button type="submit" class="btn btn-primary">Save</button>
-													</div>
-												</form>
-											</div>
-										</div>
-									</div>
-
-								</div>
-							</div>
-						</div>
-						<!-- End Contant -->
-					</div>			
 				</div>
 				<!-- /Page Wrapper -->
 			</div>

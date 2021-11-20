@@ -1,3 +1,12 @@
+<?php
+
+include 'config.php';
+
+
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -121,8 +130,8 @@
 		</div>
 		<!-- /Header -->
 
-		<!-- Sidebar -->
-		<div class="sidebar" id="sidebar">
+		 <!-- Sidebar -->
+		 <div class="sidebar" id="sidebar">
             <div class="sidebar-inner slimscroll">
                 <div id="sidebar-menu" class="sidebar-menu">
                     <ul>
@@ -142,6 +151,9 @@
                             <a href="Bill.php"><i class="fe fe-layout"></i> <span>Bill</span></a>
                         </li>
                         <li>
+                            <a href="expense.php"><i class="fe fe-layout"></i> <span>Expense</span></a>
+                        </li>
+						<li>
 							<a data-toggle="dropdown"><i class="fe fe-layout"></i> <span>Accounting</span></a>
 								<ul>
 									<li><a href="CashEquivalent.php"><i class="fe fe-layout"></i> <span>Cash And Cash</span></a></li>
@@ -149,9 +161,6 @@
 									<li><a href="#"><i class="fe fe-layout"></i> Portal</a></li>
 								</ul>
 						</li>
-                        <li>
-                            <a href="expense.php"><i class="fe fe-layout"></i> <span>Expense</span></a>
-                        </li>
                         <li>
                             <a href="moneyReceipt.php"><i class="fe fe-layout"></i> <span>Money Receipt</span></a>
                         </li>
@@ -175,7 +184,7 @@
                         <li>
                             <a href="refund.php"><i class="fe fe-layout"></i> <span>Refund</span></a>
                         </li>
-                        
+
                     </ul>
                 </div>
             </div>
@@ -191,10 +200,10 @@
 				<div class="page-header">
 					<div class="row">
 						<div class="col-sm-12">
-							<h3 class="page-title">Cash Equivalent</h3>
+							<h3 class="page-title">Employees</h3>
 							<ul class="breadcrumb">
 								<li class="breadcrumb-item"><a href="Employees.php">Dashboard</a></li>
-								<li class="breadcrumb-item active">cash And cash Equivalent</li>
+								<li class="breadcrumb-item active">Employees</li>
 							</ul>
 						</div>
 					</div>
@@ -208,7 +217,10 @@
 					<div class="col-md-12">
 							<div class="card">
 								<div class="card-header">
-									<h4 class="card-title">Cash Details</h4>									
+									<h4 class="card-title">Employees Detail</h4>
+									<div class="text-right">
+										<a href="AddEmployee.php" class="btn btn-primary"> Add +</a>
+									</div>
 								</div>
 								
 								<div class="card-body">
@@ -216,27 +228,35 @@
 										<table class="datatable table table-stripped">
 											<thead>
 												<tr>
-													<th>Item No: </th>
-													<th>Account Type</th>
+													<th>No</th>
+													<th>Bank Name</th>
+													<th>Account No:</th>
+													<th>Branch</th>
 													<th>Amount</th>
 													<th>Action</th>
 												</tr>
 											</thead>
 											<tbody>
 
-												<tr><td>01</td>
-												<td>Bank</td> 
-												<td>10,00000</td>												
-												<td><a href='Bank.php' class='btn btn-primary'> View </a><td>
-												</tr><tr><td>02</td>
-												<td>Mobile Banking</td> 
-												<td>100000000</td>
-												<td><a href='MobileBanking.php' class='btn btn-primary'> View </a><td>
-												</tr><tr><td>03</td>
-												<td>Portal</td>
-												<td>100000000</td>
-												<td><a href='Portal.php' class='btn btn-primary'> View </a><td>
-												</tr>
+												<?php
+
+												$sql = "SELECT id, EMP_ID, email, name, phone, department FROM bank ORDER BY ID DESC";
+												$result = $conn->query($sql);
+												if ($result->num_rows > 0) {
+  												while($row = $result->fetch_assoc()) {													  													 
+													echo "<tr><td>".$row["EMP_ID"]."</td>
+																<td>".$row["name"]."</td> 
+														 		<td>".$row["email"]."</td>
+																<td>".$row["phone"]."</td>
+														 		<td>".$row["department"]."</td>
+																<td><a href='UpdateEmployee.php' class='btn btn-primary'> View </a><td>
+																 </tr>";   											
+												  }
+												} else {
+  												echo "0 results";
+											    }
+												?>
+
 
 											</tbody>
 										</table>
