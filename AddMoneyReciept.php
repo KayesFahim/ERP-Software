@@ -349,12 +349,13 @@
 													<td>System Architect</td>
 													<td>Edinburgh</td>
 													<td>2011/04/25</td>
-                                                    <td>Bank Card<td>
-				                                      <th>Action</th>
+                                                    <td>Bank Card</td>
+													<td>$320,800</td>
                                                     <td>
-                                                    <button type="submit" class="btn btn-primary"><i class="fe fe-print"></i> Print</button>
-                                                    <button type="submit" class="btn btn-success"><i class="fe fe-edit"></i> Edit</button>
-                                                    <button type="submit" class="btn btn-danger"><i class="fe fe-trash"></i> Delete</button>
+                                                    <button type="submit" class="btn btn-primary"><i class="fe fe-print"></i></button>
+                                                    <button type="submit" class="btn btn-success"><i class="fe fe-edit"></i></button>
+                                                    <button type="submit" class="btn btn-danger"><i class="fe fe-trash"></i></button>
+                                                    <button type="submit" class="btn btn-danger"><i class="fe fe-mail"></i></button>
                                                     </td>
 												</tr>
 											</tbody>
