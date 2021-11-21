@@ -2,50 +2,31 @@
 
 include 'config.php';
 
-$bank = "SELECT SUM(credit - debit) as amount from bank";
-$mobilebanking = "SELECT SUM(credit - debit) as amount from bank";
-$portal = "SELECT SUM(credit - debit) as amount from bank";
+$BankId = $_GET['getBankId'];
 
 
+//Employee Info
+$Bank_Name;
+$Bank_Branch;
+$Bank_Acccount;
 
-
-$result = $conn->query($bank);
-$result1 = $conn->query($mobilebanking);
-$result2 = $conn->query($portal);
-
-$Bank_Amount; $MobileBanking_Amount; $PortalAmount;
-
+$sql = "SELECT * FROM `bank` WHERE bankId ='$BankId' ORDER By id DESC";
+$result = $conn->query($sql);
 if ($result->num_rows > 0) {
 	while($row = $result->fetch_assoc()) {
-		$Bank_Amount = $row["amount"];
-
-	}
+		$Bank_Name = $row["bankname"];	
+        $Bank_Branch = $row["branchname"];	
+        $Bank_Acccount = $row["bankaccno"];       							
+ }
 }
 
-// Mobile banking
-
-if ($result1->num_rows > 0) {
-	while($row = $result1->fetch_assoc()) {
-
-	$MobileBanking_Amount = $row["amount"];
-		
-	}
-}
-
-//Portal Balanced
-
-if ($result2->num_rows > 0) {
-	while($row = $result2->fetch_assoc()) {
-		$PortalAmount = $row["amount"];
 
 
-
-	}
-}
 
 
 
 ?>
+
 
 
 <!DOCTYPE html>
@@ -53,7 +34,7 @@ if ($result2->num_rows > 0) {
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-	<title>Cash And Cash Equivalent</title>
+	<title><?php echo $Bank_Name; ?> </title>
 	<!-- Favicon -->
 	<link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.png">
 	<!-- Bootstrap CSS -->
@@ -171,8 +152,8 @@ if ($result2->num_rows > 0) {
 		</div>
 		<!-- /Header -->
 
-		<!-- Sidebar -->
-		<div class="sidebar" id="sidebar">
+		 <!-- Sidebar -->
+		 <div class="sidebar" id="sidebar">
             <div class="sidebar-inner slimscroll">
                 <div id="sidebar-menu" class="sidebar-menu">
                     <ul>
@@ -192,6 +173,9 @@ if ($result2->num_rows > 0) {
                             <a href="Bill.php"><i class="fe fe-layout"></i> <span>Bill</span></a>
                         </li>
                         <li>
+                            <a href="expense.php"><i class="fe fe-layout"></i> <span>Expense</span></a>
+                        </li>
+						<li>
 							<a data-toggle="dropdown"><i class="fe fe-layout"></i> <span>Accounting</span></a>
 								<ul>
 									<li><a href="CashEquivalent.php"><i class="fe fe-layout"></i> <span>Cash And Cash</span></a></li>
@@ -199,9 +183,6 @@ if ($result2->num_rows > 0) {
 									<li><a href="#"><i class="fe fe-layout"></i> Portal</a></li>
 								</ul>
 						</li>
-                        <li>
-                            <a href="expense.php"><i class="fe fe-layout"></i> <span>Expense</span></a>
-                        </li>
                         <li>
                             <a href="moneyReceipt.php"><i class="fe fe-layout"></i> <span>Money Receipt</span></a>
                         </li>
@@ -225,7 +206,7 @@ if ($result2->num_rows > 0) {
                         <li>
                             <a href="refund.php"><i class="fe fe-layout"></i> <span>Refund</span></a>
                         </li>
-                        
+
                     </ul>
                 </div>
             </div>
@@ -241,10 +222,10 @@ if ($result2->num_rows > 0) {
 				<div class="page-header">
 					<div class="row">
 						<div class="col-sm-12">
-							<h3 class="page-title">Cash Equivalent</h3>
+							<h3 class="page-title"><?php echo $Bank_Name; ?>  Details</h3>
 							<ul class="breadcrumb">
 								<li class="breadcrumb-item"><a href="Employees.php">Dashboard</a></li>
-								<li class="breadcrumb-item active">cash And cash Equivalent</li>
+								<li class="breadcrumb-item active"><?php echo $Bank_Name; ?> Details</li>
 							</ul>
 						</div>
 					</div>
@@ -258,35 +239,46 @@ if ($result2->num_rows > 0) {
 					<div class="col-md-12">
 							<div class="card">
 								<div class="card-header">
-									<h4 class="card-title">Cash Details</h4>									
+									<h4 class="card-title">Account Details</h4>
+
 								</div>
+                                
 								
 								<div class="card-body">
+                                <h6><?php echo $Bank_Branch; ?> </h6>
+                                <h6>ACC/No: <?php echo $Bank_Acccount; ?> </h6>
 									<div class="table-responsive">
 										<table class="datatable table table-stripped">
 											<thead>
 												<tr>
-													<th>Item No: </th>
-													<th>Account Type</th>
-													<th>Amount</th>
+													<th>Credit Date</th>
+													<th>Credit Amount</th>
+													<th>Description</th>
 													<th>Action</th>
 												</tr>
 											</thead>
 											<tbody>
 
-												<tr><td>01</td>
-												<td>Bank</td> 
-												<td><?php echo $Bank_Amount ?></td>												
-												<td><a href='Bank.php' class='btn btn-primary'> View </a><td>
-												</tr><tr><td>02</td>
-												<td>Mobile Banking</td> 
-												<td><?php echo $MobileBanking_Amount ?></td>
-												<td><a href='MobileBanking.php' class='btn btn-primary'> View </a><td>
-												</tr><tr><td>03</td>
-												<td>Portal</td>
-												<td><?php echo $PortalAmount ?></td>
-												<td><a href='Portal.php' class='btn btn-primary'> View </a><td>
-												</tr>
+												<?php
+
+												$sql = "SELECT id, credit, creditComment, DATE(creditDate) as date FROM bank WHERE bankId ='$BankId' AND credit > 0 ORDER BY date ASC";
+												$result = $conn->query($sql);
+											
+												if ($result->num_rows > 0) {
+  												while($row = $result->fetch_assoc()) {	
+													  $creditId = $row["id"];												  													 
+													echo "<tr><td>".$row["date"]."</td>
+                                                            <td>".$row["credit"]."</td> 
+															<td>".$row["creditComment"]."</td>
+															<td><a href='BrankCreditEdit.php?getCreditId=$creditId' class='btn btn-success'> Edit </a>
+															<a href='BrankCreditEdit.php?getCreditId=$creditId' class='btn btn-danger'> Delete </a><td>
+															</tr>";   											
+												  }
+												} else {
+  												echo "0 results";
+											    }
+												?>
+
 
 											</tbody>
 										</table>

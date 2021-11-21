@@ -207,7 +207,7 @@ CREATE TABLE `portal_balance` (
 -- Table structure for table `vendor`
 --
 
-CREATE TABLE `vendor` (
+CREATE TABLE `vendor`(
   `id` int(10) NOT NULL,
   `name` varchar(30) NOT NULL,
   `address` varchar(100) NOT NULL,

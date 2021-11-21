@@ -3,6 +3,7 @@
 include 'config.php';
 
 
+
 ?>
 
 
@@ -200,10 +201,10 @@ include 'config.php';
 				<div class="page-header">
 					<div class="row">
 						<div class="col-sm-12">
-							<h3 class="page-title">Employees</h3>
+							<h3 class="page-title">Bank Details</h3>
 							<ul class="breadcrumb">
 								<li class="breadcrumb-item"><a href="Employees.php">Dashboard</a></li>
-								<li class="breadcrumb-item active">Employees</li>
+								<li class="breadcrumb-item active">Bank Details</li>
 							</ul>
 						</div>
 					</div>
@@ -217,9 +218,9 @@ include 'config.php';
 					<div class="col-md-12">
 							<div class="card">
 								<div class="card-header">
-									<h4 class="card-title">Employees Detail</h4>
+									<h4 class="card-title">Bank Details</h4>
 									<div class="text-right">
-										<a href="AddEmployee.php" class="btn btn-primary"> Add +</a>
+										<a href="AddNewBank.php" class="btn btn-primary"> Add +</a>
 									</div>
 								</div>
 								
@@ -228,9 +229,8 @@ include 'config.php';
 										<table class="datatable table table-stripped">
 											<thead>
 												<tr>
-													<th>No</th>
 													<th>Bank Name</th>
-													<th>Account No:</th>
+													<th>Account No</th>
 													<th>Branch</th>
 													<th>Amount</th>
 													<th>Action</th>
@@ -240,16 +240,18 @@ include 'config.php';
 
 												<?php
 
-												$sql = "SELECT id, EMP_ID, email, name, phone, department FROM bank ORDER BY ID DESC";
+												$sql = "SELECT DISTINCT id, bankId, bankname,bankaccno, branchname, SUM(credit-debit) as Amount FROM bank GROUP BY bankname";
 												$result = $conn->query($sql);
+												$i=0;
 												if ($result->num_rows > 0) {
-  												while($row = $result->fetch_assoc()) {													  													 
-													echo "<tr><td>".$row["EMP_ID"]."</td>
-																<td>".$row["name"]."</td> 
-														 		<td>".$row["email"]."</td>
-																<td>".$row["phone"]."</td>
-														 		<td>".$row["department"]."</td>
-																<td><a href='UpdateEmployee.php' class='btn btn-primary'> View </a><td>
+  												while($row = $result->fetch_assoc()) {	
+													  $bankgetID = $row["bankId"];												  													 
+													echo "<tr><td>".$row["bankname"]."</td> 
+														 		<td>".$row["bankaccno"]."</td>
+																<td>".$row["branchname"]."</td>
+														 		<td>".$row["Amount"]."</td>
+																<td><a href='BankCredit.php?getBankId=$bankgetID' class='btn btn-success'> Credit </a>
+																<a href='BankDebit.php?getBankId=$bankgetID' class='btn btn-danger'> Debit </a><td>
 																 </tr>";   											
 												  }
 												} else {
