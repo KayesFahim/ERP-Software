@@ -1,17 +1,48 @@
 <?php
+include '../config.php';
 
-include 'config.php';
+
+$debitId = $_GET['getDebitId'];
+
+//Employee Info
+$Bank_Name;
+$Bank_Branch;
+$Bank_Acccount;
+$Bank_Id;
+$Debit;
+$Debitdate;
+$DebitComments;
 
 
+
+$sql = "SELECT * FROM bank where id='$debitId'";
+$result = $conn->query($sql);
+if ($result->num_rows > 0) {
+	while($row = $result->fetch_assoc()) {
+        $Bank_Name = $row["bankname"];
+        $Bank_Branch = $row["branchname"];
+        $Bank_Acccount = $row["bankaccno"];
+        $Bank_Id = $row["bankId"];
+        $Debit = $row["debit"];
+        $Debitdate = $row["debitDate"];
+        $DebitComments = $row["debitComment"];
+
+        								
+ }
+} else {
+echo "0 results";
+ }
+
+
+											
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-	<title>Hand Cash</title>
+	<title>Add Employee</title>
 	<!-- Favicon -->
 	<link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.png">
 	<!-- Bootstrap CSS -->
@@ -20,11 +51,8 @@ include 'config.php';
 	<link rel="stylesheet" href="assets/css/font-awesome.min.css">
 	<!-- Feathericon CSS -->
 	<link rel="stylesheet" href="assets/css/feathericon.min.css">
-	<!-- Datatables CSS -->
-	<link rel="stylesheet" href="assets/plugins/datatables/datatables.min.css">
 	<!-- Main CSS -->
 	<link rel="stylesheet" href="assets/css/style.css">
-
 </head>
 <body>
 	
@@ -37,11 +65,10 @@ include 'config.php';
 			<!-- Logo -->
 			<div class="header-left">
 				<a href="index.php" class="logo">
-					<img src="logo.png" alt="Logo">
+				 <img src="logo.png" alt="Logo">
 				</a>
 				<a href="index.php" class="logo logo-small">
-					<!-- <img src="assets/img/logo-small.png" alt="Logo" width="30" height="30"> -->
-					<h4>YOUR LOGO</h4>
+					<img src="logo.png" alt="Logo" width="30" height="30">
 				</a>
 			</div>
 			<!-- /Logo -->
@@ -85,7 +112,7 @@ include 'config.php';
 												<img class="avatar-img rounded-circle" alt="User Image" src="assets/img/profile.jpg">
 											</span>
 											<div class="media-body">
-												<p class="noti-details"><span class="noti-title">Ashik </span> Schedule <span class="noti-title">Her appointment</span></p>
+												<p class="noti-details"><span class="noti-title">Employee </span> Schedule <span class="noti-title">her appointment</span></p>
 												<p class="noti-time"><span class="notification-time">4 mins ago</span></p>
 											</div>
 										</div>
@@ -95,7 +122,7 @@ include 'config.php';
 							</ul>
 						</div>
 						<div class="topnav-dropdown-footer">
-							<a href="#"> View all Notifications</a>
+							<a href="#">View all Notifications</a>
 						</div>
 					</div>
 				</li>
@@ -129,8 +156,8 @@ include 'config.php';
 		</div>
 		<!-- /Header -->
 
-		 <!-- Sidebar -->
-		 <div class="sidebar" id="sidebar">
+	      <!-- Sidebar -->
+		<div class="sidebar" id="sidebar">
             <div class="sidebar-inner slimscroll">
                 <div id="sidebar-menu" class="sidebar-menu">
                     <ul>
@@ -146,12 +173,7 @@ include 'config.php';
                         <li>
                             <a href="invoice.php"><i class="fe fe-layout"></i> <span>Invoice</span></a>
                         </li>
-                        <li>
-                            <a href="Bill.php"><i class="fe fe-layout"></i> <span>Bill</span></a>
-                        </li>
-                        <li>
-                            <a href="expense.php"><i class="fe fe-layout"></i> <span>Expense</span></a>
-                        </li>
+
 						<li>
 							<a data-toggle="dropdown"><i class="fe fe-layout"></i> <span>Accounting</span></a>
 								<ul>
@@ -160,6 +182,13 @@ include 'config.php';
 									<li><a href="#"><i class="fe fe-layout"></i> Portal</a></li>
 								</ul>
 						</li>
+						
+                        <li>
+                            <a href="Bill.php"><i class="fe fe-layout"></i> <span>Bill</span></a>
+                        </li>
+                        <li>
+                            <a href="expense.php"><i class="fe fe-layout"></i> <span>Expense</span></a>
+                        </li>
                         <li>
                             <a href="moneyReceipt.php"><i class="fe fe-layout"></i> <span>Money Receipt</span></a>
                         </li>
@@ -183,13 +212,12 @@ include 'config.php';
                         <li>
                             <a href="refund.php"><i class="fe fe-layout"></i> <span>Refund</span></a>
                         </li>
+                        
 
                     </ul>
                 </div>
             </div>
         </div>
-
-		
 
 		<!-- Page Wrapper -->
 		<div class="page-wrapper">
@@ -199,76 +227,99 @@ include 'config.php';
 				<div class="page-header">
 					<div class="row">
 						<div class="col-sm-12">
-							<h3 class="page-title">Portal </h3>
+							<h3 class="page-title">Add New bank</h3>
 							<ul class="breadcrumb">
-								<li class="breadcrumb-item"><a href="Employees.php">Dashboard</a></li>
-								<li class="breadcrumb-item active">Portal</li>
+								<li class="breadcrumb-item"><a href="invoice.php">Dashboard</a></li>
+								<li class="breadcrumb-item active">Add New Bank</li>
 							</ul>
 						</div>
 					</div>
 				</div>
 				<!-- /Page Header -->
-				<!-- Contant -->
+
 				
+
+				<!-- Contant -->
+				<div class="row">					
 					<div class="col-md-12">
-						
-					</div>
-					<div class="col-md-12">
-							<div class="card">
-								<div class="card-header">
-									<h4 class="card-title">Portal Detail</h4>
-									<div class="text-right">
-										<a href="AddEmployee.php" class="btn btn-primary"> Add +</a>
+						<div class="row">
+							<div class="col-md-12">
+								<div class="card">
+									<div class="card-header">
+										<h4 class="text-danger card-title">Bank Information</h4>
 									</div>
-								</div>
-								
-								<div class="card-body">
-									<div class="table-responsive">
-										<table class="datatable table table-stripped">
-											<thead>
-												<tr>
-													<th>SSL No:</th>
-													<th>invoiceId</th>
-													<th>Amount</th>
-                                                    <th>Username</th>
-													<th>createdDate</th>
-													<th>Action</th>
-												</tr>
-											</thead>
-											<tbody>
+                                    
+									<div class="card-body">
+										<form action="#" method='post'>
+											<div class="row">
+												<div class="col-md-12">
+													<div class="row">
+														<div class="col-md-6">
+															<div class="form-group">
+																<label>Bank ID</label>
+																<input type="text" name="bankid" value="<?php echo $Bank_Id ?>" class="form-control" disabled>
+															</div>
+														</div>
+														<div class="col-md-6">
+															<div class="form-group">
+																<label>Bank Name</label>
+																<input type="text" value="<?php echo $Bank_Name ?>" name="bankname" class="form-control">
+															</div>
+														</div>
+														<div class="col-md-6">
+															<div class="form-group">
+																<label>Branch Name</label>
+																<input type="text" value="<?php echo $Bank_Branch ?>" name="branchname" class="form-control">
+															</div>
+														</div>
+                                                        <div class="col-md-6">
+															<div class="form-group">
+																<label>Account Number</label>
+																<input type="text" value="<?php echo $Bank_Acccount ?>" name="accno" class="form-control">
+															</div>
+														</div>
 
-											<?php												
-												$sql = "SELECT DISTINCT id, sslId, invoiceId, customerId, createdBy, SUM(amount) as Amount FROM ssl_commerce GROUP BY sslId";
-												$result = $conn->query($sql);
-												if ($result->num_rows > 0) {
-  												while($row = $result->fetch_assoc()) {
-                                                      $sslId = 	$row["sslId"];
-
-													echo "<tr>
-															<td>".$row["sslId"]."</td> 
-														 	<td>".$row["invoiceId"]."</td>
-															<td>".$row["customerId"]."</td>
-														 	<td>".$row["Amount"]."</td>
-                                                            <td>".$row["createdBy"]."</td>
-                                                            <td>".$row["createdDate"]."</td>
-                                                            <td><a href='BankDebitEdit.php?getSslId=$sslId' class='btn btn-success'> Edit </a><td>
-															</tr>";   											
-												  }
-												} else {
-  												echo "0 results";
-											    }
-											?>
-
-
-											</tbody>
-										</table>
+                                                        <div class="col-md-4">
+															<div class="form-group">
+																<label>Credit Balance</label>
+																<input type="number" value="<?php echo $Debit ?>" name="credit" class="form-control">
+															</div>
+														</div>
+                                                        <div class="col-md-4">
+															<div class="form-group">
+																<label>Credit Balance</label>
+																<input type="date" value="<?php echo $Debitdate ?>" name="credit" class="form-control">
+															</div>
+														</div>
+                                                        <div class="col-md-4">
+															<div class="form-group">
+																<label>Comments</label>
+																<input type="text" value="<?php echo $DebitComments ?>" name="creditdt" class="form-control">
+															</div>
+														</div>
+											</div>
+											<div class="text-right">
+												<button type="submit" class="btn btn-primary"> Create </button>
+											</div>
+										</form>
 									</div>
 								</div>
 							</div>
+
+                            <!-- Contact Personal Info  --->
+            
 						</div>
-					<div class="col-md-3">						
+
+
 					</div>
+					<!-- End Contant -->
+					</div>	
+
+                   
+                    
+                    
 				</div>
+
 				<!-- /Page Wrapper -->
 			</div>
 			<!-- /Main Wrapper -->
@@ -279,9 +330,6 @@ include 'config.php';
 			<script src="assets/js/bootstrap.min.js"></script>
 			<!-- Slimscroll JS -->
 			<script src="assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-			<!-- Datatables JS -->
-			<script src="assets/plugins/datatables/jquery.dataTables.min.js"></script>
-			<script src="assets/plugins/datatables/datatables.min.js"></script>
 			<!-- Custom JS -->
 			<script  src="assets/js/script.js"></script>
 		</body>

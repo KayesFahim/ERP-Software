@@ -1,48 +1,36 @@
 <?php
-include 'config.php';
 
+include '../config.php';
 
-$creditId = $_GET['getCreditId'];
+$BankId = $_GET['getBankId'];
+
 
 //Employee Info
 $Bank_Name;
 $Bank_Branch;
 $Bank_Acccount;
-$Bank_Id;
-$Credit;
-$Creditdate;
-$creditComments;
 
 
-
-$sql = "SELECT * FROM bank where id='$creditId'";
+$sql = "SELECT * FROM `bank` WHERE bankId ='$BankId' ORDER By id DESC";
 $result = $conn->query($sql);
 if ($result->num_rows > 0) {
 	while($row = $result->fetch_assoc()) {
-        $Bank_Name = $row["bankname"];
-        $Bank_Branch = $row["branchname"];
-        $Bank_Acccount = $row["bankaccno"];
-        $Bank_Id = $row["bankId"];
-        $Credit = $row["credit"];
-        $Creditdate = $row["creditDate"];
-        $creditComments = $row["creditComment"];
-
-        								
+		$Bank_Name = $row["bankname"];	
+        $Bank_Branch = $row["branchname"];	
+        $Bank_Acccount = $row["bankaccno"];       							
  }
-} else {
-echo "0 results";
- }
+}
 
-
-											
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-	<title>Add Employee</title>
+	<title>Bank Debit </title>
 	<!-- Favicon -->
 	<link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.png">
 	<!-- Bootstrap CSS -->
@@ -51,8 +39,11 @@ echo "0 results";
 	<link rel="stylesheet" href="assets/css/font-awesome.min.css">
 	<!-- Feathericon CSS -->
 	<link rel="stylesheet" href="assets/css/feathericon.min.css">
+	<!-- Datatables CSS -->
+	<link rel="stylesheet" href="assets/plugins/datatables/datatables.min.css">
 	<!-- Main CSS -->
 	<link rel="stylesheet" href="assets/css/style.css">
+
 </head>
 <body>
 	
@@ -65,10 +56,11 @@ echo "0 results";
 			<!-- Logo -->
 			<div class="header-left">
 				<a href="index.php" class="logo">
-				 <img src="logo.png" alt="Logo">
+					<img src="logo.png" alt="Logo">
 				</a>
 				<a href="index.php" class="logo logo-small">
-					<img src="logo.png" alt="Logo" width="30" height="30">
+					<!-- <img src="assets/img/logo-small.png" alt="Logo" width="30" height="30"> -->
+					<h4>YOUR LOGO</h4>
 				</a>
 			</div>
 			<!-- /Logo -->
@@ -112,7 +104,7 @@ echo "0 results";
 												<img class="avatar-img rounded-circle" alt="User Image" src="assets/img/profile.jpg">
 											</span>
 											<div class="media-body">
-												<p class="noti-details"><span class="noti-title">Employee </span> Schedule <span class="noti-title">her appointment</span></p>
+												<p class="noti-details"><span class="noti-title">Ashik </span> Schedule <span class="noti-title">Her appointment</span></p>
 												<p class="noti-time"><span class="notification-time">4 mins ago</span></p>
 											</div>
 										</div>
@@ -122,7 +114,7 @@ echo "0 results";
 							</ul>
 						</div>
 						<div class="topnav-dropdown-footer">
-							<a href="#">View all Notifications</a>
+							<a href="#"> View all Notifications</a>
 						</div>
 					</div>
 				</li>
@@ -156,8 +148,8 @@ echo "0 results";
 		</div>
 		<!-- /Header -->
 
-	      <!-- Sidebar -->
-		<div class="sidebar" id="sidebar">
+		 <!-- Sidebar -->
+		 <div class="sidebar" id="sidebar">
             <div class="sidebar-inner slimscroll">
                 <div id="sidebar-menu" class="sidebar-menu">
                     <ul>
@@ -173,7 +165,12 @@ echo "0 results";
                         <li>
                             <a href="invoice.php"><i class="fe fe-layout"></i> <span>Invoice</span></a>
                         </li>
-
+                        <li>
+                            <a href="Bill.php"><i class="fe fe-layout"></i> <span>Bill</span></a>
+                        </li>
+                        <li>
+                            <a href="expense.php"><i class="fe fe-layout"></i> <span>Expense</span></a>
+                        </li>
 						<li>
 							<a data-toggle="dropdown"><i class="fe fe-layout"></i> <span>Accounting</span></a>
 								<ul>
@@ -182,13 +179,6 @@ echo "0 results";
 									<li><a href="#"><i class="fe fe-layout"></i> Portal</a></li>
 								</ul>
 						</li>
-						
-                        <li>
-                            <a href="Bill.php"><i class="fe fe-layout"></i> <span>Bill</span></a>
-                        </li>
-                        <li>
-                            <a href="expense.php"><i class="fe fe-layout"></i> <span>Expense</span></a>
-                        </li>
                         <li>
                             <a href="moneyReceipt.php"><i class="fe fe-layout"></i> <span>Money Receipt</span></a>
                         </li>
@@ -212,12 +202,13 @@ echo "0 results";
                         <li>
                             <a href="refund.php"><i class="fe fe-layout"></i> <span>Refund</span></a>
                         </li>
-                        
 
                     </ul>
                 </div>
             </div>
         </div>
+
+		
 
 		<!-- Page Wrapper -->
 		<div class="page-wrapper">
@@ -227,99 +218,73 @@ echo "0 results";
 				<div class="page-header">
 					<div class="row">
 						<div class="col-sm-12">
-							<h3 class="page-title">Edit Credit Details</h3>
+							<h3 class="page-title">Credit  Details</h3>
 							<ul class="breadcrumb">
-								<li class="breadcrumb-item"><a href="invoice.php">Dashboard</a></li>
-								<li class="breadcrumb-item active">Credit</li>
+								<li class="breadcrumb-item"><a href="Employees.php">Dashboard</a></li>
+								<li class="breadcrumb-item active">Bank Credit</li>
 							</ul>
 						</div>
 					</div>
 				</div>
 				<!-- /Page Header -->
-
-				
-
 				<!-- Contant -->
-				<div class="row">					
+				
 					<div class="col-md-12">
-						<div class="row">
-							<div class="col-md-12">
-								<div class="card">
-									<div class="card-header">
-										<h4 class="text-danger card-title">Credit Information</h4>
-									</div>
-                                    
-									<div class="card-body">
-										<form action="#" method='post'>
-											<div class="row">
-												<div class="col-md-12">
-													<div class="row">
-														<div class="col-md-6">
-															<div class="form-group">
-																<label>Bank ID</label>
-																<input type="text" name="bankid" value="<?php echo $Bank_Id ?>" class="form-control" disabled>
-															</div>
-														</div>
-														<div class="col-md-6">
-															<div class="form-group">
-																<label>Bank Name</label>
-																<input type="text" value="<?php echo $Bank_Name ?>" name="bankname" class="form-control">
-															</div>
-														</div>
-														<div class="col-md-6">
-															<div class="form-group">
-																<label>Branch Name</label>
-																<input type="text" value="<?php echo $Bank_Branch ?>" name="branchname" class="form-control">
-															</div>
-														</div>
-                                                        <div class="col-md-6">
-															<div class="form-group">
-																<label>Account Number</label>
-																<input type="text" value="<?php echo $Bank_Acccount ?>" name="accno" class="form-control">
-															</div>
-														</div>
+						
+					</div>
+					<div class="col-md-12">
+							<div class="card">
+								<div class="card-header">
+									<h4 class="card-title">Account Details</h4>
 
-                                                        <div class="col-md-4">
-															<div class="form-group">
-																<label>Credit Balance</label>
-																<input type="number" value="<?php echo $Credit ?>" name="credit" class="form-control">
-															</div>
-														</div>
-                                                        <div class="col-md-4">
-															<div class="form-group">
-																<label>Credit Balance</label>
-																<input type="date" value="<?php echo $Creditdate ?>" name="credit" class="form-control">
-															</div>
-														</div>
-                                                        <div class="col-md-4">
-															<div class="form-group">
-																<label>Comments</label>
-																<input type="text" value="<?php echo $creditComments ?>" name="creditdt" class="form-control">
-															</div>
-														</div>
-											</div>
-											<div class="text-right">
-												<button type="submit" class="btn btn-primary"> Edit </button>
-											</div>
-										</form>
+								</div>
+                                
+								
+								<div class="card-body">
+                                <h6><?php echo $Bank_Branch; ?> </h6>
+                                <h6>ACC/No: <?php echo $Bank_Acccount; ?> </h6>
+									<div class="table-responsive">
+										<table class="datatable table table-stripped">
+											<thead>
+												<tr>
+													<th>Debit Date</th>
+													<th>Debit Amount</th>
+													<th>Description</th>
+													<th>Action</th>
+												</tr>
+											</thead>
+											<tbody>
+
+												<?php
+
+												$sql = "SELECT id, debit, debitComment, DATE(debitDate) as date FROM bank WHERE bankId ='$BankId' AND debit > 0 ORDER BY date ASC";
+												$result = $conn->query($sql);
+											
+												if ($result->num_rows > 0) {
+  												while($row = $result->fetch_assoc()) {	
+													  $creditId = $row["id"];												  													 
+													echo "<tr><td>".$row["date"]."</td>
+                                                            <td>".$row["debit"]."</td> 
+															<td>".$row["debitComment"]."</td>
+															<td><a href='BankDebitEdit.php?getDebitId=$creditId' class='btn btn-success'> Edit </a>
+															<a href='BankDebitEdit.php?getDebitId=$creditId' class='btn btn-danger'> Delete </a><td>
+															</tr>";   											
+												  }
+												} else {
+  												echo "0 results";
+											    }
+												?>
+
+
+											</tbody>
+										</table>
 									</div>
 								</div>
 							</div>
-
-                            <!-- Contact Personal Info  --->
-            
 						</div>
-
-
+					<div class="col-md-3">						
 					</div>
-					<!-- End Contant -->
-					</div>	
-
-                   
-                    
-                    
 				</div>
-
 				<!-- /Page Wrapper -->
 			</div>
 			<!-- /Main Wrapper -->
@@ -330,6 +295,9 @@ echo "0 results";
 			<script src="assets/js/bootstrap.min.js"></script>
 			<!-- Slimscroll JS -->
 			<script src="assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+			<!-- Datatables JS -->
+			<script src="assets/plugins/datatables/jquery.dataTables.min.js"></script>
+			<script src="assets/plugins/datatables/datatables.min.js"></script>
 			<!-- Custom JS -->
 			<script  src="assets/js/script.js"></script>
 		</body>

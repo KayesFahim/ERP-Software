@@ -1,25 +1,7 @@
 <?php
 
-include 'config.php';
+include '../config.php';
 
-$BankId = $_GET['getBankId'];
-
-
-//Employee Info
-$Bank_Name;
-$Bank_Branch;
-$Bank_Acccount;
-
-
-$sql = "SELECT * FROM `bank` WHERE bankId ='$BankId' ORDER By id DESC";
-$result = $conn->query($sql);
-if ($result->num_rows > 0) {
-	while($row = $result->fetch_assoc()) {
-		$Bank_Name = $row["bankname"];	
-        $Bank_Branch = $row["branchname"];	
-        $Bank_Acccount = $row["bankaccno"];       							
- }
-}
 
 ?>
 
@@ -30,7 +12,7 @@ if ($result->num_rows > 0) {
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-	<title>Bank Debit </title>
+	<title>Portal</title>
 	<!-- Favicon -->
 	<link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.png">
 	<!-- Bootstrap CSS -->
@@ -218,10 +200,10 @@ if ($result->num_rows > 0) {
 				<div class="page-header">
 					<div class="row">
 						<div class="col-sm-12">
-							<h3 class="page-title">Credit  Details</h3>
+							<h3 class="page-title">Portal </h3>
 							<ul class="breadcrumb">
 								<li class="breadcrumb-item"><a href="Employees.php">Dashboard</a></li>
-								<li class="breadcrumb-item active">Bank Credit</li>
+								<li class="breadcrumb-item active">Portal</li>
 							</ul>
 						</div>
 					</div>
@@ -235,21 +217,20 @@ if ($result->num_rows > 0) {
 					<div class="col-md-12">
 							<div class="card">
 								<div class="card-header">
-									<h4 class="card-title">Account Details</h4>
-
+									<h4 class="card-title">Portal Detail</h4>
+									<div class="text-right">
+										<a href="AddEmployee.php" class="btn btn-primary"> Add +</a>
+									</div>
 								</div>
-                                
 								
 								<div class="card-body">
-                                <h6><?php echo $Bank_Branch; ?> </h6>
-                                <h6>ACC/No: <?php echo $Bank_Acccount; ?> </h6>
 									<div class="table-responsive">
 										<table class="datatable table table-stripped">
 											<thead>
 												<tr>
-													<th>Debit Date</th>
-													<th>Debit Amount</th>
-													<th>Description</th>
+													<th>Portal Name</th>
+													<th>Username</th>
+													<th>Amount</th>
 													<th>Action</th>
 												</tr>
 											</thead>
@@ -257,17 +238,17 @@ if ($result->num_rows > 0) {
 
 												<?php
 
-												$sql = "SELECT id, debit, debitComment, DATE(debitDate) as date FROM bank WHERE bankId ='$BankId' AND debit > 0 ORDER BY date ASC";
+												
+												$sql = "SELECT DISTINCT id, portalname, banusername, SUM(crcashIn-cashOut) as Amount FROM portal_balance GROUP BY portalname";
 												$result = $conn->query($sql);
-											
 												if ($result->num_rows > 0) {
-  												while($row = $result->fetch_assoc()) {	
-													  $creditId = $row["id"];												  													 
-													echo "<tr><td>".$row["date"]."</td>
-                                                            <td>".$row["debit"]."</td> 
-															<td>".$row["debitComment"]."</td>
-															<td><a href='BankDebitEdit.php?getDebitId=$creditId' class='btn btn-success'> Edit </a>
-															<a href='BankDebitEdit.php?getDebitId=$creditId' class='btn btn-danger'> Delete </a><td>
+  												while($row = $result->fetch_assoc()) {													  													 
+													echo "<tr>
+															<td>".$row["portalname"]."</td> 
+														 	<td>".$row["username"]."</td>
+															<td>".$row["phone"]."</td>
+														 	<td>".$row["Amount"]."</td>
+															<td><a href='UpdateEmployee.php' class='btn btn-primary'> View </a><td>
 															</tr>";   											
 												  }
 												} else {

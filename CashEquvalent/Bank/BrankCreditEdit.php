@@ -1,54 +1,37 @@
 <?php
-include 'config.php';
-$success ="";
+include '../config.php';
 
-$CustomerId ="";
-$sql = "SELECT * FROM customer ORDER BY CustomerId DESC LIMIT 1";
+
+$creditId = $_GET['getCreditId'];
+
+//Employee Info
+$Bank_Name;
+$Bank_Branch;
+$Bank_Acccount;
+$Bank_Id;
+$Credit;
+$Creditdate;
+$creditComments;
+
+
+
+$sql = "SELECT * FROM bank where id='$creditId'";
 $result = $conn->query($sql);
 if ($result->num_rows > 0) {
 	while($row = $result->fetch_assoc()) {
-        $outputString = preg_replace('/[^0-9]/', '', $row["CustomerId"]);
-		$CustomerId = "CSR-00".(int)$outputString + 1 ;									
+        $Bank_Name = $row["bankname"];
+        $Bank_Branch = $row["branchname"];
+        $Bank_Acccount = $row["bankaccno"];
+        $Bank_Id = $row["bankId"];
+        $Credit = $row["credit"];
+        $Creditdate = $row["creditDate"];
+        $creditComments = $row["creditComment"];
+
+        								
  }
 } else {
 echo "0 results";
  }
-
- if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $bname = $_POST['bankname'];
-    $brname = $_POST['branchname'];
-    $accno = $_POST['accno'];
-    $credit = $_POST['credit'];
-    $creditDate = date("d/m/Y");
-    $creditdt = $_POST['creditdt']; 
-
-    $sqlquery = "INSERT INTO `bank`(                                            
-        `bankId`,
-        `bankname`,
-        `branchname`,
-        `bankaccno`,
-        `credit`,
-        `creditDate`,
-        `creditComment`
-    )
-    VALUES(
-        '$BankId',
-        '$bname',
-        '$brname',
-        '$accno',
-        '$credit',
-        '$creditDate',
-        '$creditdt'
-    )";
-        
-        if ($conn->query($sqlquery) === TRUE) {
-            $success = "record inserted successfully";
-        } else {
-            echo "Error: " . $sqlquery . "<br>" . $conn->error;
-        }
-                                                                                       
-}
-
 
 
 											
@@ -59,7 +42,7 @@ echo "0 results";
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-	<title>Add Customer</title>
+	<title>Add Employee</title>
 	<!-- Favicon -->
 	<link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.png">
 	<!-- Bootstrap CSS -->
@@ -244,10 +227,10 @@ echo "0 results";
 				<div class="page-header">
 					<div class="row">
 						<div class="col-sm-12">
-							<h3 class="page-title">Add New Customer</h3>
+							<h3 class="page-title">Edit Credit Details</h3>
 							<ul class="breadcrumb">
 								<li class="breadcrumb-item"><a href="invoice.php">Dashboard</a></li>
-								<li class="breadcrumb-item active">Add Customer</li>
+								<li class="breadcrumb-item active">Credit</li>
 							</ul>
 						</div>
 					</div>
@@ -263,13 +246,9 @@ echo "0 results";
 							<div class="col-md-12">
 								<div class="card">
 									<div class="card-header">
-										<h4 class="text-danger card-title">Customer Information</h4>
+										<h4 class="text-danger card-title">Credit Information</h4>
 									</div>
-                                    <div class="alert alert-success" role="alert">
-                                                <?php echo $success; ?>
-                                        </div>
-
-
+                                    
 									<div class="card-body">
 										<form action="#" method='post'>
 											<div class="row">
@@ -278,43 +257,49 @@ echo "0 results";
 														<div class="col-md-6">
 															<div class="form-group">
 																<label>Bank ID</label>
-																<input type="text" name="bankid" value="<?php echo $CustomerId ?>" class="form-control" disabled>
+																<input type="text" name="bankid" value="<?php echo $Bank_Id ?>" class="form-control" disabled>
 															</div>
 														</div>
 														<div class="col-md-6">
 															<div class="form-group">
-																<label>Customer Name</label>
-																<input type="text" name="bankname" class="form-control">
+																<label>Bank Name</label>
+																<input type="text" value="<?php echo $Bank_Name ?>" name="bankname" class="form-control">
 															</div>
 														</div>
 														<div class="col-md-6">
 															<div class="form-group">
-																<label>Customer Email</label>
-																<input type="email" name="email" class="form-control">
+																<label>Branch Name</label>
+																<input type="text" value="<?php echo $Bank_Branch ?>" name="branchname" class="form-control">
 															</div>
 														</div>
                                                         <div class="col-md-6">
 															<div class="form-group">
-																<label>Customer Phone</label>
-																<input type="number" name="phone" class="form-control">
+																<label>Account Number</label>
+																<input type="text" value="<?php echo $Bank_Acccount ?>" name="accno" class="form-control">
 															</div>
 														</div>
 
-                                                        <div class="col-md-6">
+                                                        <div class="col-md-4">
 															<div class="form-group">
-																<label>Address</label>
-																<input type="text"name="credit" class="form-control">
+																<label>Credit Balance</label>
+																<input type="number" value="<?php echo $Credit ?>" name="credit" class="form-control">
 															</div>
 														</div>
-                                                        <div class="col-md-6">
+                                                        <div class="col-md-4">
 															<div class="form-group">
-																<label>NID / Passport No</label>
-																<input type="text" name="creditdt" class="form-control">
+																<label>Credit Balance</label>
+																<input type="date" value="<?php echo $Creditdate ?>" name="credit" class="form-control">
+															</div>
+														</div>
+                                                        <div class="col-md-4">
+															<div class="form-group">
+																<label>Comments</label>
+																<input type="text" value="<?php echo $creditComments ?>" name="creditdt" class="form-control">
 															</div>
 														</div>
 											</div>
 											<div class="text-right">
-												<button type="submit" class="btn btn-primary"> Create </button>
+												<button type="submit" class="btn btn-primary"> Edit </button>
 											</div>
 										</form>
 									</div>
@@ -328,7 +313,11 @@ echo "0 results";
 
 					</div>
 					<!-- End Contant -->
-					</div>	                   
+					</div>	
+
+                   
+                    
+                    
 				</div>
 
 				<!-- /Page Wrapper -->

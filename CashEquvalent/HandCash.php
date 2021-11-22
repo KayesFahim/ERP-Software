@@ -1,32 +1,9 @@
 <?php
 
-include 'config.php';
-
-$BankId = $_GET['getBankId'];
-
-
-//Employee Info
-$Bank_Name;
-$Bank_Branch;
-$Bank_Acccount;
-
-$sql = "SELECT * FROM `bank` WHERE bankId ='$BankId' ORDER By id DESC";
-$result = $conn->query($sql);
-if ($result->num_rows > 0) {
-	while($row = $result->fetch_assoc()) {
-		$Bank_Name = $row["bankname"];	
-        $Bank_Branch = $row["branchname"];	
-        $Bank_Acccount = $row["bankaccno"];       							
- }
-}
-
-
-
-
+include '../config.php';
 
 
 ?>
-
 
 
 <!DOCTYPE html>
@@ -34,7 +11,7 @@ if ($result->num_rows > 0) {
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-	<title><?php echo $Bank_Name; ?> </title>
+	<title>Hand Cash</title>
 	<!-- Favicon -->
 	<link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.png">
 	<!-- Bootstrap CSS -->
@@ -63,7 +40,8 @@ if ($result->num_rows > 0) {
 					<img src="logo.png" alt="Logo">
 				</a>
 				<a href="index.php" class="logo logo-small">
-					<img src="logo.png" alt="Logo" width="30" height="30">
+					<!-- <img src="assets/img/logo-small.png" alt="Logo" width="30" height="30"> -->
+					<h4>YOUR LOGO</h4>
 				</a>
 			</div>
 			<!-- /Logo -->
@@ -221,10 +199,10 @@ if ($result->num_rows > 0) {
 				<div class="page-header">
 					<div class="row">
 						<div class="col-sm-12">
-							<h3 class="page-title"><?php echo $Bank_Name; ?>  Details</h3>
+							<h3 class="page-title">Portal </h3>
 							<ul class="breadcrumb">
 								<li class="breadcrumb-item"><a href="Employees.php">Dashboard</a></li>
-								<li class="breadcrumb-item active"><?php echo $Bank_Name; ?> Details</li>
+								<li class="breadcrumb-item active">Portal</li>
 							</ul>
 						</div>
 					</div>
@@ -238,45 +216,48 @@ if ($result->num_rows > 0) {
 					<div class="col-md-12">
 							<div class="card">
 								<div class="card-header">
-									<h4 class="card-title">Account Details</h4>
-
+									<h4 class="card-title">Portal Detail</h4>
+									<div class="text-right">
+										<a href="AddEmployee.php" class="btn btn-primary"> Add +</a>
+									</div>
 								</div>
-                                
 								
 								<div class="card-body">
-                                <h6><?php echo $Bank_Branch; ?> </h6>
-                                <h6>ACC/No: <?php echo $Bank_Acccount; ?> </h6>
 									<div class="table-responsive">
 										<table class="datatable table table-stripped">
 											<thead>
 												<tr>
-													<th>Credit Date</th>
-													<th>Credit Amount</th>
-													<th>Description</th>
+													<th>SSL No:</th>
+													<th>invoiceId</th>
+													<th>Amount</th>
+                                                    <th>Username</th>
+													<th>createdDate</th>
 													<th>Action</th>
 												</tr>
 											</thead>
 											<tbody>
 
-												<?php
-
-												$sql = "SELECT id, credit, creditComment, DATE(creditDate) as date FROM bank WHERE bankId ='$BankId' AND credit > 0 ORDER BY date ASC";
+											<?php												
+												$sql = "SELECT DISTINCT id, sslId, invoiceId, customerId, createdBy, SUM(amount) as Amount FROM ssl_commerce GROUP BY sslId";
 												$result = $conn->query($sql);
-											
 												if ($result->num_rows > 0) {
-  												while($row = $result->fetch_assoc()) {	
-													  $creditId = $row["id"];												  													 
-													echo "<tr><td>".$row["date"]."</td>
-                                                            <td>".$row["credit"]."</td> 
-															<td>".$row["creditComment"]."</td>
-															<td><a href='BrankCreditEdit.php?getCreditId=$creditId' class='btn btn-success'> Edit </a>
-															<a href='BrankCreditEdit.php?getCreditId=$creditId' class='btn btn-danger'> Delete </a><td>
+  												while($row = $result->fetch_assoc()) {
+                                                      $sslId = 	$row["sslId"];
+
+													echo "<tr>
+															<td>".$row["sslId"]."</td> 
+														 	<td>".$row["invoiceId"]."</td>
+															<td>".$row["customerId"]."</td>
+														 	<td>".$row["Amount"]."</td>
+                                                            <td>".$row["createdBy"]."</td>
+                                                            <td>".$row["createdDate"]."</td>
+                                                            <td><a href='BankDebitEdit.php?getSslId=$sslId' class='btn btn-success'> Edit </a><td>
 															</tr>";   											
 												  }
 												} else {
   												echo "0 results";
 											    }
-												?>
+											?>
 
 
 											</tbody>

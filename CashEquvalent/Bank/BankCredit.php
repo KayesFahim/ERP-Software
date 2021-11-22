@@ -1,6 +1,27 @@
 <?php
 
-include 'config.php';
+include '../config.php';
+
+$BankId = $_GET['getBankId'];
+
+
+//Employee Info
+$Bank_Name;
+$Bank_Branch;
+$Bank_Acccount;
+
+$sql = "SELECT * FROM `bank` WHERE bankId ='$BankId' ORDER By id DESC";
+$result = $conn->query($sql);
+if ($result->num_rows > 0) {
+	while($row = $result->fetch_assoc()) {
+		$Bank_Name = $row["bankname"];	
+        $Bank_Branch = $row["branchname"];	
+        $Bank_Acccount = $row["bankaccno"];       							
+ }
+}
+
+
+
 
 
 
@@ -13,7 +34,7 @@ include 'config.php';
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-	<title>Employees</title>
+	<title><?php echo $Bank_Name; ?> </title>
 	<!-- Favicon -->
 	<link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.png">
 	<!-- Bootstrap CSS -->
@@ -42,8 +63,7 @@ include 'config.php';
 					<img src="logo.png" alt="Logo">
 				</a>
 				<a href="index.php" class="logo logo-small">
-					<!-- <img src="assets/img/logo-small.png" alt="Logo" width="30" height="30"> -->
-					<h4>YOUR LOGO</h4>
+					<img src="logo.png" alt="Logo" width="30" height="30">
 				</a>
 			</div>
 			<!-- /Logo -->
@@ -201,10 +221,10 @@ include 'config.php';
 				<div class="page-header">
 					<div class="row">
 						<div class="col-sm-12">
-							<h3 class="page-title">Bank Details</h3>
+							<h3 class="page-title"><?php echo $Bank_Name; ?>  Details</h3>
 							<ul class="breadcrumb">
 								<li class="breadcrumb-item"><a href="Employees.php">Dashboard</a></li>
-								<li class="breadcrumb-item active">Bank Details</li>
+								<li class="breadcrumb-item active"><?php echo $Bank_Name; ?> Details</li>
 							</ul>
 						</div>
 					</div>
@@ -218,21 +238,21 @@ include 'config.php';
 					<div class="col-md-12">
 							<div class="card">
 								<div class="card-header">
-									<h4 class="card-title">Bank Details</h4>
-									<div class="text-right">
-										<a href="AddNewBank.php" class="btn btn-primary"> Add +</a>
-									</div>
+									<h4 class="card-title">Account Details</h4>
+
 								</div>
+                                
 								
 								<div class="card-body">
+                                <h6><?php echo $Bank_Branch; ?> </h6>
+                                <h6>ACC/No: <?php echo $Bank_Acccount; ?> </h6>
 									<div class="table-responsive">
 										<table class="datatable table table-stripped">
 											<thead>
 												<tr>
-													<th>Bank Name</th>
-													<th>Account No</th>
-													<th>Branch</th>
-													<th>Amount</th>
+													<th>Credit Date</th>
+													<th>Credit Amount</th>
+													<th>Description</th>
 													<th>Action</th>
 												</tr>
 											</thead>
@@ -240,19 +260,18 @@ include 'config.php';
 
 												<?php
 
-												$sql = "SELECT DISTINCT id, bankId, bankname,bankaccno, branchname, SUM(credit-debit) as Amount FROM bank GROUP BY bankname";
+												$sql = "SELECT id, credit, creditComment, DATE(creditDate) as date FROM bank WHERE bankId ='$BankId' AND credit > 0 ORDER BY date ASC";
 												$result = $conn->query($sql);
-												$i=0;
+											
 												if ($result->num_rows > 0) {
   												while($row = $result->fetch_assoc()) {	
-													  $bankgetID = $row["bankId"];												  													 
-													echo "<tr><td>".$row["bankname"]."</td> 
-														 		<td>".$row["bankaccno"]."</td>
-																<td>".$row["branchname"]."</td>
-														 		<td>".$row["Amount"]."</td>
-																<td><a href='BankCredit.php?getBankId=$bankgetID' class='btn btn-success'> Credit </a>
-																<a href='BankDebit.php?getBankId=$bankgetID' class='btn btn-danger'> Debit </a><td>
-																 </tr>";   											
+													  $creditId = $row["id"];												  													 
+													echo "<tr><td>".$row["date"]."</td>
+                                                            <td>".$row["credit"]."</td> 
+															<td>".$row["creditComment"]."</td>
+															<td><a href='BrankCreditEdit.php?getCreditId=$creditId' class='btn btn-success'> Edit </a>
+															<a href='BrankCreditEdit.php?getCreditId=$creditId' class='btn btn-danger'> Delete </a><td>
+															</tr>";   											
 												  }
 												} else {
   												echo "0 results";
