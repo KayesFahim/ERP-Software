@@ -1,9 +1,46 @@
+<?php
+
+include 'config.php';
+
+
+//Employee Info
+
+$searchvar = $_GET['search'];
+
+
+if(!empty($searchvar)){
+$Customer_Name=" ";
+$Customer_Email=" ";
+$Customer_Address=" ";
+$Customer_Phone=" ";
+
+
+$sql = "SELECT * FROM customer where CustomerId='$searchvar' or phone='$searchvar'";
+$result = $conn->query($sql);
+if ($result->num_rows > 0) {
+	while($row = $result->fetch_assoc()) {
+        $Customer_Name = $row["name"];
+        $Customer_Email = $row["email"];
+        $Customer_Address = $row["address"];
+        $Customer_Phone = $row["phone"];     								
+	}
+} else {
+echo "No Result Found";
+ }
+}else{
+	$Customer_Name=" ";
+$Customer_Email=" ";
+$Customer_Address=" ";
+$Customer_Phone=" ";
+
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-	<title>Third Page</title>
+	<title>Add Money Reciept</title>
 	<!-- Favicon -->
 	<link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.png">
 	<!-- Bootstrap CSS -->
@@ -29,11 +66,10 @@
 			<!-- Logo -->
 			<div class="header-left">
 				<a href="index.php" class="logo">
-					<!-- <img src="assets/img/logo.png" alt="Logo"> -->
-					<h2>YOUR LOGO</h2>
+					 <img src="logo.png" alt="Logo">
 				</a>
 				<a href="index.php" class="logo logo-small">
-					<!-- <img src="assets/img/logo-small.png" alt="Logo" width="30" height="30"> -->
+					<img src="logo.png" alt="Logo" width="30" height="30">
 					<h4>YOUR LOGO</h4>
 				</a>
 			</div>
@@ -45,7 +81,7 @@
 
 			<div class="top-nav-search">
 				<form>
-					<input type="text" class="form-control" placeholder="Search here">
+					<input type="text" name="search" class="form-control" placeholder="Search here">
 					<button class="btn" type="submit"><i class="fa fa-search"></i></button>
 				</form>
 			</div>
@@ -216,7 +252,10 @@
 							<div class="col-md-12">
 								<div class="card">
 									<div class="card-header">
-										<h4 class="text-danger card-title">Vendor Details</h4>
+										<h4 class="text-danger card-title">Customer Details</h4>
+										<div class="text-right">
+											<a href="AddCustomer.php" class="btn btn-primary"> Add Customer</a>
+									</div>
 									</div>
 									<div class="card-body">
 										<form action="#">
@@ -227,19 +266,19 @@
 														<div class="col-md-3">
 															<div class="form-group">
 																<label>Name:</label>
-																<input type="text" class="form-control">
+																<input type="text" value="<?php echo $Customer_Name ?>" class="form-control">
 															</div>
 														</div>
 														<div class="col-md-3">
 															<div class="form-group">
 																<label>Email: </label>
-																<input type="email" class="form-control">
+																<input type="email" value="<?php echo $Customer_Email ?>" class="form-control">
 															</div>
 														</div>
 														<div class="col-md-3">
 															<div class="form-group">
-																<label>Expense No :</label>
-																<input type="number" class="form-control">
+																<label>Amount :</label>
+																<input type="number" name="amount" class="form-control">
 															</div>
 														</div>
 													</div>
@@ -247,22 +286,17 @@
 														<div class="col-md-3">
 															<div class="form-group">
 																<label>Phone :</label>
-																<input type="number" class="form-control">
+																<input type="number" value="<?php echo $Customer_Phone ?>" class="form-control">
 															</div>
 														</div>
 
-														<div class="col-md-3">
-															<div class="form-group">
-																<label>Date :</label>
-																<input type="date" class="form-control">
-															</div>
-														</div>
+
 													</div>
 													<div class="row">
 														<div class="col-md-6">
 															<div class="form-group">
 																<label>Address :</label>
-																<input type="text" class="form-control">
+																<input type="text" value="<?php echo $Customer_Address ?>" class="form-control">
 															</div>
 														</div>
 														<div class="col-md-3">
@@ -280,8 +314,11 @@
 																	<div class="col-lg-12">
 																		<select class="select form-control">
 																			<option>Select</option>
-																			<option value="1">Bank</option>
-																			<option value="2">Mobile Banking</option>
+																			<option value="1">Cash</option>
+																			<option value="2">Bank</option>
+																			<option value="3">Mobile Banking</option>
+																			<option value="3">SSL Commerce</option>
+
 																		</select>
 																	</div>
 																</div>
@@ -294,6 +331,8 @@
 																	<div class="col-lg-12">
 																		<select class="select form-control">
 																			<option>Total Payable</option>
+
+
 																			<option value="1">A+</option>
 																			<option value="2">O+</option>
 																			<option value="3">B+</option>
@@ -305,8 +344,8 @@
 														</div>
 														<div class="col-md-3">
 															<div class="form-group">
-																<label>Amount: </label>
-																<input type="number" class="form-control">
+																<label>Reference No:</label>
+																<input type="text" class="form-control">
 															</div>
 														</div>
 													</div>

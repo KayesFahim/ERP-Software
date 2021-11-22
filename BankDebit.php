@@ -21,11 +21,6 @@ if ($result->num_rows > 0) {
  }
 }
 
-
-
-
-
-
 ?>
 
 
@@ -35,7 +30,7 @@ if ($result->num_rows > 0) {
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-	<title><?php echo $Bank_Name; ?> </title>
+	<title>Bank Debit </title>
 	<!-- Favicon -->
 	<link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.png">
 	<!-- Bootstrap CSS -->
@@ -223,10 +218,10 @@ if ($result->num_rows > 0) {
 				<div class="page-header">
 					<div class="row">
 						<div class="col-sm-12">
-							<h3 class="page-title"><?php echo $Bank_Name; ?>  Details</h3>
+							<h3 class="page-title">Credit  Details</h3>
 							<ul class="breadcrumb">
 								<li class="breadcrumb-item"><a href="Employees.php">Dashboard</a></li>
-								<li class="breadcrumb-item active"><?php echo $Bank_Name; ?> Details</li>
+								<li class="breadcrumb-item active">Bank Credit</li>
 							</ul>
 						</div>
 					</div>
@@ -271,8 +266,8 @@ if ($result->num_rows > 0) {
 													echo "<tr><td>".$row["date"]."</td>
                                                             <td>".$row["debit"]."</td> 
 															<td>".$row["debitComment"]."</td>
-															<td><a href='BankCredit.php?getCreditId=$creditId' class='btn btn-success'> Edit </a>
-															<a href='BankDebit.php?getCreditId=$creditId' class='btn btn-danger'> Delete </a><td>
+															<td><a href='BankDebitEdit.php?getDebitId=$creditId' class='btn btn-success'> Edit </a>
+															<a href='BankDebitEdit.php?getDebitId=$creditId' class='btn btn-danger'> Delete </a><td>
 															</tr>";   											
 												  }
 												} else {

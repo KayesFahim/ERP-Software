@@ -12,7 +12,7 @@ include 'config.php';
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-	<title>Employees</title>
+	<title>Portal</title>
 	<!-- Favicon -->
 	<link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.png">
 	<!-- Bootstrap CSS -->
@@ -228,7 +228,6 @@ include 'config.php';
 										<table class="datatable table table-stripped">
 											<thead>
 												<tr>
-													<th>No</th>
 													<th>Portal Name</th>
 													<th>Username</th>
 													<th>Amount</th>
@@ -239,15 +238,16 @@ include 'config.php';
 
 												<?php
 
-												$sql = "SELECT id, EMP_ID, email, name, phone, department FROM bank ORDER BY ID DESC";
+												
+												$sql = "SELECT DISTINCT id, portalname, banusername, SUM(crcashIn-cashOut) as Amount FROM portal_balance GROUP BY portalname";
 												$result = $conn->query($sql);
 												if ($result->num_rows > 0) {
   												while($row = $result->fetch_assoc()) {													  													 
-													echo "<tr><td>".$row["EMP_ID"]."</td>
-															<td>".$row["name"]."</td> 
-														 	<td>".$row["email"]."</td>
+													echo "<tr>
+															<td>".$row["portalname"]."</td> 
+														 	<td>".$row["username"]."</td>
 															<td>".$row["phone"]."</td>
-														 	<td>".$row["department"]."</td>
+														 	<td>".$row["Amount"]."</td>
 															<td><a href='UpdateEmployee.php' class='btn btn-primary'> View </a><td>
 															</tr>";   											
 												  }

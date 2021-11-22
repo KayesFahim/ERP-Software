@@ -227,10 +227,10 @@ echo "0 results";
 				<div class="page-header">
 					<div class="row">
 						<div class="col-sm-12">
-							<h3 class="page-title">Add New bank</h3>
+							<h3 class="page-title">Edit Credit Details</h3>
 							<ul class="breadcrumb">
 								<li class="breadcrumb-item"><a href="invoice.php">Dashboard</a></li>
-								<li class="breadcrumb-item active">Add New Bank</li>
+								<li class="breadcrumb-item active">Credit</li>
 							</ul>
 						</div>
 					</div>
@@ -246,7 +246,7 @@ echo "0 results";
 							<div class="col-md-12">
 								<div class="card">
 									<div class="card-header">
-										<h4 class="text-danger card-title">Bank Information</h4>
+										<h4 class="text-danger card-title">Credit Information</h4>
 									</div>
                                     
 									<div class="card-body">
@@ -299,7 +299,7 @@ echo "0 results";
 														</div>
 											</div>
 											<div class="text-right">
-												<button type="submit" class="btn btn-primary"> Create </button>
+												<button type="submit" class="btn btn-primary"> Edit </button>
 											</div>
 										</form>
 									</div>

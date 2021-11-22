@@ -63,8 +63,7 @@ if ($result->num_rows > 0) {
 					<img src="logo.png" alt="Logo">
 				</a>
 				<a href="index.php" class="logo logo-small">
-					<!-- <img src="assets/img/logo-small.png" alt="Logo" width="30" height="30"> -->
-					<h4>YOUR LOGO</h4>
+					<img src="logo.png" alt="Logo" width="30" height="30">
 				</a>
 			</div>
 			<!-- /Logo -->

@@ -12,7 +12,7 @@ include 'config.php';
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-	<title>Employees</title>
+	<title>Money Reciept</title>
 	<!-- Favicon -->
 	<link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.png">
 	<!-- Bootstrap CSS -->
@@ -233,20 +233,31 @@ include 'config.php';
 													<th>Amount</th>
 													<th>Created By</th>
 													<th>Customer</th>
+													<th>Reference No</th>
 													<th>Action</th>
 												</tr>
 											</thead>
 											<tbody>
-											<tr>
-													<td>1</td>
-													<td>10 Minutes Ago</td>
-													<td>10,10000</td>
-													<td>Ali</td>
-													<td>Xyz</td>
-													<td><a href='UpdateEmployee.php' class='btn btn-success'> Edit </a> 
-													<a href='UpdateEmployee.php' class='btn btn-danger'> View </a><td>
-												</tr>
+											<?php
 
+												$sql = "SELECT `recieptNo`, `createdBy`, `customerId`, `issueDate`, `TxId`, `amount` FROM `moneyreciept` ORDER BY id DESC";
+												$result = $conn->query($sql);
+
+												if ($result->num_rows > 0) {
+  												while($row = $result->fetch_assoc()) {													  
+													echo "<tr><td>".$row["recieptNo"]."</td>
+																<td>".$row["issueDate"]."</td> 
+														 		<td>".$row["amount"]."</td>
+																<td>".$row["createdBy"]."</td>
+														 		<td>".$row["customerId"]."</td>
+																 <td>".$row["TxId"]."</td>
+																<td><a href='UpdateEmployee.php?empId=$' class='btn btn-primary'> View </a><td>
+																 </tr>";   											
+												  }
+												} else {
+  												echo "0 results";
+											    }
+												?>
 											</tbody>
 										</table>
 									</div>

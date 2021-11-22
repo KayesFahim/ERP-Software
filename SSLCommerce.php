@@ -2,48 +2,6 @@
 
 include 'config.php';
 
-$bank = "SELECT SUM(credit - debit) as amount from bank";
-$mobilebanking = "SELECT SUM(credit - debit) as amount from bank";
-$portal = "SELECT SUM(credit - debit) as amount from bank";
-
-
-
-
-$result = $conn->query($bank);
-$result1 = $conn->query($mobilebanking);
-$result2 = $conn->query($portal);
-
-$Bank_Amount; $MobileBanking_Amount; $PortalAmount; $SSL_Amount=0; $Cash=0;
-
-if ($result->num_rows > 0) {
-	while($row = $result->fetch_assoc()) {
-		$Bank_Amount = $row["amount"];
-
-	}
-}
-
-// Mobile banking
-
-if ($result1->num_rows > 0) {
-	while($row = $result1->fetch_assoc()) {
-
-	$MobileBanking_Amount = $row["amount"];
-		
-	}
-}
-
-//Portal Balanced
-
-if ($result2->num_rows > 0) {
-	while($row = $result2->fetch_assoc()) {
-		$PortalAmount = $row["amount"];
-
-
-
-	}
-}
-
-
 
 ?>
 
@@ -53,7 +11,7 @@ if ($result2->num_rows > 0) {
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-	<title>Cash And Cash Equivalent</title>
+	<title>SSL Commerce</title>
 	<!-- Favicon -->
 	<link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.png">
 	<!-- Bootstrap CSS -->
@@ -171,8 +129,8 @@ if ($result2->num_rows > 0) {
 		</div>
 		<!-- /Header -->
 
-		<!-- Sidebar -->
-		<div class="sidebar" id="sidebar">
+		 <!-- Sidebar -->
+		 <div class="sidebar" id="sidebar">
             <div class="sidebar-inner slimscroll">
                 <div id="sidebar-menu" class="sidebar-menu">
                     <ul>
@@ -192,6 +150,9 @@ if ($result2->num_rows > 0) {
                             <a href="Bill.php"><i class="fe fe-layout"></i> <span>Bill</span></a>
                         </li>
                         <li>
+                            <a href="expense.php"><i class="fe fe-layout"></i> <span>Expense</span></a>
+                        </li>
+						<li>
 							<a data-toggle="dropdown"><i class="fe fe-layout"></i> <span>Accounting</span></a>
 								<ul>
 									<li><a href="CashEquivalent.php"><i class="fe fe-layout"></i> <span>Cash And Cash</span></a></li>
@@ -199,9 +160,6 @@ if ($result2->num_rows > 0) {
 									<li><a href="#"><i class="fe fe-layout"></i> Portal</a></li>
 								</ul>
 						</li>
-                        <li>
-                            <a href="expense.php"><i class="fe fe-layout"></i> <span>Expense</span></a>
-                        </li>
                         <li>
                             <a href="moneyReceipt.php"><i class="fe fe-layout"></i> <span>Money Receipt</span></a>
                         </li>
@@ -225,7 +183,7 @@ if ($result2->num_rows > 0) {
                         <li>
                             <a href="refund.php"><i class="fe fe-layout"></i> <span>Refund</span></a>
                         </li>
-                        
+
                     </ul>
                 </div>
             </div>
@@ -241,10 +199,10 @@ if ($result2->num_rows > 0) {
 				<div class="page-header">
 					<div class="row">
 						<div class="col-sm-12">
-							<h3 class="page-title">Cash Equivalent</h3>
+							<h3 class="page-title">Portal </h3>
 							<ul class="breadcrumb">
 								<li class="breadcrumb-item"><a href="Employees.php">Dashboard</a></li>
-								<li class="breadcrumb-item active">cash And cash Equivalent</li>
+								<li class="breadcrumb-item active">Portal</li>
 							</ul>
 						</div>
 					</div>
@@ -258,7 +216,10 @@ if ($result2->num_rows > 0) {
 					<div class="col-md-12">
 							<div class="card">
 								<div class="card-header">
-									<h4 class="card-title">Cash Details</h4>									
+									<h4 class="card-title">Portal Detail</h4>
+									<div class="text-right">
+										<a href="AddEmployee.php" class="btn btn-primary"> Add +</a>
+									</div>
 								</div>
 								
 								<div class="card-body">
@@ -266,42 +227,38 @@ if ($result2->num_rows > 0) {
 										<table class="datatable table table-stripped">
 											<thead>
 												<tr>
-													<th>Item No: </th>
-													<th>Account Type</th>
+													<th>SSL No:</th>
+													<th>invoiceId</th>
 													<th>Amount</th>
+                                                    <th>Username</th>
+													<th>createdDate</th>
 													<th>Action</th>
 												</tr>
 											</thead>
 											<tbody>
 
-												<tr>
-												<td>01</td>
-												<td>Bank</td> 
-												<td><?php echo $Bank_Amount ?></td>												
-												<td><a href='Bank.php' class='btn btn-primary'> View </a><td>
-												</tr>
-												<tr><td>02</td>
-												<td>Mobile Banking</td> 
-												<td><?php echo $MobileBanking_Amount ?></td>
-												<td><a href='MobileBanking.php' class='btn btn-primary'> View </a><td>
-												</tr>
-												<tr>
-												<td>03</td>
-												<td>Portal</td>
-												<td><?php echo $PortalAmount ?></td>
-												<td><a href='Portal.php' class='btn btn-primary'> View </a><td></tr>
-												<tr>
-												<td>04</td>
-												<td>SSL Commerce</td>
-												<td><?php echo $SSL_Amount ?></td>
-												<td><a href='Portal.php' class='btn btn-primary'> View </a><td>
-												</tr>
-												<tr>
-												<td>05</td>
-												<td>Hand Cash</td>
-												<td><?php echo $Cash ?></td>
-												<td><a href='Portal.php' class='btn btn-primary'> View </a><td>
-												</tr>
+											<?php												
+												$sql = "SELECT DISTINCT id, sslId, invoiceId, customerId, createdBy, SUM(amount) as Amount FROM ssl_commerce GROUP BY sslId";
+												$result = $conn->query($sql);
+												if ($result->num_rows > 0) {
+  												while($row = $result->fetch_assoc()) {
+                                                      $sslId = 	$row["sslId"];
+
+													echo "<tr>
+															<td>".$row["sslId"]."</td> 
+														 	<td>".$row["invoiceId"]."</td>
+															<td>".$row["customerId"]."</td>
+														 	<td>".$row["Amount"]."</td>
+                                                            <td>".$row["createdBy"]."</td>
+                                                            <td>".$row["createdDate"]."</td>
+                                                            <td><a href='BankDebitEdit.php?getSslId=$sslId' class='btn btn-success'> Edit </a><td>
+															</tr>";   											
+												  }
+												} else {
+  												echo "0 results";
+											    }
+											?>
+
 
 											</tbody>
 										</table>
