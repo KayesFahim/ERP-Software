@@ -278,29 +278,29 @@ if ($result2->num_rows > 0) {
 												<td>01</td>
 												<td>Bank</td> 
 												<td><?php echo $Bank_Amount ?></td>												
-												<td><a href='Bank.php' class='btn btn-primary'> View </a><td>
+												<td><a href='CashEquvalent/Bank.php' class='btn btn-primary'> View </a><td>
 												</tr>
 												<tr><td>02</td>
 												<td>Mobile Banking</td> 
 												<td><?php echo $MobileBanking_Amount ?></td>
-												<td><a href='MobileBanking.php' class='btn btn-primary'> View </a><td>
+												<td><a href='CashEquvalent/MobileBanking.php' class='btn btn-primary'> View </a><td>
 												</tr>
 												<tr>
 												<td>03</td>
 												<td>Portal</td>
 												<td><?php echo $PortalAmount ?></td>
-												<td><a href='Portal.php' class='btn btn-primary'> View </a><td></tr>
+												<td><a href='CashEquvalent/Portal.php' class='btn btn-primary'> View </a><td></tr>
 												<tr>
 												<td>04</td>
 												<td>SSL Commerce</td>
 												<td><?php echo $SSL_Amount ?></td>
-												<td><a href='Portal.php' class='btn btn-primary'> View </a><td>
+												<td><a href='CashEquvalent/SSLCommerce.php' class='btn btn-primary'> View </a><td>
 												</tr>
 												<tr>
 												<td>05</td>
 												<td>Hand Cash</td>
 												<td><?php echo $Cash ?></td>
-												<td><a href='Portal.php' class='btn btn-primary'> View </a><td>
+												<td><a href='CashEquvalent/HandCash.php' class='btn btn-primary'> View </a><td>
 												</tr>
 
 											</tbody>

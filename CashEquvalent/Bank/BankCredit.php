@@ -36,17 +36,15 @@ if ($result->num_rows > 0) {
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
 	<title><?php echo $Bank_Name; ?> </title>
 	<!-- Favicon -->
-	<link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.png">
+	<link rel="shortcut icon" type="image/x-icon" href="../assets/img/favicon.png">
 	<!-- Bootstrap CSS -->
-	<link rel="stylesheet" href="assets/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../assets/css/bootstrap.min.css">
 	<!-- Fontawesome CSS -->
-	<link rel="stylesheet" href="assets/css/font-awesome.min.css">
+	<link rel="stylesheet" href="../assets/css/font-awesome.min.css">
 	<!-- Feathericon CSS -->
-	<link rel="stylesheet" href="assets/css/feathericon.min.css">
-	<!-- Datatables CSS -->
-	<link rel="stylesheet" href="assets/plugins/datatables/datatables.min.css">
+	<link rel="stylesheet" href="../assets/css/feathericon.min.css">
 	<!-- Main CSS -->
-	<link rel="stylesheet" href="assets/css/style.css">
+	<link rel="stylesheet" href="../assets/css/style.css">
 
 </head>
 <body>
@@ -269,8 +267,8 @@ if ($result->num_rows > 0) {
 													echo "<tr><td>".$row["date"]."</td>
                                                             <td>".$row["credit"]."</td> 
 															<td>".$row["creditComment"]."</td>
-															<td><a href='BrankCreditEdit.php?getCreditId=$creditId' class='btn btn-success'> Edit </a>
-															<a href='BrankCreditEdit.php?getCreditId=$creditId' class='btn btn-danger'> Delete </a><td>
+															<td><a href='CashEquvalent/Bank/BrankCreditEdit.php?getCreditId=$creditId' class='btn btn-success'> Edit </a>
+															<a href='CashEquvalent/Bank/BrankCreditEdit.php?getCreditId=$creditId' class='btn btn-danger'> Delete </a><td>
 															</tr>";   											
 												  }
 												} else {

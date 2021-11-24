@@ -1,32 +1,25 @@
 <?php
-require_once "config.php";
-
-
-
-?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Welcome</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <style>
-        body{ font: 14px sans-serif; text-align: center; }
-    </style>
-</head>
-<body>
-    <h1 class="my-5">Hi, <b><?php echo $token_id; ?></b>. Welcome to our site.</h1>
-    <h6> <?php 
-    foreach($value as $x){
-        echo $x;
-        echo '</br>';
-
+if(isset($_POST['select1'])){
+    $select1 = $_POST['select1'];
+    switch ($select1) {
+        case 'value1':
+            echo 'this is value1<br/>';
+            break;
+        case 'value2':
+            echo 'value2<br/>';
+            break;
+        default:
+            # code...
+            break;
     }
-     
-    ?> </6>
-    <p>
-        <a href="reset-password.php" class="btn btn-warning">Reset Your Password</a>
-        <a href="logout.php" class="btn btn-danger ml-3">Sign Out of Your Account</a>
-    </p>
-</body>
-</html>
+}
+?>
+
+
+<form action="" method="post">
+    <select name="select1">
+        <option value="value1">Value 1</option>
+        <option value="value2">Value 2</option>
+    </select>
+    <input type="submit" name="submit" value="Go"/>
+</form>

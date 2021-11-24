@@ -2,9 +2,7 @@
 
 include 'config.php';
 
-
 ?>
-
 
 
 <!DOCTYPE html>
@@ -27,6 +25,7 @@ include 'config.php';
 	<link rel="stylesheet" href="assets/css/style.css">
 
 </head>
+
 <body>
 	
 	<!-- Main Wrapper -->
@@ -259,7 +258,7 @@ include 'config.php';
 														 		<td>".$row["email"]."</td>
 																<td>".$row["phone"]."</td>
 														 		<td>".$row["department"]."</td>
-																<td><a href='UpdateEmployee.php?empId=$encryption' class='btn btn-primary'> View </a><td>
+																<td><a href='Employee/UpdateEmployee.php?empId=$encryption' class='btn btn-primary'> View </a><td>
 																 </tr>";   											
 												  }
 												} else {

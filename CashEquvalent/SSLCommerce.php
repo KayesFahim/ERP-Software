@@ -13,17 +13,16 @@ include '../config.php';
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
 	<title>SSL Commerce</title>
 	<!-- Favicon -->
-	<link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.png">
+	<!-- Favicon -->
+	<link rel="shortcut icon" type="image/x-icon" href="../assets/img/favicon.png">
 	<!-- Bootstrap CSS -->
-	<link rel="stylesheet" href="assets/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../assets/css/bootstrap.min.css">
 	<!-- Fontawesome CSS -->
-	<link rel="stylesheet" href="assets/css/font-awesome.min.css">
+	<link rel="stylesheet" href="../assets/css/font-awesome.min.css">
 	<!-- Feathericon CSS -->
-	<link rel="stylesheet" href="assets/css/feathericon.min.css">
-	<!-- Datatables CSS -->
-	<link rel="stylesheet" href="assets/plugins/datatables/datatables.min.css">
+	<link rel="stylesheet" href="../assets/css/feathericon.min.css">
 	<!-- Main CSS -->
-	<link rel="stylesheet" href="assets/css/style.css">
+	<link rel="stylesheet" href="../assets/css/style.css">
 
 </head>
 <body>
@@ -138,19 +137,19 @@ include '../config.php';
                             <span>Main</span>
                         </li>
                         <li>
-                            <a href="dashboard.php"><i class="fe fe-home"></i> <span>Dashboard</span></a>
+                            <a href="../dashboard.php"><i class="fe fe-home"></i> <span>Dashboard</span></a>
                         </li>
                         <li>
-                            <a href="salesQuotation.php"><i class="fe fe-layout"></i> <span>Sales Quotation</span></a>
+                            <a href="../salesQuotation.php"><i class="fe fe-layout"></i> <span>Sales Quotation</span></a>
                         </li>
                         <li>
-                            <a href="invoice.php"><i class="fe fe-layout"></i> <span>Invoice</span></a>
+                            <a href="../invoice.php"><i class="fe fe-layout"></i> <span>Invoice</span></a>
                         </li>
                         <li>
-                            <a href="Bill.php"><i class="fe fe-layout"></i> <span>Bill</span></a>
+                            <a href="../Bill.php"><i class="fe fe-layout"></i> <span>Bill</span></a>
                         </li>
                         <li>
-                            <a href="expense.php"><i class="fe fe-layout"></i> <span>Expense</span></a>
+                            <a href="../expense.php"><i class="fe fe-layout"></i> <span>Expense</span></a>
                         </li>
 						<li>
 							<a data-toggle="dropdown"><i class="fe fe-layout"></i> <span>Accounting</span></a>
@@ -161,20 +160,20 @@ include '../config.php';
 								</ul>
 						</li>
                         <li>
-                            <a href="moneyReceipt.php"><i class="fe fe-layout"></i> <span>Money Receipt</span></a>
+                            <a href="../moneyReceipt.php"><i class="fe fe-layout"></i> <span>Money Receipt</span></a>
                         </li>
 
                         <li>
-                            <a href="payment.php"><i class="fe fe-layout"></i> <span>Payment</span></a>
+                            <a href="../payment.php"><i class="fe fe-layout"></i> <span>Payment</span></a>
                         </li>
                         <li>
-                            <a href="transfer.php"><i class="fe fe-layout"></i> <span>Transfer</span></a>
+                            <a href="../transfer.php"><i class="fe fe-layout"></i> <span>Transfer</span></a>
                         </li>
                         <li>
-                            <a href="project.php"><i class="fe fe-layout"></i> <span>Project</span></a>
+                            <a href="../project.php"><i class="fe fe-layout"></i> <span>Project</span></a>
                         </li>
                         <li>
-                            <a href="employees.php"><i class="fe fe-layout"></i> <span>Employees</span></a>
+                            <a href="../employees.php"><i class="fe fe-layout"></i> <span>Employees</span></a>
                         </li>
                         <li>
                             <a href="Report.php"><i class="fe fe-layout"></i> <span>Report</span></a>

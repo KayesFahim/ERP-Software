@@ -41,7 +41,7 @@ include 'config.php';
 					<img src="logo.png" alt="Logo">
 				</a>
 				<a href="index.php" class="logo logo-small">
-					<!-- <img src="assets/img/logo-small.png" alt="Logo" width="30" height="30"> -->
+					<img src="assets/img/logo-small.png" alt="Logo" width="30" height="30"> -->
 					<h4>YOUR LOGO</h4>
 				</a>
 			</div>
@@ -219,7 +219,7 @@ include 'config.php';
 								<div class="card-header">
 									<h4 class="card-title">Money Reciept Details</h4>
 									<div class="text-right">
-										<a href="AddMoneyReciept.php" class="btn btn-primary"> Create +</a>
+										<a href="Moneyreciept/AddMoneyReciept.php" class="btn btn-primary"> Create +</a>
 									</div>
 								</div>
 								
@@ -240,18 +240,19 @@ include 'config.php';
 											<tbody>
 											<?php
 
-												$sql = "SELECT `recieptNo`, `createdBy`, `customerId`, `issueDate`, `TxId`, `amount` FROM `moneyreciept` ORDER BY id DESC";
+												$sql = "SELECT recieptNo, createdBy, customerId, issueDate, TxId, amount, paymentMethod, paymentId   FROM `moneyreciept` ORDER BY id DESC";
 												$result = $conn->query($sql);
 
 												if ($result->num_rows > 0) {
-  												while($row = $result->fetch_assoc()) {													  
+  												while($row = $result->fetch_assoc()) {	
+													$Rno = $row["recieptNo"];
 													echo "<tr><td>".$row["recieptNo"]."</td>
 																<td>".$row["issueDate"]."</td> 
 														 		<td>".$row["amount"]."</td>
 																<td>".$row["createdBy"]."</td>
 														 		<td>".$row["customerId"]."</td>
 																 <td>".$row["TxId"]."</td>
-																<td><a href='UpdateEmployee.php?empId=$' class='btn btn-primary'> View </a><td>
+																<td><a href='Moneyreciept/Invoice.php?Rno=$Rno' class='btn btn-primary'> View </a><td>
 																 </tr>";   											
 												  }
 												} else {
