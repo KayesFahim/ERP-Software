@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.0
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 19, 2021 at 05:13 AM
--- Server version: 10.4.18-MariaDB
--- PHP Version: 8.0.3
+-- Generation Time: Nov 25, 2021 at 06:20 PM
+-- Server version: 10.4.21-MariaDB
+-- PHP Version: 8.0.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -20,6 +20,86 @@ SET time_zone = "+00:00";
 --
 -- Database: `erp`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `bank`
+--
+
+CREATE TABLE `bank` (
+  `id` int(10) NOT NULL,
+  `bankId` varchar(20) NOT NULL,
+  `bankname` varchar(100) NOT NULL,
+  `branchname` varchar(200) NOT NULL,
+  `bankaccno` varchar(100) NOT NULL,
+  `credit` int(100) NOT NULL,
+  `creditDate` date NOT NULL,
+  `creditComment` varchar(255) NOT NULL,
+  `debit` int(100) NOT NULL,
+  `debitDate` date NOT NULL,
+  `debitComment` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `bank`
+--
+
+INSERT INTO `bank` (`id`, `bankId`, `bankname`, `branchname`, `bankaccno`, `credit`, `creditDate`, `creditComment`, `debit`, `debitDate`, `debitComment`) VALUES
+(1, 'BNK-001', 'City Bank Limited', 'Jamuna Future Park', '1502553140001\n', 500000, '2021-11-21', 'Get from 5 customer', 0, '0000-00-00', ''),
+(2, 'BNK-002', 'Brac Bank ', 'Bashundhora Branch', '1521204262962001', 0, '0000-00-00', '', 200000, '2021-11-14', 'Portal Transfer'),
+(3, 'BNK-003', 'Islami Bank', 'Baridhara Branch', '20503420100141709', 1000000000, '0000-00-00', 'Ok', 0, '0000-00-00', ''),
+(4, 'BNK-004', 'Sonali Bank', 'Baridhara Branch', '0108102000695', 10000000, '0000-00-00', 'Ok', 0, '0000-00-00', ''),
+(5, 'BNK-005', 'Dutch Bangla Bank', 'Baridhara Branch', '147.110.16468\n', 10000000, '0000-00-00', 'Ok', 0, '0000-00-00', ''),
+(6, 'BNK-006', 'Commercial Bank ', 'Progati Sharani SME Branch ', '1813001751', 10000000, '0000-00-00', 'Ok', 0, '0000-00-00', ''),
+(7, 'BNK-007', 'NCC Bank', 'Bashundhora Branch', '00960210002554', 10000000, '0000-00-00', 'Ok', 0, '0000-00-00', ''),
+(8, 'BNK-008', 'Modhumoti Bank', 'Sheikh Kamal Sarani Branch', '112011100000223', 0, '0000-00-00', '', 0, '0000-00-00', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cash`
+--
+
+CREATE TABLE `cash` (
+  `id` int(50) NOT NULL,
+  `InvoiceId` varchar(100) NOT NULL,
+  `Amount` int(100) NOT NULL,
+  `createdBy` varchar(100) NOT NULL,
+  `createdDate` date NOT NULL,
+  `customerId` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `cash`
+--
+
+INSERT INTO `cash` (`id`, `InvoiceId`, `Amount`, `createdBy`, `createdDate`, `customerId`) VALUES
+(1, 'INV-1001', 60000, 'Ashik', '2021-11-22', 'CSR-001'),
+(2, 'INV-1002', 50000, 'Fahim', '2021-11-22', 'CSR-002');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `customer`
+--
+
+CREATE TABLE `customer` (
+  `id` int(50) NOT NULL,
+  `CustomerId` varchar(30) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `phone` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `address` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `customer`
+--
+
+INSERT INTO `customer` (`id`, `CustomerId`, `name`, `phone`, `email`, `address`) VALUES
+(1, 'CSR-001', 'Xyz', '0187349283', 'abc@gmail.com', 'Basundhara'),
+(2, 'CSR-002', 'Abc', '0121728934', 'abc@gmail.com', 'Jamuna');
 
 -- --------------------------------------------------------
 
@@ -143,32 +223,126 @@ INSERT INTO `emp_jobinfo` (`id`, `EMP_ID`, `jobType`, `designation`, `salary`, `
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `mobile_banking`
+--
+
+CREATE TABLE `mobile_banking` (
+  `id` int(10) NOT NULL,
+  `MB_ID` varchar(50) NOT NULL,
+  `mb_operator` varchar(100) NOT NULL,
+  `mb_number` varchar(100) NOT NULL,
+  `cashIn` int(100) NOT NULL,
+  `cashInDate` date NOT NULL,
+  `cashInTxId` varchar(100) NOT NULL,
+  `cashOut` int(100) NOT NULL,
+  `cashOutDate` date NOT NULL,
+  `cashOutTxId` varchar(100) NOT NULL,
+  `cashInComment` varchar(255) NOT NULL,
+  `cashOutComment` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `moneyreciept`
+--
+
+CREATE TABLE `moneyreciept` (
+  `id` int(50) NOT NULL,
+  `recieptNo` varchar(100) NOT NULL,
+  `createdBy` varchar(100) NOT NULL,
+  `customerId` varchar(100) NOT NULL,
+  `issueDate` date NOT NULL,
+  `TxId` varchar(100) NOT NULL,
+  `amount` int(100) NOT NULL,
+  `paymentMethod` varchar(100) NOT NULL,
+  `paymentId` varchar(100) NOT NULL,
+  `comment` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `moneyreciept`
+--
+
+INSERT INTO `moneyreciept` (`id`, `recieptNo`, `createdBy`, `customerId`, `issueDate`, `TxId`, `amount`, `paymentMethod`, `paymentId`, `comment`) VALUES
+(1, 'RCP-1001', 'Ashik Rahman', 'CSR-001', '2021-11-22', 'Texfidgvv', 30000, 'Bank', '1', '2 Dhaka To Dubai AIr Tiocket'),
+(2, 'RCP-1002', 'Fahim', 'CSR-002', '2021-11-22', 'fyhsfguyws', 40000, 'Mobile Banking', '1', '1 Air Ticket');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `portal_balance`
+--
+
+CREATE TABLE `portal_balance` (
+  `id` int(10) NOT NULL,
+  `portal_Id` varchar(100) NOT NULL,
+  `portalname` varchar(255) NOT NULL,
+  `username` varchar(100) NOT NULL,
+  `cashIn` int(100) NOT NULL,
+  `cashIndate` date NOT NULL,
+  `cashInTxId` varchar(100) NOT NULL,
+  `cashInComment` varchar(255) NOT NULL,
+  `cashOut` int(100) NOT NULL,
+  `cashOutDate` date NOT NULL,
+  `cashOutTxId` varchar(100) NOT NULL,
+  `cashOutComment` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ssl_commerce`
+--
+
+CREATE TABLE `ssl_commerce` (
+  `id` int(50) NOT NULL,
+  `sslId` varchar(30) NOT NULL,
+  `invoiceId` varchar(100) NOT NULL,
+  `amount` int(100) NOT NULL,
+  `createdDate` date NOT NULL,
+  `createdBy` varchar(100) NOT NULL,
+  `customerId` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `vendor`
 --
 
 CREATE TABLE `vendor` (
-  `id` int(10) NOT NULL,
-  `name` varchar(30) NOT NULL,
-  `address` varchar(100) NOT NULL,
-  `phone` varchar(20) NOT NULL,
-  `authoity` varchar(20) NOT NULL,
-  `email` varchar(30) NOT NULL,
-  `debit` int(255) NOT NULL,
-  `credit` int(255) NOT NULL,
-  `balance` int(11) NOT NULL
+  `id` int(100) NOT NULL,
+  `vendorId` varchar(100) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `phone` varchar(30) NOT NULL,
+  `company` varchar(100) NOT NULL,
+  `address` varchar(255) NOT NULL,
+  `conPername` varchar(100) NOT NULL,
+  `conPerPhone` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `vendor`
---
-
-INSERT INTO `vendor` (`id`, `name`, `address`, `phone`, `authoity`, `email`, `debit`, `credit`, `balance`) VALUES
-(1, 'Travelzoo Bangladesh Ltd.', 'Happy Arcade Shopping Mall, 2nd FLR, Suite 33, Holding 3 Rd No. 3, Dhaka 1205', '01678-569291', 'Mr. Murshed', 'service@zooholiday.com', 0, 0, 0),
-(2, '', '', '', '', '', 0, 0, 0);
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `bank`
+--
+ALTER TABLE `bank`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `cash`
+--
+ALTER TABLE `cash`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `customer`
+--
+ALTER TABLE `customer`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `employee`
@@ -195,6 +369,30 @@ ALTER TABLE `emp_jobinfo`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `mobile_banking`
+--
+ALTER TABLE `mobile_banking`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `moneyreciept`
+--
+ALTER TABLE `moneyreciept`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `portal_balance`
+--
+ALTER TABLE `portal_balance`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `ssl_commerce`
+--
+ALTER TABLE `ssl_commerce`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `vendor`
 --
 ALTER TABLE `vendor`
@@ -203,6 +401,24 @@ ALTER TABLE `vendor`
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `bank`
+--
+ALTER TABLE `bank`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `cash`
+--
+ALTER TABLE `cash`
+  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `customer`
+--
+ALTER TABLE `customer`
+  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `employee`
@@ -220,7 +436,7 @@ ALTER TABLE `employee_academicinfo`
 -- AUTO_INCREMENT for table `employee_info`
 --
 ALTER TABLE `employee_info`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `emp_jobinfo`
@@ -229,10 +445,34 @@ ALTER TABLE `emp_jobinfo`
   MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT for table `mobile_banking`
+--
+ALTER TABLE `mobile_banking`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `moneyreciept`
+--
+ALTER TABLE `moneyreciept`
+  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `portal_balance`
+--
+ALTER TABLE `portal_balance`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `ssl_commerce`
+--
+ALTER TABLE `ssl_commerce`
+  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `vendor`
 --
 ALTER TABLE `vendor`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
