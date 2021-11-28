@@ -10,6 +10,7 @@ $Bank_Name;
 $Bank_Branch;
 $Bank_Acccount;
 
+
 $sql = "SELECT * FROM `bank` WHERE bankId ='$BankId' ORDER By id DESC";
 $result = $conn->query($sql);
 if ($result->num_rows > 0) {
@@ -20,11 +21,6 @@ if ($result->num_rows > 0) {
  }
 }
 
-
-
-
-
-
 ?>
 
 
@@ -34,7 +30,7 @@ if ($result->num_rows > 0) {
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-	<title><?php echo $Bank_Name; ?> </title>
+	<title>Bank Debit </title>
 	<!-- Favicon -->
 	<link rel="shortcut icon" type="image/x-icon" href="../assets/img/favicon.png">
 	<!-- Bootstrap CSS -->
@@ -61,7 +57,8 @@ if ($result->num_rows > 0) {
 					<img src="logo.png" alt="Logo">
 				</a>
 				<a href="index.php" class="logo logo-small">
-					<img src="logo.png" alt="Logo" width="30" height="30">
+					<!-- <img src="assets/img/logo-small.png" alt="Logo" width="30" height="30"> -->
+					<h4>YOUR LOGO</h4>
 				</a>
 			</div>
 			<!-- /Logo -->
@@ -219,10 +216,10 @@ if ($result->num_rows > 0) {
 				<div class="page-header">
 					<div class="row">
 						<div class="col-sm-12">
-							<h3 class="page-title"><?php echo $Bank_Name; ?>  Details</h3>
+							<h3 class="page-title">Credit  Details</h3>
 							<ul class="breadcrumb">
 								<li class="breadcrumb-item"><a href="Employees.php">Dashboard</a></li>
-								<li class="breadcrumb-item active"><?php echo $Bank_Name; ?> Details</li>
+								<li class="breadcrumb-item active">Bank Credit</li>
 							</ul>
 						</div>
 					</div>
@@ -248,8 +245,8 @@ if ($result->num_rows > 0) {
 										<table class="datatable table table-stripped">
 											<thead>
 												<tr>
-													<th>Credit Date</th>
-													<th>Credit Amount</th>
+													<th>Debit Date</th>
+													<th>Debit Amount</th>
 													<th>Description</th>
 													<th>Action</th>
 												</tr>
@@ -258,17 +255,17 @@ if ($result->num_rows > 0) {
 
 												<?php
 
-												$sql = "SELECT id, credit, creditComment, DATE(creditDate) as date FROM bank WHERE bankId ='$BankId' AND credit > 0 ORDER BY date ASC";
+												$sql = "SELECT id, debit, debitComment, DATE(debitDate) as date FROM bank WHERE bankId ='$BankId' AND debit > 0 ORDER BY date ASC";
 												$result = $conn->query($sql);
 											
 												if ($result->num_rows > 0) {
   												while($row = $result->fetch_assoc()) {	
 													  $creditId = $row["id"];												  													 
 													echo "<tr><td>".$row["date"]."</td>
-                                                            <td>".$row["credit"]."</td> 
-															<td>".$row["creditComment"]."</td>
-															<td><a href='CashEquvalent/Bank/BrankCreditEdit.php?getCreditId=$creditId' class='btn btn-success'> Edit </a>
-															<a href='CashEquvalent/Bank/BrankCreditEdit.php?getCreditId=$creditId' class='btn btn-danger'> Delete </a><td>
+                                                            <td>".$row["debit"]."</td> 
+															<td>".$row["debitComment"]."</td>
+															<td><a href='BankDebitEdit.php?getDebitId=$creditId' class='btn btn-success'> Edit </a>
+															<a href='BankDebitEdit.php?getDebitId=$creditId' class='btn btn-danger'> Delete </a><td>
 															</tr>";   											
 												  }
 												} else {

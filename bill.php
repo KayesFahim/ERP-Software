@@ -1,9 +1,18 @@
+<?php
+
+include 'config.php';
+
+
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-	<title>Third Page</title>
+	<title>Bill</title>
 	<!-- Favicon -->
 	<link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.png">
 	<!-- Bootstrap CSS -->
@@ -12,8 +21,11 @@
 	<link rel="stylesheet" href="assets/css/font-awesome.min.css">
 	<!-- Feathericon CSS -->
 	<link rel="stylesheet" href="assets/css/feathericon.min.css">
+	<!-- Datatables CSS -->
+	<link rel="stylesheet" href="assets/plugins/datatables/datatables.min.css">
 	<!-- Main CSS -->
 	<link rel="stylesheet" href="assets/css/style.css">
+
 </head>
 <body>
 	
@@ -26,11 +38,10 @@
 			<!-- Logo -->
 			<div class="header-left">
 				<a href="index.php" class="logo">
-					<!-- <img src="assets/img/logo.png" alt="Logo"> -->
-					<h2>YOUR LOGO</h2>
+					<img src="logo.png" alt="Logo">
 				</a>
 				<a href="index.php" class="logo logo-small">
-					<!-- <img src="assets/img/logo-small.png" alt="Logo" width="30" height="30"> -->
+					<img src="assets/img/logo-small.png" alt="Logo" width="30" height="30"> -->
 					<h4>YOUR LOGO</h4>
 				</a>
 			</div>
@@ -75,7 +86,7 @@
 												<img class="avatar-img rounded-circle" alt="User Image" src="assets/img/profile.jpg">
 											</span>
 											<div class="media-body">
-												<p class="noti-details"><span class="noti-title">Farhana </span> Schedule <span class="noti-title">her appointment</span></p>
+												<p class="noti-details"><span class="noti-title">Ashik </span> Schedule <span class="noti-title">Her appointment</span></p>
 												<p class="noti-time"><span class="notification-time">4 mins ago</span></p>
 											</div>
 										</div>
@@ -85,7 +96,7 @@
 							</ul>
 						</div>
 						<div class="topnav-dropdown-footer">
-							<a href="#">View all Notifications</a>
+							<a href="#"> View all Notifications</a>
 						</div>
 					</div>
 				</li>
@@ -119,8 +130,8 @@
 		</div>
 		<!-- /Header -->
 
-		<!-- Sidebar -->
-		<div class="sidebar" id="sidebar">
+		 <!-- Sidebar -->
+		 <div class="sidebar" id="sidebar">
             <div class="sidebar-inner slimscroll">
                 <div id="sidebar-menu" class="sidebar-menu">
                     <ul>
@@ -139,6 +150,9 @@
                         <li>
                             <a href="Bill.php"><i class="fe fe-layout"></i> <span>Bill</span></a>
                         </li>
+                        <li>
+                            <a href="expense.php"><i class="fe fe-layout"></i> <span>Expense</span></a>
+                        </li>
 						<li>
 							<a data-toggle="dropdown"><i class="fe fe-layout"></i> <span>Accounting</span></a>
 								<ul>
@@ -147,9 +161,6 @@
 									<li><a href="#"><i class="fe fe-layout"></i> Portal</a></li>
 								</ul>
 						</li>
-                        <li>
-                            <a href="expense.php"><i class="fe fe-layout"></i> <span>Expense</span></a>
-                        </li>
                         <li>
                             <a href="moneyReceipt.php"><i class="fe fe-layout"></i> <span>Money Receipt</span></a>
                         </li>
@@ -173,13 +184,13 @@
                         <li>
                             <a href="refund.php"><i class="fe fe-layout"></i> <span>Refund</span></a>
                         </li>
-                        
 
                     </ul>
                 </div>
             </div>
         </div>
 
+		
 
 		<!-- Page Wrapper -->
 		<div class="page-wrapper">
@@ -189,326 +200,88 @@
 				<div class="page-header">
 					<div class="row">
 						<div class="col-sm-12">
-							<h3 class="page-title">Second Page</h3>
+							<h3 class="page-title">Bills</h3>
 							<ul class="breadcrumb">
-								<li class="breadcrumb-item"><a href="">Dashboard</a></li>
-								<li class="breadcrumb-item active">Second Page</li>
+								<li class="breadcrumb-item"><a href="Employees.php">Dashboard</a></li>
+								<li class="breadcrumb-item active">Bills</li>
 							</ul>
 						</div>
 					</div>
 				</div>
 				<!-- /Page Header -->
 				<!-- Contant -->
-				<div class="row">
-					<div class="col-md-3">
-						<div class="d-flex">
-							<div class="card flex-fill">
-								<div class="card-header">
-									<p class="text-danger text-center" >Pending Invoices</p>
-									<div class="form-group row">
-										<label class="col-lg-3 col-form-label">Year</label>
-										<div class="col-lg-9">
-											<select class="select form-control">
-												<option>Select Year</option>
-												<option value="1">A+</option>
-												<option value="2">O+</option>
-												<option value="3">B+</option>
-												<option value="4">AB+</option>
-											</select>
-										</div>
-									</div>
-								</div>
-								<div class="card-body">
-									<form action="#">
-										<ul style="list-style: none;">
-											<li><a href=""> January </a></li>
-											<li><a href=""> Februry </a></li>
-											<li><a href=""> March </a></li>
-											<li><a href=""> April </a></li>
-											<li><a href=""> May </a></li>
-											<li><a href=""> June </a></li>
-											<li><a href=""> July </a></li>
-											<li><a href=""> August </a></li>
-											<li><a href=""> September </a></li>
-											<li><a href=""> Octuber </a></li>
-											<li><a href=""> November </a></li>
-											<li><a href=""> December </a></li>
-										</ul>
-									</form>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-9">
-						<div class="row">
-							<div class="col-md-12">
-								<div class="card">
-									<div class="card-header">
-										<h4 class="text-danger card-title">Qt Details</h4>
-									</div>
-									<div class="card-body">
-										<form action="#">
-											<div class="row">
-												<div class="col-md-12">
-													<h4 class="card-title">Personal details</h4>
-													<div class="row">
-														<div class="col-md-3">
-															<div class="form-group">
-																<label>Customer Type:</label>
-																<input type="text" class="form-control">
-															</div>
-														</div>
-														<div class="col-md-3">
-															<div class="form-group">
-																<label>Email: </label>
-																<input type="email" class="form-control">
-															</div>
-														</div>
-														<div class="col-md-3">
-															<div class="form-group">
-																<label>Unpost Invoice No :</label>
-																<input type="number" class="form-control">
-															</div>
-														</div>
-														<div class="col-md-1">
-															<div class="text-right" style="margin-top:33px">
-																<button type="submit" class="btn btn-success"><i class="fe fe-print"></i></button>
-															</div>
-														</div>
-														<div class="col-md-2">
-															<div class="text-right" style="margin-top:33px">
-																<button type="submit" class="btn btn-primary">Open Ticket</button>
-															</div>
-														</div>
-													</div>
-													<div class="row">
-														<div class="col-md-3">
-															<div class="form-group">
-																<label>Name :</label>
-																<input type="text" class="form-control">
-															</div>
-														</div>
-														<div class="col-md-3">
-															<div class="form-group">
-																<label>CC :</label>
-																<input type="text" class="form-control">
-															</div>
-														</div>
-														<div class="col-md-3">
-															<div class="form-group">
-																<label>Invoice Date :</label>
-																<input type="date" class="form-control">
-															</div>
-														</div>
-														<div class="col-md-3">
-															<div class="form-group">
-																<label>Balance Due :</label>
-															</div>
-														</div>
-													</div>
-													<div class="row">
-														<div class="col-md-3">
-															<div class="form-group">
-																<label>Phone :</label>
-																<input type="number" class="form-control">
-															</div>
-														</div>
-														<div class="col-md-3">
-															<div class="form-group">
-																<label>BCC :</label>
-																<input type="text" class="form-control">
-															</div>
-														</div>
-
-														<div class="col-md-3">
-															<div class="form-group">
-																<label>Due Date :</label>
-																<input type="date" class="form-control">
-															</div>
-														</div>
-														<div class="col-md-3">
-															<div class="form-group">
-																<label>TK :</label>
-																<input type="text" class="form-control">
-															</div>
-														</div>
-													</div>
-													<div class="row">
-														<div class="col-md-9">
-															<div class="form-group">
-																<label>Address line:</label>
-																<input type="text" class="form-control">
-															</div>
-														</div>
-														<div class="col-md-3">
-															<div class="form-group">
-																<label>Net:</label>
-																<input type="number" class="form-control">
-															</div>
-														</div>
-													</div>
-													<div class="row">
-														<div class="col-md-3">
-															<div class="form-group">
-																<label>Terms</label>
-																<input type="text" class="form-control">
-															</div>
-														</div>
-														<div class="col-md-3">
-															<div class="form-group">
-																<label>Payment Method</label>
-															</div>
-															<div class="form-group row">
-																<div class="col-sm-12">
-																	<div class="form-check form-check-inline">
-																		<input class="form-check-input" type="radio" name="Cash" value="option1" checked>
-																		<label class="form-check-label" for="Cash">
-																			Cash
-																		</label>
-																	</div>
-																	<div class="form-check form-check-inline">
-																		<input class="form-check-input" type="radio" name="Card" value="option2">
-																		<label class="form-check-label" for="Card">
-																			Card
-																		</label>
-																	</div>
-																	<div class="form-check form-check-inline">
-																		<input class="form-check-input" type="radio" name="Cheque" value="option3" >
-																		<label class="form-check-label" for="Cheque">
-																			Cheque
-																		</label>
-																	</div>
-																	<div class="form-check form-check-inline">
-																		<input class="form-check-input" type="radio" name="Others" value="option4">
-																		<label class="form-check-label" for="Others">
-																			Others
-																		</label>
-																	</div>
-																</div>
-															</div>
-														</div>
-														<div class="col-md-3">
-															<div class="form-group">
-																<label>Not Input</label>
-																<input type="text" class="form-control">
-															</div>
-														</div>
-														<div class="col-md-3">
-															<div class="form-group">
-																<label>Bank</label>
-																<input type="text" class="form-control">
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
-											<div class="text-right">
-												<button type="submit" class="btn btn-primary">+</button>
-											</div>
-										</form>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-3">
+				
+					<div class="col-md-12">
 						
 					</div>
-					<div class="col-md-9">
-						<div class="row">
-							<div class="col-md-12">
-								<div class="card">
-									<div class="card-body">
-										<form action="#">
-											<div class="row">
-												<div class="col-md-12">
-													<div class="form-group">
-														<label>Journey Detail:</label>
-														<textarea rows="5" cols="5" class="form-control" placeholder="Enter message"></textarea>
-													</div>
-													<div class="row">
-														<div class="col-md-4">
-															<div class="form-group">
-																<label>Massage:</label>
-																<input type="text" class="form-control">
-															</div>
-														</div>
-														<div class="col-md-4">
-															<div class="form-group" style="margin-top: 32px;">
-																<button type="submit" class="btn btn-warning">Send Mail</button>
-															</div>
-														</div>
-														<div class="col-md-4">
-															<div class="form-group">
-																<label>Sub Total :</label>
-																<input type="number" class="form-control">
-															</div>
-														</div>
-													</div>
-													<div class="row">
-														<div class="col-md-4">
-															<div class="form-group">
-																<label>Attachment:</label>
-																<input type="file" class="form-control">
-															</div>
-														</div>
-														<div class="col-md-4">
-															<div class="form-group" style="margin-top: 32px;">
-																<button type="submit" class="btn btn-info">Send SMS</button>
-															</div>
-														</div>
-														<div class="col-md-4">
-															<div class="form-group">
-																<label>Discount :</label>
-																<input type="number" class="form-control">
-															</div>
-														</div>
-													</div>
-													<div class="row">
-														<div class="col-md-4">
-															<div class="form-group">
-																<label>Ref Name:</label>
-																<input type="text" class="form-control">
-															</div>
-														</div>
-														<div class="col-md-4">
-															<div class="form-group" style="margin-top: 32px;">
-																<button type="submit" class="btn btn-info"><i class="fe fe-print"></i>   Print</button>
-															</div>
-														</div>
-														<div class="col-md-4">
-															<div class="form-group">
-																<label>Total :</label>
-																<input type="number" class="form-control">
-															</div>
-														</div>
-													</div>
-
-													<div class="text-right">
-														<button type="submit" class="btn btn-primary">Save</button>
-													</div>
-												</form>
-											</div>
-										</div>
+					<div class="col-md-12">
+							<div class="card">
+								<div class="card-header">
+									<h4 class="card-title">Bill Details</h4>
+									<div class="text-right">
+										<a href="Moneyreciept/AddMoneyReciept.php" class="btn btn-primary"> Create +</a>
 									</div>
+								</div>
+								
+								<div class="card-body">
+									<div class="table-responsive">
+										<table class="datatable table table-stripped">
+											<thead>
+												<tr>
+													<th>Bill ID</th>
+													<th>Issue Date</th>
+													<th>Amount</th>
+													<th>Created By</th>
+													<th>Vendor</th>
+													<th>Reference No</th>
+													<th>Action</th>
+												</tr>
+											</thead>
+											<tbody>
+											<?php
 
+												$sql = "SELECT *  FROM `bill` ORDER BY id DESC";
+												$result = $conn->query($sql);
+
+												if ($result->num_rows > 0) {
+  												while($row = $result->fetch_assoc()) {	
+													$Bno = $row["billNo"];
+													echo "<tr><td>".$row["billNo"]."</td>
+																<td>".$row["issueDate"]."</td> 
+														 		<td>".$row["amount"]."</td>
+																<td>".$row["createdBy"]."</td>
+														 		<td>".$row["vendorId"]."</td>
+																 <td>".$row["TxId"]."</td>
+																<td><a href='Bill/Invoice.php?Bno=$Bno' class='btn btn-primary'> View </a><td>
+																 </tr>";   											
+												  }
+												} else {
+  												echo "0 results";
+											    }
+												?>
+											</tbody>
+										</table>
+									</div>
 								</div>
 							</div>
 						</div>
-						<!-- End Contant -->
-					</div>			
+					<div class="col-md-3">						
+					</div>
 				</div>
 				<!-- /Page Wrapper -->
 			</div>
 			<!-- /Main Wrapper -->
 			<!-- jQuery -->
-			<script src="assets/js/jquery-3.2.1.min.js"></script>
+			<script src="../assets/js/jquery-3.2.1.min.js"></script>
 			<!-- Bootstrap Core JS -->
-			<script src="assets/js/popper.min.js"></script>
-			<script src="assets/js/bootstrap.min.js"></script>
+			<script src="../assets/js/popper.min.js"></script>
+			<script src="../assets/js/bootstrap.min.js"></script>
 			<!-- Slimscroll JS -->
-			<script src="assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+			<script src="../assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+			<!-- Datatables JS -->
+			<script src="../ssets/plugins/datatables/jquery.dataTables.min.js"></script>
+			<script src="../assets/plugins/datatables/datatables.min.js"></script>
 			<!-- Custom JS -->
-			<script  src="assets/js/script.js"></script>
-		</body>
-		</html>
+			<script  src="../assets/js/script.js"></script>
+	</body>
+</html>

@@ -164,7 +164,7 @@
                             <a href="payment.php"><i class="fe fe-layout"></i> <span>Payment</span></a>
                         </li>
                         <li>
-                            <a href="transfer.php"><i class="fe fe-layout"></i> <span>Transfer</span></a>
+                            <a href="Salary/SalarySheet.php"><i class="fe fe-layout"></i> <span>Salary</span></a>
                         </li>
                         <li>
                             <a href="project.php"><i class="fe fe-layout"></i> <span>Project</span></a>

@@ -64,7 +64,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $issueDate = date("d/m/Y");
     $TxId = $_POST['txid']; 
 
-	
+/*
     $mrgenerate = "INSERT INTO `moneyreciept`(
 		`recieptNo`,
 		`createdBy`,
@@ -87,273 +87,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		'$payMethod',
 		'$comment'
 	)";
-
-	if (mysqli_query($conn, $mrgenerate)) {
-		
-	} else {
-		echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-	}
-	
+	*/
 	
 	if($payWay == 'bank'){
 
-		if($payMethod == 'city'){
 
-			$credit = "INSERT INTO `bank`(
-				
-				`bankId`,
-				`bankname`,				
-				`recieptNo`,
-				`credit`,
-				`creditDate`,
-				`creditComment`				
-			)
-			VALUES(
-				'BNK-001',
-				'City Bank Limited',
-				'$Reciept_No',
-				'$amount',
-				'$issueDate',
-				'$TxId'				
-			)";
-
-			if (mysqli_query($conn, $credit)) {
-							
-				echo '<script language="javascript">';
-		echo 'alert("Successfully Created"); location.href="invoice.php?Rno='.$Reciept_No.'"';
-		echo '</script>';
-				
-			} else {
-			echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-			}
-
-		}else if($payMethod == 'brac'){
-			$credit = "INSERT INTO `bank`(				
-				`bankId`,
-				`bankname`,				
-				`recieptNo`,
-				`credit`,
-				`creditDate`,
-				`creditComment`
-				
-			)
-			VALUES(
-				'BNK-002',
-				'Brac Bank Limited',
-				'$Reciept_No',
-				'$amount',
-				'$issueDate',
-				'$TxId'
-				
-			)";
-
-			if (mysqli_query($conn, $credit)) {
-			
-				echo '<script language="javascript">';
-				echo 'alert("Successfully Created"); location.href="invoice.php?Rno='.$Reciept_No.'"';
-				echo '</script>';
-				
-		 } else {
-			echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-		}
-
-		}else if($payMethod == 'islami'){
-			$credit = "INSERT INTO `bank`(
-				
-				`bankId`,
-				`bankname`,				
-				`recieptNo`,
-				`credit`,
-				`creditDate`,
-				`creditComment`
-				
-			)
-			VALUES(
-				'BNK-003',
-				'Islami Bank',
-				'$Reciept_No',
-				'$amount',
-				'$issueDate',
-				'$TxId'
-				
-			)";
-
-			if (mysqli_query($conn, $credit)) {
-							
-				echo "Successfully Created";
-				
-			} else {
-			echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-			}
-
-		}else if($payMethod == 'sonali'){
-			$credit = "INSERT INTO `bank`(
-				
-				`bankId`,
-				`bankname`,				
-				`recieptNo`,
-				`credit`,
-				`creditDate`,
-				`creditComment`
-				
-			)
-			VALUES(
-				'BNK-004',
-				'Sonali Bank',
-				'$Reciept_No',
-				'$amount',
-				'$issueDate',
-				'$TxId'
-				
-			)";
-
-			if (mysqli_query($conn, $credit)) {
-							
-				echo "Successfully Created";
-				
-			} else {
-			echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-			}
-
-
-		}elseif($payMethod == 'dutch'){
-			$credit = "INSERT INTO `bank`(
-				
-				`bankId`,
-				`bankname`,				
-				`recieptNo`,
-				`credit`,
-				`creditDate`,
-				`creditComment`
-				
-			)
-			VALUES(
-				'BNK-005',
-				'Dutch Bangla Bank',
-				'$Reciept_No',
-				'$amount',
-				'$issueDate',
-				'$TxId'
-				
-			)";
-
-			if (mysqli_query($conn, $credit)) {
-							
-				echo "Successfully Created";
-				
-			} else {
-			echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-			}
-
-		}elseif($payMethod == 'commercial'){
-		
-			$credit = "INSERT INTO `bank`(
-				
-				`bankId`,
-				`bankname`,				
-				`recieptNo`,
-				`credit`,
-				`creditDate`,
-				`creditComment`
-				
-			)
-			VALUES(
-				'BNK-006',
-				'Commercial Bank',
-				'$Reciept_No',
-				'$amount',
-				'$issueDate',
-				'$TxId'
-				
-			)";
-
-			if (mysqli_query($conn, $credit)) {
-							
-				echo "Successfully Created";
-				
-			} else {
-			echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-			}
-
-
-		}elseif($payMethod == 'ncc'){
-			$credit = "INSERT INTO `bank`(
-				
-				`bankId`,
-				`bankname`,				
-				`recieptNo`,
-				`credit`,
-				`creditDate`,
-				`creditComment`
-				
-			)
-			VALUES(
-				'BNK-007',
-				'NCC Bank',
-				'$Reciept_No',
-				'$amount',
-				'$issueDate',
-				'$TxId'
-				
-			)";
-
-			if (mysqli_query($conn, $credit)) {
-							
-				echo "Successfully Created";
-				
-			} else {
-			echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-			}
-
-		}elseif($payMethod == 'modhumoti'){
-
-			$credit = "INSERT INTO `bank`(				
-				`bankId`,
-				`bankname`,				
-				`recieptNo`,
-				`credit`,
-				`creditDate`,
-				`creditComment`,
-				
-			)
-			VALUES(
-				'BNK-008',
-				'Modhumoti Bank',
-				'$Reciept_No',
-				'$amount',
-				'$issueDate',
-				'$TxId'
-				
-			)";
-
-			if (mysqli_query($conn, $credit)) {
-							
-				echo "Successfully Created";
-				
-			} else {
-			echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-			}
-		}else{
-			echo 'Wrong';
-		}
-	
 
 	}elseif($payWay == 'cash'){
-		echo $payWay;
-		echo $payMethod;
 
 
 	}elseif($payWay == 'mobile_banking'){
-		echo $payWay;
-		echo $payMethod;
 		
 
 	}elseif($payWay == 'ssl_commerce'){
-		echo $payWay;
-		echo $payMethod;
 
 
 	}
+
+     /*   
+    if ($conn->query($sqlquery) === TRUE) {
+            $success = "Record inserted successfully";
+    } else {
+            $error = "Error: " . $sqlquery . "<br>" . $conn->error;
+    }
+
+*/
 	
                                                                                        
 }
@@ -646,7 +404,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 														<div class="col-md-3">
 															<div class="form-group">
 																<label>Attachement :</label>
-																<input type="file" name="file" class="form-control">
+																<input type="file" name="amount" class="form-control">
 															</div>
 														</div>
 

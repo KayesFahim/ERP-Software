@@ -218,7 +218,7 @@ include '../config.php';
 								<div class="card-header">
 									<h4 class="card-title">Bank Details</h4>
 									<div class="text-right">
-										<a href="CashEquvalent/Bank/AddNewBank.php" class="btn btn-primary"> Add +</a>
+										<a href="AddNewBank.php" class="btn btn-primary"> Add +</a>
 									</div>
 								</div>
 								
@@ -248,8 +248,8 @@ include '../config.php';
 														 		<td>".$row["bankaccno"]."</td>
 																<td>".$row["branchname"]."</td>
 														 		<td>".$row["Amount"]."</td>
-																<td><a href='CashEquvalent/Bank/BankCredit.php?getBankId=$bankgetID' class='btn btn-success'> Credit </a>
-																<a href='CashEquvalent/Bank/BankDebit.php?getBankId=$bankgetID' class='btn btn-danger'> Debit </a><td>
+																<td><a href='BankCredit.php?getBankId=$bankgetID' class='btn btn-success'> Credit </a>
+																<a href='BankDebit.php?getBankId=$bankgetID' class='btn btn-danger'> Debit </a><td>
 																 </tr>";   											
 												  }
 												} else {

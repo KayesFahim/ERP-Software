@@ -217,7 +217,7 @@ include '../config.php';
 								<div class="card-header">
 									<h4 class="card-title">Salary Detail</h4>
 									<div class="text-right">
-										<a href="AddEmployee.php" class="btn btn-primary"> Add +</a>
+										<a href="CreateSalary.php" class="btn btn-primary"> Add +</a>
 									</div>
 								</div>
 								
