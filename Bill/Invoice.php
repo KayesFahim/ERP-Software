@@ -1,6 +1,7 @@
 <?php
 
 include '../config.php';
+include('../session.php');
 
 $Bill_No = $_GET['Bno'];
 $vendorId;

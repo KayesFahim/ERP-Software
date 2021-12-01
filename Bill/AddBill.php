@@ -1,6 +1,7 @@
 <?php
 
 include '../config.php';
+include('../session.php');
 
 
 //Reciept No
@@ -61,15 +62,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $amount = $_POST['amount'];
     $payWay = $_POST['paymentway'];
     $payMethod = $_POST['paymentmethod'];
-    $issueDate = date("d/m/Y");
     $TxId = $_POST['txid']; 
 
-/*
+	
     $mrgenerate = "INSERT INTO `moneyreciept`(
 		`recieptNo`,
-		`createdBy`,
 		`customerId`,
-		`issueDate`,
 		`TxId`,
 		`amount`,
 		`paymentMethod`,
@@ -78,40 +76,276 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	)
 	VALUES(
 		'$Reciept_No',
-		'[value-2]',
 		'$Customer_Id',
-		'$issueDate',
 		'$TxId',
 		'$amount',
 		'$payWay',
 		'$payMethod',
 		'$comment'
 	)";
-	*/
+
+	if (mysqli_query($conn, $mrgenerate)) {
+		
+	} else {
+		echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+	}
+	
 	
 	if($payWay == 'bank'){
 
+		if($payMethod == 'city'){
 
+			$credit = "INSERT INTO `bank`(
+				
+				`bankId`,
+				`bankname`,				
+				`recieptNo`,
+				`credit`,
+				`creditComment`				
+			)
+			VALUES(
+				'BNK-001',
+				'City Bank Limited',
+				'$Reciept_No',
+				'$amount',
+				'$TxId'				
+			)";
+
+			if (mysqli_query($conn, $credit)) {
+							
+				echo '<script language="javascript">';
+		echo 'alert("Successfully Created"); location.href="invoice.php?Rno='.$Reciept_No.'"';
+		echo '</script>';
+				
+			} else {
+			echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+			}
+
+		}else if($payMethod == 'brac'){
+			$credit = "INSERT INTO `bank`(				
+				`bankId`,
+				`bankname`,				
+				`recieptNo`,
+				`credit`,
+				`creditComment`
+				
+			)
+			VALUES(
+				'BNK-002',
+				'Brac Bank Limited',
+				'$Reciept_No',
+				'$amount',
+				'$TxId'
+				
+			)";
+
+			if (mysqli_query($conn, $credit)) {
+			
+				echo '<script language="javascript">';
+				echo 'alert("Successfully Created"); location.href="invoice.php?Rno='.$Reciept_No.'"';
+				echo '</script>';
+				
+		 } else {
+			echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+		}
+
+		}else if($payMethod == 'islami'){
+			$credit = "INSERT INTO `bank`(
+				
+				`bankId`,
+				`bankname`,				
+				`recieptNo`,
+				`credit`,
+				`creditComment`
+				
+			)
+			VALUES(
+				'BNK-003',
+				'Islami Bank',
+				'$Reciept_No',
+				'$amount',
+				'$TxId'
+				
+			)";
+
+			if (mysqli_query($conn, $credit)) {
+							
+				echo '<script language="javascript">';
+				echo 'alert("Successfully Created"); location.href="invoice.php?Rno='.$Reciept_No.'"';
+				echo '</script>';
+				
+			} else {
+			echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+			}
+
+		}else if($payMethod == 'sonali'){
+			$credit = "INSERT INTO `bank`(
+				
+				`bankId`,
+				`bankname`,				
+				`recieptNo`,
+				`credit`,
+				`creditComment`
+				
+			)
+			VALUES(
+				'BNK-004',
+				'Sonali Bank',
+				'$Reciept_No',
+				'$amount',
+				'$TxId'
+				
+			)";
+
+			if (mysqli_query($conn, $credit)) {
+							
+				echo '<script language="javascript">';
+				echo 'alert("Successfully Created"); location.href="invoice.php?Rno='.$Reciept_No.'"';
+				echo '</script>';
+				
+			} else {
+			echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+			}
+
+
+		}elseif($payMethod == 'dutch'){
+			$credit = "INSERT INTO `bank`(
+				
+				`bankId`,
+				`bankname`,				
+				`recieptNo`,
+				`credit`,
+				`creditComment`
+				
+			)
+			VALUES(
+				'BNK-005',
+				'Dutch Bangla Bank',
+				'$Reciept_No',
+				'$amount',
+				'$TxId'
+				
+			)";
+
+			if (mysqli_query($conn, $credit)) {
+							
+				echo '<script language="javascript">';
+				echo 'alert("Successfully Created"); location.href="invoice.php?Rno='.$Reciept_No.'"';
+				echo '</script>';
+				
+			} else {
+			echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+			}
+
+		}elseif($payMethod == 'commercial'){
+		
+			$credit = "INSERT INTO `bank`(
+				
+				`bankId`,
+				`bankname`,				
+				`recieptNo`,
+				`credit`,
+				`creditComment`
+				
+			)
+			VALUES(
+				'BNK-006',
+				'Commercial Bank',
+				'$Reciept_No',
+				'$amount',
+				'$TxId'
+				
+			)";
+
+			if (mysqli_query($conn, $credit)) {
+							
+				echo '<script language="javascript">';
+				echo 'alert("Successfully Created"); location.href="invoice.php?Rno='.$Reciept_No.'"';
+				echo '</script>';
+				
+			} else {
+			echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+			}
+
+
+		}elseif($payMethod == 'ncc'){
+			$credit = "INSERT INTO `bank`(
+				
+				`bankId`,
+				`bankname`,				
+				`recieptNo`,
+				`credit`,
+				`creditComment`
+				
+			)
+			VALUES(
+				'BNK-007',
+				'NCC Bank',
+				'$Reciept_No',
+				'$amount',
+				'$TxId'
+				
+			)";
+
+			if (mysqli_query($conn, $credit)) {
+							
+				echo '<script language="javascript">';
+				echo 'alert("Successfully Created"); location.href="invoice.php?Rno='.$Reciept_No.'"';
+				echo '</script>';
+				
+			} else {
+			echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+			}
+
+		}elseif($payMethod == 'modhumoti'){
+
+			$credit = "INSERT INTO `bank`(				
+				`bankId`,
+				`bankname`,				
+				`recieptNo`,
+				`credit`,
+				`creditComment`
+				
+			)
+			VALUES(
+				'BNK-008',
+				'Modhumoti Bank',
+				'$Reciept_No',
+				'$amount',
+				'$TxId'
+				
+			)";
+
+			if (mysqli_query($conn, $credit)) {
+							
+				echo '<script language="javascript">';
+				echo 'alert("Successfully Created"); location.href="invoice.php?Rno='.$Reciept_No.'"';
+				echo '</script>';
+				
+			} else {
+			echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+			}
+		}else{
+			echo 'Wrong';
+		}
+	
 
 	}elseif($payWay == 'cash'){
+		echo $payWay;
+		echo $payMethod;
 
 
 	}elseif($payWay == 'mobile_banking'){
+		echo $payWay;
+		echo $payMethod;
 		
 
 	}elseif($payWay == 'ssl_commerce'){
+		echo $payWay;
+		echo $payMethod;
 
 
 	}
-
-     /*   
-    if ($conn->query($sqlquery) === TRUE) {
-            $success = "Record inserted successfully";
-    } else {
-            $error = "Error: " . $sqlquery . "<br>" . $conn->error;
-    }
-
-*/
 	
                                                                                        
 }
@@ -234,7 +468,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 						</div>
 						<a class="dropdown-item" href="">My Profile</a>
 						<a class="dropdown-item" href="">Settings</a>
-						<a class="dropdown-item" href="login.php">Logout</a>
+						<a class="dropdown-item" href="logout.php">Logout</a>
 					</div>
 				</li>
 				<!-- /User Menu -->
@@ -358,13 +592,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 														<div class="col-md-4">
 															<div class="form-group">
 																<label>Name:</label>
-																<input type="text" value="<?php echo $Customer_Name ?>" class="form-control">
+																<input type="text" value="<?php echo $Customer_Name ?>" class="form-control" required>
 															</div>
 														</div>
 														<div class="col-md-4">
 															<div class="form-group">
 																<label>Phone: </label>
-																<input type="phone" value="<?php echo $Customer_Phone ?>" class="form-control">
+																<input type="phone" value="<?php echo $Customer_Phone ?>" class="form-control" required>
 															</div>
 														</div>
 														
@@ -373,20 +607,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 														<div class="col-md-4">
 																<div class="form-group">
 																	<label>Email :</label>
-																	<input type="email" value="<?php echo $Customer_Email ?>" class="form-control">
+																	<input type="email" value="<?php echo $Customer_Email ?>" class="form-control" required>
 																</div>
 															</div>
 														<div class="col-md-4">
 															<div class="form-group">
 																<label>BCC :</label>
-																<input type="email" name="bccemail"  class="form-control">
+																<input type="email" name="bccemail"  class="form-control" required>
 															</div>
 														</div>
 
 														<div class="col-md-4">
 															<div class="form-group">
 																<label>Purchase Item Description :</label>
-																<input type="text" name="comment" class="form-control">
+																<input type="text" name="comment" class="form-control" required>
 															</div>
 														</div>
 												
@@ -397,21 +631,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 														<div class="col-md-3">
 																<div class="form-group">
 																	<label>Amount :</label>
-																	<input type="number" name="amount" class="form-control">
+																	<input type="number" name="amount" class="form-control" required>
 																</div>
 															</div>
 
 														<div class="col-md-3">
 															<div class="form-group">
 																<label>Attachement :</label>
-																<input type="file" name="amount" class="form-control">
+																<input type="file" name="file" class="form-control"> required
 															</div>
 														</div>
 
 														<div class="col-md-6">
 															<div class="form-group">
 																<label>Address :</label>
-																<input type="text" value="<?php echo $Customer_Address ?>" class="form-control">
+																<input type="text" value="<?php echo $Customer_Address ?>" class="form-control" required>
 															</div>
 														</div>
 														
@@ -422,7 +656,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 																<label>Payment Method:</label>
 																<div class="form-group row">
 																	<div class="col-lg-12">																	
-																	<select name="paymentway" class="select form-control">
+																	<select name="paymentway" class="select form-control" required>
 																		<option value="" disabled selected>Select Payment Way</option>
 																		<option value="cash">Cash</option>
 																		<option value="bank">Bank</option>
@@ -439,7 +673,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 																<label>Payment A/C:</label>
 																<div class="form-group row">
 																	<div class="col-lg-12">
-																	<select name="paymentmethod" class="select form-control">
+																	<select name="paymentmethod" class="select form-control" required>
 																		<option value="" disabled selected>Select Payment Method</option>
 																		<option value="cash">Cash</option>
 																		<option value="ssl_commerce">SSL_commerce</option>
@@ -462,7 +696,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 														<div class="col-md-4">
 															<div class="form-group">
 																<label>Reference No:</label>
-																<input type="text" name="txid" class="form-control">
+																<input type="text" name="txid" class="form-control" required>
 															</div>
 														</div>
 													</div>

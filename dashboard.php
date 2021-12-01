@@ -1,3 +1,8 @@
+<?php
+   include('session.php');
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -28,12 +33,11 @@
             <!-- Logo -->
             <div class="header-left">
                 <a href="index.php" class="logo">
-                    <!-- <img src="assets/img/logo.png" alt="Logo"> -->
-                    <h2>YOUR LOGO</h2>
+                    <img src="logo.png" alt="Logo">
+
                 </a>
                 <a href="index.php" class="logo logo-small">
-                    <!-- <img src="assets/img/logo-small.png" alt="Logo" width="30" height="30"> -->
-                    <h4>YOUR LOGO</h4>
+                    <img src="logo.png" alt="Logo" width="30" height="30">
                 </a>
             </div>
             <!-- /Logo -->
@@ -109,13 +113,13 @@
                             </div>
                             <div class="user-text">
                                 <!-- #Username -->
-                                <h6>Admin</h6>
-                                <p class="text-muted mb-0">Administrator</p>
+                                <h6> <?php echo $login_session; ?> </h6>
+                                <p class="text-muted mb-0"><?php echo $userRole; ?></p>
                             </div>
                         </div>
                         <a class="dropdown-item" href="">My Profile</a>
                         <a class="dropdown-item" href="">Settings</a>
-                        <a class="dropdown-item" href="login.php">Logout</a>
+                        <a class="dropdown-item" href="logout.php">Logout</a>
                     </div>
                 </li>
                 <!-- /User Menu -->

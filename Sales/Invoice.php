@@ -1,6 +1,7 @@
 <?php
 
 include '../config.php';
+include('../session.php');
 
 $SQ_No = $_GET['SLno'];
 $vendorId;

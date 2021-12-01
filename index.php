@@ -1,34 +1,29 @@
 <?php
 
-    require_once "config.php";
-
-    $error ='';
-
-    if(!empty($_POST['userEmail']) && !empty($_POST['userPassword'])){
-
-        $email = $_POST['userEmail'];
-        $clearTextPassword = $_POST['userPassword'];
-    if (empty($email)) {
-          echo "Email is empty";
-        }elseif(empty($clearTextPassword)){
-            echo "Password is empty";
-        }else{
-
-            
-            if($user_Id == NULL){
-                $error = 'Login Credentials Is Incorrect';
-            }else{
-                header("location: welcome.php?id=$user_Id");
-            }
-
-    }
+include("config.php");
+session_start();
 
 
-    }else{
-
-    }
+if($_SERVER["REQUEST_METHOD"] == "POST") {
  
-             
+   $userEmail = mysqli_real_escape_string($conn,$_POST['userEmail']);
+   $mypassword = mysqli_real_escape_string($conn,$_POST['userPassword']); 
+   
+   $sql = "SELECT id FROM users WHERE email = '$userEmail' and password = '$mypassword'";
+   $result = mysqli_query($conn,$sql);
+   $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
+   
+   $count = mysqli_num_rows($result);
+
+   if($count == 1) {
+    $_SESSION['login_user'] = $userEmail;      
+    header("location: dashboard.php");
+    }else {
+        $error = 0;
+    }
+}
+     
+            
 ?>
 
 <html lang="en">
@@ -54,12 +49,20 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h2><?php echo $error; ?></h2>
-                <form class="my_form" action="<?php echo $_SERVER['PHP_SELF'];?>" method="POST">
+                <form class="my_form" action="" method="POST">
                     <div class="form_icon">
                         <i class="fas fa-user-circle"></i>  
                     </div>
                     <h3 class="title">login form</h3>
+
+                    <?php
+
+                    if( isset( $error) ) {
+                        echo "<h3>Username and password is wrong </h3>";
+                    }                       
+                    ?>
+
+
                     <div class="form_group">
                             <select class="form_control" aria-label=".form-select-lg example" style="padding-right: 50px;">
                                 <option selected>Select your Role</option>
@@ -72,21 +75,20 @@
                         <span class="icon">
                       <i class="fab fa-accessible-icon"></i>
                         </span>
-                        <input class="form_control" type="email" name="userEmail" placeholder="user Id">
+                        <input class="form_control" type="email" name="userEmail" placeholder="user Id" required>
                     </div>
 
                     <div class="form_group">
                         <span class="icon">
                          <i class="fas fa-lock"></i>
                         </span>
-                        <input class="form_control" type="password" name="userPassword" placeholder="password">
+                        <input class="form_control" type="password" name="userPassword" placeholder="password" required>
                     </div>
                     
 
-                   <a href="dashboard.php" class= "btn  signin"> Log in </a>
+                   <button class= "btn  signin"> Log in </button>
 
                 </form>
-
 
             </div>
         </div>

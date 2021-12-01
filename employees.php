@@ -1,6 +1,7 @@
 <?php
 
 include 'config.php';
+include('session.php');
 
 ?>
 
@@ -40,8 +41,8 @@ include 'config.php';
 					<img src="logo.png" alt="Logo">
 				</a>
 				<a href="index.php" class="logo logo-small">
-					<!-- <img src="assets/img/logo-small.png" alt="Logo" width="30" height="30"> -->
-					<h4>YOUR LOGO</h4>
+					<img src="assets/img/logo-small.png" alt="Logo" width="30" height="30">
+
 				</a>
 			</div>
 			<!-- /Logo -->
@@ -119,7 +120,7 @@ include 'config.php';
 						</div>
 						<a class="dropdown-item" href="">My Profile</a>
 						<a class="dropdown-item" href="">Settings</a>
-						<a class="dropdown-item" href="login.php">Logout</a>
+						<a class="dropdown-item" href="logout.php">Logout</a>
 					</div>
 				</li>
 				<!-- /User Menu -->
@@ -218,7 +219,7 @@ include 'config.php';
 								<div class="card-header">
 									<h4 class="card-title">Employees Detail</h4>
 									<div class="text-right">
-										<a href="AddEmployee.php" class="btn btn-primary"> Add +</a>
+										<a href="Employee/AddEmployee.php" class="btn btn-primary"> Add +</a>
 									</div>
 								</div>
 								
@@ -280,16 +281,16 @@ include 'config.php';
 			</div>
 			<!-- /Main Wrapper -->
 			<!-- jQuery -->
-			<script src="assets/js/jquery-3.2.1.min.js"></script>
+			<script src="../assets/js/jquery-3.2.1.min.js"></script>
 			<!-- Bootstrap Core JS -->
-			<script src="assets/js/popper.min.js"></script>
-			<script src="assets/js/bootstrap.min.js"></script>
+			<script src="../assets/js/popper.min.js"></script>
+			<script src="../assets/js/bootstrap.min.js"></script>
 			<!-- Slimscroll JS -->
-			<script src="assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+			<script src="../assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 			<!-- Datatables JS -->
-			<script src="assets/plugins/datatables/jquery.dataTables.min.js"></script>
-			<script src="assets/plugins/datatables/datatables.min.js"></script>
+			<script src="../assets/plugins/datatables/jquery.dataTables.min.js"></script>
+			<script src="../assets/plugins/datatables/datatables.min.js"></script>
 			<!-- Custom JS -->
-			<script  src="assets/js/script.js"></script>
+			<script  src="../assets/js/script.js"></script>
 		</body>
 		</html>

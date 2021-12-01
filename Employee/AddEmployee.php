@@ -13,6 +13,10 @@ if ($result->num_rows > 0) {
 } else {
 echo "0 results";
  }
+
+
+
+
 											
 ?>
 
@@ -43,11 +47,11 @@ echo "0 results";
 			
 			<!-- Logo -->
 			<div class="header-left">
-				<a href="index.php" class="logo">
-				 <img src="logo.png" alt="Logo">
+				<a href="../index.php" class="logo">
+				 <img src="../logo.png" alt="Logo">
 				</a>
 				<a href="index.php" class="logo logo-small">
-					<img src="logo.png" alt="Logo" width="30" height="30">
+					<img src="../logo.png" alt="Logo" width="30" height="30">
 				</a>
 			</div>
 			<!-- /Logo -->
@@ -216,6 +220,8 @@ echo "0 results";
 				</div>
 				<!-- /Page Header -->
 
+				<form action=" " method="post">
+
 				
 
 				<!-- Contant -->
@@ -228,7 +234,7 @@ echo "0 results";
 										<h4 class="text-danger card-title">Employee Information</h4>
 									</div>
 									<div class="card-body">
-										<form action="#">
+									
 											<div class="row">
 												<div class="col-md-12">
 													<div class="row">
@@ -241,39 +247,36 @@ echo "0 results";
 														<div class="col-md-2">
 															<div class="form-group">
 																<label>Email: </label>
-																<input type="email" class="form-control">
+																<input type="email" name="email" class="form-control" required>
 															</div>
 														</div>
 														<div class="col-md-2">
 															<div class="form-group">
 																<label>Full Name</label>
-																<input type="text" class="form-control">
+																<input type="text" name="name" class="form-control"required>
 															</div>
 														</div>
                                                         <div class="col-md-2">
 															<div class="form-group">
 																<label>Phone</label>
-																<input type="text" class="form-control">
+																<input type="text" name="phone" class="form-control"required>
 															</div>
 														</div>
                                                         <div class="col-md-2">
 															<div class="form-group">
 																<label>Department :</label>
-																<input type="text" class="form-control">
+																<input type="text" name="dept" class="form-control"required>
 															</div>												
 													    </div>
 
                                                         <div class="col-md-2">
 															<div class="form-group">
 																<label>Password :</label>
-																<input type="password" class="form-control">
+																<input type="password" name="password" class="form-control" required>
 															</div>
 														</div>
 											</div>
-											<div class="text-right">
-												<button type="submit" class="btn btn-primary"> Save </button>
-											</div>
-										</form>
+										
 									</div>
 								</div>
 							</div>
@@ -296,44 +299,44 @@ echo "0 results";
 										<h4 class="text-danger card-title">Basic Information</h4>
 									</div>
 									<div class="card-body">
-										<form action="#">
+										
 											<div class="row">
 												<div class="col-md-12">
 													<div class="row">
 														<div class="col-md-2">
 															<div class="form-group">
 																<label>Father Name</label>
-																<input type="text" class="form-control">
+																<input type="text" name="fname" class="form-control" required>
 															</div>
 														</div>
 														<div class="col-md-2">
 															<div class="form-group">
 																<label>Mother Name</label>
-																<input type="email" class="form-control">
+																<input type="email" name="mName" class="form-control" required>
 															</div>
 														</div>
 														<div class="col-md-2">
 															<div class="form-group">
 																<label>Religion</label>
-																<input type="number" class="form-control">
+																<input type="text" name="religion" class="form-control" required>
 															</div>
 														</div>
                                                         <div class="col-md-2">
 															<div class="form-group">
 																<label>Marital Status</label>
-																<input type="number" class="form-control">
+																<input type="text" name="marry" class="form-control" required>
 															</div>
 														</div>
                                                         <div class="col-md-2">
 															<div class="form-group">
 																<label>Blood Group :</label>
-																<input type="text" class="form-control">
+																<input type="text" name="blood" class="form-control" required>
 															</div>
 														</div>
                                                         <div class="col-md-2">
 															<div class="form-group">
 																<label>Telephone No (Home) :</label>
-																<input type="text" class="form-control">
+																<input type="text" name="telephone" class="form-control" required>
 															</div>
 														</div>
 													</div>
@@ -342,28 +345,26 @@ echo "0 results";
 														<div class="col-md-4">
 															<div class="form-group">
 																<label>Birth Date :</label>
-																<input type="date" class="form-control">
+																<input type="date" name="bDay" class="form-control" required>
 															</div>
 														</div>
                                                         <div class="col-md-4">
 															<div class="form-group">
 																<label>Temporary Address:</label>
-																<input type="text" class="form-control">
+																<input type="text" name="tempAdd" class="form-control" required>
 															</div>
 														</div>
                                                         <div class="col-md-4">
 															<div class="form-group">
 																<label>Parmanent Address:</label>
-																<input type="text" class="form-control">
+																<input type="text" name="parmaAdd" class="form-control" required>
 															</div>
 														</div>
 													</div>
 												</div>
 
 											</div>
-											<div class="text-right">
-												<button type="submit" class="btn btn-primary">Save</button>
-											</div>
+
 										</form>
 									</div>
 								</div>
@@ -381,32 +382,32 @@ echo "0 results";
 										<h4 class="text-danger card-title">Job Information</h4>
 									</div>
 									<div class="card-body">
-										<form action="#">
+										
 											<div class="row">
 												<div class="col-md-12">
 													<div class="row">
 														<div class="col-md-2">
 															<div class="form-group">
 																<label>Job Type</label>
-																<input type="text" class="form-control">
+																<input type="text" name="jobtype" class="form-control" required>
 															</div>
 														</div>
 														<div class="col-md-2">
 															<div class="form-group">
 																<label>Designation</label>
-																<input type="email" class="form-control">
+																<input type="text" name="designation" class="form-control" required>
 															</div>
 														</div>
 														<div class="col-md-2">
 															<div class="form-group">
 																<label>Salary</label>
-																<input type="number" class="form-control">
+																<input type="number" name="salary" class="form-control" required>
 															</div>
 														</div>
                                                         <div class="col-md-3">
 															<div class="form-group">
 																<label>Registration Date :</label>
-																<input type="date" class="form-control">
+																<input type="date" name="regDate" class="form-control" required>
 															</div>
 													    </div>
                                                         
@@ -415,26 +416,26 @@ echo "0 results";
                                                     <div class="col-md-3">
 															<div class="form-group">
 																<label>Join Date :</label>
-																<input type="date" class="form-control">
+																<input type="date" name="joinDate" class="form-control" required>
 															</div>
 													</div>
 
                                                         <div class="col-md-3">
 															<div class="form-group">
 																<label>Resign Date :</label>
-																<input type="date" class="form-control">
+																<input type="date" name="resignDate" class="form-control" required>
 															</div>
 														</div>
                                                         <div class="col-md-3">
 															<div class="form-group">
 																<label>Confirmation Date :</label>
-																<input type="date" class="form-control">
+																<input type="date" name="confirmDate" class="form-control" required>
 															</div>
 														</div>												
 														<div class="col-md-3">
 															<div class="form-group">
 																<label>Salary Increment Date :</label>
-																<input type="date" class="form-control">
+																<input type="date" name="incDate" class="form-control" required>
 															</div>
 														</div>
 
@@ -443,12 +444,6 @@ echo "0 results";
 												</div>
 											</div>
 											
-
-
-
-											<div class="text-right">
-												<button type="submit" class="btn btn-primary">Save</button>
-											</div>
 										</form>
 									</div>
 								</div>
@@ -465,7 +460,7 @@ echo "0 results";
 										<h4 class="text-danger card-title">Academic Information</h4>
 									</div>
 									<div class="card-body">
-										<form action="#">
+										
 											<div class="row">
 												<div class="col-md-12">
 													<div class="row">   
@@ -477,28 +472,28 @@ echo "0 results";
 														<div class="col-md-3">                                                                                                                 
                                                             <div class="form-group">
 																<label>Name of Institute</label>
-																<input type="text" class="form-control">
+																<input type="text" name="uvName" class="form-control" required>
                                                             </div>                                                           
                                                         </div>
 
                                                         <div class="col-md-2">                                                           
                                                             <div class="form-group">
 																<label>Passing Year</label>
-																<input type="text" class="form-control">
+																<input type="text"  name="uvPassYear" class="form-control" required>
 															</div>                                                           
                                                         </div>
 
                                                         <div class="col-md-2">                                                            
                                                             <div class="form-group">
 																<label>Result</label>
-																<input type="text" class="form-control">
+																<input type="text"  name="uvResult" class="form-control" required>
 															</div>                                                           
                                                         </div>
 
                                                         <div class="col-md-2">
                                                             <div class="form-group">
 																<label>Academic Session</label>
-																<input type="text" class="form-control">
+																<input type="text"  name="uvTime" class="form-control" required>
 															</div>                                                            
 														</div>                                                      
 													</div>
@@ -512,28 +507,28 @@ echo "0 results";
 														<div class="col-md-3">                                                                                                                 
                                                             <div class="form-group">
 																<label>Name of Institute</label>
-																<input type="text" class="form-control">
+																<input type="text"  name="clName" class="form-control" required>
                                                             </div>                                                           
                                                         </div>
 
                                                         <div class="col-md-2">                                                           
                                                             <div class="form-group">
 																<label>Passing Year</label>
-																<input type="text" class="form-control">
+																<input type="text"  name="clPassYear" class="form-control" required>
 															</div>                                                           
                                                         </div>
 
                                                         <div class="col-md-2">                                                            
                                                             <div class="form-group">
 																<label>Result</label>
-																<input type="text" class="form-control">
+																<input type="text" name="clResult" class="form-control" required>
 															</div>                                                           
                                                         </div>
 
                                                         <div class="col-md-2">
                                                             <div class="form-group">
 																<label>Academic Session</label>
-																<input type="text" class="form-control">
+																<input type="text" name="clTime" class="form-control" required>
 															</div>                                                            
 														</div>                                                      
 													</div>
@@ -547,48 +542,114 @@ echo "0 results";
 														<div class="col-md-3">                                                                                                                 
                                                             <div class="form-group">
 																<label>Name of Institute</label>
-																<input type="text" class="form-control">
+																<input type="text" name="scName" class="form-control" required>
                                                             </div>                                                           
                                                         </div>
 
                                                         <div class="col-md-2">                                                           
                                                             <div class="form-group">
 																<label>Passing Year</label>
-																<input type="text" class="form-control">
+																<input type="text" name="scPassyear" class="form-control" required>
 															</div>                                                           
                                                         </div>
 
                                                         <div class="col-md-2">                                                            
                                                             <div class="form-group">
 																<label>Result</label>
-																<input type="text" class="form-control">
+																<input type="text" name="scResult" class="form-control" required>
 															</div>                                                           
                                                         </div>
 
                                                         <div class="col-md-2">
                                                             <div class="form-group">
 																<label>Academic Session</label>
-																<input type="text" class="form-control">
+																<input type="text" name="scTime" class="form-control" required>
 															</div>                                                            
 														</div>                                                      
 													</div>
 	
 												</div>
 											</div>
-											<div class="text-right">
-												<button type="submit" class="btn btn-primary">Save</button>
-											</div>
+
 										</form>
 									</div>
 								</div>
 							</div>
 						</div>
                         <!---- Academic Info -->
+
+						<!---- basic Info -->
+                    
+						<div class="row">
+							<div class="col-md-12">
+								<div class="card">
+									<div class="card-header">
+										<h4 class="text-danger card-title">Nominee Information</h4>
+									</div>
+									<div class="card-body">
+										
+											<div class="row">
+												<div class="col-md-12">
+													<div class="row">
+														<div class="col-md-4">
+															<div class="form-group">
+																<label>Nominee Name</label>
+																<input type="text" name="nName" class="form-control" required>
+															</div>
+														</div>
+														<div class="col-md-4">
+															<div class="form-group">
+																<label>Relation</label>
+																<input type="name" name="nRelation" class="form-control" required>
+															</div>
+														</div>
+														<div class="col-md-4">
+															<div class="form-group">
+																<label>Address</label>
+																<input type="text" name="nAdd" class="form-control" required>
+															</div>
+														</div>
+                                                        
+													</div>
+
+													<div class="row">													
+														<div class="col-md-4">
+															<div class="form-group">
+																<label>Birth Date :</label>
+																<input type="date" name="bDay" class="form-control" required>
+															</div>
+														</div>
+                                                        <div class="col-md-4">
+															<div class="form-group">
+																<label>Phone</label>
+																<input type="text" name="nPhone" class="form-control" required>
+															</div>
+														</div>
+                                                        <div class="col-md-4">
+															<div class="form-group">
+																<label>Parmanent Address:</label>
+																<input type="text" name="parmaAdd" class="form-control" required>
+															</div>
+														</div>
+													</div>
+												</div>
+
+											</div>
+											<div class="text-right">
+												<button type="submit" class="btn btn-primary">Create</button>
+											</div>
+										
+									</div>
+								</div>
+							</div>
+						</div>
+                         <!---- basic Info -->
                     
                     
 				</div>
 
 				<!-- /Page Wrapper -->
+			</form>
 			</div>
 			<!-- /Main Wrapper -->
 			<!-- jQuery -->

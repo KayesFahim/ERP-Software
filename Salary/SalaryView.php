@@ -1,5 +1,6 @@
 <?php
 include '../config.php';
+include('../session.php');
 
 $encryption = $_GET['empId'];
 $ciphering = "AES-128-CTR";
@@ -131,7 +132,7 @@ $sql = ""
 						</div>
 						<a class="dropdown-item" href="">My Profile</a>
 						<a class="dropdown-item" href="">Settings</a>
-						<a class="dropdown-item" href="login.php">Logout</a>
+						<a class="dropdown-item" href="logout.php">Logout</a>
 					</div>
 				</li>
 				<!-- /User Menu -->

@@ -1,6 +1,7 @@
 <?php
 
 include '../config.php';
+include('../session.php');
 
 $Reciept_No = $_GET['Rno'];
 $CustomerId;

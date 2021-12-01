@@ -1,6 +1,7 @@
 <?php
 
 include 'config.php';
+include('session.php');
 
 $bank = "SELECT SUM(credit - debit) as amount from bank";
 $mobilebanking = "SELECT SUM(credit - debit) as amount from bank";
@@ -155,13 +156,13 @@ if ($result2->num_rows > 0) {
 							</div>
 							<div class="user-text">
 								<!-- #Username -->
-								<h6>Admin</h6>
-								<p class="text-muted mb-0">Administrator</p>
+								<h6> <?php echo $login_session; ?> </h6>
+                                <p class="text-muted mb-0"><?php echo $userRole; ?></p>
 							</div>
 						</div>
 						<a class="dropdown-item" href="">My Profile</a>
 						<a class="dropdown-item" href="">Settings</a>
-						<a class="dropdown-item" href="login.php">Logout</a>
+						<a class="dropdown-item" <?php echo "href='dashboard.php?logout=$login_session'"; ?> > Logout</a>
 					</div>
 				</li>
 				<!-- /User Menu -->

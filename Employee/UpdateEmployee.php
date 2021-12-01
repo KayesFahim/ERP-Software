@@ -149,10 +149,10 @@ if ($result->num_rows > 0) {
 			<!-- Logo -->
 			<div class="header-left">
 				<a href="index.php" class="logo">
-				 <img src="logo.png" alt="Logo">
+				 <img src="../logo.png" alt="Logo">
 				</a>
 				<a href="index.php" class="logo logo-small">
-					<img src="logo.png" alt="Logo" width="30" height="30">
+					<img src="../logo.png" alt="Logo" width="30" height="30">
 				</a>
 			</div>
 			<!-- /Logo -->
@@ -230,7 +230,7 @@ if ($result->num_rows > 0) {
 						</div>
 						<a class="dropdown-item" href="">My Profile</a>
 						<a class="dropdown-item" href="">Settings</a>
-						<a class="dropdown-item" href="login.php">Logout</a>
+						<a class="dropdown-item" href="logout.php">Logout</a>
 					</div>
 				</li>
 				<!-- /User Menu -->
