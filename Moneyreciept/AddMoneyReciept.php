@@ -22,36 +22,87 @@ echo "0 results";
 
 //Employee Info
 
-$searchvar = $_GET['search'];
-
-
-if(!empty($searchvar)){
-$Customer_Name=" ";
-$Customer_Email=" ";
-$Customer_Address=" ";
-$Customer_Phone=" ";
-$Customer_Id=" ";
-
-
-$sql = "SELECT * FROM customer where CustomerId='$searchvar' or phone='$searchvar' or email='$searchvar'";
-$result = $conn->query($sql);
-if ($result->num_rows > 0) {
-	while($row = $result->fetch_assoc()) {
-		$Customer_Id = $row["CustomerId"];
-        $Customer_Name = $row["name"];
-        $Customer_Email = $row["email"];
-        $Customer_Address = $row["address"];
-        $Customer_Phone = $row["phone"];     								
-	}
-} else {
-echo "No Result Found";
- }
+if (array_key_exists('search', $_GET)){
+	$searchvar = $_GET['search'];
+		
+		$sql = "SELECT * FROM customer where CustomerId='$searchvar' or phone='$searchvar' or email='$searchvar'";
+		$result = $conn->query($sql);
+		if ($result->num_rows > 0) {
+			while($row = $result->fetch_assoc()) {
+				$Customer_Id = $row["CustomerId"];
+				$Customer_Name = $row["name"];
+				$Customer_Email = $row["email"];
+				$Customer_Address = $row["address"];
+				$Customer_Phone = $row["phone"];     								
+			}
+		} else {
+		echo "No Result Found";
+		}
+		
 }else{
 	$Customer_Name=" ";
 	$Customer_Email=" ";
 	$Customer_Address=" ";
 	$Customer_Phone=" ";
+}
 
+
+//
+
+function addCustomer(){
+	echo 'gkudbvi';
+}
+
+
+
+
+//Add Customer
+
+$CustomerId ="";
+$sql = "SELECT * FROM customer ORDER BY CustomerId DESC LIMIT 1";
+$result = $conn->query($sql);
+if ($result->num_rows > 0) {
+	while($row = $result->fetch_assoc()) {
+        $outputString = preg_replace('/[^0-9]/', '', $row["CustomerId"]);
+		$CustomerId = "CSR-00".(int)$outputString + 1 ;									
+ }
+} else {
+echo "0 results";
+ }
+
+ if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $bname = $_POST['bankname'];
+    $brname = $_POST['branchname'];
+    $accno = $_POST['accno'];
+    $credit = $_POST['credit'];
+    $creditDate = date("d/m/Y");
+    $creditdt = $_POST['creditdt']; 
+
+    $sqlquery = "INSERT INTO `customer`(                                            
+        `bankId`,
+        `bankname`,
+        `branchname`,
+        `bankaccno`,
+        `credit`,
+        `creditDate`,
+        `creditComment`
+    )
+    VALUES(
+        '$BankId',
+        '$bname',
+        '$brname',
+        '$accno',
+        '$credit',
+        '$creditDate',
+        '$creditdt'
+    )";
+        
+        if ($conn->query($sqlquery) === TRUE) {
+            $success = "record inserted successfully";
+        } else {
+            echo "Error: " . $sqlquery . "<br>" . $conn->error;
+        }
+                                                                                       
 }
 
 
@@ -389,12 +440,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		}else{
 			echo 'Wrong Selection';
 		}
-
-
-	}
-	
-                                                                                       
+	}                                                                                    
 }
+
+
+
+
 
 ?>
 
@@ -620,8 +671,63 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 									<div class="card-header">
 										<h4 class="text-danger card-title">Customer Details</h4>
 										<div class="text-right">
-											<a href="../Customer/AddCustomer.php" class="btn btn-primary"> Add Customer</a>
+										<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+											Add customer
+										</button>
 									</div>
+
+											<!-- Modal -->
+										
+											<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+												<div class="modal-dialog" role="document">
+												
+													<div class="modal-content">
+														<p id="msg"></p>
+														<form id="useForm" method="POST">
+															<div class="modal-header">
+																<h5 class="modal-title" id="exampleModalLabel">Add Customer</h5>
+																<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+																<span aria-hidden="true">&times;</span>
+																</button>
+															</div>
+															<div class="modal-body">
+															
+																<div class="form-group">
+																	<label>Customer ID</label>
+																	<input type="text" name="csId" value="<?php echo $CustomerId ?>" class="form-control" disabled>
+																</div>
+
+																<div class="form-group">
+																		<label>Customer Name</label>
+																		<input type="text" name="csName" class="form-control" required>
+																</div>
+
+																<div class="form-group">
+																		<label>Customer Email</label>
+																		<input type="email" name="csEmail" class="form-control" required>
+																</div>
+																<div class="form-group">
+																		<label>Customer Phone</label>
+																		<input type="number" name="csPhone" class="form-control" required>
+																</div>
+																<div class="form-group">
+																		<label>Address</label>
+																		<input type="text"name="csAddress" class="form-control" required>
+																</div>
+																<div class="form-group">
+																		<label>NID / Passport No</label>
+																		<input type="text" name="csNID" class="form-control" required>
+																</div>
+																
+															</div>
+															<div class="modal-footer">															
+																<input type="button" name="addCustomer" class="btn btn-primary" onclick="addCustomer()" />
+															</div>
+														</form>
+													</div>
+
+												</div>
+											</div>
 									</div>
 									<div class="card-body">
 										<form action="" method="post">
@@ -822,24 +928,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			</div>
 			<!-- /Main Wrapper -->
 			<script>
-			jQuery(function($) {
-				var locations = {
-					'Bank': ['City Bank Limited', 'Brac Bank', 'Islami Bank', 'Sonali Bank', 'Dutch Bangla Bank','Commercial Bank', 'NCC Bank', 'Modhumoti Bank' ],
-					'Cash' : ['Hand Cash'],
-					'SSL_commerce' : ['Total Payable'],
-					'Mobile Banking': ['Bkash', 'Nagad', 'Rocket']
-					
-				}
+			$(document).on('submit','#userForm',function(e){
+				e.preventDefault();
+			
+				$.ajax({
+				method:"POST",
+				url: "../Customer/AddCustomer.php",
+				data:$(this).serialize(),
+				success: function(data){
+				$('#msg').html(data);
+				$('#userForm').find('input').val('')
 
-				var $locations = $('#paymentmethod');
-				$('#paymentway').change(function () {
-					var country = $(this).val(), lcns = locations[country] || [];
-
-					var html = $.map(lcns, function(lcn){
-						return '<option value="' + lcn + '">' + lcn + '</option>'
-					}).join('');
-					$locations.html(html)
-				});
+				}});
 			});
 			</script>
 			<!-- jQuery -->
