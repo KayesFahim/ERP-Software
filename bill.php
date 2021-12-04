@@ -121,7 +121,7 @@ include('session.php');
 						</div>
 						<a class="dropdown-item" href="">My Profile</a>
 						<a class="dropdown-item" href="">Settings</a>
-						<a class="dropdown-item" href="login.php">Logout</a>
+						<a class="dropdown-item" href="logout.php">Logout</a>
 					</div>
 				</li>
 				<!-- /User Menu -->
@@ -131,66 +131,99 @@ include('session.php');
 		</div>
 		<!-- /Header -->
 
-		 <!-- Sidebar -->
-		 <div class="sidebar" id="sidebar">
-            <div class="sidebar-inner slimscroll">
-                <div id="sidebar-menu" class="sidebar-menu">
-                    <ul>
-                        <li class="menu-title">
-                            <span>Main</span>
-                        </li>
-                        <li>
-                            <a href="dashboard.php"><i class="fe fe-home"></i> <span>Dashboard</span></a>
-                        </li>
-                        <li>
-                            <a href="salesQuotation.php"><i class="fe fe-layout"></i> <span>Sales Quotation</span></a>
-                        </li>
-                        <li>
-                            <a href="invoice.php"><i class="fe fe-layout"></i> <span>Invoice</span></a>
-                        </li>
-                        <li>
-                            <a href="Bill.php"><i class="fe fe-layout"></i> <span>Bill</span></a>
-                        </li>
-                        <li>
-                            <a href="expense.php"><i class="fe fe-layout"></i> <span>Expense</span></a>
-                        </li>
-						<li>
-							<a data-toggle="dropdown"><i class="fe fe-layout"></i> <span>Accounting</span></a>
-								<ul>
-									<li><a href="CashEquivalent.php"><i class="fe fe-layout"></i> <span>Cash And Cash</span></a></li>
-									<li><a href="access.php"><i class="fe fe-layout"></i> <span>Acces control</span></a> </li>
-									<li><a href="#"><i class="fe fe-layout"></i> Portal</a></li>
-								</ul>
-						</li>
-                        <li>
-                            <a href="moneyReceipt.php"><i class="fe fe-layout"></i> <span>Money Receipt</span></a>
-                        </li>
+		 
+       <!-- Sidebar -->
 
-                        <li>
-                            <a href="payment.php"><i class="fe fe-layout"></i> <span>Payment</span></a>
-                        </li>
-                        <li>
-                            <a href="transfer.php"><i class="fe fe-layout"></i> <span>Transfer</span></a>
-                        </li>
-                        <li>
-                            <a href="project.php"><i class="fe fe-layout"></i> <span>Project</span></a>
-                        </li>
-                        <li>
-                            <a href="employees.php"><i class="fe fe-layout"></i> <span>Employees</span></a>
-                        </li>
-                        <li>
-                            <a href="Report.php"><i class="fe fe-layout"></i> <span>Report</span></a>
-                        </li>
+       <?php if($userRole == 'reservation'){
 
-                        <li>
-                            <a href="refund.php"><i class="fe fe-layout"></i> <span>Refund</span></a>
-                        </li>
+			print "<div class='sidebar' id='sidebar'>
+				<div class='sidebar-inner slimscroll'>
+					<div id='sidebar-menu' class='sidebar-menu'>
+						<ul>
+							<li class='menu-title'>
+								<span>Main</span>
+							</li>
+							<li>
+								<a href='dashboard.php'><i class='fe fe-home'></i> <span>Dashboard</span></a>
+							</li>
+							
+							<li>
+								<a href='Bill.php'><i class='fe fe-layout'></i> <span>Bill</span></a>
+							</li>
 
-                    </ul>
-                </div>
-            </div>
-        </div>
+							<li>
+								<a href='MoneyReceipt.php'><i class='fe fe-layout'></i> <span>Money Receipt</span></a>
+							</li>
+							
+						</ul>
+					</div>
+				</div>
+			</div>" ;
 
+			}elseif($userRole == 'admin' || $userRole =='developer'){
+
+			echo "<div class='sidebar' id='sidebar'>
+			<div class='sidebar-inner slimscroll'>
+			<div id='sidebar-menu' class='sidebar-menu'>
+				<ul>
+					<li class='menu-title'>
+						<span>Main</span>
+					</li>
+					<li>
+						<a href='dashboard.php'><i class='fe fe-home'></i> <span>Dashboard</span></a>
+					</li>
+					<li>
+						<a href='salesQuotation.php'><i class='fe fe-layout'></i> <span>Sales Quotation</span></a>
+					</li>
+					<li>
+						<a href='invoice.php'><i class='fe fe-layout'></i> <span>Invoice</span></a>
+					</li>
+					<li>
+						<a data-toggle='dropdown'><i class='fe fe-layout'></i> <span>Accounting</span></a>
+							<ul>
+								<li><a href='CashEquivalent.php'><i class='fe fe-layout'></i> <span>Cash And Cash</span></a></li>
+								<li><a href='access.php'><i class='fe fe-layout'></i> <span>Acces control</span></a> </li>
+								<li><a href='#'><i class='fe fe-layout'></i> Portal</a></li>
+							</ul>
+					</li>
+					<li>
+						<a href='Bill.php'><i class='fe fe-layout'></i> <span>Bill</span></a>
+					</li>
+					<li>
+						<a href='expense.php'><i class='fe fe-layout'></i> <span>Expense</span></a>
+					</li>
+					<li>
+						<a href='moneyReceipt.php'><i class='fe fe-layout'></i> <span>Money Receipt</span></a>
+					</li>
+
+					<li>
+						<a href='payment.php'><i class='fe fe-layout'></i> <span>Payment</span></a>
+					</li>
+					<li>
+						<a href='Salary/SalarySheet.php'><i class='fe fe-layout'></i> <span>Salary</span></a>
+					</li>
+					<li>
+						<a href='project.php'><i class='fe fe-layout'></i> <span>Project</span></a>
+					</li>
+					<li>
+						<a href='employees.php'><i class='fe fe-layout'></i> <span>Employees</span></a>
+					</li>
+					<li>
+						<a href='Report.php'><i class='fe fe-layout'></i> <span>Report</span></a>
+					</li>
+
+					<li>
+						<a href='refund.php'><i class='fe fe-layout'></i> <span>Refund</span></a>
+					</li>
+					
+
+				</ul>
+			</div>
+			</div>
+			</div>";}
+			
+			?>	
+			<!--- Sidebar --->
 		
 
 		<!-- Page Wrapper -->
@@ -220,7 +253,7 @@ include('session.php');
 								<div class="card-header">
 									<h4 class="card-title">Bill Details</h4>
 									<div class="text-right">
-										<a href="Moneyreciept/AddMoneyReciept.php" class="btn btn-primary"> Create +</a>
+										<a href="Bill/AddBill.php" class="btn btn-primary"> Create +</a>
 									</div>
 								</div>
 								
@@ -271,18 +304,17 @@ include('session.php');
 				</div>
 				<!-- /Page Wrapper -->
 			</div>
-			<!-- /Main Wrapper -->
 			<!-- jQuery -->
-			<script src="../assets/js/jquery-3.2.1.min.js"></script>
+			<script src="assets/js/jquery-3.2.1.min.js"></script>
 			<!-- Bootstrap Core JS -->
-			<script src="../assets/js/popper.min.js"></script>
-			<script src="../assets/js/bootstrap.min.js"></script>
+			<script src="assets/js/popper.min.js"></script>
+			<script src="assets/js/bootstrap.min.js"></script>
 			<!-- Slimscroll JS -->
-			<script src="../assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+			<script src="assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 			<!-- Datatables JS -->
-			<script src="../ssets/plugins/datatables/jquery.dataTables.min.js"></script>
-			<script src="../assets/plugins/datatables/datatables.min.js"></script>
+			<script src="assets/plugins/datatables/jquery.dataTables.min.js"></script>
+			<script src="assets/plugins/datatables/datatables.min.js"></script>
 			<!-- Custom JS -->
-			<script  src="../assets/js/script.js"></script>
+			<script  src="assets/js/script.js"></script>
 	</body>
 </html>

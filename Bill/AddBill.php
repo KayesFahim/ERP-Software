@@ -6,13 +6,13 @@ include('../session.php');
 
 //Reciept No
 
-$Reciept_No ="";
-$sql = "SELECT * FROM moneyreciept ORDER BY recieptNo DESC LIMIT 1";
+$Bill_No ="";
+$sql = "SELECT * FROM bill ORDER BY billNo DESC LIMIT 1";
 $result = $conn->query($sql);
 if ($result->num_rows > 0) {
 	while($row = $result->fetch_assoc()) {
-        $outputString = preg_replace('/[^0-9]/', '', $row["recieptNo"]);
-		$Reciept_No = "RCP-".(int)$outputString + 1 ;									
+        $outputString = preg_replace('/[^0-9]/', '', $row["billNo"]);
+		$Bill_No = "BN-".(int)$outputString + 1 ;									
  }
 } else {
 echo "0 results";
@@ -22,37 +22,29 @@ echo "0 results";
 
 //Employee Info
 
-$searchvar = $_GET['search'];
-
-
-if(!empty($searchvar)){
-$Customer_Name=" ";
-$Customer_Email=" ";
-$Customer_Address=" ";
-$Customer_Phone=" ";
-$Customer_Id=" ";
-
-
-$sql = "SELECT * FROM customer where CustomerId='$searchvar' or phone='$searchvar' or email='$searchvar'";
-$result = $conn->query($sql);
-if ($result->num_rows > 0) {
-	while($row = $result->fetch_assoc()) {
-		$Customer_Id = $row["CustomerId"];
-        $Customer_Name = $row["name"];
-        $Customer_Email = $row["email"];
-        $Customer_Address = $row["address"];
-        $Customer_Phone = $row["phone"];     								
-	}
-} else {
-echo "No Result Found";
- }
+if (array_key_exists('search', $_GET)){
+	$searchvar = $_GET['search'];
+		
+		$sql = "SELECT * FROM vendor where vendorId='$searchvar' or phone='$searchvar' or email='$searchvar'";
+		$result = $conn->query($sql);
+		if ($result->num_rows > 0) {
+			while($row = $result->fetch_assoc()) {
+				$Vendor_Id = $row["vendorId"];
+				$Vendor_Name = $row["name"];
+				$Vendor_Email = $row["email"];
+				$Vendor_Phone = $row["phone"];     								
+			}
+		} else {
+		echo "No Result Found";
+		}
+		
 }else{
-	$Customer_Name=" ";
-	$Customer_Email=" ";
-	$Customer_Address=" ";
-	$Customer_Phone=" ";
-
+	$Vendor_Name=" ";
+	$Vendor_Email=" ";
+	$Vendor_Phone=" ";
 }
+
+
 
 
 // Generate PDF
@@ -65,18 +57,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $TxId = $_POST['txid']; 
 
 	
-    $mrgenerate = "INSERT INTO `moneyreciept`(
-		`recieptNo`,
-		`customerId`,
+    $mrgenerate = "INSERT INTO `bill`(
+		`TxType`,
+		`vendorId`,
 		`TxId`,
 		`amount`,
 		`paymentMethod`,
-		`paymentId`,
+		`paymentway`,
 		`comment`
 	)
 	VALUES(
-		'$Reciept_No',
-		'$Customer_Id',
+		'$Bill_No',
+		'$Vendor_Id',
 		'$TxId',
 		'$amount',
 		'$payWay',
@@ -99,14 +91,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 				
 				`bankId`,
 				`bankname`,				
-				`recieptNo`,
-				`credit`,
-				`creditComment`				
+				`TxType`,
+				`debit`,
+				`debitComment`				
 			)
 			VALUES(
 				'BNK-001',
 				'City Bank Limited',
-				'$Reciept_No',
+				'$Bill_No',
 				'$amount',
 				'$TxId'				
 			)";
@@ -114,7 +106,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			if (mysqli_query($conn, $credit)) {
 							
 				echo '<script language="javascript">';
-		echo 'alert("Successfully Created"); location.href="invoice.php?Rno='.$Reciept_No.'"';
+		echo 'alert("Successfully Created"); location.href="invoice.php?Rno='.$Bill_No.'"';
 		echo '</script>';
 				
 			} else {
@@ -125,15 +117,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			$credit = "INSERT INTO `bank`(				
 				`bankId`,
 				`bankname`,				
-				`recieptNo`,
-				`credit`,
-				`creditComment`
+				`TxType`,
+				`debit`,
+				`debitComment`
 				
 			)
 			VALUES(
 				'BNK-002',
 				'Brac Bank Limited',
-				'$Reciept_No',
+				'$Bill_No',
 				'$amount',
 				'$TxId'
 				
@@ -142,7 +134,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			if (mysqli_query($conn, $credit)) {
 			
 				echo '<script language="javascript">';
-				echo 'alert("Successfully Created"); location.href="invoice.php?Rno='.$Reciept_No.'"';
+				echo 'alert("Successfully Created"); location.href="invoice.php?Rno='.$Bill_No.'"';
 				echo '</script>';
 				
 		 } else {
@@ -154,15 +146,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 				
 				`bankId`,
 				`bankname`,				
-				`recieptNo`,
-				`credit`,
-				`creditComment`
+				`TxType`,
+				`debit`,
+				`debitComment`
 				
 			)
 			VALUES(
 				'BNK-003',
 				'Islami Bank',
-				'$Reciept_No',
+				'$Bill_No',
 				'$amount',
 				'$TxId'
 				
@@ -171,7 +163,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			if (mysqli_query($conn, $credit)) {
 							
 				echo '<script language="javascript">';
-				echo 'alert("Successfully Created"); location.href="invoice.php?Rno='.$Reciept_No.'"';
+				echo 'alert("Successfully Created"); location.href="invoice.php?Rno='.$Bill_No.'"';
 				echo '</script>';
 				
 			} else {
@@ -183,15 +175,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 				
 				`bankId`,
 				`bankname`,				
-				`recieptNo`,
-				`credit`,
-				`creditComment`
+				`TxType`,
+				`debit`,
+				`debitComment`
 				
 			)
 			VALUES(
 				'BNK-004',
 				'Sonali Bank',
-				'$Reciept_No',
+				'$Bill_No',
 				'$amount',
 				'$TxId'
 				
@@ -200,7 +192,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			if (mysqli_query($conn, $credit)) {
 							
 				echo '<script language="javascript">';
-				echo 'alert("Successfully Created"); location.href="invoice.php?Rno='.$Reciept_No.'"';
+				echo 'alert("Successfully Created"); location.href="invoice.php?Rno='.$Bill_No.'"';
 				echo '</script>';
 				
 			} else {
@@ -213,15 +205,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 				
 				`bankId`,
 				`bankname`,				
-				`recieptNo`,
-				`credit`,
-				`creditComment`
+				`TxType`,
+				`debit`,
+				`debitComment`
 				
 			)
 			VALUES(
 				'BNK-005',
 				'Dutch Bangla Bank',
-				'$Reciept_No',
+				'$Bill_No',
 				'$amount',
 				'$TxId'
 				
@@ -230,7 +222,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			if (mysqli_query($conn, $credit)) {
 							
 				echo '<script language="javascript">';
-				echo 'alert("Successfully Created"); location.href="invoice.php?Rno='.$Reciept_No.'"';
+				echo 'alert("Successfully Created"); location.href="invoice.php?Rno='.$Bill_No.'"';
 				echo '</script>';
 				
 			} else {
@@ -243,15 +235,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 				
 				`bankId`,
 				`bankname`,				
-				`recieptNo`,
-				`credit`,
-				`creditComment`
+				`TxType`,
+				`debit`,
+				`debitComment`
 				
 			)
 			VALUES(
 				'BNK-006',
 				'Commercial Bank',
-				'$Reciept_No',
+				'$Bill_No',
 				'$amount',
 				'$TxId'
 				
@@ -260,7 +252,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			if (mysqli_query($conn, $credit)) {
 							
 				echo '<script language="javascript">';
-				echo 'alert("Successfully Created"); location.href="invoice.php?Rno='.$Reciept_No.'"';
+				echo 'alert("Successfully Created"); location.href="invoice.php?Rno='.$Bill_No.'"';
 				echo '</script>';
 				
 			} else {
@@ -273,15 +265,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 				
 				`bankId`,
 				`bankname`,				
-				`recieptNo`,
-				`credit`,
-				`creditComment`
+				`TxType`,
+				`debit`,
+				`debitComment`
 				
 			)
 			VALUES(
 				'BNK-007',
 				'NCC Bank',
-				'$Reciept_No',
+				'$Bill_No',
 				'$amount',
 				'$TxId'
 				
@@ -290,7 +282,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			if (mysqli_query($conn, $credit)) {
 							
 				echo '<script language="javascript">';
-				echo 'alert("Successfully Created"); location.href="invoice.php?Rno='.$Reciept_No.'"';
+				echo 'alert("Successfully Created"); location.href="invoice.php?Rno='.$Bill_No.'"';
 				echo '</script>';
 				
 			} else {
@@ -302,15 +294,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			$credit = "INSERT INTO `bank`(				
 				`bankId`,
 				`bankname`,				
-				`recieptNo`,
-				`credit`,
-				`creditComment`
+				`TxType`,
+				`debit`,
+				`debitComment`
 				
 			)
 			VALUES(
 				'BNK-008',
 				'Modhumoti Bank',
-				'$Reciept_No',
+				'$Bill_No',
 				'$amount',
 				'$TxId'
 				
@@ -319,20 +311,44 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			if (mysqli_query($conn, $credit)) {
 							
 				echo '<script language="javascript">';
-				echo 'alert("Successfully Created"); location.href="invoice.php?Rno='.$Reciept_No.'"';
+				echo 'alert("Successfully Created"); location.href="invoice.php?Rno='.$Bill_No.'"';
 				echo '</script>';
 				
 			} else {
 			echo "Error: " . $sql . "<br>" . mysqli_error($conn);
 			}
 		}else{
-			echo 'Wrong';
+			echo 'Wrong Selection';
 		}
 	
 
 	}elseif($payWay == 'cash'){
-		echo $payWay;
-		echo $payMethod;
+
+		if($payMethod == 'cash'){
+
+		$credit = "INSERT INTO `cash`(
+
+					`TxType`,
+					`cashOut`,
+					`cashOutTxId`
+				)
+				VALUES(
+					'$Bill_No',
+					'$amount',
+					'$TxId'
+				)";
+
+		if (mysqli_query($conn, $credit)) {						
+			echo '<script language="javascript">';
+			echo 'alert("Successfully Created"); location.href="invoice.php?Rno='.$Bill_No.'"';
+			echo '</script>';
+			
+		} else {
+		echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+		}
+	}else{
+		echo 'Wrong Selection';
+	}
 
 
 	}elseif($payWay == 'mobile_banking'){
@@ -340,15 +356,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		echo $payMethod;
 		
 
-	}elseif($payWay == 'ssl_commerce'){
-		echo $payWay;
-		echo $payMethod;
-
-
-	}
-	
-                                                                                       
+	}                                                                   
 }
+
+
+
+
 
 ?>
 
@@ -358,7 +371,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-	<title>Add Money Reciept</title>
+	<title>Add Bill</title>
 	<!-- Favicon -->
 	<link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.png">
 	<!-- Bootstrap CSS -->
@@ -390,7 +403,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 				</a>
 				<a href="../index.php" class="logo logo-small">
 					<img src="../logo.png" alt="Logo" width="30" height="30">
-					<h4>YOUR LOGO</h4>
 				</a>
 			</div>
 			<!-- /Logo -->
@@ -431,7 +443,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 									<a href="#">
 										<div class="media">
 											<span class="avatar avatar-sm">
-												<img class="avatar-img rounded-circle" alt="User Image" src="assets/img/profile.jpg">
+												<img class="avatar-img rounded-circle" alt="User Image" src="../assets/img/profile.jpg">
 											</span>
 											<div class="media-body">
 												<p class="noti-details"><span class="noti-title">Farhana </span> Schedule <span class="noti-title">her appointment</span></p>
@@ -453,12 +465,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 				<!-- User Menu -->
 				<li class="nav-item dropdown has-arrow">
 					<a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-						<span class="user-img"><img class="rounded-circle" src="assets/img/profile.jpg" width="31" alt="Ryan Taylor"></span>
+						<span class="user-img"><img class="rounded-circle" src="../assets/img/profile.jpg" width="31" alt="Ryan Taylor"></span>
 					</a>
 					<div class="dropdown-menu">
 						<div class="user-header">
 							<div class="avatar avatar-sm">
-								<img src="assets/img/profile.jpg" alt="User Image" class="avatar-img rounded-circle">
+								<img src="../assets/img/profile.jpg" alt="User Image" class="avatar-img rounded-circle">
 							</div>
 							<div class="user-text">
 								<!-- #Username -->
@@ -478,74 +490,98 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		</div>
 		<!-- /Header -->
 
-		<!-- Sidebar -->
-		<div class="sidebar" id="sidebar">
-            <div class="sidebar-inner slimscroll">
-                <div id="sidebar-menu" class="sidebar-menu">
-                    <ul>
-                        <li class="menu-title">
-                            <span>Main</span>
-                        </li>
-                        <li>
-                            <a href="../dashboard.php"><i class="fe fe-home"></i> <span>Dashboard</span></a>
-                        </li>
-                        <li>
-                            <a href="../salesQuotation.php"><i class="fe fe-layout"></i> <span>Sales Quotation</span></a>
-                        </li>
-                        <li>
-                            <a href="../invoice.php"><i class="fe fe-layout"></i> <span>Invoice</span></a>
-                        </li>
-                        <li>
-                            <a href="../Bill.php"><i class="fe fe-layout"></i> <span>Bill</span></a>
-                        </li>
-                        <li>
-                            <a href="../expense.php"><i class="fe fe-layout"></i> <span>Expense</span></a>
-                        </li>
-						<li>
-							<a data-toggle="dropdown"><i class="fe fe-layout"></i> <span>Accounting</span></a>
-								<ul>
-									<li><a href="../CashEquivalent.php"><i class="fe fe-layout"></i> <span>Cash And Cash</span></a></li>
-									<li><a href="../access.php"><i class="fe fe-layout"></i> <span>Acces control</span></a> </li>
-									<li><a href="#"><i class="fe fe-layout"></i> Portal</a></li>
-								</ul>
-						</li>
-                        <li>
-                            <a href="../moneyReceipt.php"><i class="fe fe-layout"></i> <span>Money Receipt</span></a>
-                        </li>
+		
+       <!-- Sidebar -->
 
-                        <li>
-                            <a href="../payment.php"><i class="fe fe-layout"></i> <span>Payment</span></a>
-                        </li>
-                        <li>
-                            <a href="../transfer.php"><i class="fe fe-layout"></i> <span>Transfer</span></a>
-                        </li>
-                        <li>
-                            <a href="../project.php"><i class="fe fe-layout"></i> <span>Project</span></a>
-                        </li>
-                        <li>
-                            <a href="../employees.php"><i class="fe fe-layout"></i> <span>Employees</span></a>
-                        </li>
-                        <li>
-                            <a href="../Report.php"><i class="fe fe-layout"></i> <span>Report</span></a>
-                        </li>
+       <?php if($userRole == 'reservation'){
+			print "<div class='sidebar' id='sidebar'>
+				<div class='sidebar-inner slimscroll'>
+					<div id='sidebar-menu' class='sidebar-menu'>
+						<ul>
+							<li class='menu-title'>
+								<span>Main</span>
+							</li>
+							<li>
+								<a href='../Dashboard.php'><i class='fe fe-home'></i> <span>Dashboard</span></a>
+							</li>
+							
+							<li>
+								<a href='../Bill.php'><i class='fe fe-layout'></i> <span>Bill</span></a>
+							</li>
 
-                        <li>
-                            <a href="../refund.php"><i class="fe fe-layout"></i> <span>Refund</span></a>
-                        </li>
-                        <li>
-                            <a href="../accounting.php"><i class="fe fe-layout"></i> <span>Accounting</span></a>
-                            <li>
-                                <a href="../reservation.php"><i class="fe fe-layout"></i> <span>Reservation</span></a>
-                                <li>
-                                    <a href="../access.php"><i class="fe fe-layout"></i> <span>Acces control</span></a>
-                                </li>
-                            </li>
-                        </li>
+							<li>
+								<a href='../MoneyReceipt.php'><i class='fe fe-layout'></i> <span>Money Receipt</span></a>
+							</li>
+							
+						</ul>
+					</div>
+				</div>
+			</div>" ;
 
-                    </ul>
-                </div>
-            </div>
-        </div>
+			}elseif($userRole == 'admin' || $userRole =='developer'){
+
+			echo "<div class='sidebar' id='sidebar'>
+			<div class='sidebar-inner slimscroll'>
+			<div id='sidebar-menu' class='sidebar-menu'>
+				<ul>
+					<li class='menu-title'>
+						<span>Main</span>
+					</li>
+					<li>
+						<a href='dashboard.php'><i class='fe fe-home'></i> <span>Dashboard</span></a>
+					</li>
+					<li>
+						<a href='salesQuotation.php'><i class='fe fe-layout'></i> <span>Sales Quotation</span></a>
+					</li>
+					<li>
+						<a href='invoice.php'><i class='fe fe-layout'></i> <span>Invoice</span></a>
+					</li>
+					<li>
+						<a data-toggle='dropdown'><i class='fe fe-layout'></i> <span>Accounting</span></a>
+							<ul>
+								<li><a href='CashEquivalent.php'><i class='fe fe-layout'></i> <span>Cash And Cash</span></a></li>
+								<li><a href='access.php'><i class='fe fe-layout'></i> <span>Acces control</span></a> </li>
+								<li><a href='#'><i class='fe fe-layout'></i> Portal</a></li>
+							</ul>
+					</li>
+					<li>
+						<a href='Bill.php'><i class='fe fe-layout'></i> <span>Bill</span></a>
+					</li>
+					<li>
+						<a href='expense.php'><i class='fe fe-layout'></i> <span>Expense</span></a>
+					</li>
+					<li>
+						<a href='moneyReceipt.php'><i class='fe fe-layout'></i> <span>Money Receipt</span></a>
+					</li>
+
+					<li>
+						<a href='payment.php'><i class='fe fe-layout'></i> <span>Payment</span></a>
+					</li>
+					<li>
+						<a href='Salary/SalarySheet.php'><i class='fe fe-layout'></i> <span>Salary</span></a>
+					</li>
+					<li>
+						<a href='project.php'><i class='fe fe-layout'></i> <span>Project</span></a>
+					</li>
+					<li>
+						<a href='employees.php'><i class='fe fe-layout'></i> <span>Employees</span></a>
+					</li>
+					<li>
+						<a href='Report.php'><i class='fe fe-layout'></i> <span>Report</span></a>
+					</li>
+
+					<li>
+						<a href='refund.php'><i class='fe fe-layout'></i> <span>Refund</span></a>
+					</li>
+					
+
+				</ul>
+			</div>
+			</div>
+		</div>";}
+			
+			?>	
+		<!--- Sidebar --->
 
 		
 
@@ -557,14 +593,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 				<div class="page-header">
 					<div class="row">
 						<div class="col-sm-12">
-							<h3 class="page-title">Money Receipt</h3>
+							<h3 class="page-title">Bill</h3>
 							<ul class="breadcrumb">
 								<li class="breadcrumb-item"><a href="../project.php">Dashboard</a></li>
-								<li class="breadcrumb-item active">Money Receipt</li>
+								<li class="breadcrumb-item active">Bill</li>
 							</ul>
 						</div>
 					</div>
 				</div>
+
 				<!-- /Page Header -->
 				
 					<div class="col-md-12">
@@ -572,10 +609,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 							<div class="col-md-12">
 								<div class="card">
 									<div class="card-header">
-										<h4 class="text-danger card-title">Customer Details</h4>
+										<h4 class="text-danger card-title">Vendor Details</h4>
 										<div class="text-right">
-											<a href="../Customer/AddCustomer.php" class="btn btn-primary"> Add Customer</a>
+										<a href="../Vendor/AddVendor.php" class="btn btn-primary"> Add Vendor </a>
 									</div>
+
 									</div>
 									<div class="card-body">
 										<form action="" method="post">
@@ -585,20 +623,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 													<div class="row">
 													<div class="col-md-4">
 															<div class="form-group">
-																<label>Reciept No:</label>
-																<input type="text" value="<?php echo $Reciept_No ?>" class="form-control" disabled>
+																<label>Bill No:</label>
+																<input type="text" value="<?php echo $Bill_No ?>" class="form-control" disabled>
 															</div>
 														</div>
 														<div class="col-md-4">
 															<div class="form-group">
 																<label>Name:</label>
-																<input type="text" value="<?php echo $Customer_Name ?>" class="form-control" required>
+																<input type="text" value="<?php echo $Vendor_Name ?>" class="form-control" required>
 															</div>
 														</div>
 														<div class="col-md-4">
 															<div class="form-group">
 																<label>Phone: </label>
-																<input type="phone" value="<?php echo $Customer_Phone ?>" class="form-control" required>
+																<input type="phone" value="<?php echo $Vendor_Phone ?>" class="form-control" required>
 															</div>
 														</div>
 														
@@ -607,15 +645,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 														<div class="col-md-4">
 																<div class="form-group">
 																	<label>Email :</label>
-																	<input type="email" value="<?php echo $Customer_Email ?>" class="form-control" required>
+																	<input type="email" value="<?php echo $Vendor_Email ?>" class="form-control" required>
 																</div>
 															</div>
-														<div class="col-md-4">
-															<div class="form-group">
-																<label>BCC :</label>
-																<input type="email" name="bccemail"  class="form-control" required>
-															</div>
-														</div>
+
 
 														<div class="col-md-4">
 															<div class="form-group">
@@ -623,33 +656,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 																<input type="text" name="comment" class="form-control" required>
 															</div>
 														</div>
-												
 
-
-													</div>
-													<div class="row">
 														<div class="col-md-3">
 																<div class="form-group">
 																	<label>Amount :</label>
 																	<input type="number" name="amount" class="form-control" required>
 																</div>
-															</div>
-
-														<div class="col-md-3">
-															<div class="form-group">
-																<label>Attachement :</label>
-																<input type="file" name="file" class="form-control"> required
-															</div>
 														</div>
+											
 
-														<div class="col-md-6">
-															<div class="form-group">
-																<label>Address :</label>
-																<input type="text" value="<?php echo $Customer_Address ?>" class="form-control" required>
-															</div>
-														</div>
-														
 													</div>
+													
 													<div class="row">
 														<div class="col-md-4">
 															<div class="form-group">
@@ -660,7 +677,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 																		<option value="" disabled selected>Select Payment Way</option>
 																		<option value="cash">Cash</option>
 																		<option value="bank">Bank</option>
-																		<option value="ssl_commerce">SSL_commerce</option>
 																		<option value="mobile_banking">Mobile Banking</option>
 																	</select>
 
@@ -676,7 +692,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 																	<select name="paymentmethod" class="select form-control" required>
 																		<option value="" disabled selected>Select Payment Method</option>
 																		<option value="cash">Cash</option>
-																		<option value="ssl_commerce">SSL_commerce</option>
 																		<option value="city">City Bank Limited</option>	
 																		<option value="brac">Brac Bank </option>	
 																		<option value="islami">Islami Bank</option>	
@@ -685,7 +700,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 																		<option value="commercial">Commercial Bank</option>	
 																		<option value="ncc">NCC Bank</option>	
 																		<option value="modhumoti">Modhumoti Bank</option>	
-																		<option value="mobile_banking">Mobile Banking</option>
+																		<option value="BK-01755543447">BKash (01755543447)</option>
 																		
 
 																	</select>
@@ -711,7 +726,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 							</div>
 						</div>
 					</div>
-					
+									
 
 					<div class="col-md-12">
 							<div class="card">
@@ -719,48 +734,47 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 									<h4 class="card-title">Expense Detail</h4>
 								</div>
 								<div class="card-body">
-
 									<div class="table-responsive">
 										<table class="datatable table table-stripped">
 											<thead>
 												<tr>
-													<th>Reciept No:</th>
+													<th>Bill ID</th>
 													<th>Issue Date</th>
 													<th>Amount</th>
 													<th>Created By</th>
-													<th>Customer</th>
-                                                    <th>Payment Method</th>
-													
-                                                    <th>Action</th>
+													<th>Vendor</th>
+													<th>Purchase Item</th>													
+													<th>R. No</th>
+													<th> </th>
+													<th>Action</th>
 												</tr>
 											</thead>
 											<tbody>
 											<?php
 
-													$sql = "SELECT recieptNo, createdBy, customerId, issueDate, TxId, amount, paymentMethod, paymentId   FROM `moneyreciept` ORDER BY id DESC LIMIT 5";
-													$result = $conn->query($sql);
+												$sql = "SELECT *  FROM `bill` ORDER BY id DESC";
+												$result = $conn->query($sql);
 
-													if ($result->num_rows > 0) {
-													while($row = $result->fetch_assoc()) {	
-														$Rno = $row["recieptNo"];
-														echo "<tr><td>".$row["recieptNo"]."</td>
-																	<td>".$row["issueDate"]."</td> 
-																	<td>".$row["amount"]."</td>
-																	<td>".$row["createdBy"]."</td>
-																	<td>".$row["customerId"]."</td>
-																	<td>".$row["paymentMethod"]."</td>
-																	<td><a href='Invoice.php?Rno=$Rno' class='btn btn-primary'> <i class='fe fe-print'></i> </a>
-																	<a href='Invoice.php?Rno=$Rno' class='btn btn-success'> <i class='fe fe-edit'></i> </a>
-																	<a href='Invoice.php?Rno=$Rno' class='btn btn-danger'> <i class='fe fe-trash'></i> </a>
-																	<a href='Invoice.php?Rno=$Rno' class='btn btn-danger'> <i class='fe fe-mail'></i> </a>
-																	</tr>";   											
-													}
-													} else {
-													echo "0 results";
-													}
-													?>
-                                                    </td>
-												</tr>
+												if ($result->num_rows > 0) {
+  												while($row = $result->fetch_assoc()) {	
+													$Bno = $row["billNo"];
+													echo "<tr><td>".$row["billNo"]."</td>
+																<td>".$row["issueDate"]."</td> 
+														 		<td>".$row["amount"]."</td>
+																<td>".$row["createdBy"]."</td>
+														 		<td>".$row["vendorId"]."</td>
+																<td>".$row["purpose"]."</td>
+																<td>".$row["TxId"]."</td>
+																<td><td><a href='Invoice.php?Bno=$Bno' class='btn btn-primary'> <i class='fe fe-print'></i> </a>
+																<a href='Invoice.php?Bno=$Bno' class='btn btn-success'> <i class='fe fe-edit'></i> </a>
+																<a href='Invoice.php?Bno=$Bno' class='btn btn-danger'> <i class='fe fe-trash'></i> </a>
+																<a href='Invoice.php?Bno=$Bno' class='btn btn-danger'> <i class='fe fe-mail'></i> </a>
+																 </tr>";   											
+												  }
+												} else {
+  												echo "0 results";
+											    }
+												?>
 											</tbody>
 										</table>
 									</div>
@@ -776,24 +790,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			</div>
 			<!-- /Main Wrapper -->
 			<script>
-			jQuery(function($) {
-				var locations = {
-					'Bank': ['City Bank Limited', 'Brac Bank', 'Islami Bank', 'Sonali Bank', 'Dutch Bangla Bank','Commercial Bank', 'NCC Bank', 'Modhumoti Bank' ],
-					'Cash' : ['Hand Cash'],
-					'SSL_commerce' : ['Total Payable'],
-					'Mobile Banking': ['Bkash', 'Nagad', 'Rocket']
-					
-				}
+			$(document).on('submit','#userForm',function(e){
+				e.preventDefault();
+			
+				$.ajax({
+				method:"POST",
+				url: "../Customer/AddCustomer.php",
+				data:$(this).serialize(),
+				success: function(data){
+				$('#msg').html(data);
+				$('#userForm').find('input').val('')
 
-				var $locations = $('#paymentmethod');
-				$('#paymentway').change(function () {
-					var country = $(this).val(), lcns = locations[country] || [];
-
-					var html = $.map(lcns, function(lcn){
-						return '<option value="' + lcn + '">' + lcn + '</option>'
-					}).join('');
-					$locations.html(html)
-				});
+				}});
 			});
 			</script>
 			<!-- jQuery -->

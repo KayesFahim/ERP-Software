@@ -1,28 +1,28 @@
 <?php
 
-require('../config.php');
+require '../config.php';
 require('../session.php');
 
 
-$CustomerId ="";
-$sql = "SELECT * FROM customer ORDER BY CustomerId DESC LIMIT 1";
+$Vendor_Id ="";
+$sql = "SELECT * FROM vendor ORDER BY vendorId DESC LIMIT 1";
 $result = $conn->query($sql);
 if ($result->num_rows > 0) {
 	while($row = $result->fetch_assoc()) {
-        $outputString = preg_replace('/[^0-9]/', '', $row["CustomerId"]);
-		$CustomerId = "CSR-00".(int)$outputString + 1 ;									
+        $outputString = preg_replace('/[^0-9]/', '', $row["vendorId"]);
+		$Vendor_Id = "VDR-".(int)$outputString + 1 ;									
  }
 } else {
 echo "0 results";
  }
 
  if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $cName = $_POST['cname'];
-    $CEmail = $_POST['cemail'];
-    $cPhone = $_POST['cphone'];
-    $cAddress = $_POST['caddress'];
-    $cRegDate = date("d/m/Y");
-    $creditdt = $_POST['cnid']; 
+    $vName = $_POST['cname'];
+    $vEmail = $_POST['cemail'];
+    $vPhone = $_POST['cphone'];
+    $vAddress = $_POST['caddress'];
+    $vRegDate = date("d/m/Y");
+    $vreditdt = $_POST['cnid']; 
 
     $sqlquery = "INSERT INTO `bank`(                                            
         `bankId`,
@@ -124,7 +124,7 @@ echo "0 results";
 						<div class="noti-content">
 							<ul class="notification-list">
 								<li class="notification-message">
-									<a href="#">
+									<a href="">
 										<div class="media">
 											<span class="avatar avatar-sm">
 												<img class="avatar-img rounded-circle" alt="User Image" src="../assets/img/profile.jpg">
@@ -149,7 +149,7 @@ echo "0 results";
 				<!-- User Menu -->
 				<li class="nav-item dropdown has-arrow">
 					<a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-						<span class="user-img"><img class="rounded-circle" src="assets/img/profile.jpg" width="31" alt="Ryan Taylor"></span>
+						<span class="user-img"><img class="rounded-circle" src="../assets/img/profile.jpg" width="31" alt="Ryan Taylor"></span>
 					</a>
 					<div class="dropdown-menu">
 						<div class="user-header">
@@ -164,7 +164,7 @@ echo "0 results";
 						</div>
 						<a class="dropdown-item" href="">My Profile</a>
 						<a class="dropdown-item" href="">Settings</a>
-						<a class="dropdown-item" href="logout.php">Logout</a>
+						<a class="dropdown-item" href="login.php">Logout</a>
 					</div>
 				</li>
 				<!-- /User Menu -->
@@ -174,97 +174,98 @@ echo "0 results";
 		</div>
 		<!-- /Header -->
 
-	    <!-- Sidebar -->
+	     
+       <!-- Sidebar -->
 
-		<?php if($userRole == 'reservation'){
-				print "<div class='sidebar' id='sidebar'>
-					<div class='sidebar-inner slimscroll'>
-						<div id='sidebar-menu' class='sidebar-menu'>
-							<ul>
-								<li class='menu-title'>
-									<span>Main</span>
-								</li>
-								<li>
-									<a href='../Dashboard.php'><i class='fe fe-home'></i> <span>Dashboard</span></a>
-								</li>
-								
-								<li>
-									<a href='../Bill.php'><i class='fe fe-layout'></i> <span>Bill</span></a>
-								</li>
+       <?php if($userRole == 'reservation'){
+                print "<div class='sidebar' id='sidebar'>
+                    <div class='sidebar-inner slimscroll'>
+                        <div id='sidebar-menu' class='sidebar-menu'>
+                            <ul>
+                                <li class='menu-title'>
+                                    <span>Main</span>
+                                </li>
+                                <li>
+                                    <a href='../Dashboard.php'><i class='fe fe-home'></i> <span>Dashboard</span></a>
+                                </li>
+                                
+                                <li>
+                                    <a href='../Bill.php'><i class='fe fe-layout'></i> <span>Bill</span></a>
+                                </li>.
 
-								<li>
-									<a href='../MoneyReceipt.php'><i class='fe fe-layout'></i> <span>Money Receipt</span></a>
-								</li>
-								
-							</ul>
-						</div>
-					</div>
-				</div>" ;
+                                <li>
+                                    <a href='../MoneyReceipt.php'><i class='fe fe-layout'></i> <span>Money Receipt</span></a>
+                                </li>
+                                
+                            </ul>
+                        </div>
+                    </div>
+                </div>" ;
 
-				}elseif($userRole == 'admin' || $userRole =='developer'){
+                }elseif($userRole == 'admin' && $userRole =='developer'){
 
-				echo "<div class='sidebar' id='sidebar'>
-				<div class='sidebar-inner slimscroll'>
-				<div id='sidebar-menu' class='sidebar-menu'>
-					<ul>
-						<li class='menu-title'>
-							<span>Main</span>
-						</li>
-						<li>
-							<a href='Dashboard.php'><i class='fe fe-home'></i> <span>Dashboard</span></a>
-						</li>
-						<li>
-							<a href='salesQuotation.php'><i class='fe fe-layout'></i> <span>Sales Quotation</span></a>
-						</li>
-						<li>
-							<a href='invoice.php'><i class='fe fe-layout'></i> <span>Invoice</span></a>
-						</li>
-						<li>
-							<a data-toggle='dropdown'><i class='fe fe-layout'></i> <span>Accounting</span></a>
-								<ul>
-									<li><a href='CashEquivalent.php'><i class='fe fe-layout'></i> <span>Cash And Cash</span></a></li>
-									<li><a href='access.php'><i class='fe fe-layout'></i> <span>Acces control</span></a> </li>
-									<li><a href='#'><i class='fe fe-layout'></i> Portal</a></li>
-								</ul>
-						</li>
-						<li>
-							<a href='Bill.php'><i class='fe fe-layout'></i> <span>Bill</span></a>
-						</li>
-						<li>
-							<a href='expense.php'><i class='fe fe-layout'></i> <span>Expense</span></a>
-						</li>
-						<li>
-							<a href='moneyReceipt.php'><i class='fe fe-layout'></i> <span>Money Receipt</span></a>
-						</li>
+                echo "<div class='sidebar' id='sidebar'>
+                <div class='sidebar-inner slimscroll'>
+                <div id='sidebar-menu' class='sidebar-menu'>
+                    <ul>
+                        <li class='menu-title'>
+                            <span>Main</span>
+                        </li>
+                        <li>
+                            <a href='../Dashboard.php'><i class='fe fe-home'></i> <span>Dashboard</span></a>
+                        </li>
+                        <li>
+                            <a href='../salesQuotation.php'><i class='fe fe-layout'></i> <span>Sales Quotation</span></a>
+                        </li>
+                        <li>
+                            <a href='../invoice.php'><i class='fe fe-layout'></i> <span>Invoice</span></a>
+                        </li>
+                        <li>
+                            <a data-toggle='dropdown'><i class='fe fe-layout'></i> <span>Accounting</span></a>
+                                <ul>
+                                    <li><a href='../CashEquivalent.php'><i class='fe fe-layout'></i> <span>Cash And Cash</span></a></li>
+                                    <li><a href='../access.php'><i class='fe fe-layout'></i> <span>Acces control</span></a> </li>
+                                    <li><a href='#'><i class='fe fe-layout'></i> Portal</a></li>
+                                </ul>
+                        </li>
+                        <li>
+                            <a href='Bill.php'><i class='fe fe-layout'></i> <span>Bill</span></a>
+                        </li>
+                        <li>
+                            <a href='expense.php'><i class='fe fe-layout'></i> <span>Expense</span></a>
+                        </li>
+                        <li>
+                            <a href='moneyReceipt.php'><i class='fe fe-layout'></i> <span>Money Receipt</span></a>
+                        </li>
 
-						<li>
-							<a href='payment.php'><i class='fe fe-layout'></i> <span>Payment</span></a>
-						</li>
-						<li>
-							<a href='Salary/SalarySheet.php'><i class='fe fe-layout'></i> <span>Salary</span></a>
-						</li>
-						<li>
-							<a href='project.php'><i class='fe fe-layout'></i> <span>Project</span></a>
-						</li>
-						<li>
-							<a href='employees.php'><i class='fe fe-layout'></i> <span>Employees</span></a>
-						</li>
-						<li>
-							<a href='Report.php'><i class='fe fe-layout'></i> <span>Report</span></a>
-						</li>
+                        <li>
+                            <a href='payment.php'><i class='fe fe-layout'></i> <span>Payment</span></a>
+                        </li>
+                        <li>
+                            <a href='Salary/SalarySheet.php'><i class='fe fe-layout'></i> <span>Salary</span></a>
+                        </li>
+                        <li>
+                            <a href='project.php'><i class='fe fe-layout'></i> <span>Project</span></a>
+                        </li>
+                        <li>
+                            <a href='employees.php'><i class='fe fe-layout'></i> <span>Employees</span></a>
+                        </li>
+                        <li>
+                            <a href='Report.php'><i class='fe fe-layout'></i> <span>Report</span></a>
+                        </li>
 
-						<li>
-							<a href='refund.php'><i class='fe fe-layout'></i> <span>Refund</span></a>
-						</li>
-						
+                        <li>
+                            <a href='refund.php'><i class='fe fe-layout'></i> <span>Refund</span></a>
+                        </li>
+                        
 
-					</ul>
-				</div>
-				</div>
-				</div>";}
-
-				?>	
-				<!--- Sidebar --->
+                    </ul>
+                </div>
+                </div>
+            </div>";}
+                
+            ?>	
+<!--- Sidebar --->
 
 		<!-- Page Wrapper -->
 		<div class="page-wrapper">
@@ -274,10 +275,10 @@ echo "0 results";
 				<div class="page-header">
 					<div class="row">
 						<div class="col-sm-12">
-							<h3 class="page-title">Add New Customer</h3>
+							<h3 class="page-title">Add New Vendor</h3>
 							<ul class="breadcrumb">
 								<li class="breadcrumb-item"><a href="invoice.php">Dashboard</a></li>
-								<li class="breadcrumb-item active">Add Customer</li>
+								<li class="breadcrumb-item active">Add Vendor</li>
 							</ul>
 						</div>
 					</div>
@@ -293,53 +294,71 @@ echo "0 results";
 							<div class="col-md-12">
 								<div class="card">
 									<div class="card-header">
-										<h4 class="text-danger card-title">Customer Information</h4>
+										<h4 class="text-danger card-title">Vendor Information</h4>
 									</div>
-                                    <?php if(isset($success)){
+                                    
+                                     <?php if(isset($success)){
                                         echo "<div class='alert alert-success' role='alert'> $success  </div> ";
                                             }
                                       ?>
-
 
 									<div class="card-body">
 										<form action="#" method='post'>
 											<div class="row">
 												<div class="col-md-12">
 													<div class="row">
-														<div class="col-md-6">
+														<div class="col-md-4">
 															<div class="form-group">
-																<label>Customer ID</label>
-																<input type="text" value="<?php echo $CustomerId ?>" class="form-control" disabled>
+																<label>Vendor ID</label>
+																<input type="text" value="<?php echo $Vendor_Id ?>" class="form-control" disabled>
 															</div>
 														</div>
-														<div class="col-md-6">
+														<div class="col-md-4">
 															<div class="form-group">
-																<label>Customer Name</label>
+																<label>Vendor Name</label>
 																<input type="text" name="cname" class="form-control">
 															</div>
 														</div>
-														<div class="col-md-6">
+														<div class="col-md-4">
 															<div class="form-group">
-																<label>Customer Email</label>
+																<label>Vendor Email</label>
 																<input type="email" name="cemail" class="form-control">
 															</div>
 														</div>
-                                                        <div class="col-md-6">
+                                                        <div class="col-md-4">
 															<div class="form-group">
-																<label>Customer Phone</label>
+																<label>Vendor Phone</label>
 																<input type="number" name="cphone" class="form-control">
 															</div>
 														</div>
 
-                                                        <div class="col-md-6">
+                                                        <div class="col-md-4">
 															<div class="form-group">
 																<label>Address</label>
 																<input type="text"name="caddress" class="form-control">
 															</div>
 														</div>
-                                                        <div class="col-md-6">
+                                                        <div class="col-md-4">
 															<div class="form-group">
-																<label>NID / Passport No</label>
+																<label>Company Name</label>
+																<input type="text" name="cname" class="form-control">
+															</div>
+														</div>
+                                                        <div class="col-md-4">
+															<div class="form-group">
+																<label>Company Name</label>
+																<input type="text" name="cname" class="form-control">
+															</div>
+														</div>
+                                                        <div class="col-md-4">
+															<div class="form-group">
+																<label>Co Person Name</label>
+																<input type="text" name="cname" class="form-control">
+															</div>
+														</div>
+                                                        <div class="col-md-4">
+															<div class="form-group">
+																<label>Co Person Phone</label>
 																<input type="text" name="cnid" class="form-control">
 															</div>
 														</div>

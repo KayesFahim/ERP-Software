@@ -20,344 +20,7 @@
     <link rel="stylesheet" href="assets/css/feathericon.min.css">
     <!-- Main CSS -->
     <link rel="stylesheet" href="assets/css/style.css">
-</head>
-
-<body>
-
-    <!-- Main Wrapper -->
-    <div class="main-wrapper">
-
-        <!-- Header -->
-        <div class="header">
-
-            <!-- Logo -->
-            <div class="header-left">
-                <a href="index.php" class="logo">
-                    <img src="logo.png" alt="Logo">
-
-                </a>
-                <a href="index.php" class="logo logo-small">
-                    <img src="logo.png" alt="Logo" width="30" height="30">
-                </a>
-            </div>
-            <!-- /Logo -->
-
-            <a href="javascript:void(0);" id="toggle_btn">
-                <i class="fe fe-text-align-left"></i>
-            </a>
-
-            <div class="top-nav-search">
-                <form>
-                    <input type="text" class="form-control" placeholder="Search here">
-                    <button class="btn" type="submit"><i class="fa fa-search"></i></button>
-                </form>
-            </div>
-
-            <!-- Mobile Menu Toggle -->
-            <a class="mobile_btn" id="mobile_btn">
-                <i class="fa fa-bars"></i>
-            </a>
-            <!-- /Mobile Menu Toggle -->
-
-            <!-- Header Right Menu -->
-            <ul class="nav user-menu">
-
-                <!-- Notifications -->
-                <li class="nav-item dropdown noti-dropdown">
-                    <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-                        <i class="fe fe-bell"></i> <span class="badge badge-pill">1</span>
-                    </a>
-                    <div class="dropdown-menu notifications">
-                        <div class="topnav-dropdown-header">
-                            <span class="notification-title">Notifications</span>
-                            <a href="javascript:void(0)" class="clear-noti"> Clear All </a>
-                        </div>
-                        <div class="noti-content">
-                            <ul class="notification-list">
-                                <li class="notification-message">
-                                    <a href="#">
-                                        <div class="media">
-                                            <span class="avatar avatar-sm">
-                                                <img class="avatar-img rounded-circle" alt="User Image"
-                                                    src="assets/img/profile.jpg">
-                                            </span>
-                                            <div class="media-body">
-                                                <p class="noti-details"><span class="noti-title">Farhana </span>
-                                                    Schedule <span class="noti-title">her appointment</span></p>
-                                                <p class="noti-time"><span class="notification-time">4 mins ago</span>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>
-
-                            </ul>
-                        </div>
-                        <div class="topnav-dropdown-footer">
-                            <a href="#">View all Notifications</a>
-                        </div>
-                    </div>
-                </li>
-                <!-- /Notifications -->
-
-                <!-- User Menu -->
-                <li class="nav-item dropdown has-arrow">
-                    <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-                        <span class="user-img"><img class="rounded-circle" src="assets/img/profile.jpg" width="31"
-                                alt="Ryan Taylor"></span>
-                    </a>
-                    <div class="dropdown-menu">
-                        <div class="user-header">
-                            <div class="avatar avatar-sm">
-                                <img src="assets/img/profile.jpg" alt="User Image" class="avatar-img rounded-circle">
-                            </div>
-                            <div class="user-text">
-                                <!-- #Username -->
-                                <h6> <?php echo $login_session; ?> </h6>
-                                <p class="text-muted mb-0"><?php echo $userRole; ?></p>
-                            </div>
-                        </div>
-                        <a class="dropdown-item" href="">My Profile</a>
-                        <a class="dropdown-item" href="">Settings</a>
-                        <a class="dropdown-item" href="logout.php">Logout</a>
-                    </div>
-                </li>
-                <!-- /User Menu -->
-            </ul>
-            <!-- /Header Right Menu -->
-
-        </div>
-        <!-- /Header -->
-
-       <!-- Sidebar -->
-		<div class="sidebar" id="sidebar">
-            <div class="sidebar-inner slimscroll">
-                <div id="sidebar-menu" class="sidebar-menu">
-                    <ul>
-                        <li class="menu-title">
-                            <span>Main</span>
-                        </li>
-                        <li>
-                            <a href="dashboard.php"><i class="fe fe-home"></i> <span>Dashboard</span></a>
-                        </li>
-                        <li>
-                            <a href="salesQuotation.php"><i class="fe fe-layout"></i> <span>Sales Quotation</span></a>
-                        </li>
-                        <li>
-                            <a href="invoice.php"><i class="fe fe-layout"></i> <span>Invoice</span></a>
-                        </li>
-                        <li>
-							<a data-toggle="dropdown"><i class="fe fe-layout"></i> <span>Accounting</span></a>
-								<ul>
-									<li><a href="CashEquivalent.php"><i class="fe fe-layout"></i> <span>Cash And Cash</span></a></li>
-									<li><a href="access.php"><i class="fe fe-layout"></i> <span>Acces control</span></a> </li>
-									<li><a href="#"><i class="fe fe-layout"></i> Portal</a></li>
-								</ul>
-						</li>
-                        <li>
-                            <a href="Bill.php"><i class="fe fe-layout"></i> <span>Bill</span></a>
-                        </li>
-                        <li>
-                            <a href="expense.php"><i class="fe fe-layout"></i> <span>Expense</span></a>
-                        </li>
-                        <li>
-                            <a href="moneyReceipt.php"><i class="fe fe-layout"></i> <span>Money Receipt</span></a>
-                        </li>
-
-                        <li>
-                            <a href="payment.php"><i class="fe fe-layout"></i> <span>Payment</span></a>
-                        </li>
-                        <li>
-                            <a href="Salary/SalarySheet.php"><i class="fe fe-layout"></i> <span>Salary</span></a>
-                        </li>
-                        <li>
-                            <a href="project.php"><i class="fe fe-layout"></i> <span>Project</span></a>
-                        </li>
-                        <li>
-                            <a href="employees.php"><i class="fe fe-layout"></i> <span>Employees</span></a>
-                        </li>
-                        <li>
-                            <a href="Report.php"><i class="fe fe-layout"></i> <span>Report</span></a>
-                        </li>
-
-                        <li>
-                            <a href="refund.php"><i class="fe fe-layout"></i> <span>Refund</span></a>
-                        </li>
-                        
-
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <!-- Page Wrapper -->
-        <div class="page-wrapper">
-            <div class="content container-fluid">
-
-                <!-- Page Header -->
-                <div class="page-header">
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <h3 class="page-title">Dashboard</h3>
-                            <ul class="breadcrumb">
-                                <li class="breadcrumb-item"> <a href="dashboard.php">Dashboard</a></li>
-                                <li class="breadcrumb-item active">Dashboard</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <!-- /Page Header -->
-                <!-- Contant -->
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div class="row">
-                            <div class="col-md-8">
-                                <h6>Balance Sheet Information</h6>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="row">
-                                    <label class="col-lg-12 col-form-label">Cash And Cash Equivalents <u><b><span
-                                                    style="color:red; font-size: 20px;">00.00 TK</span></b></u></label>
-                                </div>
-                            </div>
-                        </div>
-                        <hr>
-
-                        <div class="row">
-                            <div class="col-md-2">
-                                <h6 class="text-center">Payable</h6>
-                                <div class="form-group row">
-                                    <div class="col-lg-12">
-                                        <select class="select form-control">
-                                            <option>Total Payable</option>
-                                            <option value="1">A+</option>
-                                            <option value="2">O+</option>
-                                            <option value="3">B+</option>
-                                            <option value="4">AB+</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <h6 class="text-center">0.00</h6>
-                            </div>
-                            <div class="col-md-2">
-                                <h6 class="text-center">Receivable</h6>
-                                <div class="form-group row">
-                                    <div class="col-lg-12 ">
-                                        <select class="select form-control">
-                                            <option>Total Receivable</option>
-                                            <option value="1">A+</option>
-                                            <option value="2">O+</option>
-                                            <option value="3">B+</option>
-                                            <option value="4">AB+</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <h6 class="text-center">0.00</h6>
-                            </div>
-                            <div class="col-md-2">
-                                <h6 class="text-center">Liabilities</h6>
-                                <div class="form-group row">
-                                    <div class="col-lg-12">
-                                        <select class="select form-control">
-                                            <option>Total Liabilities</option>
-                                            <option value="1">A+</option>
-                                            <option value="2">O+</option>
-                                            <option value="3">B+</option>
-                                            <option value="4">AB+</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <h6 class="text-center">0.00</h6>
-                            </div>
-                            <div class="col-md-2">
-                                <h6 class="text-center">Overpaid</h6>
-                                <div class="form-group row">
-                                    <div class="col-lg-12">
-                                        <select class="select form-control">
-                                            <option>Total Overpaid</option>
-                                            <option value="1">A+</option>
-                                            <option value="2">O+</option>
-                                            <option value="3">B+</option>
-                                            <option value="4">AB+</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <h6 class="text-center">0.00</h6>
-                            </div>
-                            <div class="col-md-4">
-                                <h6 class="text-center">Bank Accounts Total Taka</h6>
-                                <div class="form-group row">
-                                    <div class="col-lg-12">
-                                        <select class="select form-control" multiple>
-                                            <option value="1">A+</option>
-                                            <option value="2">O+</option>
-                                            <option value="3">B+</option>
-                                            <option value="4">AB+</option>
-                                            <option value="1">A+</option>
-                                            <option value="2">O+</option>
-                                            <option value="3">B+</option>
-                                            <option value="4">AB+</option>
-                                            <option value="1">A+</option>
-                                            <option value="2">O+</option>
-                                            <option value="3">B+</option>
-                                            <option value="4">AB+</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <hr>
-                        <h6>Income Statement Information</h6>
-                        <div class="row">
-                            <div class="col-md-3">
-                                <h6 class="text-center">Sale</h6>
-                                <div class="form-group row">
-                                    <div class="col-lg-12">
-                                        <select class="select form-control">
-                                            <option>Today Sale</option>
-                                            <option value="1">A+</option>
-                                            <option value="2">O+</option>
-                                            <option value="3">B+</option>
-                                            <option value="4">AB+</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <h6 class="text-center">0.00</h6>
-                            </div>
-                            <div class="col-md-3">
-                                <h6 class="text-center">Purchase</h6>
-                                <div class="form-group row">
-                                    <div class="col-lg-12 ">
-                                        <select class="select form-control">
-                                            <option>Today Purchase</option>
-                                            <option value="1">A+</option>
-                                            <option value="2">O+</option>
-                                            <option value="3">B+</option>
-                                            <option value="4">AB+</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <h6 class="text-center">0.00</h6>
-                            </div>
-                            <div class="col-md-3">
-                                <h6 class="text-center">Profit/Loss</h6>
-                                <div class="form-group row">
-                                    <div class="col-lg-12">
-                                        <select class="select form-control">
-                                            <option>Today Profit/Loss</option>
-                                            <option value="1">A+</option>
-                                            <option value="2">O+</option>
-                                            <option value="3">B+</option>
-                                            <option value="4">AB+</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <h6 class="text-center">0.00</h6>
-                            </div>
-                        </div>
-                        <hr>
-                        <style type="text/css">
+    <style type="text/css">
                             .titular {
                                 display: block;
                                 line-height: 60px;
@@ -386,7 +49,7 @@
                                 overflow: hidden;
                             }
 
-                            /******************************************** LEFT CONTAINER *****************************************/
+
                             .left-container {}
 
                             .menu-box {
@@ -607,9 +270,7 @@
                                 text-align: center;
                             }
 
-                            /******************************************
-GRAFICO CIRCULAR PIE CHART
-******************************************/
+
                             .donut-chart {
                                 position: relative;
                                 width: 200px;
@@ -709,53 +370,448 @@ GRAFICO CIRCULAR PIE CHART
                                 font-size: inherit;
                             }
                         </style>
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="donut-chart-block block">
-                                        <h2 class="titular" style="color:white;">Income State Chart</h2>
-                                        <div class="donut-chart">
-                                            <div id="porcion1" class="recorte">
-                                                <div class="quesito ios" data-rel="21"></div>
+
+</head>
+
+<body>
+
+    <!-- Main Wrapper -->
+    <div class="main-wrapper">
+
+        <!-- Header -->
+        <div class="header">
+
+            <!-- Logo -->
+            <div class="header-left">
+                <a href="index.php" class="logo">
+                    <img src="logo.png" alt="Logo">
+
+                </a>
+                <a href="index.php" class="logo logo-small">
+                    <img src="logo.png" alt="Logo" width="30" height="30">
+                </a>
+            </div>
+            <!-- /Logo -->
+
+            <a href="javascript:void(0);" id="toggle_btn">
+                <i class="fe fe-text-align-left"></i>
+            </a>
+
+            <div class="top-nav-search">
+                <form>
+                    <input type="text" class="form-control" placeholder="Search here">
+                    <button class="btn" type="submit"><i class="fa fa-search"></i></button>
+                </form>
+            </div>
+
+            <!-- Mobile Menu Toggle -->
+            <a class="mobile_btn" id="mobile_btn">
+                <i class="fa fa-bars"></i>
+            </a>
+            <!-- /Mobile Menu Toggle -->
+
+            <!-- Header Right Menu -->
+            <ul class="nav user-menu">
+
+                <!-- Notifications -->
+				<li class="nav-item dropdown noti-dropdown">
+					<a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+						<i class="fe fe-bell"></i> <span class="badge badge-pill">1</span>
+					</a>
+					<div class="dropdown-menu notifications">
+						<div class="topnav-dropdown-header">
+							<span class="notification-title">Notifications</span>
+							<a href="javascript:void(0)" class="clear-noti"> Clear All </a>
+						</div>
+						<div class="noti-content">
+							<ul class="notification-list">
+								<li class="notification-message">
+									<a href="#">
+										<div class="media">
+											<span class="avatar avatar-sm">
+												<img class="avatar-img rounded-circle" alt="User Image" src="assets/img/profile.jpg">
+											</span>
+											<div class="media-body">
+												<p class="noti-details"><span class="noti-title">Farhana </span> Schedule <span class="noti-title">her appointment</span></p>
+												<p class="noti-time"><span class="notification-time">4 mins ago</span></p>
+											</div>
+										</div>
+									</a>
+								</li>
+
+							</ul>
+						</div>
+						<div class="topnav-dropdown-footer">
+							<a href="#">View all Notifications</a>
+						</div>
+					</div>
+				</li>
+				<!-- /Notifications -->
+
+                <!-- User Menu -->
+                <li class="nav-item dropdown has-arrow">
+                    <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+                        <span class="user-img"><img class="rounded-circle" src="assets/img/profile.jpg" width="31"
+                                alt="Ryan Taylor"></span>
+                    </a>
+                    <div class="dropdown-menu">
+                        <div class="user-header">
+                            <div class="avatar avatar-sm">
+                                <img src="assets/img/profile.jpg" alt="User Image" class="avatar-img rounded-circle">
+                            </div>
+                            <div class="user-text">
+                                <!-- #Username -->
+                                <h6> <?php echo $login_session; ?> </h6>
+                                <p class="text-muted mb-0"><?php echo $userRole; ?></p>
+                            </div>
+                        </div>
+                        <a class="dropdown-item" href="">My Profile</a>
+                        <a class="dropdown-item" href="">Settings</a>
+                        <a class="dropdown-item" href="logout.php">Logout</a>
+                    </div>
+                </li>
+                <!-- /User Menu -->
+            </ul>
+            <!-- /Header Right Menu -->
+
+        </div>
+        <!-- /Header -->
+
+       <!-- Sidebar -->
+
+       <?php if($userRole == 'reservation'){
+
+           print "<div class='sidebar' id='sidebar'>
+                <div class='sidebar-inner slimscroll'>
+                    <div id='sidebar-menu' class='sidebar-menu'>
+                        <ul>
+                            <li class='menu-title'>
+                                <span>Main</span>
+                            </li>
+                            <li>
+                                <a href='dashboard.php'><i class='fe fe-home'></i> <span>Dashboard</span></a>
+                            </li>
+                            
+                            <li>
+                                <a href='Bill.php'><i class='fe fe-layout'></i> <span>Bill</span></a>
+                            </li>
+
+                            <li>
+                                <a href='MoneyReceipt.php'><i class='fe fe-layout'></i> <span>Money Receipt</span></a>
+                            </li>
+                            
+                        </ul>
+                    </div>
+                </div>
+            </div>" ;
+
+       }elseif($userRole == 'admin' || $userRole =='developer'){
+
+        echo "<div class='sidebar' id='sidebar'>
+        <div class='sidebar-inner slimscroll'>
+            <div id='sidebar-menu' class='sidebar-menu'>
+                <ul>
+                    <li class='menu-title'>
+                        <span>Main</span>
+                    </li>
+                    <li>
+                        <a href='dashboard.php'><i class='fe fe-home'></i> <span>Dashboard</span></a>
+                    </li>
+                    <li>
+                        <a href='salesQuotation.php'><i class='fe fe-layout'></i> <span>Sales Quotation</span></a>
+                    </li>
+                    <li>
+                        <a href='invoice.php'><i class='fe fe-layout'></i> <span>Invoice</span></a>
+                    </li>
+                    <li>
+                        <a data-toggle='dropdown'><i class='fe fe-layout'></i> <span>Accounting</span></a>
+                            <ul>
+                                <li><a href='CashEquivalent.php'><i class='fe fe-layout'></i> <span>Cash And Cash</span></a></li>
+                                <li><a href='access.php'><i class='fe fe-layout'></i> <span>Acces control</span></a> </li>
+                                <li><a href='#'><i class='fe fe-layout'></i> Portal</a></li>
+                            </ul>
+                    </li>
+                    <li>
+                        <a href='Bill.php'><i class='fe fe-layout'></i> <span>Bill</span></a>
+                    </li>
+                    <li>
+                        <a href='expense.php'><i class='fe fe-layout'></i> <span>Expense</span></a>
+                    </li>
+                    <li>
+                        <a href='moneyReceipt.php'><i class='fe fe-layout'></i> <span>Money Receipt</span></a>
+                    </li>
+
+                    <li>
+                        <a href='payment.php'><i class='fe fe-layout'></i> <span>Payment</span></a>
+                    </li>
+                    <li>
+                        <a href='Salary/SalarySheet.php'><i class='fe fe-layout'></i> <span>Salary</span></a>
+                    </li>
+                    <li>
+                        <a href='project.php'><i class='fe fe-layout'></i> <span>Project</span></a>
+                    </li>
+                    <li>
+                        <a href='employees.php'><i class='fe fe-layout'></i> <span>Employees</span></a>
+                    </li>
+                    <li>
+                        <a href='Report.php'><i class='fe fe-layout'></i> <span>Report</span></a>
+                    </li>
+
+                    <li>
+                        <a href='refund.php'><i class='fe fe-layout'></i> <span>Refund</span></a>
+                    </li>
+                    
+
+                </ul>
+            </div>
+        </div>
+    </div>";}
+            
+       ?>	
+        <!--- Sidebar --->
+
+
+
+        <!-- Page Wrapper -->
+        <?php if($userRole == 'reservation'){
+
+            print "<div class='page-wrapper'>
+            <div class='content container-fluid'>
+
+                
+                <div class='page-header'>
+                    <div class='row'>
+                        <div class='col-sm-12'>
+                            <h3 class='page-title'>Dashboard</h3>
+                            <ul class='breadcrumb'>
+                                <li class='breadcrumb-item'> <a href='dashboard.php'>Dashboard</a></li>
+                                <li class='breadcrumb-item active'>Dashboard</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <h1> You Have No Permission</h1>
+                              
+            </div>
+        </div>" ;
+
+            }elseif($userRole == 'admin' || $userRole =='developer'){
+
+            echo "<div class='page-wrapper'>
+            <div class='content container-fluid'>
+
+                
+                <div class='page-header'>
+                    <div class='row'>
+                        <div class='col-sm-12'>
+                            <h3 class='page-title'>Dashboard</h3>
+                            <ul class='breadcrumb'>
+                                <li class='breadcrumb-item'> <a href='dashboard.php'>Dashboard</a></li>
+                                <li class='breadcrumb-item active'>Dashboard</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                
+                <div class='row'>
+                    <div class='col-sm-12'>
+                        <div class='row'>
+                            <div class='col-md-8'>
+                                <h6>Balance Sheet Information</h6>
+                            </div>
+                            <div class='col-md-4'>
+                                <div class='row'>
+                                    <label class='col-lg-12 col-form-label'>Cash And Cash Equivalents <u><b><span
+                                                    style='color:red; font-size: 20px;'>00.00 TK</span></b></u></label>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+
+                        <div class='row'>
+                            <div class='col-md-2'>
+                                <h6 class='text-center'>Payable</h6>
+                                <div class='form-group row'>
+                                    <div class='col-lg-12'>
+                                        <select class='select form-control'>
+                                            <option>Total Payable</option>
+                                            <option value='1'>A+</option>
+                                            <option value='2'>O+</option>
+                                            <option value='3'>B+</option>
+                                            <option value='4'>AB+</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <h6 class='text-center'>0.00</h6>
+                            </div>
+                            <div class='col-md-2'>
+                                <h6 class='text-center'>Receivable</h6>
+                                <div class='form-group row'>
+                                    <div class='col-lg-12 '>
+                                        <select class='select form-control'>
+                                            <option>Total Receivable</option>
+                                            <option value='1'>A+</option>
+                                            <option value='2'>O+</option>
+                                            <option value='3'>B+</option>
+                                            <option value='4'>AB+</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <h6 class='text-center'>0.00</h6>
+                            </div>
+                            <div class='col-md-2'>
+                                <h6 class='text-center'>Liabilities</h6>
+                                <div class='form-group row'>
+                                    <div class='col-lg-12'>
+                                        <select class='select form-control'>
+                                            <option>Total Liabilities</option>
+                                            <option value='1'>A+</option>
+                                            <option value='2'>O+</option>
+                                            <option value='3'>B+</option>
+                                            <option value='4'>AB+</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <h6 class='text-center'>0.00</h6>
+                            </div>
+                            <div class='col-md-2'>
+                                <h6 class='text-center'>Overpaid</h6>
+                                <div class='form-group row'>
+                                    <div class='col-lg-12'>
+                                        <select class='select form-control'>
+                                            <option>Total Overpaid</option>
+                                            <option value='1'>A+</option>
+                                            <option value='2'>O+</option>
+                                            <option value='3'>B+</option>
+                                            <option value='4'>AB+</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <h6 class='text-center'>0.00</h6>
+                            </div>
+                            <div class='col-md-4'>
+                                <h6 class='text-center'>Bank Accounts Total Taka</h6>
+                                <div class='form-group row'>
+                                    <div class='col-lg-12'>
+                                        <select class='select form-control' multiple>
+                                            <option value='1'>A+</option>
+                                            <option value='2'>O+</option>
+                                            <option value='3'>B+</option>
+                                            <option value='4'>AB+</option>
+                                            <option value='1'>A+</option>
+                                            <option value='2'>O+</option>
+                                            <option value='3'>B+</option>
+                                            <option value='4'>AB+</option>
+                                            <option value='1'>A+</option>
+                                            <option value='2'>O+</option>
+                                            <option value='3'>B+</option>
+                                            <option value='4'>AB+</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr>
+                        <h6>Income Statement Information</h6>
+                        <div class='row'>
+                            <div class='col-md-3'>
+                                <h6 class='text-center'>Sale</h6>
+                                <div class='form-group row'>
+                                    <div class='col-lg-12'>
+                                        <select class='select form-control'>
+                                            <option>Today Sale</option>
+                                            <option value='1'>A+</option>
+                                            <option value='2'>O+</option>
+                                            <option value='3'>B+</option>
+                                            <option value='4'>AB+</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <h6 class='text-center'>0.00</h6>
+                            </div>
+                            <div class='col-md-3'>
+                                <h6 class='text-center'>Purchase</h6>
+                                <div class='form-group row'>
+                                    <div class='col-lg-12 '>
+                                        <select class='select form-control'>
+                                            <option>Today Purchase</option>
+                                            <option value='1'>A+</option>
+                                            <option value='2'>O+</option>
+                                            <option value='3'>B+</option>
+                                            <option value='4'>AB+</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <h6 class='text-center'>0.00</h6>
+                            </div>
+                            <div class='col-md-3'>
+                                <h6 class='text-center'>Profit/Loss</h6>
+                                <div class='form-group row'>
+                                    <div class='col-lg-12'>
+                                        <select class='select form-control'>
+                                            <option>Today Profit/Loss</option>
+                                            <option value='1'>A+</option>
+                                            <option value='2'>O+</option>
+                                            <option value='3'>B+</option>
+                                            <option value='4'>AB+</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <h6 class='text-center'>0.00</h6>
+                            </div>
+                        </div>
+                        <hr>
+                        
+                        <div class='container'>
+                            <div class='row'>
+                                <div class='col-md-4'>
+                                    <div class='donut-chart-block block'>
+                                        <h2 class='titular' style='color:white;'>Income State Chart</h2>
+                                        <div class='donut-chart'>
+                                            <div id='porcion1' class='recorte'>
+                                                <div class='quesito ios' data-rel='21'></div>
                                             </div>
-                                            <div id="porcion2" class="recorte">
-                                                <div class="quesito mac" data-rel="39"></div>
+                                            <div id='porcion2' class='recorte'>
+                                                <div class='quesito mac' data-rel='39'></div>
                                             </div>
-                                            <div id="porcion3" class="recorte">
-                                                <div class="quesito win" data-rel="31"></div>
+                                            <div id='porcion3' class='recorte'>
+                                                <div class='quesito win' data-rel='31'></div>
                                             </div>
-                                            <div id="porcionFin" class="recorte">
-                                                <div class="quesito linux" data-rel="9"></div>
+                                            <div id='porcionFin' class='recorte'>
+                                                <div class='quesito linux' data-rel='9'></div>
                                             </div>
-                                            <!-- FIN AÑADIDO GRÄFICO -->
-                                            <p class="center-date" style="color:white;">JUNE<br><span
-                                                    class="scnd-font-color">2013</span></p>
+                                            
+                                            <p class='center-date' style='color:white;'>JUNE<br><span
+                                                    class='scnd-font-color'>2013</span></p>
                                         </div>
-                                        <ul class="os-percentages horizontal-list" style="color:white;">
+                                        <ul class='os-percentages horizontal-list' style='color:white;'>
                                             <li>
-                                                <p class="ios os scnd-font-color">Sale</p>
-                                                <p class="os-percentage">21<sup>%</sup></p>
+                                                <p class='ios os scnd-font-color'>Sale</p>
+                                                <p class='os-percentage'>21<sup>%</sup></p>
                                             </li>
                                             <li>
-                                                <p class="mac os scnd-font-color">Cost</p>
-                                                <p class="os-percentage">39<sup>%</sup></p>
+                                                <p class='mac os scnd-font-color'>Cost</p>
+                                                <p class='os-percentage'>39<sup>%</sup></p>
                                             </li>
                                             <li>
-                                                <p class="linux os scnd-font-color">Profit</p>
-                                                <p class="os-percentage">9<sup>%</sup></p>
+                                                <p class='linux os scnd-font-color'>Profit</p>
+                                                <p class='os-percentage'>9<sup>%</sup></p>
                                             </li>
                                             <li>
-                                                <p class="win os scnd-font-color">Loss</p>
-                                                <p class="os-percentage">31<sup>%</sup></p>
+                                                <p class='win os scnd-font-color'>Loss</p>
+                                                <p class='os-percentage'>31<sup>%</sup></p>
                                             </li>
                                         </ul>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
-                                    <!-- LINE CHART BLOCK (LEFT-CONTAINER) -->
-                                    <div class="line-chart-block block">
-                                        <h2 class="titular" style="color:white;">Sale Growth Chart</h2>
-                                        <div class="line-chart">
+                                <div class='col-md-4'>
+                                    
+                                    <div class='line-chart-block block'>
+                                        <h2 class='titular' style='color:white;'>Sale Growth Chart</h2>
+                                        <div class='line-chart'>
                                             <div class='grafico'>
                                                 <ul class='eje-y'>
                                                     <li data-ejeY='4000'></li>
@@ -780,67 +836,77 @@ GRAFICO CIRCULAR PIE CHART
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-3">
-                                    <h6 class="text-center">Bank Accounts Total Taka</h6>
-                                    <div class="form-group row">
-                                        <div class="col-lg-12">
-                                            <select class="select form-control" multiple>
-                                                <option value="1">A+</option>
-                                                <option value="2">O+</option>
-                                                <option value="3">B+</option>
-                                                <option value="4">AB+</option>
-                                                <option value="1">A+</option>
-                                                <option value="2">O+</option>
-                                                <option value="3">B+</option>
-                                                <option value="4">AB+</option>
-                                                <option value="1">A+</option>
-                                                <option value="2">O+</option>
-                                                <option value="3">B+</option>
-                                                <option value="4">AB+</option>
+                                <div class='col-md-3'>
+                                    <h6 class='text-center'>Bank Accounts Total Taka</h6>
+                                    <div class='form-group row'>
+                                        <div class='col-lg-12'>
+                                            <select class='select form-control' multiple>
+                                                <option value='1'>A+</option>
+                                                <option value='2'>O+</option>
+                                                <option value='3'>B+</option>
+                                                <option value='4'>AB+</option>
+                                                <option value='1'>A+</option>
+                                                <option value='2'>O+</option>
+                                                <option value='3'>B+</option>
+                                                <option value='4'>AB+</option>
+                                                <option value='1'>A+</option>
+                                                <option value='2'>O+</option>
+                                                <option value='3'>B+</option>
+                                                <option value='4'>AB+</option>
                                             </select>
                                         </div>
                                     </div>
-                                    <h6 class="text-center">Mobile Banking Total Taka</h6>
-                                    <div class="form-group row">
-                                        <div class="col-lg-12">
-                                            <select class="select form-control" multiple>
-                                                <option value="1">A+</option>
-                                                <option value="2">O+</option>
-                                                <option value="3">B+</option>
-                                                <option value="4">AB+</option>
-                                                <option value="1">A+</option>
-                                                <option value="2">O+</option>
-                                                <option value="3">B+</option>
-                                                <option value="4">AB+</option>
-                                                <option value="1">A+</option>
-                                                <option value="2">O+</option>
-                                                <option value="3">B+</option>
-                                                <option value="4">AB+</option>
+                                    <h6 class='text-center'>Mobile Banking Total Taka</h6>
+                                    <div class='form-group row'>
+                                        <div class='col-lg-12'>
+                                            <select class='select form-control' multiple>
+                                                <option value='1'>A+</option>
+                                                <option value='2'>O+</option>
+                                                <option value='3'>B+</option>
+                                                <option value='4'>AB+</option>
+                                                <option value='1'>A+</option>
+                                                <option value='2'>O+</option>
+                                                <option value='3'>B+</option>
+                                                <option value='4'>AB+</option>
+                                                <option value='1'>A+</option>
+                                                <option value='2'>O+</option>
+                                                <option value='3'>B+</option>
+                                                <option value='4'>AB+</option>
                                             </select>
                                         </div>
                                     </div>
 
-                                    <h6 class="text-center"><u>Portal Total Taka</u></h6>
+                                    <h6 class='text-center'><u>Portal Total Taka</u></h6>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <!-- End Contant -->
+                
             </div>
-        </div>
+        </div>";}
+            
+            ?>
+        
+
         <!-- /Page Wrapper -->
+
+
+
     </div>
     <!-- /Main Wrapper -->
-    <!-- jQuery -->
-    <script src="assets/js/jquery-3.2.1.min.js"></script>
-    <!-- Bootstrap Core JS -->
-    <script src="assets/js/popper.min.js"></script>
-    <script src="assets/js/bootstrap.min.js"></script>
-    <!-- Slimscroll JS -->
-    <script src="assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-    <!-- Custom JS -->
-    <script src="assets/js/script.js"></script>
+  <!-- jQuery -->
+  <script src="assets/js/jquery-3.2.1.min.js"></script>
+			<!-- Bootstrap Core JS -->
+			<script src="assets/js/popper.min.js"></script>
+			<script src="assets/js/bootstrap.min.js"></script>
+			<!-- Slimscroll JS -->
+			<script src="assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+			<!-- Datatables JS -->
+			<script src="assets/plugins/datatables/jquery.dataTables.min.js"></script>
+			<script src="assets/plugins/datatables/datatables.min.js"></script>
+			<!-- Custom JS -->
+			<script  src="assets/js/script.js"></script>
 </body>
 
 </html>

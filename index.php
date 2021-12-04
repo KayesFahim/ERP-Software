@@ -17,7 +17,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
    if($count == 1) {
     $_SESSION['login_user'] = $userEmail;      
-    header("location: dashboard.php");
+    header("location: Dashboard.php");
     }else {
         $error = 0;
     }

@@ -47,64 +47,6 @@ if (array_key_exists('search', $_GET)){
 }
 
 
-//
-
-function addCustomer(){
-	echo 'gkudbvi';
-}
-
-
-
-
-//Add Customer
-
-$CustomerId ="";
-$sql = "SELECT * FROM customer ORDER BY CustomerId DESC LIMIT 1";
-$result = $conn->query($sql);
-if ($result->num_rows > 0) {
-	while($row = $result->fetch_assoc()) {
-        $outputString = preg_replace('/[^0-9]/', '', $row["CustomerId"]);
-		$CustomerId = "CSR-00".(int)$outputString + 1 ;									
- }
-} else {
-echo "0 results";
- }
-
- if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $bname = $_POST['bankname'];
-    $brname = $_POST['branchname'];
-    $accno = $_POST['accno'];
-    $credit = $_POST['credit'];
-    $creditDate = date("d/m/Y");
-    $creditdt = $_POST['creditdt']; 
-
-    $sqlquery = "INSERT INTO `customer`(                                            
-        `bankId`,
-        `bankname`,
-        `branchname`,
-        `bankaccno`,
-        `credit`,
-        `creditDate`,
-        `creditComment`
-    )
-    VALUES(
-        '$BankId',
-        '$bname',
-        '$brname',
-        '$accno',
-        '$credit',
-        '$creditDate',
-        '$creditdt'
-    )";
-        
-        if ($conn->query($sqlquery) === TRUE) {
-            $success = "record inserted successfully";
-        } else {
-            echo "Error: " . $sqlquery . "<br>" . $conn->error;
-        }
-                                                                                       
-}
-
 
 // Generate PDF
 
@@ -117,7 +59,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 	
     $mrgenerate = "INSERT INTO `moneyreciept`(
-		`recieptNo`,
+		`TxType`,
 		`customerId`,
 		`TxId`,
 		`amount`,
@@ -150,7 +92,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 				
 				`bankId`,
 				`bankname`,				
-				`recieptNo`,
+				`TxType`,
 				`credit`,
 				`creditComment`				
 			)
@@ -176,7 +118,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			$credit = "INSERT INTO `bank`(				
 				`bankId`,
 				`bankname`,				
-				`recieptNo`,
+				`TxType`,
 				`credit`,
 				`creditComment`
 				
@@ -205,7 +147,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 				
 				`bankId`,
 				`bankname`,				
-				`recieptNo`,
+				`TxType`,
 				`credit`,
 				`creditComment`
 				
@@ -234,7 +176,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 				
 				`bankId`,
 				`bankname`,				
-				`recieptNo`,
+				`TxType`,
 				`credit`,
 				`creditComment`
 				
@@ -264,7 +206,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 				
 				`bankId`,
 				`bankname`,				
-				`recieptNo`,
+				`TxType`,
 				`credit`,
 				`creditComment`
 				
@@ -294,7 +236,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 				
 				`bankId`,
 				`bankname`,				
-				`recieptNo`,
+				`TxType`,
 				`credit`,
 				`creditComment`
 				
@@ -324,7 +266,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 				
 				`bankId`,
 				`bankname`,				
-				`recieptNo`,
+				`TxType`,
 				`credit`,
 				`creditComment`
 				
@@ -353,7 +295,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			$credit = "INSERT INTO `bank`(				
 				`bankId`,
 				`bankname`,				
-				`recieptNo`,
+				`TxType`,
 				`credit`,
 				`creditComment`
 				
@@ -387,7 +329,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 		$credit = "INSERT INTO `cash`(
 
-					`recieptNo`,
+					`TxType`,
 					`cashIn`,
 					`cashInTxId`
 				)
@@ -420,7 +362,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			$credit = "INSERT INTO `ssl_commerce`(
 				`TxId`,
 				`amount`,
-				`recieptNo`
+				`TxType`
 			)
 			VALUES(
 
@@ -565,7 +507,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 						</div>
 						<a class="dropdown-item" href="">My Profile</a>
 						<a class="dropdown-item" href="">Settings</a>
-						<a class="dropdown-item" href="login.php">Logout</a>
+						<a class="dropdown-item" href="logout.php">Logout</a>
 					</div>
 				</li>
 				<!-- /User Menu -->
@@ -576,74 +518,96 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		<!-- /Header -->
 
 		<!-- Sidebar -->
-		<div class="sidebar" id="sidebar">
-            <div class="sidebar-inner slimscroll">
-                <div id="sidebar-menu" class="sidebar-menu">
-                    <ul>
-                        <li class="menu-title">
-                            <span>Main</span>
-                        </li>
-                        <li>
-                            <a href="../dashboard.php"><i class="fe fe-home"></i> <span>Dashboard</span></a>
-                        </li>
-                        <li>
-                            <a href="../salesQuotation.php"><i class="fe fe-layout"></i> <span>Sales Quotation</span></a>
-                        </li>
-                        <li>
-                            <a href="../invoice.php"><i class="fe fe-layout"></i> <span>Invoice</span></a>
-                        </li>
-                        <li>
-                            <a href="../Bill.php"><i class="fe fe-layout"></i> <span>Bill</span></a>
-                        </li>
-                        <li>
-                            <a href="../expense.php"><i class="fe fe-layout"></i> <span>Expense</span></a>
-                        </li>
+
+		<?php if($userRole == 'reservation'){
+				print "<div class='sidebar' id='sidebar'>
+					<div class='sidebar-inner slimscroll'>
+						<div id='sidebar-menu' class='sidebar-menu'>
+							<ul>
+								<li class='menu-title'>
+									<span>Main</span>
+								</li>
+								<li>
+									<a href='dashboard.php'><i class='fe fe-home'></i> <span>Dashboard</span></a>
+								</li>
+								
+								<li>
+									<a href='Bill.php'><i class='fe fe-layout'></i> <span>Bill</span></a>
+								</li>
+
+								<li>
+									<a href='MoneyReceipt.php'><i class='fe fe-layout'></i> <span>Money Receipt</span></a>
+								</li>
+								
+							</ul>
+						</div>
+					</div>
+				</div>" ;
+
+				}elseif($userRole == 'admin' || $userRole =='developer'){
+
+				echo "<div class='sidebar' id='sidebar'>
+				<div class='sidebar-inner slimscroll'>
+				<div id='sidebar-menu' class='sidebar-menu'>
+					<ul>
+						<li class='menu-title'>
+							<span>Main</span>
+						</li>
 						<li>
-							<a data-toggle="dropdown"><i class="fe fe-layout"></i> <span>Accounting</span></a>
+							<a href='Dashboard.php'><i class='fe fe-home'></i> <span>Dashboard</span></a>
+						</li>
+						<li>
+							<a href='salesQuotation.php'><i class='fe fe-layout'></i> <span>Sales Quotation</span></a>
+						</li>
+						<li>
+							<a href='invoice.php'><i class='fe fe-layout'></i> <span>Invoice</span></a>
+						</li>
+						<li>
+							<a data-toggle='dropdown'><i class='fe fe-layout'></i> <span>Accounting</span></a>
 								<ul>
-									<li><a href="../CashEquivalent.php"><i class="fe fe-layout"></i> <span>Cash And Cash</span></a></li>
-									<li><a href="../access.php"><i class="fe fe-layout"></i> <span>Acces control</span></a> </li>
-									<li><a href="#"><i class="fe fe-layout"></i> Portal</a></li>
+									<li><a href='CashEquivalent.php'><i class='fe fe-layout'></i> <span>Cash And Cash</span></a></li>
+									<li><a href='access.php'><i class='fe fe-layout'></i> <span>Acces control</span></a> </li>
+									<li><a href='#'><i class='fe fe-layout'></i> Portal</a></li>
 								</ul>
 						</li>
-                        <li>
-                            <a href="../moneyReceipt.php"><i class="fe fe-layout"></i> <span>Money Receipt</span></a>
-                        </li>
+						<li>
+							<a href='Bill.php'><i class='fe fe-layout'></i> <span>Bill</span></a>
+						</li>
+						<li>
+							<a href='expense.php'><i class='fe fe-layout'></i> <span>Expense</span></a>
+						</li>
+						<li>
+							<a href='moneyReceipt.php'><i class='fe fe-layout'></i> <span>Money Receipt</span></a>
+						</li>
 
-                        <li>
-                            <a href="../payment.php"><i class="fe fe-layout"></i> <span>Payment</span></a>
-                        </li>
-                        <li>
-                            <a href="../transfer.php"><i class="fe fe-layout"></i> <span>Transfer</span></a>
-                        </li>
-                        <li>
-                            <a href="../project.php"><i class="fe fe-layout"></i> <span>Project</span></a>
-                        </li>
-                        <li>
-                            <a href="../employees.php"><i class="fe fe-layout"></i> <span>Employees</span></a>
-                        </li>
-                        <li>
-                            <a href="../Report.php"><i class="fe fe-layout"></i> <span>Report</span></a>
-                        </li>
+						<li>
+							<a href='payment.php'><i class='fe fe-layout'></i> <span>Payment</span></a>
+						</li>
+						<li>
+							<a href='Salary/SalarySheet.php'><i class='fe fe-layout'></i> <span>Salary</span></a>
+						</li>
+						<li>
+							<a href='project.php'><i class='fe fe-layout'></i> <span>Project</span></a>
+						</li>
+						<li>
+							<a href='employees.php'><i class='fe fe-layout'></i> <span>Employees</span></a>
+						</li>
+						<li>
+							<a href='Report.php'><i class='fe fe-layout'></i> <span>Report</span></a>
+						</li>
 
-                        <li>
-                            <a href="../refund.php"><i class="fe fe-layout"></i> <span>Refund</span></a>
-                        </li>
-                        <li>
-                            <a href="../accounting.php"><i class="fe fe-layout"></i> <span>Accounting</span></a>
-                            <li>
-                                <a href="../reservation.php"><i class="fe fe-layout"></i> <span>Reservation</span></a>
-                                <li>
-                                    <a href="../access.php"><i class="fe fe-layout"></i> <span>Acces control</span></a>
-                                </li>
-                            </li>
-                        </li>
+						<li>
+							<a href='refund.php'><i class='fe fe-layout'></i> <span>Refund</span></a>
+						</li>
+						
 
-                    </ul>
-                </div>
-            </div>
-        </div>
+					</ul>
+				</div>
+				</div>
+				</div>";}
 
+				?>	
+				<!--- Sidebar --->
 		
 
 		<!-- Page Wrapper -->
@@ -671,63 +635,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 									<div class="card-header">
 										<h4 class="text-danger card-title">Customer Details</h4>
 										<div class="text-right">
-										<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-											Add customer
-										</button>
+										<a href="../Customer/AddCustomer.php" class="btn btn-primary">Add customer</a>
+
+										<?php if(isset($success)){
+                                        echo "<div class='alert alert-success' role='alert'> $success  </div> ";
+                                            }
+                                      ?>
 									</div>
 
-											<!-- Modal -->
-										
-											<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-												<div class="modal-dialog" role="document">
-												
-													<div class="modal-content">
-														<p id="msg"></p>
-														<form id="useForm" method="POST">
-															<div class="modal-header">
-																<h5 class="modal-title" id="exampleModalLabel">Add Customer</h5>
-																<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-																<span aria-hidden="true">&times;</span>
-																</button>
-															</div>
-															<div class="modal-body">
-															
-																<div class="form-group">
-																	<label>Customer ID</label>
-																	<input type="text" name="csId" value="<?php echo $CustomerId ?>" class="form-control" disabled>
-																</div>
-
-																<div class="form-group">
-																		<label>Customer Name</label>
-																		<input type="text" name="csName" class="form-control" required>
-																</div>
-
-																<div class="form-group">
-																		<label>Customer Email</label>
-																		<input type="email" name="csEmail" class="form-control" required>
-																</div>
-																<div class="form-group">
-																		<label>Customer Phone</label>
-																		<input type="number" name="csPhone" class="form-control" required>
-																</div>
-																<div class="form-group">
-																		<label>Address</label>
-																		<input type="text"name="csAddress" class="form-control" required>
-																</div>
-																<div class="form-group">
-																		<label>NID / Passport No</label>
-																		<input type="text" name="csNID" class="form-control" required>
-																</div>
-																
-															</div>
-															<div class="modal-footer">															
-																<input type="button" name="addCustomer" class="btn btn-primary" onclick="addCustomer()" />
-															</div>
-														</form>
-													</div>
-
-												</div>
-											</div>
+											
 									</div>
 									<div class="card-body">
 										<form action="" method="post">

@@ -14,18 +14,6 @@ if ($result->num_rows > 0) {
 echo "0 results";
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
 											
 ?>
 
@@ -138,7 +126,7 @@ echo "0 results";
 						</div>
 						<a class="dropdown-item" href="">My Profile</a>
 						<a class="dropdown-item" href="">Settings</a>
-						<a class="dropdown-item" href="login.php">Logout</a>
+						<a class="dropdown-item" href="logout.php">Logout</a>
 					</div>
 				</li>
 				<!-- /User Menu -->
@@ -157,7 +145,7 @@ echo "0 results";
                             <span>Main</span>
                         </li>
                         <li>
-                            <a href="dashboard.php"><i class="fe fe-home"></i> <span>Dashboard</span></a>
+                            <a href="Dashboard.php"><i class="fe fe-home"></i> <span>Dashboard</span></a>
                         </li>
                         <li>
                             <a href="salesQuotation.php"><i class="fe fe-layout"></i> <span>Sales Quotation</span></a>
@@ -668,6 +656,9 @@ echo "0 results";
 			<script src="../assets/js/bootstrap.min.js"></script>
 			<!-- Slimscroll JS -->
 			<script src="../assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+			<!-- Datatables JS -->
+			<script src="../assets/plugins/datatables/jquery.dataTables.min.js"></script>
+			<script src="../assets/plugins/datatables/datatables.min.js"></script>
 			<!-- Custom JS -->
 			<script  src="../assets/js/script.js"></script>
 		</body>
