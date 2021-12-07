@@ -203,7 +203,7 @@ include('session.php');
 						<div class="col-sm-12">
 							<h3 class="page-title">Sales Quotation Details</h3>
 							<ul class="breadcrumb">
-								<li class="breadcrumb-item"><a href="Employees.php">Dashboard</a></li>
+								<li class="breadcrumb-item"><a href="Dashboard.php">Dashboard</a></li>
 								<li class="breadcrumb-item active">Sales Quotation Details</li>
 							</ul>
 						</div>
@@ -220,7 +220,7 @@ include('session.php');
 								<div class="card-header">
 									<h4 class="card-title">Sales Quotation Details</h4>
 									<div class="text-right">
-										<a href="Moneyreciept/AddMoneyReciept.php" class="btn btn-primary"> Create +</a>
+										<a href="SalesQuatation/AddSQ.php" class="btn btn-primary"> Create +</a>
 									</div>
 								</div>
 								

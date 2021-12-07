@@ -20,7 +20,7 @@ echo "0 results";
 
 
 
-//Employee Info
+//Vendor Info
 
 if (array_key_exists('search', $_GET)){
 	$searchvar = $_GET['search'];
@@ -35,7 +35,9 @@ if (array_key_exists('search', $_GET)){
 				$Vendor_Phone = $row["phone"];     								
 			}
 		} else {
-		echo "No Result Found";
+			$Vendor_Name=" ";
+			$Vendor_Email=" ";
+			$Vendor_Phone=" ";
 		}
 		
 }else{
@@ -58,13 +60,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 	
     $mrgenerate = "INSERT INTO `bill`(
-		`TxType`,
+		`billNo`,
 		`vendorId`,
 		`TxId`,
 		`amount`,
 		`paymentMethod`,
 		`paymentway`,
-		`comment`
+		`purpose`
 	)
 	VALUES(
 		'$Bill_No',
@@ -77,6 +79,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	)";
 
 	if (mysqli_query($conn, $mrgenerate)) {
+
+		echo "Successfully Save Data";
 		
 	} else {
 		echo "Error: " . $sql . "<br>" . mysqli_error($conn);
@@ -106,7 +110,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			if (mysqli_query($conn, $credit)) {
 							
 				echo '<script language="javascript">';
-		echo 'alert("Successfully Created"); location.href="invoice.php?Rno='.$Bill_No.'"';
+		echo 'alert("Successfully Created"); location.href="invoice.php?Bno='.$Bill_No.'"';
 		echo '</script>';
 				
 			} else {
@@ -134,7 +138,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			if (mysqli_query($conn, $credit)) {
 			
 				echo '<script language="javascript">';
-				echo 'alert("Successfully Created"); location.href="invoice.php?Rno='.$Bill_No.'"';
+				echo 'alert("Successfully Created"); location.href="invoice.php?Bno='.$Bill_No.'"';
 				echo '</script>';
 				
 		 } else {
@@ -163,7 +167,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			if (mysqli_query($conn, $credit)) {
 							
 				echo '<script language="javascript">';
-				echo 'alert("Successfully Created"); location.href="invoice.php?Rno='.$Bill_No.'"';
+				echo 'alert("Successfully Created"); location.href="invoice.php?Bno='.$Bill_No.'"';
 				echo '</script>';
 				
 			} else {
@@ -192,7 +196,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			if (mysqli_query($conn, $credit)) {
 							
 				echo '<script language="javascript">';
-				echo 'alert("Successfully Created"); location.href="invoice.php?Rno='.$Bill_No.'"';
+				echo 'alert("Successfully Created"); location.href="invoice.php?Bno='.$Bill_No.'"';
 				echo '</script>';
 				
 			} else {
@@ -222,7 +226,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			if (mysqli_query($conn, $credit)) {
 							
 				echo '<script language="javascript">';
-				echo 'alert("Successfully Created"); location.href="invoice.php?Rno='.$Bill_No.'"';
+				echo 'alert("Successfully Created"); location.href="invoice.php?Bno='.$Bill_No.'"';
 				echo '</script>';
 				
 			} else {
@@ -252,7 +256,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			if (mysqli_query($conn, $credit)) {
 							
 				echo '<script language="javascript">';
-				echo 'alert("Successfully Created"); location.href="invoice.php?Rno='.$Bill_No.'"';
+				echo 'alert("Successfully Created"); location.href="invoice.php?Bno='.$Bill_No.'"';
 				echo '</script>';
 				
 			} else {
@@ -282,7 +286,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			if (mysqli_query($conn, $credit)) {
 							
 				echo '<script language="javascript">';
-				echo 'alert("Successfully Created"); location.href="invoice.php?Rno='.$Bill_No.'"';
+				echo 'alert("Successfully Created"); location.href="invoice.php?Bno='.$Bill_No.'"';
 				echo '</script>';
 				
 			} else {
@@ -311,7 +315,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			if (mysqli_query($conn, $credit)) {
 							
 				echo '<script language="javascript">';
-				echo 'alert("Successfully Created"); location.href="invoice.php?Rno='.$Bill_No.'"';
+				echo 'alert("Successfully Created"); location.href="invoice.php?Bno='.$Bill_No.'"';
 				echo '</script>';
 				
 			} else {
@@ -340,7 +344,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 		if (mysqli_query($conn, $credit)) {						
 			echo '<script language="javascript">';
-			echo 'alert("Successfully Created"); location.href="invoice.php?Rno='.$Bill_No.'"';
+			echo 'alert("Successfully Created"); location.href="invoice.php?Bno='.$Bill_No.'"';
 			echo '</script>';
 			
 		} else {
@@ -352,16 +356,42 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
 	}elseif($payWay == 'mobile_banking'){
-		echo $payWay;
-		echo $payMethod;
+		if($payMethod == 'BK-01755543447'){
+
+			$credit = "INSERT INTO `mobile_banking`(
+						`MB_ID`,
+						`mb_operator`,
+						`mb_number`,
+						`TxType`,
+						`cashOut`,
+						`cashOutTxId`,
+						`cashOutComment`
+					)
+					VALUES(
+						'BK-01755543447',
+						'BKASH',
+						'01755543447',
+						'$Bill_No',
+						'$amount',
+						'$TxId',
+						'$comment'
+					)";
+	
+			if (mysqli_query($conn, $credit)) {						
+				echo '<script language="javascript">';
+				echo 'alert("Successfully Created"); location.href="invoice.php?Bno='.$Bill_No.'"';
+				echo '</script>';
+				
+			} else {
+			echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+			}
+		}else{
+			echo 'Wrong Selection';
+		}
 		
 
 	}                                                                   
 }
-
-
-
-
 
 ?>
 
@@ -528,30 +558,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 						<span>Main</span>
 					</li>
 					<li>
-						<a href='dashboard.php'><i class='fe fe-home'></i> <span>Dashboard</span></a>
+						<a href='../Dashboard.php'><i class='fe fe-home'></i> <span>Dashboard</span></a>
 					</li>
 					<li>
-						<a href='salesQuotation.php'><i class='fe fe-layout'></i> <span>Sales Quotation</span></a>
+						<a href='../salesQuotation.php'><i class='fe fe-layout'></i> <span>Sales Quotation</span></a>
 					</li>
 					<li>
-						<a href='invoice.php'><i class='fe fe-layout'></i> <span>Invoice</span></a>
+						<a href='../invoice.php'><i class='fe fe-layout'></i> <span>Invoice</span></a>
 					</li>
 					<li>
 						<a data-toggle='dropdown'><i class='fe fe-layout'></i> <span>Accounting</span></a>
 							<ul>
-								<li><a href='CashEquivalent.php'><i class='fe fe-layout'></i> <span>Cash And Cash</span></a></li>
+								<li><a href='../CashEquivalent.php'><i class='fe fe-layout'></i> <span>Cash And Cash</span></a></li>
 								<li><a href='access.php'><i class='fe fe-layout'></i> <span>Acces control</span></a> </li>
 								<li><a href='#'><i class='fe fe-layout'></i> Portal</a></li>
 							</ul>
 					</li>
 					<li>
-						<a href='Bill.php'><i class='fe fe-layout'></i> <span>Bill</span></a>
+						<a href='../Bill.php'><i class='fe fe-layout'></i> <span>Bill</span></a>
 					</li>
 					<li>
 						<a href='expense.php'><i class='fe fe-layout'></i> <span>Expense</span></a>
 					</li>
 					<li>
-						<a href='moneyReceipt.php'><i class='fe fe-layout'></i> <span>Money Receipt</span></a>
+						<a href='../MoneyReceipt.php'><i class='fe fe-layout'></i> <span>Money Receipt</span></a>
 					</li>
 
 					<li>

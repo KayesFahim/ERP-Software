@@ -22,4 +22,13 @@
     font-weight:400px;
 }
 
+.card-bg{
+  background-image: url("../assets/img/pdfbg.jpeg");
+  background-position: center;
+  height: 500px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+}
+
 }

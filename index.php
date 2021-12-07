@@ -58,19 +58,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                     <?php
 
                     if( isset( $error) ) {
-                        echo "<h3>Username and password is wrong </h3>";
+                        echo "<h3> Username and password is wrong </h3>";
                     }                       
                     ?>
 
 
-                    <div class="form_group">
-                            <select class="form_control" aria-label=".form-select-lg example" style="padding-right: 50px;">
-                                <option selected>Select your Role</option>
-                                <option value="1">Administrator</option>
-                                <option value="2">HR/Admin</option>
-                                <option value="3">Employee</option>
-                            </select>
-                    </div>
+
                     <div class="form_group">
                         <span class="icon">
                       <i class="fab fa-accessible-icon"></i>
