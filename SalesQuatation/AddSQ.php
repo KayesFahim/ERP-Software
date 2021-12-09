@@ -78,6 +78,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	)";
 
 	if (mysqli_query($conn, $mrgenerate)) {
+        echo '<script language="javascript">';
+		echo 'alert("Successfully Created"); location.href="invoice.php?Rno='.$Reciept_No.'"';
+		echo '</script>';
 		
 	} else {
 		echo "Error: " . $sql . "<br>" . mysqli_error($conn);

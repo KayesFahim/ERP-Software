@@ -35,7 +35,6 @@
                         <th scope="col">Pax Name</th>
                         <th scope="col">PNR</th>
                         <th scope="col">Ticket Number</th>
-                        <th scope="col">PNR</th>
                         <th scope="col">Airlines</th>
                         <th scope="col">Route</th>
                         <th scope="col">Place To</th>
@@ -49,7 +48,6 @@
                         <td>Mark</td>
                         <td>Otto</td>
                         <td>@mdo</td>
-                        <td>Mark</td>
                         <td>Otto</td>
                         <td>@mdo</td>
                         <td>Mark</td>
@@ -58,7 +56,7 @@
                         
                         <tr>
                         
-                        <td rowspan="3" colspan="7" style="text-align:center;">Air Ticket fair Will Be chnage after 15 minutes</td>
+                        <td rowspan="3" colspan="6" style="text-align:center;">Air Ticket fair Will Be chnage after 15 minutes</td>
                         <td>Total</td>
                         <td>0.00</td>
                         </tr>

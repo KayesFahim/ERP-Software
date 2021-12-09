@@ -6,13 +6,13 @@ include('../session.php');
 
 //Reciept No
 
-$SQ_No ="";
-$sql = "SELECT * FROM salesqutation ORDER BY sqId  DESC LIMIT 1";
-$result = $conn->query($sql);
+$INV_No ="";
+$sql1 = "SELECT * FROM `invoice` ORDER By id DESC LIMIT 1";
+$result = $conn->query($sql1);
 if ($result->num_rows > 0) {
 	while($row = $result->fetch_assoc()) {
-        $outputString = preg_replace('/[^0-9]/', '', $row["sqId"]);
-		$SQ_No = "INV-".(int)$outputString + 1 ;									
+        $outputString = preg_replace('/[^0-9]/', '', $row["invNo"]);
+		$INV_No = "INV-".(int)$outputString + 1 ;									
  }
 } else {
 echo "0 results";
@@ -51,37 +51,233 @@ if (array_key_exists('search', $_GET)){
 // Generate PDF
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $comment = $_POST['comment'];
-    $amount = $_POST['amount'];
-    $payWay = $_POST['paymentway'];
-    $payMethod = $_POST['paymentmethod'];
-    $TxId = $_POST['txid']; 
+
+    $Client_Name = $_POST['client'];
+    $Vendor_Name = $_POST['vendor'];
+    $Pax_No = $_POST['pax'];
+    $System =  $_POST['system'];
+    $Class =  $_POST['class'];
+    $Ticket_Type = $_POST['tickettype'];
+    $Rev_Officer = $_POST['revofficer'];
+
+
+    $invoice = "INSERT INTO `invoice`(
+        `invNo`,
+        `clientName`,
+        `vendorId`,
+        `pax`,
+        `system`,
+        `class`,
+        `ticketType`,
+        `recofficer`
+    )
+    VALUES(
+        '$INV_No',
+        '$Client_Name',
+        '$Vendor_Name',
+        '$Pax_No',
+        '$System',
+        '$Class',
+        '$Ticket_Type',
+        '$Rev_Officer'
+    )";
+
+if (mysqli_query($conn, $invoice)) {
+    		
+    //Pax
+    $pax1 = $_POST['pax1'];
+    $pnr1 = $_POST['pnr1'];
+    $ticket1 = $_POST['ticket1'];
+    $airlines1 = $_POST['airlines1'];
+    $route1 = $_POST['route1']; 
+    $from1 = $_POST['from1'];
+    $to1 = $_POST['to1'];
+    $price1 = $_POST['price1']; 
+
+    //Pax2
+    if(isset($pax2)){
+    $pax2 = $_POST['pax2'];
+    $pnr2 = $_POST['pnr2'];
+    $ticket2 = $_POST['ticket2'];
+    $airlines2 = $_POST['airlines2'];
+    $route2 = $_POST['route2']; 
+    $from2 = $_POST['from2'];
+    $to2 = $_POST['to2'];
+    $price2 = $_POST['price2'];
+    }else{
+        $pax2 = " ";
+        $pnr2 = " ";
+        $ticket2 =" ";
+        $airlines2 = " ";
+        $route2 = " ";
+        $from2 = " ";
+        $to2 =" ";
+        $price2 = " ";
+    }
+
+    //Pax3
+    if(isset($pax3)){
+    $pax3 = $_POST['pax3'];
+    $pnr3 = $_POST['pnr3'];
+    $ticket3 = $_POST['ticket3'];
+    $airlines3 = $_POST['airlines3'];
+    $route3 = $_POST['route3']; 
+    $from3 = $_POST['from3'];
+    $to3 = $_POST['to3'];
+    $price3 = $_POST['price3'];
+    }else{
+        $pax3 = " ";
+        $pnr3 = " ";
+        $ticket3 =" ";
+        $airlines3 = " ";
+        $route3 = " ";
+        $from3 = " ";
+        $to3 =" ";
+        $price3 = " ";
+    }
+
+     //Pax4
+     if(isset($pax4)){
+     $pax4 = $_POST['pax4'];
+     $pnr4 = $_POST['pnr4'];
+     $ticket4 = $_POST['ticket4'];
+     $airlines4 = $_POST['airlines4'];
+     $route4 = $_POST['route4']; 
+     $from4 = $_POST['from4'];
+     $to4 = $_POST['to4'];
+     $price4 = $_POST['price4'];
+     }else{
+        $pax4 = " ";
+        $pnr4 = " ";
+        $ticket4 =" ";
+        $airlines4 = " ";
+        $route4 = " ";
+        $from4 = " ";
+        $to4 =" ";
+        $price4 = " ";
+     }
+
+     //Pax 5
+     if(isset($pax5)){
+     $pax5 = $_POST['pax5'];
+     $pnr5 = $_POST['pnr5'];
+     $ticket5 = $_POST['ticket5'];
+     $airlines5 = $_POST['airlines5'];
+     $route5 = $_POST['route5']; 
+     $from5 = $_POST['from5'];
+     $to5 = $_POST['to5'];
+     $price5 = $_POST['price5'];
+     }else{
+        $pax5 = " ";
+        $pnr5 = " ";
+        $ticket5 =" ";
+        $airlines5 = " ";
+        $route5 = " ";
+        $from5 = " ";
+        $to5 =" ";
+        $price5 = " ";
+
+     }
 
 	
-    $mrgenerate = "INSERT INTO `moneyreciept`(
-		`TxType`,
-		`customerId`,
-		`TxId`,
-		`amount`,
-		`paymentMethod`,
-		`paymentId`,
-		`comment`
-	)
-	VALUES(
-		'$Reciept_No',
-		'$Customer_Id',
-		'$TxId',
-		'$amount',
-		'$payWay',
-		'$payMethod',
-		'$comment'
-	)";
+    $mrgenerate = "INSERT INTO `airticket`(
+        `invNo`,
+        `PaxName1`,
+        `PNR1`,
+        `TicketNo1`,
+        `Airlines1`,
+        `Route1`,
+        `placeFrom1`,
+        `placeTo1`,
+        `cost1`,
+        `PaxName2`,
+        `PNR2`,
+        `TicketNo2`,
+        `Airlines2`,
+        `Route2`,
+        `placeFrom2`,
+        `placeTo2`,
+        `cost2`,
+        `PaxName3`,
+        `PNR3`,
+        `TicketNo3`,
+        `Airlines3`,
+        `Route3`,
+        `placeFrom3`,
+        `placeTo3`,
+        `cost3`,
+        `PaxName4`,
+        `PNR4`,
+        `TicketNo4`,
+        `Airlines4`,
+        `Route4`,
+        `placeFrom4`,
+        `placeTo4`,    
+        `cost4`,
+        `PaxName5`,
+        `PNR5`,
+        `TicketNo5`,
+        `Airlines5`,
+        `Route5`,
+        `placeFrom5`,
+        `placeTo5`,   
+        `cost5`
+    )
+    VALUES(
+        '$INV_No',
+        '$pax1',
+        '$pnr1',
+        '$ticket1',
+        '$airlines1',
+        '$route1',
+        '$from1',
+        '$to1',
+        '$price1',
+        '$pax2',
+        '$pnr2',
+        '$ticket2',
+        '$airlines2',
+        '$route2',
+        '$from2',
+        '$to2',
+        '$price2',
+        '$pax3',
+        '$pnr3',
+        '$ticket3',
+        '$airlines3',
+        '$route3',
+        '$from3',
+        '$to3',
+        '$price3',
+        '$pax4',
+        '$pnr4',
+        '$ticket4',
+        '$airlines4',
+        '$route4',
+        '$from4',
+        '$to4',
+        '$price4',
+        '$pax5',
+        '$pnr5',
+        '$ticket5',
+        '$airlines5',
+        '$route5',
+        '$from5',
+        '$to5',
+        '$price5'
+    )";
 
-	if (mysqli_query($conn, $mrgenerate)) {
-		
+	if (mysqli_query($conn, $invoice)) {
+        echo '<script language="javascript">';
+		echo 'alert("Successfully Created"); location.href="Airinvoice.php?INV='.$INV_No.'"';
+		echo '</script>';		
 	} else {
-		echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+		echo "Error: " . $invoice . "<br>" . mysqli_error($conn);
 	}
+
+} else {
+    echo "Error: " . $mrgenerate . "<br>" . mysqli_error($conn);
+}
 	
 	
 }                                                                                    
@@ -94,7 +290,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-	<title>Add Sales Quatation</title>
+	<title>Add Invoice</title>
 	<!-- Favicon -->
 	<link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.png">
 	<!-- Bootstrap CSS -->
@@ -352,7 +548,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 													<div class="col-md-3">
 															<div class="form-group">
 																<label>Reciept No:</label>
-																<input type="text" value="<?php echo $SQ_No ?>" class="form-control" disabled>
+																<input type="text" value="<?php echo $INV_No ?>" class="form-control" disabled>
 															</div>
 														</div>
 														<div class="col-md-3">
@@ -364,7 +560,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                                         <div class="col-md-3">
 															<div class="form-group">
 																<label>Vendor :</label>
-																<input type="number" name="pax" class="form-control" required>
+																<select name="vendor" class="select form-control" required>
+                                                                            <option value="" disabled selected>Select Vendor</option>
+                                                                            <?php
+                                                                                $sql = "SELECT *  FROM `vendor` ORDER BY name DESC";
+                                                                                $result = $conn->query($sql);
+                                
+                                                                                if ($result->num_rows > 0) {
+                                                                                while($row = $result->fetch_assoc()) {
+                                                                                    $vnName = $row["name"];	
+                                                                                    echo "<option value=\"$vnName\">".$row["name"]."</option>";                                                                                 
+                                                                                }
+                                                                            }
+                                                                                ?>
+                                                                            
+                                                                </select>
 															</div>
 														</div>
 														<div class="col-md-3">
@@ -377,190 +587,477 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 													</div>
                                                     <div class="row">
 
-													<div class="col-md-3">
-															<div class="form-group">
-																<label>System</label>
-																<div class="form-group row">
-																	<div class="col-lg-12">
-																	<select name="system" class="select form-control" required>
-																		<option value="" disabled selected>Select System</option>
-																		<option value="cash">Saber (GDS)</option>
-																		<option value="ssl_commerce">Amadius (GDS)</option>
-																		<option value="city">Gallileo pee (GDS)</option>	
-																		<option value="brac">Portal 1 </option>	
-																		<option value="islami">Portal 2</option>	
-																		<option value="sonali">Portal 3</option>	
-																	</select>
-																	</div>
-																</div>
-															</div>
-														</div>
-														<div class="col-md-3">
-															<div class="form-group">
-																<label>Class</label>
-																<input type="text" name="client" class="form-control" required>
-															</div>
-														</div>
                                                         <div class="col-md-3">
-															<div class="form-group">
-																<label>Ticket Type :</label>
-																<select name="tickettype" class="select form-control" required>
-																		<option value="" disabled selected>Ticket Type</option>
-																		<option value="nonref">Non Refundable</option>
-																		<option value="ref">Refundable</option>	
-																		<option value="refadjust">Refund Adjusted </option>	
-																		
-																	</select>
-															</div>
-														</div>
-														<div class="col-md-3">
-															<div class="form-group">
-																<label>Reservation officer</label>
-																<input type="name" name="rvofficer" class="form-control" required>
-															</div>
-														</div>
-														
-													</div>
+                                                                <div class="form-group">
+                                                                    <label>System</label>
+                                                                    <div class="form-group row">
+                                                                        <div class="col-lg-12">
+                                                                        <select name="system" class="select form-control" required>
+                                                                            <option value="" disabled selected>Select System</option>
+                                                                            <option value="Saber (GDS)">Saber (GDS)</option>
+                                                                            <option value="Amadius (GDS)">Amadius (GDS)</option>
+                                                                            <option value="Gallileo pee (GDS">Gallileo pee (GDS)</option>	
+                                                                            <option value="Portal 1">Portal 1 </option>	
+                                                                            <option value="Portal 2">Portal 2</option>	
+                                                                            <option value="Portal 3">Portal 3</option>	
+                                                                        </select>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <div class="form-group">
+                                                                    <label>Class</label>
+                                                                    <select name="class" class="select form-control" required>
+                                                                            <option value="" disabled selected>Cabin Class</option>
+                                                                            <option value="Economy">Economy</option>
+                                                                            <option value="Premium Economy">Premium Economy</option>	
+                                                                            <option value="Business">Business</option>	
+                                                                            <option value="First Class">First Class</option>	
+                                                                            
+                                                                        </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <div class="form-group">
+                                                                    <label>Ticket Type :</label>
+                                                                    <select name="tickettype" class="select form-control" required>
+                                                                            <option value="" disabled selected>Ticket Type</option>
+                                                                            <option value="nonref">Non Refundable</option>
+                                                                            <option value="ref">Refundable</option>	
+                                                                            <option value="refadjust">Refund Adjusted </option>	
+                                                                            
+                                                                        </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <div class="form-group">
+                                                                    <label>Reservation officer</label>
+                                                                    <input type="name" name="revofficer" class="form-control" required>
+                                                                </div>
+                                                            </div>
+                                                            
+                                                        </div>
                                                     <div class="row">
-                                                    <div class="col-md-3">
-															<div class="form-group">
-																<label>Pax Name 1</label>
-																<input type="text" class="form-control">
-															</div>
-														</div>
-														<div class="col-md-2">
-															<div class="form-group">
-																<label>Route</label>
-																<input type="text" name="client" class="form-control" required>
-															</div>
-														</div>
-														<div class="col-md-2">
-															<div class="form-group">
-																<label>Service</label>
-																<input type="number" name="pax" class="form-control" required>
-															</div>
-														</div>
                                                         <div class="col-md-2">
-															<div class="form-group">
-																<label>Amount</label>
-																<input type="number" name="pax" class="form-control" required>
-															</div>
-														</div>														
-													</div>
+                                                                <div class="form-group">
+                                                                    <label>Pax Name 1</label>
+                                                                    <input type="text" name="pax1" class="form-control" required>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-1">
+                                                                <div class="form-group">
+                                                                    <label>PNR</label>
+                                                                    <input type="text" name="pnr1" class="form-control" required>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-2">
+                                                                <div class="form-group">
+                                                                    <label>Ticket No</label>
+                                                                    <input type="text" name="ticket1" class="form-control" required>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-1">
+                                                                <div class="form-group">
+                                                                    <label>Airlines :</label>
+                                                                    <select name="airlines1" class="select form-control" required>
+                                                                            <option value="" disabled selected>*</option>
+                                                                            <option value="6E">6E</option>
+                                                                            <option value="AI">AI</option>
+                                                                            <option value="BG">BG</option>
+                                                                            <option value="BS">BS </option>
+                                                                            <option value="CX">CX</option>
+                                                                            <option value="CZ">CZ</option>
+                                                                            <option value="EK">EK</option>
+                                                                            <option value="EY">EY</option>
+                                                                            <option value="FZ">FZ </option>	
+                                                                            <option value="GF">GF </option>
+                                                                            <option value="G9">G9 </option>
+                                                                            <option value="G8">G8 </option>	
+                                                                            <option value="H9">H9</option>
+                                                                            <option value="J9">J9</option>
+                                                                            <option value="KU">KU</option>
+                                                                            <option value="MH">MH</option>
+                                                                            <option value="MS">MS </option>	
+                                                                            <option value="OD">OD</option>	
+                                                                            <option value="OV">OV</option>
+                                                                            <option value="QR">QR </option>	
+                                                                            <option value="UL">UL</option>                                                                          
+                                                                            <option value="UK">UK</option>
+                                                                            <option value="SV">SV</option>
+                                                                            <option value="SQ">SQ </option>
+                                                                            <option value="SL">SL</option>
+                                                                            <option value="SG">SG </option>
+                                                                            <option value="TK">TK </option>	                                                                       
+                                                                            <option value="TG">TG </option>  	
+                                                                            <option value="VQ">VQ </option>                                                                                                                                                    
+                                                                            <option value="WY">WY</option>
+                                                                                                                                                      
+                                                                            
+                                                                        </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-2">
+                                                                <div class="form-group">
+                                                                    <label>Route</label>
+                                                                    <input type="text" name="route1" class="form-control" required>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-1">
+                                                                <div class="form-group">
+                                                                    <label>From</label>
+                                                                    <input type="text" name="from1" class="form-control" required>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-1">
+                                                                <div class="form-group">
+                                                                    <label>To</label>
+                                                                    <input type="text" name="to1" class="form-control" required>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-2">
+                                                                <div class="form-group">
+                                                                    <label>Price</label>
+                                                                    <input type="number" name="price1" class="form-control" required>
+                                                                </div>
+                                                            </div>														
+                                                    </div>
                                                     
                                                     <div class="row">
-                                                    <div class="col-md-3">
-															<div class="form-group">
-																<label>Pax Name 2</label>
-																<input type="text" class="form-control">
-															</div>
-														</div>
-														<div class="col-md-2">
-															<div class="form-group">
-																<label>Route</label>
-																<input type="text" name="client" class="form-control" required>
-															</div>
-														</div>
-														<div class="col-md-2">
-															<div class="form-group">
-																<label>Service</label>
-																<input type="number" name="pax" class="form-control" required>
-															</div>
-														</div>
                                                         <div class="col-md-2">
-															<div class="form-group">
-																<label>Amount</label>
-																<input type="number" name="pax" class="form-control" required>
-															</div>
-														</div>
-														
-													</div>
+                                                                <div class="form-group">
+                                                                    <label>Pax Name 2</label>
+                                                                    <input type="text" name="pax2" class="form-control">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-1">
+                                                                <div class="form-group">
+                                                                    <label>PNR</label>
+                                                                    <input type="text" name="pnr2" class="form-control">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-2">
+                                                                <div class="form-group">
+                                                                    <label>Ticket No</label>
+                                                                    <input type="text" name="ticket2" class="form-control">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-1">
+                                                                <div class="form-group">
+                                                                    <label>Airlines :</label>
+                                                                    <select name="airlines2" class="select form-control">
+                                                                            <option value="" disabled selected>*</option>
+                                                                            <option value="6E">6E</option>
+                                                                            <option value="AI">AI</option>
+                                                                            <option value="BG">BG</option>
+                                                                            <option value="BS">BS </option>
+                                                                            <option value="CX">CX</option>
+                                                                            <option value="CZ">CZ</option>
+                                                                            <option value="EK">EK</option>
+                                                                            <option value="EY">EY</option>
+                                                                            <option value="FZ">FZ </option>	
+                                                                            <option value="GF">GF </option>
+                                                                            <option value="G9">G9 </option>
+                                                                            <option value="G8">G8 </option>	
+                                                                            <option value="H9">H9</option>
+                                                                            <option value="J9">J9</option>
+                                                                            <option value="KU">KU</option>
+                                                                            <option value="MH">MH</option>
+                                                                            <option value="MS">MS </option>	
+                                                                            <option value="OD">OD</option>	
+                                                                            <option value="OV">OV</option>
+                                                                            <option value="QR">QR </option>	
+                                                                            <option value="UL">UL</option>                                                                          
+                                                                            <option value="UK">UK</option>
+                                                                            <option value="SV">SV</option>
+                                                                            <option value="SQ">SQ </option>
+                                                                            <option value="SL">SL</option>
+                                                                            <option value="SG">SG </option>
+                                                                            <option value="TK">TK </option>	                                                                       
+                                                                            <option value="TG">TG </option>  	
+                                                                            <option value="VQ">VQ </option>                                                                                                                                                    
+                                                                            <option value="WY">WY</option>
+                                                                            
+                                                                        </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-2">
+                                                                <div class="form-group">
+                                                                    <label>Route</label>
+                                                                    <input type="text" name="route2" class="form-control">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-1">
+                                                                <div class="form-group">
+                                                                    <label>From</label>
+                                                                    <input type="text" name="from2" class="form-control">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-1">
+                                                                <div class="form-group">
+                                                                    <label>To</label>
+                                                                    <input type="text" name="to2" class="form-control">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-2">
+                                                                <div class="form-group">
+                                                                    <label>Price</label>
+                                                                    <input type="number" name="price2" class="form-control">
+                                                                </div>
+                                                            </div>														
+                                                    </div>
+
                                                     <div class="row">
-                                                    <div class="col-md-3">
-															<div class="form-group">
-																<label>Pax Name 3</label>
-																<input type="text" class="form-control">
-															</div>
-														</div>
-														<div class="col-md-2">
-															<div class="form-group">
-																<label>Route</label>
-																<input type="text" name="client" class="form-control" required>
-															</div>
-														</div>
-														<div class="col-md-2">
-															<div class="form-group">
-																<label>Service</label>
-																<input type="number" name="pax" class="form-control" required>
-															</div>
-														</div>
                                                         <div class="col-md-2">
-															<div class="form-group">
-																<label>Amount</label>
-																<input type="number" name="pax" class="form-control" required>
-															</div>
-														</div>
-														
-													</div>
+                                                                <div class="form-group">
+                                                                    <label>Pax Name 3</label>
+                                                                    <input type="text" name="pax3" class="form-control">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-1">
+                                                                <div class="form-group">
+                                                                    <label>PNR</label>
+                                                                    <input type="text" name="pnr3" class="form-control">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-2">
+                                                                <div class="form-group">
+                                                                    <label>Ticket No</label>
+                                                                    <input type="text" name="ticket3" class="form-control">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-1">
+                                                                <div class="form-group">
+                                                                    <label>Airlines :</label>
+                                                                    <select name="airlines3" class="select form-control">
+                                                                            <option value="" disabled selected>* </option>
+                                                                            <option value="6E">6E</option>
+                                                                            <option value="AI">AI</option>
+                                                                            <option value="BG">BG</option>
+                                                                            <option value="BS">BS </option>
+                                                                            <option value="CX">CX</option>
+                                                                            <option value="CZ">CZ</option>
+                                                                            <option value="EK">EK</option>
+                                                                            <option value="EY">EY</option>
+                                                                            <option value="FZ">FZ </option>	
+                                                                            <option value="GF">GF </option>
+                                                                            <option value="G9">G9 </option>
+                                                                            <option value="G8">G8 </option>	
+                                                                            <option value="H9">H9</option>
+                                                                            <option value="J9">J9</option>
+                                                                            <option value="KU">KU</option>
+                                                                            <option value="MH">MH</option>
+                                                                            <option value="MS">MS </option>	
+                                                                            <option value="OD">OD</option>	
+                                                                            <option value="OV">OV</option>
+                                                                            <option value="QR">QR </option>	
+                                                                            <option value="UL">UL</option>                                                                          
+                                                                            <option value="UK">UK</option>
+                                                                            <option value="SV">SV</option>
+                                                                            <option value="SQ">SQ </option>
+                                                                            <option value="SL">SL</option>
+                                                                            <option value="SG">SG </option>
+                                                                            <option value="TK">TK </option>	                                                                       
+                                                                            <option value="TG">TG </option>  	
+                                                                            <option value="VQ">VQ </option>                                                                                                                                                    
+                                                                            <option value="WY">WY</option>
+                                                                            
+                                                                        </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-2">
+                                                                <div class="form-group">
+                                                                    <label>Route</label>
+                                                                    <input type="text" name="route3" class="form-control">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-1">
+                                                                <div class="form-group">
+                                                                    <label>From</label>
+                                                                    <input type="text" name="from3" class="form-control">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-1">
+                                                                <div class="form-group">
+                                                                    <label>To</label>
+                                                                    <input type="text" name="to3" class="form-control">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-2">
+                                                                <div class="form-group">
+                                                                    <label>Price</label>
+                                                                    <input type="number" name="price3" class="form-control">
+                                                                </div>
+                                                            </div>														
+                                                    </div>
 
-                                               <div class="row">
-                                                    <div class="col-md-3">
-															<div class="form-group">
-																<label>Pax Name 4</label>
-																<input type="text" class="form-control">
-															</div>
-														</div>
-														<div class="col-md-2">
-															<div class="form-group">
-																<label>Route</label>
-																<input type="text" name="client" class="form-control" required>
-															</div>
-														</div>
-														<div class="col-md-2">
-															<div class="form-group">
-																<label>Service</label>
-																<input type="number" name="pax" class="form-control" required>
-															</div>
-														</div>
+                                                    <div class="row">
                                                         <div class="col-md-2">
-															<div class="form-group">
-																<label>Amount</label>
-																<input type="number" name="pax" class="form-control" required>
-															</div>
-														</div>
-														
-													</div>
-                                               
-                                               <div class="row">
-                                                    <div class="col-md-3">
-															<div class="form-group">
-																<label>Pax Name 4</label>
-																<input type="text" class="form-control">
-															</div>
-														</div>
-														<div class="col-md-2">
-															<div class="form-group">
-																<label>Route</label>
-																<input type="text" name="client" class="form-control" required>
-															</div>
-														</div>
-														<div class="col-md-2">
-															<div class="form-group">
-																<label>Service</label>
-																<input type="number" name="pax" class="form-control" required>
-															</div>
-														</div>
-                                                        <div class="col-md-2">
-															<div class="form-group">
-																<label>Amount</label>
-																<input type="number" name="pax" class="form-control" required>
-															</div>
-														</div>
-														
-													</div>
-                                               </div>
+                                                                <div class="form-group">
+                                                                    <label>Pax Name 4</label>
+                                                                    <input type="text" name="pax4" class="form-control">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-1">
+                                                                <div class="form-group">
+                                                                    <label>PNR</label>
+                                                                    <input type="text" name="pnr4" class="form-control">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-2">
+                                                                <div class="form-group">
+                                                                    <label>Ticket No</label>
+                                                                    <input type="text" name="ticket4" class="form-control">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-1">
+                                                                <div class="form-group">
+                                                                    <label>Airlines :</label>
+                                                                    <select name="airlines4" class="select form-control">
+                                                                            <option value="" disabled selected>* </option>
+                                                                            <option value="6E">6E</option>
+                                                                            <option value="AI">AI</option>
+                                                                            <option value="BG">BG</option>
+                                                                            <option value="BS">BS </option>
+                                                                            <option value="CX">CX</option>
+                                                                            <option value="CZ">CZ</option>
+                                                                            <option value="EK">EK</option>
+                                                                            <option value="EY">EY</option>
+                                                                            <option value="FZ">FZ </option>	
+                                                                            <option value="GF">GF </option>
+                                                                            <option value="G9">G9 </option>
+                                                                            <option value="G8">G8 </option>	
+                                                                            <option value="H9">H9</option>
+                                                                            <option value="J9">J9</option>
+                                                                            <option value="KU">KU</option>
+                                                                            <option value="MH">MH</option>
+                                                                            <option value="MS">MS </option>	
+                                                                            <option value="OD">OD</option>	
+                                                                            <option value="OV">OV</option>
+                                                                            <option value="QR">QR </option>	
+                                                                            <option value="UL">UL</option>                                                                          
+                                                                            <option value="UK">UK</option>
+                                                                            <option value="SV">SV</option>
+                                                                            <option value="SQ">SQ </option>
+                                                                            <option value="SL">SL</option>
+                                                                            <option value="SG">SG </option>
+                                                                            <option value="TK">TK </option>	                                                                       
+                                                                            <option value="TG">TG </option>  	
+                                                                            <option value="VQ">VQ </option>                                                                                                                                                    
+                                                                            <option value="WY">WY</option>
+                                                                            
+                                                                        </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-2">
+                                                                <div class="form-group">
+                                                                    <label>Route</label>
+                                                                    <input type="text" name="route4" class="form-control">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-1">
+                                                                <div class="form-group">
+                                                                    <label>From</label>
+                                                                    <input type="text" name="from4" class="form-control">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-1">
+                                                                <div class="form-group">
+                                                                    <label>To</label>
+                                                                    <input type="text" name="to4" class="form-control">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-2">
+                                                                <div class="form-group">
+                                                                    <label>Price</label>
+                                                                    <input type="number" name="price4" class="form-control">
+                                                                </div>
+                                                            </div>														
+                                                    </div>
 
-                                            </div>
+                                                    <div class="row">
+                                                        <div class="col-md-2">
+                                                                <div class="form-group">
+                                                                    <label>Pax Name 5</label>
+                                                                    <input type="text" name="pax5" class="form-control">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-1">
+                                                                <div class="form-group">
+                                                                    <label>PNR</label>
+                                                                    <input type="text" name="pnr5" class="form-control">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-2">
+                                                                <div class="form-group">
+                                                                    <label>Ticket No</label>
+                                                                    <input type="text" name="ticket5" class="form-control">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-1">
+                                                                <div class="form-group">
+                                                                    <label>Airlines :</label>
+                                                                    <select name="airlines5" class="select form-control">
+                                                                            <option value="" disabled selected>* </option>
+                                                                            <option value="6E">6E</option>
+                                                                            <option value="AI">AI</option>
+                                                                            <option value="BG">BG</option>
+                                                                            <option value="BS">BS </option>
+                                                                            <option value="CX">CX</option>
+                                                                            <option value="CZ">CZ</option>
+                                                                            <option value="EK">EK</option>
+                                                                            <option value="EY">EY</option>
+                                                                            <option value="FZ">FZ </option>	
+                                                                            <option value="GF">GF </option>
+                                                                            <option value="G9">G9 </option>
+                                                                            <option value="G8">G8 </option>	
+                                                                            <option value="H9">H9</option>
+                                                                            <option value="J9">J9</option>
+                                                                            <option value="KU">KU</option>
+                                                                            <option value="MH">MH</option>
+                                                                            <option value="MS">MS </option>	
+                                                                            <option value="OD">OD</option>	
+                                                                            <option value="OV">OV</option>
+                                                                            <option value="QR">QR </option>	
+                                                                            <option value="UL">UL</option>                                                                          
+                                                                            <option value="UK">UK</option>
+                                                                            <option value="SV">SV</option>
+                                                                            <option value="SQ">SQ </option>
+                                                                            <option value="SL">SL</option>
+                                                                            <option value="SG">SG </option>
+                                                                            <option value="TK">TK </option>	                                                                       
+                                                                            <option value="TG">TG </option>  	
+                                                                            <option value="VQ">VQ </option>                                                                                                                                                    
+                                                                            <option value="WY">WY</option>	
+                                                                            
+                                                                        </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-2">
+                                                                <div class="form-group">
+                                                                    <label>Route</label>
+                                                                    <input type="text" name="route5" class="form-control">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-1">
+                                                                <div class="form-group">
+                                                                    <label>From</label>
+                                                                    <input type="text" name="from5" class="form-control">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-1">
+                                                                <div class="form-group">
+                                                                    <label>To</label>
+                                                                    <input type="text" name="to5" class="form-control">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-2">
+                                                                <div class="form-group">
+                                                                    <label>Price</label>
+                                                                    <input type="number" name="price5" class="form-control">
+                                                                </div>
+                                                            </div>														
+                                                    </div>
 
 											<div class="text-right">
 												<button type="submit" class="btn btn-primary"> Generate</button>
