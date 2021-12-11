@@ -5,6 +5,24 @@ require '../session.php';
 
 $INV_No = $_GET['INV'];
 
+$sql1 = "SELECT *  FROM `invoice` where invNo='$INV_No'";
+$result1 = $conn->query($sql1);
+
+if ($result1->num_rows > 0) {
+while($row1 = $result1->fetch_assoc()) {
+  $Client_Name = $row1['clientName'];
+  $Created_Date = $row1['createdtime'];
+  $Created_By = $row1['createdBy'];
+  $Pax_No = $row1['pax'];
+  $System =  $row1['system'];
+  $Class =  $row1['class'];
+  $Ticket_Type = $row1['ticketType'];
+  $Rev_Officer = $row1['recofficer'];
+  }
+}
+
+//Table Data
+
 $sql = "SELECT *  FROM `airticket` where invNo='$INV_No'";
 $result = $conn->query($sql);
 
@@ -92,7 +110,31 @@ while($row = $result->fetch_assoc()) {
     <div class="d-flex flex-column">
 
         <h1 style="text-align:center;margin-top: 220px;"><u>INVOICE</u></h2>
+
+
         <!-- .row -->
+
+        <div class="d-flex">
+            <div class="mr-auto p-2">
+              <h5>INVOICE NO: #<?php echo $INV_No; ?> </h5>
+              <h6>Client Name: <?php echo $Client_Name; ?></h6>
+              <h6>Reservation officer: <?php echo $Rev_Officer; ?></h6>
+              <h6>Service: Air Ticket</h6>
+              <h6>Cabin Class: <?php echo $Class; ?></h6>
+            </div>
+            <div class="p-2">
+              <h6>Issue Date: <?php echo $Created_Date; ?></h6>
+              <h6>Created By: <?php echo $Created_By; ?></h6>
+              <h6>Ticket Type: <?php echo $Ticket_Type; ?></h6>
+              <h6>Pax No: <?php echo $Pax_No; ?></h6>
+
+
+            </div>
+        </div>
+
+
+
+
 
         <table class="table table-bordered" style="margin-top:50px;">
                         <thead class="thead-light">
@@ -139,12 +181,35 @@ while($row = $result->fetch_assoc()) {
                             <td><?php echo $from3; ?></td>
                             <td><?php echo $price3; ?></td>
                             </tr>
+                            <tr>
+                            <th scope="row"><?php echo $pax4; ?></th>
+                            <td><?php echo $pnr4; ?></td>
+                            <td><?php echo $ticket4; ?></td>
+                            <td><?php echo $airlines4; ?></td>
+                            <td><?php echo $route4; ?></td>
+                            <td><?php echo $to4; ?></td>
+                            <td><?php echo $from4; ?></td>
+                            <td><?php echo $price4; ?></td>
+                            </tr>
+                            <tr>
+                            <th scope="row"><?php echo $pax5; ?></th>
+                            <td><?php echo $pnr5; ?></td>
+                            <td><?php echo $ticket5; ?></td>
+                            <td><?php echo $airlines5; ?></td>
+                            <td><?php echo $route5; ?></td>
+                            <td><?php echo $to5; ?></td>
+                            <td><?php echo $from5; ?></td>
+                            <td><?php echo $price5; ?></td>
+                            </tr>
                             
                             <tr>
                             
                             <td rowspan="3" colspan="6" style="text-align:center;">Air Ticket fair Will Be chnage after 15 minutes</td>
                             <td>Total</td>
-                            <td><?php echo $price1 + $price2 + $price3 + $price4 + $price5; ?></td>
+                            <td><?php $Total = $price1 + $price2 + $price3 + $price4 + $price5;
+                              echo number_format($Total, 2)
+                            
+                            ?></td>
                             </tr>
                             <tr>
                             <td>Discount</td>
@@ -152,7 +217,7 @@ while($row = $result->fetch_assoc()) {
                             </tr>
                             <tr>
                             <td>Due</td>
-                            <td>0.00</td>
+                            <td><?php  echo number_format($Total, 2) ?></td>
                             </tr>
                         </tbody>
                         </table>

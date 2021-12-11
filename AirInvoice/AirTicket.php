@@ -95,7 +95,7 @@ if (mysqli_query($conn, $invoice)) {
     $price1 = $_POST['price1']; 
 
     //Pax2
-    if(isset($pax2)){
+    if(isset($_POST['pax2'])){
     $pax2 = $_POST['pax2'];
     $pnr2 = $_POST['pnr2'];
     $ticket2 = $_POST['ticket2'];
@@ -116,7 +116,7 @@ if (mysqli_query($conn, $invoice)) {
     }
 
     //Pax3
-    if(isset($pax3)){
+    if(isset($_POST['pax3'])){
     $pax3 = $_POST['pax3'];
     $pnr3 = $_POST['pnr3'];
     $ticket3 = $_POST['ticket3'];
@@ -137,7 +137,7 @@ if (mysqli_query($conn, $invoice)) {
     }
 
      //Pax4
-     if(isset($pax4)){
+     if(isset($_POST['pax4'])){
      $pax4 = $_POST['pax4'];
      $pnr4 = $_POST['pnr4'];
      $ticket4 = $_POST['ticket4'];
@@ -158,7 +158,7 @@ if (mysqli_query($conn, $invoice)) {
      }
 
      //Pax 5
-     if(isset($pax5)){
+     if(isset($_POST['pax5'])){
      $pax5 = $_POST['pax5'];
      $pnr5 = $_POST['pnr5'];
      $ticket5 = $_POST['ticket5'];
@@ -267,16 +267,16 @@ if (mysqli_query($conn, $invoice)) {
         '$price5'
     )";
 
-	if (mysqli_query($conn, $invoice)) {
+	if (mysqli_query($conn, $mrgenerate)) {
         echo '<script language="javascript">';
 		echo 'alert("Successfully Created"); location.href="Airinvoice.php?INV='.$INV_No.'"';
 		echo '</script>';		
 	} else {
-		echo "Error: " . $invoice . "<br>" . mysqli_error($conn);
+		echo "Error: " . $mrgenerate . "<br>" . mysqli_error($conn);
 	}
 
 } else {
-    echo "Error: " . $mrgenerate . "<br>" . mysqli_error($conn);
+    echo "Error: " . $invoice . "<br>" . mysqli_error($conn);
 }
 	
 	
@@ -623,9 +623,9 @@ if (mysqli_query($conn, $invoice)) {
                                                                     <label>Ticket Type :</label>
                                                                     <select name="tickettype" class="select form-control" required>
                                                                             <option value="" disabled selected>Ticket Type</option>
-                                                                            <option value="nonref">Non Refundable</option>
-                                                                            <option value="ref">Refundable</option>	
-                                                                            <option value="refadjust">Refund Adjusted </option>	
+                                                                            <option value="Non Refundable">Non Refundable</option>
+                                                                            <option value="Refundable">Refundable</option>	
+                                                                            <option value="Refund Adjusted">Refund Adjusted </option>	
                                                                             
                                                                         </select>
                                                                 </div>

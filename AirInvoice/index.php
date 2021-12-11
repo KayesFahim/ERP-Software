@@ -1,7 +1,7 @@
 <?php
 
-include 'config.php';
-include('session.php');
+include '../config.php';
+include('../session.php');
 
 
 ?>
@@ -13,19 +13,19 @@ include('session.php');
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-	<title>Bill</title>
+	<title>Invoice</title>
 	<!-- Favicon -->
 	<link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.png">
 	<!-- Bootstrap CSS -->
-	<link rel="stylesheet" href="assets/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../assets/css/bootstrap.min.css">
 	<!-- Fontawesome CSS -->
-	<link rel="stylesheet" href="assets/css/font-awesome.min.css">
+	<link rel="stylesheet" href="../assets/css/font-awesome.min.css">
 	<!-- Feathericon CSS -->
-	<link rel="stylesheet" href="assets/css/feathericon.min.css">
+	<link rel="stylesheet" href="../assets/css/feathericon.min.css">
 	<!-- Datatables CSS -->
-	<link rel="stylesheet" href="assets/plugins/datatables/datatables.min.css">
+	<link rel="stylesheet" href="../assets/plugins/datatables/datatables.min.css">
 	<!-- Main CSS -->
-	<link rel="stylesheet" href="assets/css/style.css">
+	<link rel="stylesheet" href="../assets/css/style.css">
 
 </head>
 <body>
@@ -39,11 +39,11 @@ include('session.php');
 			<!-- Logo -->
 			<div class="header-left">
 				<a href="index.php" class="logo">
-					<img src="logo.png" alt="Logo">
+					<img src="../logo.png" alt="Logo">
 				</a>
 				<a href="index.php" class="logo logo-small">
-					<img src="assets/img/logo-small.png" alt="Logo" width="30" height="30"> -->
-					<h4>YOUR LOGO</h4>
+					<img src="../assets/img/logo-small.png" alt="Logo" width="30" height="30"> -->
+
 				</a>
 			</div>
 			<!-- /Logo -->
@@ -234,10 +234,10 @@ include('session.php');
 				<div class="page-header">
 					<div class="row">
 						<div class="col-sm-12">
-							<h3 class="page-title">Bills</h3>
+							<h3 class="page-title">Air Ticket Invoice</h3>
 							<ul class="breadcrumb">
 								<li class="breadcrumb-item"><a href="Employees.php">Dashboard</a></li>
-								<li class="breadcrumb-item active">Bills</li>
+								<li class="breadcrumb-item active">Air Ticket</li>
 							</ul>
 						</div>
 					</div>
@@ -251,9 +251,9 @@ include('session.php');
 					<div class="col-md-12">
 							<div class="card">
 								<div class="card-header">
-									<h4 class="card-title">Bill Details</h4>
+									<h4 class="card-title">Invoice Details</h4>
 									<div class="text-right">
-										<a href="Bill/AddBill.php" class="btn btn-primary"> Create +</a>
+										<a href="AirTicket.php" class="btn btn-primary"> Create +</a>
 									</div>
 								</div>
 								
@@ -265,28 +265,47 @@ include('session.php');
 													<th>INV ID</th>
 													<th>Issue Date</th>
 													<th>Amount</th>
-													<th>Created By</th>
+													<th>Cabin Class</th>
 													<th>Vendor</th>
+													<th>createdBy</th>
+													<th>Client Name</th>
 													<th>Pax No</th>
 													<th>Action</th>
+													<th> </th>
 												</tr>
 											</thead>
 											<tbody>
 											<?php
 
-												$sql = "SELECT *  FROM `bill` ORDER BY id DESC";
+												$sql = "SELECT
+														invoice.invNo,
+														invoice.createdtime,
+														invoice.vendorId,
+														invoice.pax,
+														invoice.class,
+														invoice.clientName,
+														SUM(
+															airticket.cost1 + airticket.cost2 + airticket.cost3 + airticket.cost4 + airticket.cost5
+														) AS Amount
+														FROM
+															invoice
+														INNER JOIN airticket ON invoice.invNo = airticket.invNo
+														ORDER By createdtime DESC";
+
 												$result = $conn->query($sql);
 
 												if ($result->num_rows > 0) {
   												while($row = $result->fetch_assoc()) {	
-													$INV = $row["billNo"];
-													echo "<tr><td>".$row["billNo"]."</td>
-																<td>".$row["issueDate"]."</td> 
-														 		<td>".$row["amount"]."</td>
-																<td>".$row["createdBy"]."</td>
+													$INV = $row["invNo"];
+													echo "<tr><td>".$row["invNo"]."</td>
+																<td>".$row["createdtime"]."</td> 
+														 		<td>".$row["Amount"]."</td>
+																<td>".$row["class"]."</td>
 														 		<td>".$row["vendorId"]."</td>
-																 <td>".$row["TxId"]."</td>
-																<td><a href='Bill/Invoice.php?INV=$INV' class='btn btn-primary'> View </a><td>
+																<td>".$row["clientName"]."</td>
+																<td>".$row["clientName"]."</td>
+																<td>".$row["pax"]."</td>
+																<td><a href='AirInvoice.php?INV=$INV' class='btn btn-primary'> View </a><td>
 																 </tr>";   											
 												  }
 												} else {
@@ -305,16 +324,16 @@ include('session.php');
 				<!-- /Page Wrapper -->
 			</div>
 			<!-- jQuery -->
-			<script src="assets/js/jquery-3.2.1.min.js"></script>
+			<script src="../assets/js/jquery-3.2.1.min.js"></script>
 			<!-- Bootstrap Core JS -->
-			<script src="assets/js/popper.min.js"></script>
-			<script src="assets/js/bootstrap.min.js"></script>
+			<script src="../assets/js/popper.min.js"></script>
+			<script src="../assets/js/bootstrap.min.js"></script>
 			<!-- Slimscroll JS -->
-			<script src="assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+			<script src="../assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 			<!-- Datatables JS -->
-			<script src="assets/plugins/datatables/jquery.dataTables.min.js"></script>
-			<script src="assets/plugins/datatables/datatables.min.js"></script>
+			<script src="../assets/plugins/datatables/jquery.dataTables.min.js"></script>
+			<script src="../assets/plugins/datatables/datatables.min.js"></script>
 			<!-- Custom JS -->
-			<script  src="assets/js/script.js"></script>
+			<script  src="../assets/js/script.js"></script>
 	</body>
 </html>

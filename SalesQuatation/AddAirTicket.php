@@ -7,87 +7,130 @@ include('../session.php');
 //Reciept No
 
 $SQ_No ="";
-$sql = "SELECT * FROM salesqutation ORDER BY sqId  DESC LIMIT 1";
+$sql = "SELECT * FROM salesqutation ORDER BY sqNo  DESC LIMIT 1";
 $result = $conn->query($sql);
 if ($result->num_rows > 0) {
 	while($row = $result->fetch_assoc()) {
-        $outputString = preg_replace('/[^0-9]/', '', $row["sqId"]);
+        $outputString = preg_replace('/[^0-9]/', '', $row["sqNo"]);
 		$SQ_No = "SQT-".(int)$outputString + 1 ;									
  }
 } else {
-echo "0 results";
+	$SQ_No ="SQT-1000";
+
  }
 
 
 
-//Employee Info
+ if ($_SERVER["REQUEST_METHOD"] == "POST") { 	
+	 
+	$Client_Name = $_POST['client'];
+	$Pax_No = $_POST['pax'];
+    //Pax
+    $pax1 = $_POST['pax1'];
+    $route1 = $_POST['route1']; 
+    $price1 = $_POST['price1']; 
 
-if (array_key_exists('search', $_GET)){
-	$searchvar = $_GET['search'];
-		
-		$sql = "SELECT * FROM customer where CustomerId='$searchvar' or phone='$searchvar' or email='$searchvar'";
-		$result = $conn->query($sql);
-		if ($result->num_rows > 0) {
-			while($row = $result->fetch_assoc()) {
-				$Customer_Id = $row["CustomerId"];
-				$Customer_Name = $row["name"];
-				$Customer_Email = $row["email"];
-				$Customer_Address = $row["address"];
-				$Customer_Phone = $row["phone"];     								
-			}
-		} else {
-		echo "No Result Found";
-		}
-		
-}else{
-	$Customer_Name=" ";
-	$Customer_Email=" ";
-	$Customer_Address=" ";
-	$Customer_Phone=" ";
-}
+    //Pax2
+    if(isset($_POST['pax2'])){
+    $pax2 = $_POST['pax2'];
+   
+    $route2 = $_POST['route2']; 
 
+    $price2 = $_POST['price2'];
+    }else{
+        $pax2 = " ";
+        $route2 = " ";   
+        $price2 = " ";
+    }
 
+    //Pax3
+    if(isset($_POST['pax3'])){
+    $pax3 = $_POST['pax3'];   
+    $route3 = $_POST['route3']; 
+    $price3 = $_POST['price3'];
+    }else{
+        $pax3 = " ";
+        $route3 = " ";
+        $price3 = " ";
+    }
 
-// Generate PDF
+     //Pax4
+     if(isset($_POST['pax4'])){
+     $pax4 = $_POST['pax4'];
+     $route4 = $_POST['route4']; 
+     $price4 = $_POST['price4'];
+     }else{
+        $pax4 = " ";
+        $route4 = " ";
+        $price4 = " ";
+     }
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $comment = $_POST['comment'];
-    $amount = $_POST['amount'];
-    $payWay = $_POST['paymentway'];
-    $payMethod = $_POST['paymentmethod'];
-    $TxId = $_POST['txid']; 
+     //Pax 5
+     if(isset($_POST['pax5'])){
+     $pax5 = $_POST['pax5'];
+     $route5 = $_POST['route5']; 
+     $price5 = $_POST['price5'];
+     }else{
+        $pax5 = " ";
+        $route5 = " ";
+        $price5 = " ";
+
+     }
 
 	
-    $mrgenerate = "INSERT INTO `moneyreciept`(
-		`TxType`,
-		`customerId`,
-		`TxId`,
-		`amount`,
-		`paymentMethod`,
-		`paymentId`,
-		`comment`
-	)
-	VALUES(
-		'$Reciept_No',
-		'$Customer_Id',
-		'$TxId',
-		'$amount',
-		'$payWay',
-		'$payMethod',
-		'$comment'
-	)";
+    $mrgenerate = "INSERT INTO `salesqutation`(
+        `sqNo`,
+		`createdBy`,
+		`clientName`,
+		`pax`,
+		`PaxName1`,
+		`Route1`,
+		`cost1`,
+		`PaxName2`,
+		`Route2`,
+		`cost2`,
+		`PaxName3`,
+		`Route3`,
+		`cost3`,
+		`PaxName4`,
+		`Route4`,
+		`cost4`,
+		`PaxName5`,
+		`Route5`,
+		`cost5`
+    )
+    VALUES(
+        '$SQ_No',
+		'$userName',
+		'$Client_Name',
+		'$Pax_No',
+        '$pax1',
+        '$route1',
+        '$price1',
+        '$pax2',
+        '$route2',
+        '$price2',
+        '$pax3',
+        '$route3',
+        '$price3',
+        '$pax4',
+        '$route4',
+        '$price4',
+        '$pax5',
+        '$route5',
+        '$price5'
+    )";
 
 	if (mysqli_query($conn, $mrgenerate)) {
         echo '<script language="javascript">';
-		echo 'alert("Successfully Created"); location.href="invoice.php?Rno='.$Reciept_No.'"';
-		echo '</script>';
-		
+		echo 'alert("Successfully Created"); location.href="Invoice.php?SQT='.$SQ_No.'"';
+		echo '</script>';		
 	} else {
-		echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+		echo "Error: " . $mrgenerate . "<br>" . mysqli_error($conn);
 	}
-	
-	
-}                                                                                    
+
+}	
+                                                                           
 
 ?>
 
@@ -129,7 +172,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 				</a>
 				<a href="../index.php" class="logo logo-small">
 					<img src="../logo.png" alt="Logo" width="30" height="30">
-					<h4>YOUR LOGO</h4>
 				</a>
 			</div>
 			<!-- /Logo -->
@@ -201,8 +243,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 							</div>
 							<div class="user-text">
 								<!-- #Username -->
-								<h6>Admin</h6>
-								<p class="text-muted mb-0">Administrator</p>
+								<h6> <?php echo $login_session; ?> </h6>
+                                <p class="text-muted mb-0"><?php echo $userRole; ?></p>
 							</div>
 						</div>
 						<a class="dropdown-item" href="">My Profile</a>
@@ -318,10 +360,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 				<div class="page-header">
 					<div class="row">
 						<div class="col-sm-12">
-							<h3 class="page-title">Money Receipt</h3>
+							<h3 class="page-title">Add Sales Quatation<</h3>
 							<ul class="breadcrumb">
 								<li class="breadcrumb-item"><a href="../project.php">Dashboard</a></li>
-								<li class="breadcrumb-item active">Money Receipt</li>
+								<li class="breadcrumb-item active">Sales Quatation<</li>
 							</ul>
 						</div>
 					</div>
@@ -373,138 +415,113 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 														
 													</div>
                                                     <div class="row">
-                                                    <div class="col-md-3">
+                                                    <div class="col-md-4">
 															<div class="form-group">
 																<label>Pax Name 1</label>
-																<input type="text" class="form-control">
+																<input type="text" name="pax1" class="form-control">
 															</div>
 														</div>
-														<div class="col-md-2">
+														<div class="col-md-4">
 															<div class="form-group">
 																<label>Route</label>
-																<input type="text" name="client" class="form-control" required>
+																<input type="text" name="route1" class="form-control" required>
 															</div>
 														</div>
-														<div class="col-md-2">
-															<div class="form-group">
-																<label>Service</label>
-																<input type="number" name="pax" class="form-control" required>
-															</div>
-														</div>
-                                                        <div class="col-md-2">
+														
+                                                        <div class="col-md-4">
 															<div class="form-group">
 																<label>Amount</label>
-																<input type="number" name="pax" class="form-control" required>
+																<input type="number" name="price1" class="form-control" required>
 															</div>
 														</div>														
 													</div>
                                                     
                                                     <div class="row">
-                                                    <div class="col-md-3">
+                                                    <div class="col-md-4">
 															<div class="form-group">
 																<label>Pax Name 2</label>
-																<input type="text" class="form-control">
+																<input type="text" name="pax2" class="form-control">
 															</div>
 														</div>
-														<div class="col-md-2">
+														<div class="col-md-4">
 															<div class="form-group">
 																<label>Route</label>
-																<input type="text" name="client" class="form-control" required>
+																<input type="text" name="route2" class="form-control" required>
 															</div>
 														</div>
-														<div class="col-md-2">
-															<div class="form-group">
-																<label>Service</label>
-																<input type="number" name="pax" class="form-control" required>
-															</div>
-														</div>
-                                                        <div class="col-md-2">
+														
+                                                        <div class="col-md-4">
 															<div class="form-group">
 																<label>Amount</label>
-																<input type="number" name="pax" class="form-control" required>
+																<input type="number" name="price2" class="form-control" required>
 															</div>
 														</div>
 														
 													</div>
                                                     <div class="row">
-                                                    <div class="col-md-3">
+                                                    <div class="col-md-4">
 															<div class="form-group">
 																<label>Pax Name 3</label>
-																<input type="text" class="form-control">
+																<input type="text" name="pax3" class="form-control">
 															</div>
 														</div>
-														<div class="col-md-2">
+														<div class="col-md-4">
 															<div class="form-group">
 																<label>Route</label>
-																<input type="text" name="client" class="form-control" required>
+																<input type="text" name="route3" class="form-control" required>
 															</div>
 														</div>
-														<div class="col-md-2">
-															<div class="form-group">
-																<label>Service</label>
-																<input type="number" name="pax" class="form-control" required>
-															</div>
-														</div>
-                                                        <div class="col-md-2">
+														
+                                                        <div class="col-md-4">
 															<div class="form-group">
 																<label>Amount</label>
-																<input type="number" name="pax" class="form-control" required>
+																<input type="number" name="price3" class="form-control" required>
 															</div>
 														</div>
 														
 													</div>
 
                                                <div class="row">
-                                                    <div class="col-md-3">
+                                                    <div class="col-md-4">
 															<div class="form-group">
 																<label>Pax Name 4</label>
-																<input type="text" class="form-control">
+																<input type="text" name="pax4" class="form-control">
 															</div>
 														</div>
-														<div class="col-md-2">
+														<div class="col-md-4">
 															<div class="form-group">
 																<label>Route</label>
-																<input type="text" name="client" class="form-control" required>
+																<input type="text" name="route4" class="form-control" required>
 															</div>
 														</div>
-														<div class="col-md-2">
-															<div class="form-group">
-																<label>Service</label>
-																<input type="number" name="pax" class="form-control" required>
-															</div>
-														</div>
-                                                        <div class="col-md-2">
+														
+                                                        <div class="col-md-4">
 															<div class="form-group">
 																<label>Amount</label>
-																<input type="number" name="pax" class="form-control" required>
+																<input type="number" name="price4" class="form-control" required>
 															</div>
 														</div>
 														
 													</div>
                                                
                                                <div class="row">
-                                                    <div class="col-md-3">
+                                                    <div class="col-md-4">
 															<div class="form-group">
-																<label>Pax Name 4</label>
-																<input type="text" class="form-control">
+																<label>Pax Name 5</label>
+																<input type="text" name="pax5" class="form-control">
 															</div>
 														</div>
-														<div class="col-md-2">
+														<div class="col-md-4">
 															<div class="form-group">
 																<label>Route</label>
-																<input type="text" name="client" class="form-control" required>
+																<input type="text" name="route5" class="form-control" required>
 															</div>
 														</div>
-														<div class="col-md-2">
-															<div class="form-group">
-																<label>Service</label>
-																<input type="number" name="pax" class="form-control" required>
-															</div>
-														</div>
-                                                        <div class="col-md-2">
+														
+                                                        <div class="col-md-4">
 															<div class="form-group">
 																<label>Amount</label>
-																<input type="number" name="pax" class="form-control" required>
+																<input type="number" name="price5" class="form-control" required>
 															</div>
 														</div>
 														
