@@ -204,7 +204,7 @@ while($row = $result->fetch_assoc()) {
                             
                             <tr>
                             
-                            <td rowspan="3" colspan="6" style="text-align:center;">Air Ticket fair Will Be chnage after 15 minutes</td>
+                            <td rowspan="3" colspan="6" style="text-align:center;"> </td>
                             <td>Total</td>
                             <td><?php $Total = $price1 + $price2 + $price3 + $price4 + $price5;
                               echo number_format($Total, 2)

@@ -261,95 +261,167 @@ if ($result->num_rows > 0) {
 
 		<!-- Sidebar -->
 
-		<?php if($userRole == 'reservation'){
-				print "<div class='sidebar' id='sidebar'>
-					<div class='sidebar-inner slimscroll'>
-						<div id='sidebar-menu' class='sidebar-menu'>
-							<ul>
-								<li class='menu-title'>
-									<span>Main</span>
-								</li>
-								<li>
-									<a href='dashboard.php'><i class='fe fe-home'></i> <span>Dashboard</span></a>
-								</li>
-								
-								<li>
-									<a href='Bill.php'><i class='fe fe-layout'></i> <span>Bill</span></a>
-								</li>
+		 <!-- Sidebar -->
 
-								<li>
-									<a href='MoneyReceipt.php'><i class='fe fe-layout'></i> <span>Money Receipt</span></a>
-								</li>
-								
-							</ul>
-						</div>
-					</div>
-				</div>" ;
+		 <?php if($userRole == 'reservation'){
 
-				}elseif($userRole == 'admin' || $userRole =='developer'){
+print "<div class='sidebar' id='sidebar'>
+	 <div class='sidebar-inner slimscroll'>
+		 <div id='sidebar-menu' class='sidebar-menu'>
+			 <ul>
+				 <li class='menu-title'>
+					 <span>Main</span>
+				 </li>
+				 <li>
+					 <a href='../dashboard.php'><i class='fe fe-home'></i> <span> Dashboard</span></a>
+				 </li>
+				 
+				 <li>
+				 <a data-toggle='dropdown'><i class='fe fe-layout'></i> <span>Sales Quatation</span></a>
+					 <ul>
+						 <li><a href='SalesQuatation'><i class='fe fe-layout'> </i> <span> Air Ticket</span></a></li>
+						 
+					 </ul>
+				  </li>
 
-				echo "<div class='sidebar' id='sidebar'>
-				<div class='sidebar-inner slimscroll'>
-				<div id='sidebar-menu' class='sidebar-menu'>
-					<ul>
-						<li class='menu-title'>
-							<span>Main</span>
-						</li>
-						<li>
-							<a href='Dashboard.php'><i class='fe fe-home'></i> <span>Dashboard</span></a>
-						</li>
-						<li>
-							<a href='salesQuotation.php'><i class='fe fe-layout'></i> <span>Sales Quotation</span></a>
-						</li>
-						<li>
-							<a href='invoice.php'><i class='fe fe-layout'></i> <span>Invoice</span></a>
-						</li>
-						<li>
-							<a data-toggle='dropdown'><i class='fe fe-layout'></i> <span>Accounting</span></a>
-								<ul>
-									<li><a href='CashEquivalent.php'><i class='fe fe-layout'></i> <span>Cash And Cash</span></a></li>
-									<li><a href='access.php'><i class='fe fe-layout'></i> <span>Acces control</span></a> </li>
-									<li><a href='#'><i class='fe fe-layout'></i> Portal</a></li>
-								</ul>
-						</li>
-						<li>
-							<a href='Bill.php'><i class='fe fe-layout'></i> <span>Bill</span></a>
-						</li>
-						<li>
-							<a href='expense.php'><i class='fe fe-layout'></i> <span>Expense</span></a>
-						</li>
-						<li>
-							<a href='moneyReceipt.php'><i class='fe fe-layout'></i> <span>Money Receipt</span></a>
-						</li>
+				 <li>
+					 <a data-toggle='dropdown'><i class='fe fe-layout'></i> <span> Invoice</span></a>
+						 <ul>
+							 <li><a href='../AirInvoice'><i class='fe fe-layout'> </i> <span> Air Ticket </span></a></li>
+							 
+						 </ul>
+				 </li>
+				 
+			 </ul>
+		 </div>
+	 </div>
+ </div>" ;
 
-						<li>
-							<a href='payment.php'><i class='fe fe-layout'></i> <span>Payment</span></a>
-						</li>
-						<li>
-							<a href='Salary/SalarySheet.php'><i class='fe fe-layout'></i> <span>Salary</span></a>
-						</li>
-						<li>
-							<a href='project.php'><i class='fe fe-layout'></i> <span>Project</span></a>
-						</li>
-						<li>
-							<a href='employees.php'><i class='fe fe-layout'></i> <span>Employees</span></a>
-						</li>
-						<li>
-							<a href='Report.php'><i class='fe fe-layout'></i> <span>Report</span></a>
-						</li>
+}elseif($userRole == 'accounts'){
+print "<div class='sidebar' id='sidebar'>
+<div class='sidebar-inner slimscroll'>
+ <div id='sidebar-menu' class='sidebar-menu'>
+	 <ul>
+		 <li class='menu-title'>
+			 <span>Main</span>
+		 </li>
+		 <li>
+			 <a href='dashboard.php'><i class='fe fe-home'></i> <span>Dashboard</span></a>
+		 </li>
+		 
+		 <li>
+			 <a href='Bill.php'><i class='fe fe-layout'></i> <span>Bill</span></a>
+		 </li>
 
-						<li>
-							<a href='refund.php'><i class='fe fe-layout'></i> <span>Refund</span></a>
-						</li>
-						
+		 <li>
+			 <a href='MoneyReceipt.php'><i class='fe fe-layout'></i> <span>Money Receipt</span></a>
+		 </li>
+		 
+	 </ul>
+ </div>
+</div>
+</div>" ;
 
-					</ul>
-				</div>
-				</div>
-				</div>";}
 
-				?>	
-				<!--- Sidebar --->
+} elseif($userRole =='developer'){
+
+echo "<div class='sidebar' id='sidebar'>
+<div class='sidebar-inner slimscroll'>
+ <div id='sidebar-menu' class='sidebar-menu'>
+	 <ul>
+		 <li class='menu-title'>
+			 <span>Main</span>
+		 </li>
+		 <li>
+			 <a href='dashboard.php'><i class='fe fe-home'></i> <span>Dashboard</span></a>
+		 </li>
+		 <li>
+			 <a href='salesQuotation.php'><i class='fe fe-layout'></i> <span>Sales Quotation</span></a>
+		 </li>
+		 <li>
+			  <a data-toggle='dropdown'><i class='fe fe-layout'></i> <span>Invoice</span></a>
+				  <ul>
+					 <li><a href='AirInvoice'><i class='fe fe-layout'> </i> <span> Air Ticket</span></a></li>
+					  <li><a href='access.php'><i class='fe fe-layout'> </i> <span> Visa</span></a> </li>
+					 <li><a href='#'><i class='fe fe-layout'></i> Others</a></li>
+				  </ul>
+				 </li>
+		 <li>
+			 <a data-toggle='dropdown'><i class='fe fe-layout'></i> <span>Accounting</span></a>
+				 <ul>
+					 <li><a href='CashEquivalent.php'><i class='fe fe-layout'></i> <span>Cash And Cash</span></a></li>
+					 <li><a href='access.php'><i class='fe fe-layout'></i> <span>Acces control</span></a> </li>
+					 <li><a href='#'><i class='fe fe-layout'></i> Portal</a></li>
+				 </ul>
+		 </li>
+		 <li>
+			 <a href='Bill.php'><i class='fe fe-layout'></i> <span>Bill</span></a>
+		 </li>
+		 <li>
+			 <a href='expense.php'><i class='fe fe-layout'></i> <span>Expense</span></a>
+		 </li>
+		 <li>
+			 <a href='moneyReceipt.php'><i class='fe fe-layout'></i> <span>Money Receipt</span></a>
+		 </li>
+
+		 <li>
+			 <a href='payment.php'><i class='fe fe-layout'></i> <span>Payment</span></a>
+		 </li>
+		 <li>
+			 <a href='Salary/SalarySheet.php'><i class='fe fe-layout'></i> <span>Salary</span></a>
+		 </li>
+		 <li>
+			 <a href='project.php'><i class='fe fe-layout'></i> <span>Project</span></a>
+		 </li>
+		 <li>
+			 <a href='employees.php'><i class='fe fe-layout'></i> <span>Employees</span></a>
+		 </li>
+		 <li>
+			 <a href='Report.php'><i class='fe fe-layout'></i> <span>Report</span></a>
+		 </li>
+
+		 <li>
+			 <a href='refund.php'><i class='fe fe-layout'></i> <span>Refund</span></a>
+		 </li>
+		 
+
+	 </ul>
+ </div>
+</div>
+</div>";}elseif($userRole == 'admin'){
+echo "<div class='sidebar' id='sidebar'>
+<div class='sidebar-inner slimscroll'>
+ <div id='sidebar-menu' class='sidebar-menu'>
+	 <ul>
+		 <li class='menu-title'>
+			 <span>Main</span>
+		 </li>
+
+		 <li>
+			 <a href='Inventory.php'><i class='fe fe-layout'></i> <span> Inventory</span></a>
+		 </li>
+		 
+		 <li>
+			 <a href='Salary/SalarySheet.php'><i class='fe fe-layout'></i> <span>Salary</span></a>
+		 </li>
+		 <li>
+			 <a href='Attandance.php'><i class='fe fe-layout'></i> <span> Attandance</span></a>
+		 </li>
+		 <li>
+			 <a href='Employees.php'><i class='fe fe-layout'></i> <span> Employees</span></a>
+		 </li>
+		 
+		 
+
+	 </ul>
+ </div>
+</div>
+</div>";
+
+}
+ 
+?>	
+<!--- Sidebar --->
 		
 
 		<!-- Page Wrapper -->
@@ -360,10 +432,10 @@ if ($result->num_rows > 0) {
 				<div class="page-header">
 					<div class="row">
 						<div class="col-sm-12">
-							<h3 class="page-title">Add Sales Quatation<</h3>
+							<h3 class="page-title">Add Sales Quatation</h3>
 							<ul class="breadcrumb">
 								<li class="breadcrumb-item"><a href="../project.php">Dashboard</a></li>
-								<li class="breadcrumb-item active">Sales Quatation<</li>
+								<li class="breadcrumb-item active">Sales Quatation</li>
 							</ul>
 						</div>
 					</div>

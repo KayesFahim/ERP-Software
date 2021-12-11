@@ -493,15 +493,18 @@
                             </li>
                             
                             <li>
-                                <a href='SalesQuotation.php'><i class='fe fe-layout'></i> <span> Bill</span></a>
-                            </li>
+                            <a data-toggle='dropdown'><i class='fe fe-layout'></i> <span>Sales Quatation</span></a>
+                                <ul>
+                                    <li><a href='SalesQuatation'><i class='fe fe-layout'> </i> <span> Air Ticket</span></a></li>
+                                    
+                                </ul>
+                             </li>
 
                             <li>
-                                <a data-toggle='dropdown'><i class='fe fe-layout'></i> <span>Invoice</span></a>
+                                <a data-toggle='dropdown'><i class='fe fe-layout'></i> <span> Invoice</span></a>
                                     <ul>
-                                        <li><a href='Invoice/AirTicket.php'><i class='fe fe-layout'> </i> <span> Air Ticket</span></a></li>
-                                        <li><a href='access.php'><i class='fe fe-layout'> </i> <span> Visa</span></a> </li>
-                                        <li><a href='#'><i class='fe fe-layout'></i> Others</a></li>
+                                        <li><a href='AirInvoice'><i class='fe fe-layout'> </i> <span> Air Ticket </span></a></li>
+                                        
                                     </ul>
                             </li>
                             
