@@ -518,14 +518,14 @@ echo "<div class='sidebar' id='sidebar'>
 														<div class="col-md-4">
 															<div class="form-group">
 																<label>Route</label>
-																<input type="text" name="route2" class="form-control" required>
+																<input type="text" name="route2" class="form-control" >
 															</div>
 														</div>
 														
                                                         <div class="col-md-4">
 															<div class="form-group">
 																<label>Amount</label>
-																<input type="number" name="price2" class="form-control" required>
+																<input type="number" name="price2" class="form-control">
 															</div>
 														</div>
 														
@@ -540,14 +540,14 @@ echo "<div class='sidebar' id='sidebar'>
 														<div class="col-md-4">
 															<div class="form-group">
 																<label>Route</label>
-																<input type="text" name="route3" class="form-control" required>
+																<input type="text" name="route3" class="form-control">
 															</div>
 														</div>
 														
                                                         <div class="col-md-4">
 															<div class="form-group">
 																<label>Amount</label>
-																<input type="number" name="price3" class="form-control" required>
+																<input type="number" name="price3" class="form-control">
 															</div>
 														</div>
 														
@@ -563,14 +563,14 @@ echo "<div class='sidebar' id='sidebar'>
 														<div class="col-md-4">
 															<div class="form-group">
 																<label>Route</label>
-																<input type="text" name="route4" class="form-control" required>
+																<input type="text" name="route4" class="form-control">
 															</div>
 														</div>
 														
                                                         <div class="col-md-4">
 															<div class="form-group">
 																<label>Amount</label>
-																<input type="number" name="price4" class="form-control" required>
+																<input type="number" name="price4" class="form-control">
 															</div>
 														</div>
 														
@@ -586,14 +586,14 @@ echo "<div class='sidebar' id='sidebar'>
 														<div class="col-md-4">
 															<div class="form-group">
 																<label>Route</label>
-																<input type="text" name="route5" class="form-control" required>
+																<input type="text" name="route5" class="form-control">
 															</div>
 														</div>
 														
                                                         <div class="col-md-4">
 															<div class="form-group">
 																<label>Amount</label>
-																<input type="number" name="price5" class="form-control" required>
+																<input type="number" name="price5" class="form-control">
 															</div>
 														</div>
 														

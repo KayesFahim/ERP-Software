@@ -220,7 +220,7 @@ include('session.php');
 								<div class="card-header">
 									<h4 class="card-title">Sales Quotation Details</h4>
 									<div class="text-right">
-										<a href="SalesQuatation/AddSQ.php" class="btn btn-primary"> Create +</a>
+										<a href="SalesQuatation/AddAirTicket.php" class="btn btn-primary"> Create +</a>
 									</div>
 								</div>
 								
@@ -240,7 +240,7 @@ include('session.php');
 											<tbody>
 											<?php
 
-												$sql = "SELECT *  FROM `salesqutation` ORDER BY sqId DESC";
+												$sql = "SELECT *  FROM `salesqutation` ORDER BY id DESC";
 												$result = $conn->query($sql);
 												if ($result->num_rows > 0) {
   												while($row = $result->fetch_assoc()) {	

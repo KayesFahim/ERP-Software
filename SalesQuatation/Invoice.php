@@ -81,7 +81,7 @@ while($row = $result->fetch_assoc()) {
     <div class="container" style="background: url(../assets/img/pdfbg.jpeg); background-repeat: no-repeat; background-size: cover; height: 100%;">
     <div class="d-flex flex-column">
 
-        <h1 style="text-align:center;margin-top: 220px;"><u>INVOICE</u></h2>
+        <h1 style="text-align:center;margin-top: 220px;"><u>Sales Quatation</u></h2>
 
 
         <!-- .row -->

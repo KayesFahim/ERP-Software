@@ -552,7 +552,7 @@
                         <a href='dashboard.php'><i class='fe fe-home'></i> <span>Dashboard</span></a>
                     </li>
                     <li>
-                        <a href='salesQuotation.php'><i class='fe fe-layout'></i> <span>Sales Quotation</span></a>
+                        <a href='SalesQuatation'><i class='fe fe-layout'></i> <span>Sales Quotation</span></a>
                     </li>
                     <li>
                          <a data-toggle='dropdown'><i class='fe fe-layout'></i> <span>Invoice</span></a>
