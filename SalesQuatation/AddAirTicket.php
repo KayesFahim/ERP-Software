@@ -6,7 +6,7 @@ include('../session.php');
 
 //Reciept No
 
-$SQ_No ="";
+$SQT_No ="";
 $sql = "SELECT * FROM salesqutation ORDER BY sqNo  DESC LIMIT 1";
 $result = $conn->query($sql);
 if ($result->num_rows > 0) {
@@ -15,7 +15,7 @@ if ($result->num_rows > 0) {
 		$SQ_No = "SQT-".(int)$outputString + 1 ;									
  }
 } else {
-	$SQ_No ="SQT-1000";
+	$SQT_No ="SQT-1000";
 
  }
 
@@ -27,52 +27,59 @@ if ($result->num_rows > 0) {
 	$Pax_No = $_POST['pax'];
     //Pax
     $pax1 = $_POST['pax1'];
-    $route1 = $_POST['route1']; 
+    $from1 = $_POST['from1'];
+	$to1 = $_POST['to1'];  
     $price1 = $_POST['price1']; 
 
     //Pax2
     if(isset($_POST['pax2'])){
-    $pax2 = $_POST['pax2'];
-   
-    $route2 = $_POST['route2']; 
-
+    $pax2 = $_POST['pax2'];  
+    $from2 = $_POST['from2'];
+	$to2 = $_POST['to2']; 
     $price2 = $_POST['price2'];
     }else{
         $pax2 = " ";
-        $route2 = " ";   
+        $from2 = " ";
+		$to2 = " ";     
         $price2 = " ";
     }
 
     //Pax3
     if(isset($_POST['pax3'])){
     $pax3 = $_POST['pax3'];   
-    $route3 = $_POST['route3']; 
+    $from3 = $_POST['from3'];
+	$to3 = $_POST['to3']; 
     $price3 = $_POST['price3'];
     }else{
         $pax3 = " ";
-        $route3 = " ";
+        $from3 = " ";
+		$to3 = " ";
         $price3 = " ";
     }
 
      //Pax4
      if(isset($_POST['pax4'])){
      $pax4 = $_POST['pax4'];
-     $route4 = $_POST['route4']; 
+     $from4 = $_POST['from4'];
+	 $to4 = $_POST['to4']; 
      $price4 = $_POST['price4'];
      }else{
         $pax4 = " ";
-        $route4 = " ";
+        $from4 = " ";
+		$to4 = " ";
         $price4 = " ";
      }
 
      //Pax 5
      if(isset($_POST['pax5'])){
      $pax5 = $_POST['pax5'];
-     $route5 = $_POST['route5']; 
+     $from5 = $_POST['from5'];
+	 $to5 = $_POST['to5']; 
      $price5 = $_POST['price5'];
      }else{
         $pax5 = " ";
-        $route5 = " ";
+        $from5 = " ";
+		$to5 = " ";
         $price5 = " ";
 
      }
@@ -84,40 +91,50 @@ if ($result->num_rows > 0) {
 		`clientName`,
 		`pax`,
 		`PaxName1`,
-		`Route1`,
+		`from1`,
+		`to1`,
 		`cost1`,
 		`PaxName2`,
-		`Route2`,
+		`from2`,
+		`to2`,
 		`cost2`,
 		`PaxName3`,
-		`Route3`,
+		`from3`,
+		`to3`,
 		`cost3`,
 		`PaxName4`,
-		`Route4`,
+		`from4`,
+		`to4`,
 		`cost4`,
 		`PaxName5`,
-		`Route5`,
+		`from5`,
+		`to5`,
 		`cost5`
     )
     VALUES(
-        '$SQ_No',
+        '$SQT_No',
 		'$userName',
 		'$Client_Name',
 		'$Pax_No',
         '$pax1',
-        '$route1',
+        '$from1',
+		'$to1',
         '$price1',
         '$pax2',
-        '$route2',
+        '$from2',
+		'$to2',
         '$price2',
         '$pax3',
-        '$route3',
+        '$from3',
+		'$to3',
         '$price3',
         '$pax4',
-        '$route4',
+        '$from4',
+		'$to4',
         '$price4',
         '$pax5',
-        '$route5',
+        '$from5',
+		'$to5',
         '$price5'
     )";
 
@@ -469,7 +486,7 @@ echo "<div class='sidebar' id='sidebar'>
 													<div class="col-md-4">
 															<div class="form-group">
 																<label>Reciept No:</label>
-																<input type="text" value="<?php echo $SQ_No ?>" class="form-control" disabled>
+																<input type="text" value="<?php echo $SQT_No ?>" class="form-control" disabled>
 															</div>
 														</div>
 														<div class="col-md-4">
@@ -487,42 +504,54 @@ echo "<div class='sidebar' id='sidebar'>
 														
 													</div>
                                                     <div class="row">
-                                                    <div class="col-md-4">
-															<div class="form-group">
-																<label>Pax Name 1</label>
-																<input type="text" name="pax1" class="form-control">
+															<div class="col-md-3">
+																<div class="form-group">
+																	<label>Pax Name 1</label>
+																	<input type="text" name="pax1" class="form-control">
+																</div>
 															</div>
-														</div>
-														<div class="col-md-4">
-															<div class="form-group">
-																<label>Route</label>
-																<input type="text" name="route1" class="form-control" required>
+															<div class="col-md-3">
+																<div class="form-group">
+																	<label>From</label>
+																	<input type="text" name="from1" class="form-control" required>
+																</div>
 															</div>
-														</div>
-														
-                                                        <div class="col-md-4">
-															<div class="form-group">
-																<label>Amount</label>
-																<input type="number" name="price1" class="form-control" required>
+															<div class="col-md-3">
+																<div class="form-group">
+																	<label>To</label>
+																	<input type="text" name="to1" class="form-control" required>
+																</div>
 															</div>
-														</div>														
+															
+															<div class="col-md-3">
+																<div class="form-group">
+																	<label>Amount</label>
+																	<input type="number" name="price1" class="form-control" required>
+																</div>
+															</div>														
 													</div>
                                                     
                                                     <div class="row">
-                                                    <div class="col-md-4">
+                                                    <div class="col-md-3">
 															<div class="form-group">
 																<label>Pax Name 2</label>
 																<input type="text" name="pax2" class="form-control">
 															</div>
 														</div>
-														<div class="col-md-4">
-															<div class="form-group">
-																<label>Route</label>
-																<input type="text" name="route2" class="form-control" >
+														<div class="col-md-3">
+																<div class="form-group">
+																	<label>From</label>
+																	<input type="text" name="from2" class="form-control" required>
+																</div>
 															</div>
-														</div>
+															<div class="col-md-3">
+																<div class="form-group">
+																	<label>To</label>
+																	<input type="text" name="to1" class="form-control" required>
+																</div>
+															</div>
 														
-                                                        <div class="col-md-4">
+                                                        <div class="col-md-3">
 															<div class="form-group">
 																<label>Amount</label>
 																<input type="number" name="price2" class="form-control">
@@ -531,20 +560,26 @@ echo "<div class='sidebar' id='sidebar'>
 														
 													</div>
                                                     <div class="row">
-                                                    <div class="col-md-4">
+                                                    <div class="col-md-3">
 															<div class="form-group">
 																<label>Pax Name 3</label>
 																<input type="text" name="pax3" class="form-control">
 															</div>
 														</div>
-														<div class="col-md-4">
-															<div class="form-group">
-																<label>Route</label>
-																<input type="text" name="route3" class="form-control">
+														<div class="col-md-3">
+																<div class="form-group">
+																	<label>From</label>
+																	<input type="text" name="from3" class="form-control" required>
+																</div>
 															</div>
-														</div>
+															<div class="col-md-3">
+																<div class="form-group">
+																	<label>To</label>
+																	<input type="text" name="to3" class="form-control" required>
+																</div>
+															</div>
 														
-                                                        <div class="col-md-4">
+                                                        <div class="col-md-3">
 															<div class="form-group">
 																<label>Amount</label>
 																<input type="number" name="price3" class="form-control">
@@ -554,20 +589,26 @@ echo "<div class='sidebar' id='sidebar'>
 													</div>
 
                                                <div class="row">
-                                                    <div class="col-md-4">
+                                                    <div class="col-md-3">
 															<div class="form-group">
 																<label>Pax Name 4</label>
 																<input type="text" name="pax4" class="form-control">
 															</div>
 														</div>
-														<div class="col-md-4">
-															<div class="form-group">
-																<label>Route</label>
-																<input type="text" name="route4" class="form-control">
+														<div class="col-md-3">
+																<div class="form-group">
+																	<label>From</label>
+																	<input type="text" name="from4" class="form-control" required>
+																</div>
 															</div>
-														</div>
+															<div class="col-md-3">
+																<div class="form-group">
+																	<label>To</label>
+																	<input type="text" name="to4" class="form-control" required>
+																</div>
+															</div>
 														
-                                                        <div class="col-md-4">
+                                                        <div class="col-md-3">
 															<div class="form-group">
 																<label>Amount</label>
 																<input type="number" name="price4" class="form-control">
@@ -577,20 +618,26 @@ echo "<div class='sidebar' id='sidebar'>
 													</div>
                                                
                                                <div class="row">
-                                                    <div class="col-md-4">
+                                                    <div class="col-md-3">
 															<div class="form-group">
 																<label>Pax Name 5</label>
 																<input type="text" name="pax5" class="form-control">
 															</div>
 														</div>
-														<div class="col-md-4">
+														<div class="col-md-3">
 															<div class="form-group">
-																<label>Route</label>
-																<input type="text" name="route5" class="form-control">
+																<label>From</label>
+																<input type="text" name="from5" class="form-control" required>
 															</div>
-														</div>
+															</div>
+															<div class="col-md-3">
+																<div class="form-group">
+																	<label>To</label>
+																	<input type="text" name="to5" class="form-control" required>
+																</div>
+															</div>
 														
-                                                        <div class="col-md-4">
+                                                        <div class="col-md-3">
 															<div class="form-group">
 																<label>Amount</label>
 																<input type="number" name="price5" class="form-control">

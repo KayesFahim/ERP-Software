@@ -627,26 +627,7 @@ if (mysqli_query($conn, $invoice)) {
 																<input type="text" name="client" class="form-control" required>
 															</div>
 														</div>
-                                                        <div class="col-md-3">
-															<div class="form-group">
-																<label>Vendor :</label>
-																<select name="vendor" class="select form-control" required>
-                                                                            <option value="" disabled selected>Select Vendor</option>
-                                                                            <?php
-                                                                                $sql = "SELECT *  FROM `vendor` ORDER BY name DESC";
-                                                                                $result = $conn->query($sql);
-                                
-                                                                                if ($result->num_rows > 0) {
-                                                                                while($row = $result->fetch_assoc()) {
-                                                                                    $vnName = $row["name"];	
-                                                                                    echo "<option value=\"$vnName\">".$row["name"]."</option>";                                                                                 
-                                                                                }
-                                                                            }
-                                                                                ?>
-                                                                            
-                                                                </select>
-															</div>
-														</div>
+                                                        
 														<div class="col-md-3">
 															<div class="form-group">
 																<label>Pax No</label>
@@ -708,8 +689,9 @@ if (mysqli_query($conn, $invoice)) {
                                                             </div>
                                                             
                                                         </div>
+
                                                     <div class="row">
-                                                        <div class="col-md-1">
+                                                        <div class="col-md-2">
                                                                 <div class="form-group">
                                                                     <label>Pax Name</label>
                                                                     <input type="text" name="pax1" class="form-control" required>
@@ -789,7 +771,7 @@ if (mysqli_query($conn, $invoice)) {
 															<div class="form-group">
 																<label>Vendor :</label>
 																<select name="vendor" class="select form-control" required>
-                                                                            <option value="" disabled selected>*</option>
+                                                                            <option value="" disabled selected>Choose</option>
                                                                             <?php
                                                                                 $sql = "SELECT *  FROM `vendor` ORDER BY name DESC";
                                                                                 $result = $conn->query($sql);
@@ -804,38 +786,38 @@ if (mysqli_query($conn, $invoice)) {
                                                                             
                                                                 </select>
 															</div>
-                                                            <div class="col-md-2">
+                                                             </div>
+                                                            <div class="col-md-1">
                                                                 <div class="form-group">
                                                                     <label>Price</label>
                                                                     <input type="text" name="vprice" class="form-control" required>
                                                                 </div>
-                                                            </div>
-														</div>														
+                                                            </div>													
                                                     </div>
-                                                    
+
                                                     <div class="row">
-                                                        <div class="col-md-1">
+                                                        <div class="col-md-2">
                                                                 <div class="form-group">
-                                                                    <label>Pax Name 2</label>
-                                                                    <input type="text" name="pax2" class="form-control">
+                                                                    <label>Pax Name</label>
+                                                                    <input type="text" name="pax1" class="form-control" required>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-1">
                                                                 <div class="form-group">
                                                                     <label>PNR</label>
-                                                                    <input type="text" name="pnr2" class="form-control">
+                                                                    <input type="text" name="pnr1" class="form-control" required>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-1">
                                                                 <div class="form-group">
                                                                     <label>Ticket No</label>
-                                                                    <input type="text" name="ticket2" class="form-control">
+                                                                    <input type="text" name="ticket1" class="form-control" required>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-1">
                                                                 <div class="form-group">
                                                                     <label>Airlines :</label>
-                                                                    <select name="airlines2" class="select form-control">
+                                                                    <select name="airlines1" class="select form-control" required>
                                                                             <option value="" disabled selected>*</option>
                                                                             <option value="6E">6E</option>
                                                                             <option value="AI">AI</option>
@@ -867,60 +849,81 @@ if (mysqli_query($conn, $invoice)) {
                                                                             <option value="TG">TG </option>  	
                                                                             <option value="VQ">VQ </option>                                                                                                                                                    
                                                                             <option value="WY">WY</option>
+                                                                                                                                                      
                                                                             
                                                                         </select>
                                                                 </div>
-                                                            </div>
-                                                            <div class="col-md-1">
-                                                                <div class="form-group">
-                                                                    <label>Vendor Price</label>
-                                                                    <input type="text" name="route2" class="form-control">
-                                                                </div>
-                                                            </div>
+                                                            </div>                                                            
                                                             <div class="col-md-1">
                                                                 <div class="form-group">
                                                                     <label>From</label>
-                                                                    <input type="text" name="from2" class="form-control">
+                                                                    <input type="text" name="from1" class="form-control" required>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-1">
                                                                 <div class="form-group">
                                                                     <label>To</label>
-                                                                    <input type="text" name="to2" class="form-control">
+                                                                    <input type="text" name="to1" class="form-control" required>
                                                                 </div>
                                                             </div>
+                                                            <div class="col-md-2">
+                                                                <div class="form-group">
+                                                                    <label>Price</label>
+                                                                    <input type="number" name="price1" class="form-control" required>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-2">
+															<div class="form-group">
+																<label>Vendor :</label>
+																<select name="vendor" class="select form-control" required>
+                                                                            <option value="" disabled selected>Choose</option>
+                                                                            <?php
+                                                                                $sql = "SELECT *  FROM `vendor` ORDER BY name DESC";
+                                                                                $result = $conn->query($sql);
+                                
+                                                                                if ($result->num_rows > 0) {
+                                                                                while($row = $result->fetch_assoc()) {
+                                                                                    $vnName = $row["name"];	
+                                                                                    echo "<option value=\"$vnName\">".$row["name"]."</option>";                                                                                 
+                                                                                }
+                                                                            }
+                                                                                ?>
+                                                                            
+                                                                </select>
+															</div>
+                                                             </div>
                                                             <div class="col-md-1">
                                                                 <div class="form-group">
                                                                     <label>Price</label>
-                                                                    <input type="number" name="price2" class="form-control">
+                                                                    <input type="text" name="vprice" class="form-control" required>
                                                                 </div>
-                                                            </div>														
+                                                            </div>													
                                                     </div>
 
                                                     <div class="row">
-                                                        <div class="col-md-1">
+                                                        <div class="col-md-2">
                                                                 <div class="form-group">
                                                                     <label>Pax Name</label>
-                                                                    <input type="text" name="pax3" class="form-control">
+                                                                    <input type="text" name="pax1" class="form-control" required>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-1">
                                                                 <div class="form-group">
                                                                     <label>PNR</label>
-                                                                    <input type="text" name="pnr3" class="form-control">
+                                                                    <input type="text" name="pnr1" class="form-control" required>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-1">
                                                                 <div class="form-group">
                                                                     <label>Ticket No</label>
-                                                                    <input type="text" name="ticket3" class="form-control">
+                                                                    <input type="text" name="ticket1" class="form-control" required>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-1">
                                                                 <div class="form-group">
                                                                     <label>Airlines :</label>
-                                                                    <select name="airlines3" class="select form-control">
-                                                                            <option value="" disabled selected>* </option>
+                                                                    <select name="airlines1" class="select form-control" required>
+                                                                            <option value="" disabled selected>*</option>
                                                                             <option value="6E">6E</option>
                                                                             <option value="AI">AI</option>
                                                                             <option value="BG">BG</option>
@@ -951,60 +954,80 @@ if (mysqli_query($conn, $invoice)) {
                                                                             <option value="TG">TG </option>  	
                                                                             <option value="VQ">VQ </option>                                                                                                                                                    
                                                                             <option value="WY">WY</option>
+                                                                                                                                                      
                                                                             
                                                                         </select>
                                                                 </div>
-                                                            </div>
-                                                            <div class="col-md-1">
-                                                                <div class="form-group">
-                                                                    <label>Vendor Price</label>
-                                                                    <input type="text" name="route3" class="form-control">
-                                                                </div>
-                                                            </div>
+                                                            </div>                                                            
                                                             <div class="col-md-1">
                                                                 <div class="form-group">
                                                                     <label>From</label>
-                                                                    <input type="text" name="from3" class="form-control">
+                                                                    <input type="text" name="from1" class="form-control" required>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-1">
                                                                 <div class="form-group">
                                                                     <label>To</label>
-                                                                    <input type="text" name="to3" class="form-control">
+                                                                    <input type="text" name="to1" class="form-control" required>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-2">
                                                                 <div class="form-group">
                                                                     <label>Price</label>
-                                                                    <input type="number" name="price3" class="form-control">
+                                                                    <input type="number" name="price1" class="form-control" required>
                                                                 </div>
-                                                            </div>														
-                                                    </div>
-
-                                                    <div class="row">
-                                                        <div class="col-md-1">
+                                                            </div>
+                                                            <div class="col-md-2">
+															<div class="form-group">
+																<label>Vendor :</label>
+																<select name="vendor" class="select form-control" required>
+                                                                            <option value="" disabled selected>Choose</option>
+                                                                            <?php
+                                                                                $sql = "SELECT *  FROM `vendor` ORDER BY name DESC";
+                                                                                $result = $conn->query($sql);
+                                
+                                                                                if ($result->num_rows > 0) {
+                                                                                while($row = $result->fetch_assoc()) {
+                                                                                    $vnName = $row["name"];	
+                                                                                    echo "<option value=\"$vnName\">".$row["name"]."</option>";                                                                                 
+                                                                                }
+                                                                            }
+                                                                                ?>
+                                                                            
+                                                                </select>
+															</div>
+                                                             </div>
+                                                            <div class="col-md-1">
                                                                 <div class="form-group">
-                                                                    <label>Pax Name 4</label>
-                                                                    <input type="text" name="pax4" class="form-control">
+                                                                    <label>Price</label>
+                                                                    <input type="text" name="vprice" class="form-control" required>
+                                                                </div>
+                                                            </div>													
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-2">
+                                                                <div class="form-group">
+                                                                    <label>Pax Name</label>
+                                                                    <input type="text" name="pax1" class="form-control" required>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-1">
                                                                 <div class="form-group">
                                                                     <label>PNR</label>
-                                                                    <input type="text" name="pnr4" class="form-control">
+                                                                    <input type="text" name="pnr1" class="form-control" required>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-1">
                                                                 <div class="form-group">
                                                                     <label>Ticket No</label>
-                                                                    <input type="text" name="ticket4" class="form-control">
+                                                                    <input type="text" name="ticket1" class="form-control" required>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-1">
                                                                 <div class="form-group">
                                                                     <label>Airlines :</label>
-                                                                    <select name="airlines4" class="select form-control">
-                                                                            <option value="" disabled selected>* </option>
+                                                                    <select name="airlines1" class="select form-control" required>
+                                                                            <option value="" disabled selected>*</option>
                                                                             <option value="6E">6E</option>
                                                                             <option value="AI">AI</option>
                                                                             <option value="BG">BG</option>
@@ -1035,60 +1058,80 @@ if (mysqli_query($conn, $invoice)) {
                                                                             <option value="TG">TG </option>  	
                                                                             <option value="VQ">VQ </option>                                                                                                                                                    
                                                                             <option value="WY">WY</option>
+                                                                                                                                                      
                                                                             
                                                                         </select>
                                                                 </div>
-                                                            </div>
-                                                            <div class="col-md-1">
-                                                                <div class="form-group">
-                                                                    <label>Vendor Price</label>
-                                                                    <input type="text" name="route4" class="form-control">
-                                                                </div>
-                                                            </div>
+                                                            </div>                                                            
                                                             <div class="col-md-1">
                                                                 <div class="form-group">
                                                                     <label>From</label>
-                                                                    <input type="text" name="from4" class="form-control">
+                                                                    <input type="text" name="from1" class="form-control" required>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-1">
                                                                 <div class="form-group">
                                                                     <label>To</label>
-                                                                    <input type="text" name="to4" class="form-control">
+                                                                    <input type="text" name="to1" class="form-control" required>
                                                                 </div>
                                                             </div>
+                                                            <div class="col-md-2">
+                                                                <div class="form-group">
+                                                                    <label>Price</label>
+                                                                    <input type="number" name="price1" class="form-control" required>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-2">
+															<div class="form-group">
+																<label>Vendor :</label>
+																<select name="vendor" class="select form-control" required>
+                                                                            <option value="" disabled selected>Choose</option>
+                                                                            <?php
+                                                                                $sql = "SELECT *  FROM `vendor` ORDER BY name DESC";
+                                                                                $result = $conn->query($sql);
+                                
+                                                                                if ($result->num_rows > 0) {
+                                                                                while($row = $result->fetch_assoc()) {
+                                                                                    $vnName = $row["name"];	
+                                                                                    echo "<option value=\"$vnName\">".$row["name"]."</option>";                                                                                 
+                                                                                }
+                                                                            }
+                                                                                ?>
+                                                                            
+                                                                </select>
+															</div>
+                                                             </div>
                                                             <div class="col-md-1">
                                                                 <div class="form-group">
                                                                     <label>Price</label>
-                                                                    <input type="number" name="price4" class="form-control">
+                                                                    <input type="text" name="vprice" class="form-control" required>
                                                                 </div>
-                                                            </div>														
+                                                            </div>													
                                                     </div>
-
                                                     <div class="row">
-                                                        <div class="col-md-1">
+                                                        <div class="col-md-2">
                                                                 <div class="form-group">
-                                                                    <label>Pax Name 5</label>
-                                                                    <input type="text" name="pax5" class="form-control">
+                                                                    <label>Pax Name</label>
+                                                                    <input type="text" name="pax1" class="form-control" required>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-1">
                                                                 <div class="form-group">
                                                                     <label>PNR</label>
-                                                                    <input type="text" name="pnr5" class="form-control">
+                                                                    <input type="text" name="pnr1" class="form-control" required>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-1">
                                                                 <div class="form-group">
                                                                     <label>Ticket No</label>
-                                                                    <input type="text" name="ticket5" class="form-control">
+                                                                    <input type="text" name="ticket1" class="form-control" required>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-1">
                                                                 <div class="form-group">
                                                                     <label>Airlines :</label>
-                                                                    <select name="airlines5" class="select form-control">
-                                                                            <option value="" disabled selected>* </option>
+                                                                    <select name="airlines1" class="select form-control" required>
+                                                                            <option value="" disabled selected>*</option>
                                                                             <option value="6E">6E</option>
                                                                             <option value="AI">AI</option>
                                                                             <option value="BG">BG</option>
@@ -1118,37 +1161,65 @@ if (mysqli_query($conn, $invoice)) {
                                                                             <option value="TK">TK </option>	                                                                       
                                                                             <option value="TG">TG </option>  	
                                                                             <option value="VQ">VQ </option>                                                                                                                                                    
-                                                                            <option value="WY">WY</option>	
+                                                                            <option value="WY">WY</option>
+                                                                                                                                                      
                                                                             
                                                                         </select>
                                                                 </div>
-                                                            </div>
-                                                            <div class="col-md-1">
-                                                                <div class="form-group">
-                                                                    <label>Vendor Price</label>
-                                                                    <input type="number" name="route5" class="form-control">
-                                                                </div>
-                                                            </div>
+                                                            </div>                                                            
                                                             <div class="col-md-1">
                                                                 <div class="form-group">
                                                                     <label>From</label>
-                                                                    <input type="text" name="from5" class="form-control">
+                                                                    <input type="text" name="from1" class="form-control" required>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-1">
                                                                 <div class="form-group">
                                                                     <label>To</label>
-                                                                    <input type="text" name="to5" class="form-control">
+                                                                    <input type="text" name="to1" class="form-control" required>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-2">
                                                                 <div class="form-group">
                                                                     <label>Price</label>
-                                                                    <input type="number" name="price5" class="form-control">
+                                                                    <input type="number" name="price1" class="form-control" required>
                                                                 </div>
-                                                            </div>														
+                                                            </div>
+                                                            <div class="col-md-2">
+															<div class="form-group">
+																<label>Vendor :</label>
+																<select name="vendor" class="select form-control" required>
+                                                                            <option value="" disabled selected>Choose</option>
+                                                                            <?php
+                                                                                $sql = "SELECT *  FROM `vendor` ORDER BY name DESC";
+                                                                                $result = $conn->query($sql);
+                                
+                                                                                if ($result->num_rows > 0) {
+                                                                                while($row = $result->fetch_assoc()) {
+                                                                                    $vnName = $row["name"];	
+                                                                                    echo "<option value=\"$vnName\">".$row["name"]."</option>";                                                                                 
+                                                                                }
+                                                                            }
+                                                                                ?>
+                                                                            
+                                                                </select>
+															</div>
+                                                             </div>
+                                                            <div class="col-md-1">
+                                                                <div class="form-group">
+                                                                    <label>Price</label>
+                                                                    <input type="text" name="vprice" class="form-control" required>
+                                                                </div>
+                                                            </div>													
                                                     </div>
 
+
+
+
+
+
+
+                                                                 
 											<div class="text-right">
 												<button type="submit" class="btn btn-primary"> Generate</button>
 											</div>
