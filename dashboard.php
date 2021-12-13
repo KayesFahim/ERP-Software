@@ -597,14 +597,15 @@
                     </li>
 
                     <li>
-                        <a href='refund.php'><i class='fe fe-layout'></i> <span>Refund</span></a>
+                        <a href='Add.php'><i class='fe fe-layout'></i> <span>Refund</span></a>
                     </li>
                     
 
                 </ul>
             </div>
         </div>
-    </div>";}elseif($userRole == 'admin'){
+    </div>";
+}elseif($userRole == 'admin'){
         echo "<div class='sidebar' id='sidebar'>
         <div class='sidebar-inner slimscroll'>
             <div id='sidebar-menu' class='sidebar-menu'>

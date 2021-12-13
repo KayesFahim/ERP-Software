@@ -12,7 +12,7 @@ $result = $conn->query($sql);
 if ($result->num_rows > 0) {
 	while($row = $result->fetch_assoc()) {
         $outputString = preg_replace('/[^0-9]/', '', $row["sqNo"]);
-		$SQ_No = "SQT-".(int)$outputString + 1 ;									
+		$SQT_No = "SQT-".(int)$outputString + 1 ;									
  }
 } else {
 	$SQT_No ="SQT-1000";
@@ -140,7 +140,7 @@ if ($result->num_rows > 0) {
 
 	if (mysqli_query($conn, $mrgenerate)) {
         echo '<script language="javascript">';
-		echo 'alert("Successfully Created"); location.href="Invoice.php?SQT='.$SQ_No.'"';
+		echo 'alert("Successfully Created"); location.href="Invoice.php?SQT='.$SQT_No.'"';
 		echo '</script>';		
 	} else {
 		echo "Error: " . $mrgenerate . "<br>" . mysqli_error($conn);
@@ -477,7 +477,7 @@ echo "<div class='sidebar' id='sidebar'>
 											
 									</div>
 									<div class="card-body">
-										<form action="" method="post">
+										<form action="#" autocomplete="off" method="post">
 											<div class="row">
 												<div class="col-md-12">
 													<h4 class="card-title">Details</h4>
@@ -485,7 +485,7 @@ echo "<div class='sidebar' id='sidebar'>
 
 													<div class="col-md-4">
 															<div class="form-group">
-																<label>Reciept No:</label>
+																<label>Quatation No:</label>
 																<input type="text" value="<?php echo $SQT_No ?>" class="form-control" disabled>
 															</div>
 														</div>
@@ -541,13 +541,13 @@ echo "<div class='sidebar' id='sidebar'>
 														<div class="col-md-3">
 																<div class="form-group">
 																	<label>From</label>
-																	<input type="text" name="from2" class="form-control" required>
+																	<input type="text" name="from2" class="form-control">
 																</div>
 															</div>
 															<div class="col-md-3">
 																<div class="form-group">
 																	<label>To</label>
-																	<input type="text" name="to1" class="form-control" required>
+																	<input type="text" name="to2" class="form-control">
 																</div>
 															</div>
 														
@@ -569,13 +569,13 @@ echo "<div class='sidebar' id='sidebar'>
 														<div class="col-md-3">
 																<div class="form-group">
 																	<label>From</label>
-																	<input type="text" name="from3" class="form-control" required>
+																	<input type="text" name="from3" class="form-control">
 																</div>
 															</div>
 															<div class="col-md-3">
 																<div class="form-group">
 																	<label>To</label>
-																	<input type="text" name="to3" class="form-control" required>
+																	<input type="text" name="to3" class="form-control">
 																</div>
 															</div>
 														
@@ -598,13 +598,13 @@ echo "<div class='sidebar' id='sidebar'>
 														<div class="col-md-3">
 																<div class="form-group">
 																	<label>From</label>
-																	<input type="text" name="from4" class="form-control" required>
+																	<input type="text" name="from4" class="form-control">
 																</div>
 															</div>
 															<div class="col-md-3">
 																<div class="form-group">
 																	<label>To</label>
-																	<input type="text" name="to4" class="form-control" required>
+																	<input type="text" name="to4" class="form-control">
 																</div>
 															</div>
 														
@@ -627,13 +627,13 @@ echo "<div class='sidebar' id='sidebar'>
 														<div class="col-md-3">
 															<div class="form-group">
 																<label>From</label>
-																<input type="text" name="from5" class="form-control" required>
+																<input type="text" name="from5" class="form-control">
 															</div>
 															</div>
 															<div class="col-md-3">
 																<div class="form-group">
 																	<label>To</label>
-																	<input type="text" name="to5" class="form-control" required>
+																	<input type="text" name="to5" class="form-control">
 																</div>
 															</div>
 														
@@ -665,6 +665,18 @@ echo "<div class='sidebar' id='sidebar'>
 				<!-- /Page Wrapper -->
 			</div>
 			<!-- /Main Wrapper -->
+			<input type="hidden" id="refresh" value="no">
+
+			<script>
+				jQuery( document ).ready(function( $ ) {
+
+				//Use this inside your document ready jQuery 
+				$(window).on('popstate', function() {
+				location.reload(true);
+				});
+
+				});
+			</script>
 			
 			<!-- jQuery -->
 			<script src="../assets/js/jquery-3.2.1.min.js"></script>

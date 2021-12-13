@@ -6,7 +6,7 @@ include('../session.php');
 
 //Reciept No
 
-$INV_No ="";
+$INV_No;
 $sql1 = "SELECT * FROM `invoice` ORDER By id DESC LIMIT 1";
 $result = $conn->query($sql1);
 if ($result->num_rows > 0) {
@@ -15,7 +15,7 @@ if ($result->num_rows > 0) {
 		$INV_No = "INV-".(int)$outputString + 1 ;									
  }
 } else {
-echo "0 results";
+    $INV_No ="INV-1000";
  }
 
 
@@ -53,7 +53,6 @@ if (array_key_exists('search', $_GET)){
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $Client_Name = $_POST['client'];
-    $Vendor_Name = $_POST['vendor'];
     $Pax_No = $_POST['pax'];
     $System =  $_POST['system'];
     $Class =  $_POST['class'];
@@ -64,7 +63,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $invoice = "INSERT INTO `invoice`(
         `invNo`,
         `clientName`,
-        `vendorId`,
         `pax`,
         `system`,
         `class`,
@@ -74,7 +72,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     VALUES(
         '$INV_No',
         '$Client_Name',
-        '$Vendor_Name',
         '$Pax_No',
         '$System',
         '$Class',
@@ -89,30 +86,34 @@ if (mysqli_query($conn, $invoice)) {
     $pnr1 = $_POST['pnr1'];
     $ticket1 = $_POST['ticket1'];
     $airlines1 = $_POST['airlines1'];
-    $route1 = $_POST['route1']; 
     $from1 = $_POST['from1'];
     $to1 = $_POST['to1'];
-    $price1 = $_POST['price1']; 
+    $price1 = $_POST['price1'];
+    $vendor1 = $_POST['vendor1'];
+    $vprice1 = $_POST['vprice1']; 
 
     //Pax2
     if(isset($_POST['pax2'])){
     $pax2 = $_POST['pax2'];
     $pnr2 = $_POST['pnr2'];
     $ticket2 = $_POST['ticket2'];
-    $airlines2 = $_POST['airlines2'];
-    $route2 = $_POST['route2']; 
+    $airlines2 = $_POST['airlines2']; 
     $from2 = $_POST['from2'];
     $to2 = $_POST['to2'];
     $price2 = $_POST['price2'];
+    $vendor2 = $_POST['vendor2'];
+    $vprice2 = $_POST['vprice2'];
     }else{
         $pax2 = " ";
         $pnr2 = " ";
         $ticket2 =" ";
-        $airlines2 = " ";
-        $route2 = " ";
+        $airlines2 =" ";
         $from2 = " ";
         $to2 =" ";
         $price2 = " ";
+        $vendor2 = " ";
+        $vprice2 = " ";
+    }
     }
 
     //Pax3
@@ -121,19 +122,21 @@ if (mysqli_query($conn, $invoice)) {
     $pnr3 = $_POST['pnr3'];
     $ticket3 = $_POST['ticket3'];
     $airlines3 = $_POST['airlines3'];
-    $route3 = $_POST['route3']; 
     $from3 = $_POST['from3'];
     $to3 = $_POST['to3'];
     $price3 = $_POST['price3'];
+    $vendor3 = $_POST['vendor3'];
+    $vprice3 = $_POST['vprice3'];
     }else{
         $pax3 = " ";
         $pnr3 = " ";
         $ticket3 =" ";
         $airlines3 = " ";
-        $route3 = " ";
         $from3 = " ";
         $to3 =" ";
         $price3 = " ";
+        $vendor3 = " ";
+        $vprice3 = " ";
     }
 
      //Pax4
@@ -142,19 +145,21 @@ if (mysqli_query($conn, $invoice)) {
      $pnr4 = $_POST['pnr4'];
      $ticket4 = $_POST['ticket4'];
      $airlines4 = $_POST['airlines4'];
-     $route4 = $_POST['route4']; 
      $from4 = $_POST['from4'];
      $to4 = $_POST['to4'];
      $price4 = $_POST['price4'];
+     $vendor4 = $_POST['vendor4'];
+     $vprice4 = $_POST['vprice4'];
      }else{
         $pax4 = " ";
         $pnr4 = " ";
         $ticket4 =" ";
-        $airlines4 = " ";
-        $route4 = " ";
+        $airlines4 ="";
         $from4 = " ";
         $to4 =" ";
         $price4 = " ";
+        $vendor4 = " ";
+        $vprice4 = " ";
      }
 
      //Pax 5
@@ -163,19 +168,21 @@ if (mysqli_query($conn, $invoice)) {
      $pnr5 = $_POST['pnr5'];
      $ticket5 = $_POST['ticket5'];
      $airlines5 = $_POST['airlines5'];
-     $route5 = $_POST['route5']; 
      $from5 = $_POST['from5'];
      $to5 = $_POST['to5'];
      $price5 = $_POST['price5'];
+     $vendor5 = $_POST['vendor5'];
+     $vprice5 = $_POST['vprice5'];
      }else{
         $pax5 = " ";
         $pnr5 = " ";
         $ticket5 =" ";
         $airlines5 = " ";
-        $route5 = " ";
         $from5 = " ";
         $to5 =" ";
-        $price5 = " ";
+        $price5 =" ";
+        $vendor5 =" ";
+        $vprice5 = " ";
 
      }
 
@@ -186,42 +193,47 @@ if (mysqli_query($conn, $invoice)) {
         `PNR1`,
         `TicketNo1`,
         `Airlines1`,
-        `Route1`,
-        `placeFrom1`,
         `placeTo1`,
+        `placeFrom1`,
         `cost1`,
+        `vendor1`,
+        `vPrice1`,
         `PaxName2`,
         `PNR2`,
         `TicketNo2`,
         `Airlines2`,
-        `Route2`,
-        `placeFrom2`,
         `placeTo2`,
+        `placeFrom2`,
         `cost2`,
+        `vendor2`,
+        `vPrice2`,
         `PaxName3`,
         `PNR3`,
         `TicketNo3`,
         `Airlines3`,
-        `Route3`,
-        `placeFrom3`,
         `placeTo3`,
+        `placeFrom3`,
         `cost3`,
+        `vendor3`,
+        `vPrice3`,
         `PaxName4`,
         `PNR4`,
         `TicketNo4`,
         `Airlines4`,
-        `Route4`,
+        `placeTo4`,
         `placeFrom4`,
-        `placeTo4`,    
         `cost4`,
+        `vendor4`,
+        `vPrice4`,
         `PaxName5`,
         `PNR5`,
         `TicketNo5`,
         `Airlines5`,
-        `Route5`,
+        `placeTo5`,
         `placeFrom5`,
-        `placeTo5`,   
-        `cost5`
+        `cost5`,
+        `vendor5`,
+        `vPrice5`
     )
     VALUES(
         '$INV_No',
@@ -229,42 +241,47 @@ if (mysqli_query($conn, $invoice)) {
         '$pnr1',
         '$ticket1',
         '$airlines1',
-        '$route1',
         '$from1',
         '$to1',
         '$price1',
+        '$vendor1',
+        '$vprice1',
         '$pax2',
         '$pnr2',
         '$ticket2',
         '$airlines2',
-        '$route2',
         '$from2',
         '$to2',
         '$price2',
+        '$vendor2',
+        '$vprice2',
         '$pax3',
         '$pnr3',
         '$ticket3',
         '$airlines3',
-        '$route3',
         '$from3',
         '$to3',
         '$price3',
+        '$vendor3',
+        '$vprice3',
         '$pax4',
         '$pnr4',
         '$ticket4',
         '$airlines4',
-        '$route4',
         '$from4',
         '$to4',
         '$price4',
+        '$vendor4',
+        '$vprice4',
         '$pax5',
         '$pnr5',
         '$ticket5',
         '$airlines5',
-        '$route5',
         '$from5',
         '$to5',
-        '$price5'
+        '$price5',
+        '$vendor5',
+        '$vprice5'
     )";
 
 	if (mysqli_query($conn, $mrgenerate)) {
@@ -276,11 +293,10 @@ if (mysqli_query($conn, $invoice)) {
 	}
 
 } else {
-    echo "Error: " . $invoice . "<br>" . mysqli_error($conn);
+    
+
 }
 	
-	
-}                                                                                    
 
 ?>
 
@@ -400,7 +416,7 @@ if (mysqli_query($conn, $invoice)) {
 						</div>
 						<a class="dropdown-item" href="">My Profile</a>
 						<a class="dropdown-item" href="">Settings</a>
-						<a class="dropdown-item" href="logout.php">Logout</a>
+						<a class="dropdown-item" href="../logout.php">Logout</a>
 					</div>
 				</li>
 				<!-- /User Menu -->
@@ -436,7 +452,7 @@ if (mysqli_query($conn, $invoice)) {
                             <li>
                                 <a data-toggle='dropdown'><i class='fe fe-layout'></i> <span> Invoice</span></a>
                                     <ul>
-                                        <li><a href='AirInvoice'><i class='fe fe-layout'> </i> <span> Air Ticket </span></a></li>
+                                        <li><a href='AirInvoice/AirInvoice'><i class='fe fe-layout'> </i> <span> Air Ticket </span></a></li>
                                        
                                     </ul>
                             </li>
@@ -459,11 +475,11 @@ if (mysqli_query($conn, $invoice)) {
                     </li>
                     
                     <li>
-                        <a href='Bill.php'><i class='fe fe-layout'></i> <span>Bill</span></a>
+                        <a href='../Bill.php'><i class='fe fe-layout'></i> <span>Bill</span></a>
                     </li>
 
                     <li>
-                        <a href='MoneyReceipt.php'><i class='fe fe-layout'></i> <span>Money Receipt</span></a>
+                        <a href='../MoneyReceipt.php'><i class='fe fe-layout'></i> <span>Money Receipt</span></a>
                     </li>
                     
                 </ul>
@@ -482,10 +498,10 @@ if (mysqli_query($conn, $invoice)) {
                         <span>Main</span>
                     </li>
                     <li>
-                        <a href='dashboard.php'><i class='fe fe-home'></i> <span>Dashboard</span></a>
+                        <a href='../Dashboard.php'><i class='fe fe-home'></i> <span>Dashboard</span></a>
                     </li>
                     <li>
-                        <a href='salesQuotation.php'><i class='fe fe-layout'></i> <span>Sales Quotation</span></a>
+                        <a href='../SalesQuotation'><i class='fe fe-layout'></i> <span>Sales Quotation</span></a>
                     </li>
                     <li>
                         <a data-toggle='dropdown'><i class='fe fe-layout'></i> <span>Invoice</span></a>
@@ -581,10 +597,10 @@ if (mysqli_query($conn, $invoice)) {
 				<div class="page-header">
 					<div class="row">
 						<div class="col-sm-12">
-							<h3 class="page-title">Money Receipt</h3>
+							<h3 class="page-title">Invoice</h3>
 							<ul class="breadcrumb">
-								<li class="breadcrumb-item"><a href="../project.php">Dashboard</a></li>
-								<li class="breadcrumb-item active">Money Receipt</li>
+								<li class="breadcrumb-item"><a href="../Dashboard.php">Dashboard</a></li>
+								<li class="breadcrumb-item active">Invoice</li>
 							</ul>
 						</div>
 					</div>
@@ -609,7 +625,7 @@ if (mysqli_query($conn, $invoice)) {
 											
 									</div>
 									<div class="card-body">
-										<form action="" method="post">
+										<form action="#" autocomplete="off" method="post">
 											<div class="row">
 												<div class="col-md-12">
 													<h4 class="card-title">Invoice Details</h4>
@@ -624,14 +640,14 @@ if (mysqli_query($conn, $invoice)) {
 														<div class="col-md-3">
 															<div class="form-group">
 																<label>Client Name</label>
-																<input type="text" name="client" class="form-control" required>
+																<input type="text" name="client" class="form-control" required >
 															</div>
 														</div>
                                                         
 														<div class="col-md-3">
 															<div class="form-group">
 																<label>Pax No</label>
-																<input type="number" name="pax" class="form-control" required>
+																<input type="number" name="pax" class="form-control"  required>
 															</div>
 														</div>
 														
@@ -643,7 +659,7 @@ if (mysqli_query($conn, $invoice)) {
                                                                     <label>System</label>
                                                                     <div class="form-group row">
                                                                         <div class="col-lg-12">
-                                                                        <select name="system" class="select form-control" required>
+                                                                        <select name="system" class="select form-control"  required>
                                                                             <option value="" disabled selected>Select System</option>
                                                                             <option value="Saber (GDS)">Saber (GDS)</option>
                                                                             <option value="Amadius (GDS)">Amadius (GDS)</option>
@@ -659,7 +675,7 @@ if (mysqli_query($conn, $invoice)) {
                                                             <div class="col-md-3">
                                                                 <div class="form-group">
                                                                     <label>Class</label>
-                                                                    <select name="class" class="select form-control" required>
+                                                                    <select name="class" class="select form-control"  required>
                                                                             <option value="" disabled selected>Cabin Class</option>
                                                                             <option value="Economy">Economy</option>
                                                                             <option value="Premium Economy">Premium Economy</option>	
@@ -672,7 +688,7 @@ if (mysqli_query($conn, $invoice)) {
                                                             <div class="col-md-3">
                                                                 <div class="form-group">
                                                                     <label>Ticket Type :</label>
-                                                                    <select name="tickettype" class="select form-control" required>
+                                                                    <select name="tickettype" class="select form-control" required >
                                                                             <option value="" disabled selected>Ticket Type</option>
                                                                             <option value="Non Refundable">Non Refundable</option>
                                                                             <option value="Refundable">Refundable</option>	
@@ -684,7 +700,7 @@ if (mysqli_query($conn, $invoice)) {
                                                             <div class="col-md-3">
                                                                 <div class="form-group">
                                                                     <label>Reservation officer</label>
-                                                                    <input type="name" name="revofficer" class="form-control" required>
+                                                                    <input type="name" name="revofficer" class="form-control"  required>
                                                                 </div>
                                                             </div>
                                                             
@@ -694,25 +710,25 @@ if (mysqli_query($conn, $invoice)) {
                                                         <div class="col-md-2">
                                                                 <div class="form-group">
                                                                     <label>Pax Name</label>
-                                                                    <input type="text" name="pax1" class="form-control" required>
+                                                                    <input type="text" name="pax1" class="form-control" required >
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-1">
                                                                 <div class="form-group">
                                                                     <label>PNR</label>
-                                                                    <input type="text" name="pnr1" class="form-control" required>
+                                                                    <input type="text" name="pnr1" class="form-control" required >
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-1">
                                                                 <div class="form-group">
                                                                     <label>Ticket No</label>
-                                                                    <input type="text" name="ticket1" class="form-control" required>
+                                                                    <input type="text" name="ticket1" class="form-control"  required>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-1">
                                                                 <div class="form-group">
                                                                     <label>Airlines :</label>
-                                                                    <select name="airlines1" class="select form-control" required>
+                                                                    <select name="airlines1" class="select form-control" required >
                                                                             <option value="" disabled selected>*</option>
                                                                             <option value="6E">6E</option>
                                                                             <option value="AI">AI</option>
@@ -752,30 +768,29 @@ if (mysqli_query($conn, $invoice)) {
                                                             <div class="col-md-1">
                                                                 <div class="form-group">
                                                                     <label>From</label>
-                                                                    <input type="text" name="from1" class="form-control" required>
+                                                                    <input type="text" name="from1" class="form-control" required >
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-1">
                                                                 <div class="form-group">
                                                                     <label>To</label>
-                                                                    <input type="text" name="to1" class="form-control" required>
+                                                                    <input type="text" name="to1" class="form-control"  required>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-2">
                                                                 <div class="form-group">
                                                                     <label>Price</label>
-                                                                    <input type="number" name="price1" class="form-control" required>
+                                                                    <input type="number" name="price1" class="form-control"  required>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-2">
 															<div class="form-group">
 																<label>Vendor :</label>
-																<select name="vendor" class="select form-control" required>
+																<select name="vendor1" class="select form-control" required>
                                                                             <option value="" disabled selected>Choose</option>
                                                                             <?php
                                                                                 $sql = "SELECT *  FROM `vendor` ORDER BY name DESC";
-                                                                                $result = $conn->query($sql);
-                                
+                                                                                $result = $conn->query($sql);                              
                                                                                 if ($result->num_rows > 0) {
                                                                                 while($row = $result->fetch_assoc()) {
                                                                                     $vnName = $row["name"];	
@@ -790,7 +805,7 @@ if (mysqli_query($conn, $invoice)) {
                                                             <div class="col-md-1">
                                                                 <div class="form-group">
                                                                     <label>Price</label>
-                                                                    <input type="text" name="vprice" class="form-control" required>
+                                                                    <input type="number" name="vprice1" class="form-control" required >
                                                                 </div>
                                                             </div>													
                                                     </div>
@@ -799,25 +814,25 @@ if (mysqli_query($conn, $invoice)) {
                                                         <div class="col-md-2">
                                                                 <div class="form-group">
                                                                     <label>Pax Name</label>
-                                                                    <input type="text" name="pax1" class="form-control" required>
+                                                                    <input type="text" name="pax2" class="form-control"  >
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-1">
                                                                 <div class="form-group">
                                                                     <label>PNR</label>
-                                                                    <input type="text" name="pnr1" class="form-control" required>
+                                                                    <input type="text" name="pnr2" class="form-control"  >
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-1">
                                                                 <div class="form-group">
                                                                     <label>Ticket No</label>
-                                                                    <input type="text" name="ticket1" class="form-control" required>
+                                                                    <input type="text" name="ticket2" class="form-control"  >
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-1">
                                                                 <div class="form-group">
                                                                     <label>Airlines :</label>
-                                                                    <select name="airlines1" class="select form-control" required>
+                                                                    <select name="airlines2" class="select form-control"  >
                                                                             <option value="" disabled selected>*</option>
                                                                             <option value="6E">6E</option>
                                                                             <option value="AI">AI</option>
@@ -849,33 +864,32 @@ if (mysqli_query($conn, $invoice)) {
                                                                             <option value="TG">TG </option>  	
                                                                             <option value="VQ">VQ </option>                                                                                                                                                    
                                                                             <option value="WY">WY</option>
-                                                                                                                                                      
-                                                                            
+   
                                                                         </select>
                                                                 </div>
                                                             </div>                                                            
                                                             <div class="col-md-1">
                                                                 <div class="form-group">
                                                                     <label>From</label>
-                                                                    <input type="text" name="from1" class="form-control" required>
+                                                                    <input type="text" name="from2" class="form-control"  >
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-1">
                                                                 <div class="form-group">
                                                                     <label>To</label>
-                                                                    <input type="text" name="to1" class="form-control" required>
+                                                                    <input type="text" name="to2" class="form-control"  >
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-2">
                                                                 <div class="form-group">
                                                                     <label>Price</label>
-                                                                    <input type="number" name="price1" class="form-control" required>
+                                                                    <input type="number" name="price2" class="form-control"  >
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-2">
 															<div class="form-group">
 																<label>Vendor :</label>
-																<select name="vendor" class="select form-control" required>
+																<select name="vendor2" class="select form-control"  >
                                                                             <option value="" disabled selected>Choose</option>
                                                                             <?php
                                                                                 $sql = "SELECT *  FROM `vendor` ORDER BY name DESC";
@@ -895,7 +909,7 @@ if (mysqli_query($conn, $invoice)) {
                                                             <div class="col-md-1">
                                                                 <div class="form-group">
                                                                     <label>Price</label>
-                                                                    <input type="text" name="vprice" class="form-control" required>
+                                                                    <input type="number" name="vprice2" class="form-control"  >
                                                                 </div>
                                                             </div>													
                                                     </div>
@@ -904,25 +918,25 @@ if (mysqli_query($conn, $invoice)) {
                                                         <div class="col-md-2">
                                                                 <div class="form-group">
                                                                     <label>Pax Name</label>
-                                                                    <input type="text" name="pax1" class="form-control" required>
+                                                                    <input type="text" name="pax3" class="form-control"  >
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-1">
                                                                 <div class="form-group">
                                                                     <label>PNR</label>
-                                                                    <input type="text" name="pnr1" class="form-control" required>
+                                                                    <input type="text" name="pnr3" class="form-control"  >
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-1">
                                                                 <div class="form-group">
                                                                     <label>Ticket No</label>
-                                                                    <input type="text" name="ticket1" class="form-control" required>
+                                                                    <input type="text" name="ticket3" class="form-control"  >
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-1">
                                                                 <div class="form-group">
                                                                     <label>Airlines :</label>
-                                                                    <select name="airlines1" class="select form-control" required>
+                                                                    <select name="airlines3" class="select form-control"  >
                                                                             <option value="" disabled selected>*</option>
                                                                             <option value="6E">6E</option>
                                                                             <option value="AI">AI</option>
@@ -953,34 +967,32 @@ if (mysqli_query($conn, $invoice)) {
                                                                             <option value="TK">TK </option>	                                                                       
                                                                             <option value="TG">TG </option>  	
                                                                             <option value="VQ">VQ </option>                                                                                                                                                    
-                                                                            <option value="WY">WY</option>
-                                                                                                                                                      
-                                                                            
+                                                                            <option value="WY">WY</option>   
                                                                         </select>
                                                                 </div>
                                                             </div>                                                            
                                                             <div class="col-md-1">
                                                                 <div class="form-group">
                                                                     <label>From</label>
-                                                                    <input type="text" name="from1" class="form-control" required>
+                                                                    <input type="text" name="from3" class="form-control"  >
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-1">
                                                                 <div class="form-group">
                                                                     <label>To</label>
-                                                                    <input type="text" name="to1" class="form-control" required>
+                                                                    <input type="text" name="to3" class="form-control"  >
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-2">
                                                                 <div class="form-group">
                                                                     <label>Price</label>
-                                                                    <input type="number" name="price1" class="form-control" required>
+                                                                    <input type="number" name="price3" class="form-control"  >
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-2">
 															<div class="form-group">
 																<label>Vendor :</label>
-																<select name="vendor" class="select form-control" required>
+																<select name="vendor3" class="select form-control"  >
                                                                             <option value="" disabled selected>Choose</option>
                                                                             <?php
                                                                                 $sql = "SELECT *  FROM `vendor` ORDER BY name DESC";
@@ -1000,7 +1012,7 @@ if (mysqli_query($conn, $invoice)) {
                                                             <div class="col-md-1">
                                                                 <div class="form-group">
                                                                     <label>Price</label>
-                                                                    <input type="text" name="vprice" class="form-control" required>
+                                                                    <input type="number" name="vprice3" class="form-control"  >
                                                                 </div>
                                                             </div>													
                                                     </div>
@@ -1008,25 +1020,25 @@ if (mysqli_query($conn, $invoice)) {
                                                         <div class="col-md-2">
                                                                 <div class="form-group">
                                                                     <label>Pax Name</label>
-                                                                    <input type="text" name="pax1" class="form-control" required>
+                                                                    <input type="text" name="pax4" class="form-control"  >
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-1">
                                                                 <div class="form-group">
                                                                     <label>PNR</label>
-                                                                    <input type="text" name="pnr1" class="form-control" required>
+                                                                    <input type="text" name="pnr4" class="form-control"  >
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-1">
                                                                 <div class="form-group">
                                                                     <label>Ticket No</label>
-                                                                    <input type="text" name="ticket1" class="form-control" required>
+                                                                    <input type="text" name="ticket4" class="form-control"  >
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-1">
                                                                 <div class="form-group">
                                                                     <label>Airlines :</label>
-                                                                    <select name="airlines1" class="select form-control" required>
+                                                                    <select name="airlines4" class="select form-control"  >
                                                                             <option value="" disabled selected>*</option>
                                                                             <option value="6E">6E</option>
                                                                             <option value="AI">AI</option>
@@ -1066,25 +1078,25 @@ if (mysqli_query($conn, $invoice)) {
                                                             <div class="col-md-1">
                                                                 <div class="form-group">
                                                                     <label>From</label>
-                                                                    <input type="text" name="from1" class="form-control" required>
+                                                                    <input type="text" name="from4" class="form-control"  >
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-1">
                                                                 <div class="form-group">
                                                                     <label>To</label>
-                                                                    <input type="text" name="to1" class="form-control" required>
+                                                                    <input type="text" name="to4" class="form-control"  >
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-2">
                                                                 <div class="form-group">
                                                                     <label>Price</label>
-                                                                    <input type="number" name="price1" class="form-control" required>
+                                                                    <input type="number" name="price4" class="form-control"  >
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-2">
 															<div class="form-group">
 																<label>Vendor :</label>
-																<select name="vendor" class="select form-control" required>
+																<select name="vendor4" class="select form-control"  >
                                                                             <option value="" disabled selected>Choose</option>
                                                                             <?php
                                                                                 $sql = "SELECT *  FROM `vendor` ORDER BY name DESC";
@@ -1104,7 +1116,7 @@ if (mysqli_query($conn, $invoice)) {
                                                             <div class="col-md-1">
                                                                 <div class="form-group">
                                                                     <label>Price</label>
-                                                                    <input type="text" name="vprice" class="form-control" required>
+                                                                    <input type="number" name="vprice4" class="form-control"  >
                                                                 </div>
                                                             </div>													
                                                     </div>
@@ -1112,25 +1124,25 @@ if (mysqli_query($conn, $invoice)) {
                                                         <div class="col-md-2">
                                                                 <div class="form-group">
                                                                     <label>Pax Name</label>
-                                                                    <input type="text" name="pax1" class="form-control" required>
+                                                                    <input type="text" name="pax5" class="form-control"  >
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-1">
                                                                 <div class="form-group">
                                                                     <label>PNR</label>
-                                                                    <input type="text" name="pnr1" class="form-control" required>
+                                                                    <input type="text" name="pnr5" class="form-control"  >
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-1">
                                                                 <div class="form-group">
                                                                     <label>Ticket No</label>
-                                                                    <input type="text" name="ticket1" class="form-control" required>
+                                                                    <input type="text" name="ticket5" class="form-control"  >
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-1">
                                                                 <div class="form-group">
                                                                     <label>Airlines :</label>
-                                                                    <select name="airlines1" class="select form-control" required>
+                                                                    <select name="airlines5" class="select form-control"  >
                                                                             <option value="" disabled selected>*</option>
                                                                             <option value="6E">6E</option>
                                                                             <option value="AI">AI</option>
@@ -1170,25 +1182,25 @@ if (mysqli_query($conn, $invoice)) {
                                                             <div class="col-md-1">
                                                                 <div class="form-group">
                                                                     <label>From</label>
-                                                                    <input type="text" name="from1" class="form-control" required>
+                                                                    <input type="text" name="from5" class="form-control"  >
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-1">
                                                                 <div class="form-group">
                                                                     <label>To</label>
-                                                                    <input type="text" name="to1" class="form-control" required>
+                                                                    <input type="text" name="to5" class="form-control"  >
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-2">
                                                                 <div class="form-group">
                                                                     <label>Price</label>
-                                                                    <input type="number" name="price1" class="form-control" required>
+                                                                    <input type="number" name="price5" class="form-control"  >
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-2">
 															<div class="form-group">
 																<label>Vendor :</label>
-																<select name="vendor" class="select form-control" required>
+																<select name="vendor5" class="select form-control"  >
                                                                             <option value="" disabled selected>Choose</option>
                                                                             <?php
                                                                                 $sql = "SELECT *  FROM `vendor` ORDER BY name DESC";
@@ -1208,18 +1220,11 @@ if (mysqli_query($conn, $invoice)) {
                                                             <div class="col-md-1">
                                                                 <div class="form-group">
                                                                     <label>Price</label>
-                                                                    <input type="text" name="vprice" class="form-control" required>
+                                                                    <input type="text" name="vprice5" class="form-control"  >
                                                                 </div>
                                                             </div>													
                                                     </div>
-
-
-
-
-
-
-
-                                                                 
+                  
 											<div class="text-right">
 												<button type="submit" class="btn btn-primary"> Generate</button>
 											</div>
@@ -1236,6 +1241,18 @@ if (mysqli_query($conn, $invoice)) {
 				<!-- /Page Wrapper -->
 			</div>
 			<!-- /Main Wrapper -->
+            <input type="hidden" id="refresh" value="no">
+
+			<script>
+				jQuery( document ).ready(function( $ ) {
+
+				//Use this inside your document ready jQuery 
+				$(window).on('popstate', function() {
+				location.reload(true);
+				});
+
+				});
+			</script>
 			
 			<!-- jQuery -->
 			<script src="../assets/js/jquery-3.2.1.min.js"></script>

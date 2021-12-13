@@ -202,7 +202,7 @@ echo "0 results";
                     </div>
                 </div>" ;
 
-                }elseif($userRole == 'admin' && $userRole =='developer'){
+                }elseif($userRole == 'admin' || $userRole =='developer'){
 
                 echo "<div class='sidebar' id='sidebar'>
                 <div class='sidebar-inner slimscroll'>

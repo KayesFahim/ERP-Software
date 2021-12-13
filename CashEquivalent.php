@@ -4,17 +4,20 @@ include 'config.php';
 include('session.php');
 
 $bank = "SELECT SUM(credit - debit) as amount from bank";
-$mobilebanking = "SELECT SUM(credit - debit) as amount from bank";
-$portal = "SELECT SUM(credit - debit) as amount from bank";
+$mobilebanking = "SELECT SUM(cashIn - cashOut) as amount from mobile_banking GROUP By mb_number";
+$ssl = "SELECT * FROM `ssl_commerce`";
+$cash = "SELECT SUM(cashIn - cashOut) as amount from cash";
 
 
 
 
 $result = $conn->query($bank);
 $result1 = $conn->query($mobilebanking);
-$result2 = $conn->query($portal);
+$result2 = $conn->query($ssl);
+$result3 = $conn->query($cash);
 
-$Bank_Amount; $MobileBanking_Amount; $PortalAmount; $SSL_Amount=0; $Cash=0;
+
+$Bank_Amount; $MobileBanking_Amount; $SSL_Amount; $Cash;
 
 if ($result->num_rows > 0) {
 	while($row = $result->fetch_assoc()) {
@@ -37,13 +40,23 @@ if ($result1->num_rows > 0) {
 
 if ($result2->num_rows > 0) {
 	while($row = $result2->fetch_assoc()) {
-		$PortalAmount = $row["amount"];
+		$SSL_Amount = $row["amount"];
 
 
 
 	}
 }
 
+//Cash Balanced
+
+if ($result3->num_rows > 0) {
+	while($row = $result3->fetch_assoc()) {
+		$Cash = $row["amount"];
+
+
+
+	}
+}
 
 
 ?>
@@ -271,6 +284,7 @@ if ($result2->num_rows > 0) {
 													<th>Account Type</th>
 													<th>Amount</th>
 													<th>Action</th>
+													<th></th>
 												</tr>
 											</thead>
 											<tbody>
@@ -287,18 +301,14 @@ if ($result2->num_rows > 0) {
 												<td><a href='CashEquvalent/MobileBanking.php' class='btn btn-primary'> View </a><td>
 												</tr>
 												<tr>
+												
 												<td>03</td>
-												<td>Portal</td>
-												<td><?php echo $PortalAmount ?></td>
-												<td><a href='CashEquvalent/Portal.php' class='btn btn-primary'> View </a><td></tr>
-												<tr>
-												<td>04</td>
 												<td>SSL Commerce</td>
 												<td><?php echo $SSL_Amount ?></td>
 												<td><a href='CashEquvalent/SSLCommerce.php' class='btn btn-primary'> View </a><td>
 												</tr>
 												<tr>
-												<td>05</td>
+												<td>04</td>
 												<td>Hand Cash</td>
 												<td><?php echo $Cash ?></td>
 												<td><a href='CashEquvalent/HandCash.php' class='btn btn-primary'> View </a><td>

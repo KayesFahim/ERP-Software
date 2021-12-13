@@ -7,11 +7,11 @@ include('../session.php');
 //Reciept No
 
 $EXP_NO ="";
-$sql = "SELECT * FROM bill ORDER BY billNo DESC LIMIT 1";
+$sql = "SELECT * FROM expense ORDER BY expNo DESC LIMIT 1";
 $result = $conn->query($sql);
 if ($result->num_rows > 0) {
 	while($row = $result->fetch_assoc()) {
-        $outputString = preg_replace('/[^0-9]/', '', $row["billNo"]);
+        $outputString = preg_replace('/[^0-9]/', '', $row["expNo"]);
 		$EXP_NO = "EXP-".(int)$outputString + 1 ;									
  }
 } else {
@@ -83,8 +83,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			if (mysqli_query($conn, $credit)) {
 							
 				echo '<script language="javascript">';
-		echo 'alert("Successfully Created"); location.href="Expense.php"';
-		echo '</script>';
+				echo 'alert("Successfully Created"); location.href="Invoice.php='.$EXP_NO.'"';
+				echo '</script>';
 				
 			} else {
 			echo "Error: " . $sql . "<br>" . mysqli_error($conn);
@@ -111,7 +111,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			if (mysqli_query($conn, $credit)) {
 			
 				echo '<script language="javascript">';
-				echo 'alert("Successfully Created"); location.href="invoice.php?Bno='.$EXP_NO.'"';
+				echo 'alert("Successfully Created"); location.href="Invoice.php?Exp='.$EXP_NO.'"';
 				echo '</script>';
 				
 		 } else {
@@ -140,7 +140,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			if (mysqli_query($conn, $credit)) {
 							
 				echo '<script language="javascript">';
-				echo 'alert("Successfully Created"); location.href="invoice.php?Bno='.$EXP_NO.'"';
+				echo 'alert("Successfully Created"); location.href="invoice.php?Exp='.$EXP_NO.'"';
 				echo '</script>';
 				
 			} else {
@@ -169,7 +169,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			if (mysqli_query($conn, $credit)) {
 							
 				echo '<script language="javascript">';
-				echo 'alert("Successfully Created"); location.href="invoice.php?Bno='.$EXP_NO.'"';
+				echo 'alert("Successfully Created"); location.href="Invoice.php?Exp='.$EXP_NO.'"';
 				echo '</script>';
 				
 			} else {
@@ -199,7 +199,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			if (mysqli_query($conn, $credit)) {
 							
 				echo '<script language="javascript">';
-				echo 'alert("Successfully Created"); location.href="invoice.php?Bno='.$EXP_NO.'"';
+				echo 'alert("Successfully Created"); location.href="invoice.php?Exp='.$EXP_NO.'"';
 				echo '</script>';
 				
 			} else {
@@ -229,7 +229,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			if (mysqli_query($conn, $credit)) {
 							
 				echo '<script language="javascript">';
-				echo 'alert("Successfully Created"); location.href="invoice.php?Bno='.$EXP_NO.'"';
+				echo 'alert("Successfully Created"); location.href="invoice.php?Exp='.$EXP_NO.'"';
 				echo '</script>';
 				
 			} else {
@@ -259,7 +259,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			if (mysqli_query($conn, $credit)) {
 							
 				echo '<script language="javascript">';
-				echo 'alert("Successfully Created"); location.href="invoice.php?Bno='.$EXP_NO.'"';
+				echo 'alert("Successfully Created"); location.href="invoice.php?Exp='.$EXP_NO.'"';
 				echo '</script>';
 				
 			} else {
@@ -288,7 +288,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			if (mysqli_query($conn, $credit)) {
 							
 				echo '<script language="javascript">';
-				echo 'alert("Successfully Created"); location.href="invoice.php?Bno='.$EXP_NO.'"';
+				echo 'alert("Successfully Created"); location.href="invoice.php?Exp='.$EXP_NO.'"';
 				echo '</script>';
 				
 			} else {
@@ -304,7 +304,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		if($payMethod == 'cash'){
 
 		$credit = "INSERT INTO `cash`(
-
 					`TxType`,
 					`cashOut`,
 					`cashOutdescription`
@@ -317,7 +316,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 		if (mysqli_query($conn, $credit)) {						
 			echo '<script language="javascript">';
-			echo 'alert("Successfully Created"); location.href="invoice.php?Bno='.$EXP_NO.'"';
+			echo 'alert("Successfully Created"); location.href="Invoice.php?Exp='.$EXP_NO.'"';
 			echo '</script>';
 			
 		} else {
@@ -337,7 +336,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 						`mb_number`,
 						`TxType`,
 						`cashOut`,
-						`cashOutdescription`,
 						`cashOutComment`
 					)
 					VALUES(
@@ -346,13 +344,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 						'01755543447',
 						'$EXP_NO',
 						'$amount',
-						'$description',
-						'$comment'
+						'$description'
 					)";
 	
 			if (mysqli_query($conn, $credit)) {						
 				echo '<script language="javascript">';
-				echo 'alert("Successfully Created"); location.href="invoice.php?Bno='.$EXP_NO.'"';
+				echo 'alert("Successfully Created"); location.href="Invoice.php?Exp='.$EXP_NO.'"';
 				echo '</script>';
 				
 			} else {
@@ -617,7 +614,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 									</div>
 									<div class="card-body">
-										<form action="" method="post">
+										<form action="#" method="post" autocomplete="off">
 											<div class="row">
 												<div class="col-md-12">
 													
@@ -723,41 +720,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 										<table class="datatable table table-stripped">
 											<thead>
 												<tr>
-													<th>Bill ID</th>
 													<th>Issue Date</th>
 													<th>Amount</th>
-													<th>Created By</th>
-													<th>Vendor</th>
-													<th>Purchase Item</th>													
-													<th>R. No</th>
-													<th> </th>
+													<th>Category</th>
+
+													<th>Description</th>													
 													<th>Action</th>
+													<th> </th>
 												</tr>
 											</thead>
 											<tbody>
 											<?php
 
-												$sql = "SELECT *  FROM `bill` ORDER BY id DESC";
+												$sql = "SELECT *  FROM `expense` ORDER BY id DESC LIMIT 5";
 												$result = $conn->query($sql);
 
 												if ($result->num_rows > 0) {
   												while($row = $result->fetch_assoc()) {	
-													$Bno = $row["billNo"];
-													echo "<tr><td>".$row["billNo"]."</td>
-																<td>".$row["issueDate"]."</td> 
+													$EXP_NO = $row["expNo"];
+													echo "<tr><td>".$row["issueDate"]."</td> 
 														 		<td>".$row["amount"]."</td>
-																<td>".$row["createdBy"]."</td>
-														 		<td>".$row["vendorId"]."</td>
-																<td>".$row["purpose"]."</td>
-																<td>".$row["description"]."</td>
-																<td><td><a href='Invoice.php?Bno=$Bno' class='btn btn-primary'> <i class='fe fe-print'></i> </a>
-																<a href='Invoice.php?Bno=$Bno' class='btn btn-success'> <i class='fe fe-edit'></i> </a>
-																<a href='Invoice.php?Bno=$Bno' class='btn btn-danger'> <i class='fe fe-trash'></i> </a>
-																<a href='Invoice.php?Bno=$Bno' class='btn btn-danger'> <i class='fe fe-mail'></i> </a>
+														 		<td>".$row["category"]."</td>
+																 <td>".$row["purpose"]."</td>
+																<td><a href='Expense/Invoice.php?Exp=$EXP_NO' class='btn btn-primary'> View </a><td>
 																 </tr>";   											
 												  }
 												} else {
-  												echo "0 results";
+  												echo " ";
 											    }
 												?>
 											</tbody>
