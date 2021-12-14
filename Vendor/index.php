@@ -1,7 +1,7 @@
 <?php
 
-include 'config.php';
-include('session.php');
+include '../config.php';
+include('../session.php');
 
 ?>
 
@@ -11,19 +11,19 @@ include('session.php');
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-	<title>Employees</title>
+	<title>Vendor List</title>
 	<!-- Favicon -->
-	<link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.png">
+	<link rel="shortcut icon" type="image/x-icon" href="../assets/img/favicon.png">
 	<!-- Bootstrap CSS -->
-	<link rel="stylesheet" href="assets/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../assets/css/bootstrap.min.css">
 	<!-- Fontawesome CSS -->
-	<link rel="stylesheet" href="assets/css/font-awesome.min.css">
+	<link rel="stylesheet" href="../assets/css/font-awesome.min.css">
 	<!-- Feathericon CSS -->
-	<link rel="stylesheet" href="assets/css/feathericon.min.css">
+	<link rel="stylesheet" href="../assets/css/feathericon.min.css">
 	<!-- Datatables CSS -->
-	<link rel="stylesheet" href="assets/plugins/datatables/datatables.min.css">
+	<link rel="stylesheet" href="../assets/plugins/datatables/datatables.min.css">
 	<!-- Main CSS -->
-	<link rel="stylesheet" href="assets/css/style.css">
+	<link rel="stylesheet" href="../assets/css/style.css">
 
 </head>
 
@@ -37,11 +37,11 @@ include('session.php');
 			
 			<!-- Logo -->
 			<div class="header-left">
-				<a href="index.php" class="logo">
-					<img src="logo.png" alt="Logo">
+				<a href="../index.php" class="logo">
+					<img src="../logo.png" alt="Logo">
 				</a>
-				<a href="index.php" class="logo logo-small">
-					<img src="assets/img/logo-small.png" alt="Logo" width="30" height="30">
+				<a href="../index.php" class="logo logo-small">
+					<img src="../logo.png" alt="Logo" width="30" height="30">
 
 				</a>
 			</div>
@@ -120,7 +120,7 @@ include('session.php');
 						</div>
 						<a class="dropdown-item" href="">My Profile</a>
 						<a class="dropdown-item" href="">Settings</a>
-						<a class="dropdown-item" href="logout.php">Logout</a>
+						<a class="dropdown-item" href="../logout.php">Logout</a>
 					</div>
 				</li>
 				<!-- /User Menu -->
@@ -200,10 +200,10 @@ include('session.php');
 				<div class="page-header">
 					<div class="row">
 						<div class="col-sm-12">
-							<h3 class="page-title">Employees</h3>
+							<h3 class="page-title">Vendor</h3>
 							<ul class="breadcrumb">
-								<li class="breadcrumb-item"><a href="Employees.php">Dashboard</a></li>
-								<li class="breadcrumb-item active">Employees</li>
+								<li class="breadcrumb-item"><a href="Dashboard.php">Dashboard</a></li>
+								<li class="breadcrumb-item active">Vendor</li>
 							</ul>
 						</div>
 					</div>
@@ -217,9 +217,9 @@ include('session.php');
 					<div class="col-md-12">
 							<div class="card">
 								<div class="card-header">
-									<h4 class="card-title">Employees Detail</h4>
+									<h4 class="card-title">Vendor Detail</h4>
 									<div class="text-right">
-										<a href="Employee/AddEmployee.php" class="btn btn-primary"> Add +</a>
+										<a href="AddVendor.php" class="btn btn-primary"> Add +</a>
 									</div>
 								</div>
 								
@@ -228,42 +228,43 @@ include('session.php');
 										<table class="datatable table table-stripped">
 											<thead>
 												<tr>
-													<th>Employee ID</th>
+													<th>Vendor ID</th>
 													<th>Name</th>
-													<th>Email</th>
+													<th>Balance</th>
 													<th>Phone</th>
-													<th>Department</th>
+													<th>Company</th>
 													<th>Action</th>
+                                                    <th></th>
 												</tr>
 											</thead>
 											<tbody>
 
 												<?php
 
-												$sql = "SELECT * FROM employee ORDER BY ID DESC";
+												$sql = "SELECT * FROM vendor ORDER BY id DESC";
 												$result = $conn->query($sql);
 
 												if ($result->num_rows > 0) {
   												while($row = $result->fetch_assoc()) {													  
-													  $empId = "".$row["EMP_ID"];
+													  $vendor_id = "".$row["vendorId"];
 													  $ciphering = "AES-128-CTR";
 													  $iv_length = openssl_cipher_iv_length($ciphering);
 													  $options = 0;
 													  $encryption_iv = '1234567891011121';
 													  $encryption_key = "FlyFarInterNational";
-													  $encryption = openssl_encrypt($empId, $ciphering,
+													  $encryption = openssl_encrypt($vendor_id, $ciphering,
 																$encryption_key, $options, $encryption_iv);
 
-													echo "<tr><td>".$row["EMP_ID"]."</td>
+													echo "<tr><td>".$row["vendorId"]."</td>
 																<td>".$row["name"]."</td> 
-														 		<td>".$row["email"]."</td>
+														 		<td>".$row["balance"]."</td>
 																<td>".$row["phone"]."</td>
-														 		<td>".$row["department"]."</td>
-																<td><a href='Employee/UpdateEmployee.php?empId=$encryption' class='btn btn-primary'> View </a><td>
+														 		<td>".$row["company"]."</td>
+																<td><a href='EditVendor.php?vId=$encryption' class='btn btn-primary'> View </a><td>
 																 </tr>";   											
 												  }
 												} else {
-  												echo "0 results";
+
 											    }
 												?>
 

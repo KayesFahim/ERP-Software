@@ -53,9 +53,6 @@ if ($result->num_rows > 0) {
         
         if ($conn->query($sqlquery) === TRUE) {
             $success = "Data Saved successfully";
-			echo '<script language="javascript">';
-			echo 'alert("Successfully Created"); location.href="index.php"';
-			echo '</script>';
         } else {
             echo "Error: " . $sqlquery . "<br>" . $conn->error;
         }
@@ -70,9 +67,8 @@ if ($result->num_rows > 0) {
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-	<title>Add Vendor</title>
+	<title>Add Customer</title>
 	<!-- Favicon -->
 	<link rel="shortcut icon" type="image/x-icon" href="../assets/img/favicon.png">
 	<!-- Bootstrap CSS -->

@@ -577,30 +577,22 @@
                         <a href='expense.php'><i class='fe fe-layout'></i> <span>Expense</span></a>
                     </li>
                     <li>
-                        <a href='moneyReceipt.php'><i class='fe fe-layout'></i> <span>Money Receipt</span></a>
+                        <a href='MoneyReceipt.php'><i class='fe fe-layout'></i> <span>Money Receipt</span></a>
                     </li>
 
                     <li>
-                        <a href='payment.php'><i class='fe fe-layout'></i> <span>Payment</span></a>
+                        <a href='Customer.php.php'><i class='fe fe-layout'></i> <span>Payment</span></a>
                     </li>
                     <li>
                         <a href='Salary/SalarySheet.php'><i class='fe fe-layout'></i> <span>Salary</span></a>
                     </li>
                     <li>
-                        <a href='project.php'><i class='fe fe-layout'></i> <span>Project</span></a>
+                        <a href='Customer.php.php'><i class='fe fe-layout'></i> <span>Payment</span></a>
                     </li>
                     <li>
                         <a href='employees.php'><i class='fe fe-layout'></i> <span>Employees</span></a>
                     </li>
-                    <li>
-                        <a href='Report.php'><i class='fe fe-layout'></i> <span>Report</span></a>
-                    </li>
-
-                    <li>
-                        <a href='Add.php'><i class='fe fe-layout'></i> <span>Refund</span></a>
-                    </li>
                     
-
                 </ul>
             </div>
         </div>
