@@ -13,7 +13,7 @@ if ($result->num_rows > 0) {
 		$CustomerId = "CSR-00".(int)$outputString + 1 ;									
  }
 } else {
-echo "0 results";
+	$CustomerId = "CSR-001";
  }
 
  if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -24,27 +24,23 @@ echo "0 results";
     $cRegDate = date("d/m/Y");
     $creditdt = $_POST['cnid']; 
 
-    $sqlquery = "INSERT INTO `bank`(                                            
-        `bankId`,
-        `bankname`,
-        `branchname`,
-        `bankaccno`,
-        `credit`,
-        `creditDate`,
-        `creditComment`
+    $sqlquery = "INSERT INTO `customer`(                                            
+        `CustomerId`,
+		`name`,
+		`phone`,
+		`email`,
+		`address`
     )
     VALUES(
-        '$BankId',
-        '$bname',
-        '$brname',
-        '$accno',
-        '$credit',
-        '$creditDate',
-        '$creditdt'
+        '$CustomerId',
+        '$cName',
+        '$cPhone',
+        '$CEmail',
+        '$cAddress'
     )";
         
         if ($conn->query($sqlquery) === TRUE) {
-            $success = "record inserted successfully";
+            $success = "Record inserted successfully";
         } else {
             echo "Error: " . $sqlquery . "<br>" . $conn->error;
         }

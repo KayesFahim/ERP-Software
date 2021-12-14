@@ -506,7 +506,7 @@ if (mysqli_query($conn, $invoice)) {
                     <li>
                         <a data-toggle='dropdown'><i class='fe fe-layout'></i> <span>Invoice</span></a>
                             <ul>
-                                <li><a href='AirInvoice'><i class='fe fe-layout'> </i> <span> Air Ticket</span></a></li>
+                                <li><a href='index.php'><i class='fe fe-layout'> </i> <span> Air Ticket</span></a></li>
                                 <li><a href='access.php'><i class='fe fe-layout'> </i> <span> Visa</span></a> </li>
                                 <li><a href='#'><i class='fe fe-layout'></i> Others</a></li>
                             </ul>

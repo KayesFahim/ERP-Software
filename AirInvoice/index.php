@@ -334,8 +334,8 @@ include('../session.php');
 													<th>Issue Date</th>
 													<th>Amount</th>
 													<th>Cabin Class</th>
-													<th>Vendor</th>
-													<th>createdBy</th>
+													<th>Vendor Cost</th>
+													<th>Profit</th>
 													<th>Client Name</th>
 													<th>Pax No</th>
 													<th>Action</th>
@@ -348,29 +348,30 @@ include('../session.php');
 												$sql = "SELECT
 														invoice.invNo,
 														invoice.createdtime,
-														invoice.vendorId,
+														SUM(airticket.vPrice1 + airticket.vPrice2 + airticket.vPrice3 + airticket.vPrice4 + airticket.vPrice1) As vCost,
 														invoice.pax,
 														invoice.class,
 														invoice.clientName,
 														SUM(
 															airticket.cost1 + airticket.cost2 + airticket.cost3 + airticket.cost4 + airticket.cost5
 														) AS Amount
-														FROM
-															invoice
+														
+														FROM invoice
 														INNER JOIN airticket ON invoice.invNo = airticket.invNo
-														ORDER By createdtime DESC";
+														Group By createdtime DESC";
 
 												$result = $conn->query($sql);
 
 												if ($result->num_rows > 0) {
   												while($row = $result->fetch_assoc()) {	
 													$INV = $row["invNo"];
+													$Profit = $row['Amount'] -  $row['vCost'];
 													echo "<tr><td>".$row["invNo"]."</td>
 																<td>".$row["createdtime"]."</td> 
 														 		<td>".$row["Amount"]."</td>
 																<td>".$row["class"]."</td>
-														 		<td>".$row["vendorId"]."</td>
-																<td>".$row["clientName"]."</td>
+														 		<td>".$row["vCost"]."</td>
+																<td>".$Profit."</td>
 																<td>".$row["clientName"]."</td>
 																<td>".$row["pax"]."</td>
 																<td><a href='AirInvoice.php?INV=$INV' class='btn btn-primary'> View </a><td>
