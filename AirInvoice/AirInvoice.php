@@ -16,7 +16,6 @@ while($row1 = $result1->fetch_assoc()) {
   $Pax_No = $row1['pax'];
   $System =  $row1['system'];
   $Class =  $row1['class'];
-  $Ticket_Type = $row1['ticketType'];
   $Rev_Officer = $row1['recofficer'];
   }
 }
@@ -35,6 +34,8 @@ while($row = $result->fetch_assoc()) {
         $airlines1 = $row['Airlines1'];
         $from1 = $row['placeFrom1'];
         $to1 = $row['placeTo1'];
+        $way1 = $row['way1'];        
+        $Ticket_Type1 = $row['cost1']; 
         $price1 = $row['cost1']; 
     
         //Pax2

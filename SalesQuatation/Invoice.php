@@ -26,38 +26,53 @@ $result = $conn->query($sql);
 if ($result->num_rows > 0) {
 while($row = $result->fetch_assoc()) {	
 		//Pax
-        $pax1 = $row['PaxName1'];       
+        $pax1 = $row['PaxName1'];
+        $Airlines1 = $row['Airlines1'];       
         $from1 = $row['from1'];
-        $to1 = $row['to1'];  
+        $to1 = $row['to1'];
+        $type1= $row['type1'];
+        $way1= $row['way1'];  
         $price1 = $row['cost1']; 
     
         //Pax2
         $pax2 = $row['PaxName2'];
+        $Airlines2 = $row['Airlines2'];
         $from2 = $row['from2'];
-        $to2 = $row['to2'];       
+        $to2 = $row['to2'];
+        $type2 = $row['type2']; 
+        $way2= $row['way2'];        
         $price2 = $row['cost2'];
         
     
         //Pax3
 
-        $pax3 = $row['PaxName3'];    
+        $pax3 = $row['PaxName3']; 
+        $Airlines3 = $row['Airlines3'];   
         $from3 = $row['from3'];
-        $to3 = $row['to3'];  
+        $to3 = $row['to3'];
+        $type3 = $row['type3'];
+        $way3= $row['way3'];    
         $price3 = $row['cost3'];
        
     
          //Pax4
 
-         $pax4 = $row['PaxName4'];       
+         $pax4 = $row['PaxName4'];
+         $Airlines4 = $row['Airlines4'];       
          $from4 = $row['from4'];
-         $to4 = $row['to4'];   
+         $to4 = $row['to4'];
+         $type4 = $row['type4'];
+         $way4= $row['way4'];      
          $price4 = $row['cost4'];
          
     
          //Pax 5
          $pax5 = $row['PaxName5'];
+         $Airlines5 = $row['Airlines5'];
          $from5 = $row['from5'];
-         $to5 = $row['to5'];  
+         $to5 = $row['to5'];
+         $type5= $row['type5']; 
+         $way5= $row['way5'];    
          $price5 = $row['cost5'];
 						
 	}
@@ -79,7 +94,7 @@ while($row = $result->fetch_assoc()) {
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/media.css">
-    <title>Invoice</title>
+    <title>Sales Quatation</title>
     
   </head>
 <body>
@@ -115,47 +130,65 @@ while($row = $result->fetch_assoc()) {
                         <thead class="thead-light">
                             <tr>
                             <th scope="col">Pax Name</th>
+                            <th scope="col">Airlines</th>
                             <th scope="col">From</th>
                             <th scope="col">To</th>
+                            <th scope="col">Ticket Type</th>
+                            <th scope="col">Way</th>
                             <th scope="col">Price</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                             <th scope="row"><?php echo $pax1; ?></th>
+                            <td><?php echo $Airlines1; ?></td>
                             <td><?php echo $from1; ?></td>
                             <td><?php echo $to1; ?></td>
+                            <td><?php echo $type1; ?></td>
+                            <td><?php echo $way1; ?></td>
                             <td><?php echo $price1; ?></td>
                             </tr>
 
                             <tr>
                             <th scope="row"><?php echo $pax2; ?></th>
+                            <td><?php echo $Airlines2; ?></td>
                             <td><?php echo $from2; ?></td>
                             <td><?php echo $to2; ?></td>
+                            <td><?php echo $type2; ?></td>
+                            <td><?php echo $way2; ?></td>
                             <td><?php echo $price2; ?></td>
                             </tr>
                             <tr>
                             <th scope="row"><?php echo $pax3; ?></th>
+                            <td><?php echo $Airlines3; ?></td>
                             <td><?php echo $from3; ?></td>
-                            <td><?php echo $to3; ?></td> 
+                            <td><?php echo $to3; ?></td>
+                            <td><?php echo $type3; ?></td>
+                            <td><?php echo $way3; ?></td>
                             <td><?php echo $price3; ?></td>
                             </tr>
                             <tr>
                             <th scope="row"><?php echo $pax4; ?></th>
+                            <td><?php echo $Airlines4; ?></td>
                             <td><?php echo $from4; ?></td>
                             <td><?php echo $to4; ?></td>
+                            <td><?php echo $type4; ?></td>
+                            <td><?php echo $way4; ?></td>
                             <td><?php echo $price4; ?></td>
                             </tr>
                             <tr>
                             <th scope="row"><?php echo $pax5; ?></th>
+                            <td><?php echo $Airlines5; ?></td>
                             <td><?php echo $from5; ?></td>
                             <td><?php echo $to5; ?></td>
+                            <td><?php echo $type5; ?></td>
+                            <td><?php echo $way5; ?></td>
                             <td><?php echo $price5; ?></td>
                             </tr>
                             
                             <tr>
                             
-                            <td rowspan="3" colspan="2" style="text-align:center; color:red;">Air Ticket fair Will Be chnage after 15 minutes</td>
+                            <td rowspan="3" colspan="5" style="text-align:center; color:red;">Air Ticket fair Will Be chnage after 15 minutes</td>
                             <td>Total</td>
                             <td><?php $Total = $price1 + $price2 + $price3 + $price4 + $price5;
                               echo number_format($Total, 2)
@@ -180,7 +213,6 @@ while($row = $result->fetch_assoc()) {
 
     <!-- Optional JavaScript -->
     <script type="text/javascript">
-    <!--
     window.print();
     //-->
     </script>

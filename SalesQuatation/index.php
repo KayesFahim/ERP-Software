@@ -339,7 +339,7 @@ include('../session.php');
 													<th>Client Name</th>
 													<th>Pax No</th>
 													<th>Action</th>
-													<th> </th>
+													<th>Invoice</th>
 												</tr>
 											</thead>
 											<tbody>
@@ -370,7 +370,8 @@ include('../session.php');
 																<td>".$row["createdBy"]."</td>
 																<td>".$row["clientName"]."</td>
 																<td>".$row["pax"]."</td>
-																<td><a href='Invoice.php?SQT=$SQT' class='btn btn-primary'> View </a><td>
+																<td><a href='Invoice.php?SQT=$SQT' class='btn btn-primary'> View </a></td>
+																<td><a href='../AirInvoice/AirTicket.php?SQT=$SQT' class='btn btn-primary'> Make Invoice </a></td>
 																 </tr>";   											
 												  }
 												} else {

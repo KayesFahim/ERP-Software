@@ -1,4 +1,4 @@
-<?php
+`<?php
 
 include '../config.php';
 include('../session.php');
@@ -6,13 +6,14 @@ include('../session.php');
 
 //Reciept No
 
-$SQT_No ="";
+$SQT_No;
 $sql = "SELECT * FROM salesqutation ORDER BY sqNo  DESC LIMIT 1";
 $result = $conn->query($sql);
 if ($result->num_rows > 0) {
 	while($row = $result->fetch_assoc()) {
         $outputString = preg_replace('/[^0-9]/', '', $row["sqNo"]);
-		$SQT_No = "SQT-".(int)$outputString + 1 ;									
+		$number = (int)$outputString + 1;
+		$SQT_No = "SQT-$number";									
  }
 } else {
 	$SQT_No ="SQT-1000";
@@ -27,59 +28,86 @@ if ($result->num_rows > 0) {
 	$Pax_No = $_POST['pax'];
     //Pax
     $pax1 = $_POST['pax1'];
+	$Airlines1 = $_POST['airlines1'];
     $from1 = $_POST['from1'];
-	$to1 = $_POST['to1'];  
+	$to1 = $_POST['to1'];
+	$type1 = $_POST['tickettype1'];
+	$way1 = $_POST['way1'];
     $price1 = $_POST['price1']; 
 
     //Pax2
     if(isset($_POST['pax2'])){
-    $pax2 = $_POST['pax2'];  
+    $pax2 = $_POST['pax2'];
+	$Airlines2 = $_POST['airlines2'];  
     $from2 = $_POST['from2'];
 	$to2 = $_POST['to2']; 
+	$type2 = $_POST['tickettype2']; 
+	$way2 = $_POST['way2'];
     $price2 = $_POST['price2'];
     }else{
         $pax2 = " ";
+		$Airlines2 =" ";
         $from2 = " ";
-		$to2 = " ";     
+		$to2 = " ";
+		$type2 =" "; 
+		$way2 = " "; 
         $price2 = " ";
     }
 
     //Pax3
     if(isset($_POST['pax3'])){
-    $pax3 = $_POST['pax3'];   
+    $pax3 = $_POST['pax3']; 
+	$Airlines3 = $_POST['airlines3'];  
     $from3 = $_POST['from3'];
-	$to3 = $_POST['to3']; 
+	$to3 = $_POST['to3'];
+	$type3 = $_POST['tickettype3']; 
+	$way3 = $_POST['way3'];
     $price3 = $_POST['price3'];
     }else{
         $pax3 = " ";
+		$Airlines3 =" ";
         $from3 = " ";
 		$to3 = " ";
+		$type3 =" ";
+		$way3 = " ";
         $price3 = " ";
     }
 
      //Pax4
      if(isset($_POST['pax4'])){
      $pax4 = $_POST['pax4'];
+	 $Airlines4 = $_POST['airlines4'];
      $from4 = $_POST['from4'];
-	 $to4 = $_POST['to4']; 
+	 $to4 = $_POST['to4'];
+	 $type4 = $_POST['tickettype4'];
+	 $way4 = $_POST['way4']; 
      $price4 = $_POST['price4'];
      }else{
         $pax4 = " ";
+		$Airlines4 =" ";
         $from4 = " ";
 		$to4 = " ";
+		$type4 =" ";
+		$way4 = " ";
         $price4 = " ";
      }
 
      //Pax 5
      if(isset($_POST['pax5'])){
      $pax5 = $_POST['pax5'];
+	 $Airlines5 = $_POST['airlines5'];
      $from5 = $_POST['from5'];
-	 $to5 = $_POST['to5']; 
+	 $to5 = $_POST['to5'];
+	 $type5 = $_POST['tickettype5'];
+	 $way5 = $_POST['way5']; 
      $price5 = $_POST['price5'];
      }else{
         $pax5 = " ";
+		$Airlines5 =" ";
         $from5 = " ";
 		$to5 = " ";
+		$type5 =" ";
+		$way5= " ";
         $price5 = " ";
 
      }
@@ -91,25 +119,40 @@ if ($result->num_rows > 0) {
 		`clientName`,
 		`pax`,
 		`PaxName1`,
+		`Airlines1`,
 		`from1`,
 		`to1`,
+		`type1`,
 		`cost1`,
 		`PaxName2`,
+		`Airlines2`,
 		`from2`,
 		`to2`,
+		`type2`,
 		`cost2`,
 		`PaxName3`,
+		`Airlines3`,
 		`from3`,
 		`to3`,
+		`type3`,
 		`cost3`,
 		`PaxName4`,
+		`Airlines4`,
 		`from4`,
 		`to4`,
+		`type4`,
 		`cost4`,
 		`PaxName5`,
+		`Airlines5`,
 		`from5`,
 		`to5`,
-		`cost5`
+		`type5`,
+		`cost5`,
+		`way1`,
+		`way2`,
+		`way3`,
+		`way4`,
+		`way5`
     )
     VALUES(
         '$SQT_No',
@@ -117,25 +160,41 @@ if ($result->num_rows > 0) {
 		'$Client_Name',
 		'$Pax_No',
         '$pax1',
+		'$Airlines1',
         '$from1',
 		'$to1',
+		'$type1',
         '$price1',
         '$pax2',
+		'$Airlines2',
         '$from2',
 		'$to2',
+		'$type2',
         '$price2',
         '$pax3',
+		'$Airlines3',
         '$from3',
 		'$to3',
+		'$type3',
         '$price3',
         '$pax4',
+		'$Airlines4',
         '$from4',
 		'$to4',
+		'$type4',
         '$price4',
         '$pax5',
+		'$Airlines5',
         '$from5',
 		'$to5',
-        '$price5'
+		'$type5',
+        '$price5',
+		'$way1',
+		'$way2',
+		'$way3',
+		'$way4',
+		'$way5'
+
     )";
 
 	if (mysqli_query($conn, $mrgenerate)) {
@@ -281,38 +340,37 @@ if ($result->num_rows > 0) {
 		 <!-- Sidebar -->
 
 		 <?php if($userRole == 'reservation'){
+			print "<div class='sidebar' id='sidebar'>
+				<div class='sidebar-inner slimscroll'>
+					<div id='sidebar-menu' class='sidebar-menu'>
+						<ul>
+							<li class='menu-title'>
+								<span>Main</span>
+							</li>
+							<li>
+								<a href='../dashboard.php'><i class='fe fe-home'></i> <span> Dashboard</span></a>
+							</li>
+							
+							<li>
+							<a data-toggle='dropdown'><i class='fe fe-layout'></i> <span>Sales Quatation</span></a>
+								<ul>
+									<li><a href='SalesQuatation'><i class='fe fe-layout'> </i> <span> Air Ticket</span></a></li>
+									
+								</ul>
+							</li>
 
-print "<div class='sidebar' id='sidebar'>
-	 <div class='sidebar-inner slimscroll'>
-		 <div id='sidebar-menu' class='sidebar-menu'>
-			 <ul>
-				 <li class='menu-title'>
-					 <span>Main</span>
-				 </li>
-				 <li>
-					 <a href='../dashboard.php'><i class='fe fe-home'></i> <span> Dashboard</span></a>
-				 </li>
-				 
-				 <li>
-				 <a data-toggle='dropdown'><i class='fe fe-layout'></i> <span>Sales Quatation</span></a>
-					 <ul>
-						 <li><a href='SalesQuatation'><i class='fe fe-layout'> </i> <span> Air Ticket</span></a></li>
-						 
-					 </ul>
-				  </li>
-
-				 <li>
-					 <a data-toggle='dropdown'><i class='fe fe-layout'></i> <span> Invoice</span></a>
-						 <ul>
-							 <li><a href='../AirInvoice'><i class='fe fe-layout'> </i> <span> Air Ticket </span></a></li>
-							 
-						 </ul>
-				 </li>
-				 
-			 </ul>
-		 </div>
-	 </div>
- </div>" ;
+							<li>
+								<a data-toggle='dropdown'><i class='fe fe-layout'></i> <span> Invoice</span></a>
+									<ul>
+										<li><a href='../AirInvoice'><i class='fe fe-layout'> </i> <span> Air Ticket </span></a></li>
+										
+									</ul>
+							</li>
+							
+						</ul>
+					</div>
+				</div>
+			</div>" ;
 
 }elseif($userRole == 'accounts'){
 print "<div class='sidebar' id='sidebar'>
@@ -492,7 +550,21 @@ echo "<div class='sidebar' id='sidebar'>
 														<div class="col-md-4">
 															<div class="form-group">
 																<label>Bill To:</label>
-																<input type="text" name="client" class="form-control" required>
+																<select name="client" class="select form-control"  required>
+                                                                            <option value="" disabled selected>Choose Client</option>
+                                                                            <?php
+                                                                                $sql = "SELECT *  FROM `customer` ORDER BY name DESC";
+                                                                                $result = $conn->query($sql);
+                                
+                                                                                if ($result->num_rows > 0) {
+                                                                                while($row = $result->fetch_assoc()) {
+                                                                                    $vnName = $row["name"];	
+                                                                                    echo "<option value=\"$vnName\">".$row["name"]."</option>";                                                                                 
+                                                                                }
+                                                                            }
+                                                                                ?>
+                                                                            
+                                                                </select>
 															</div>
 														</div>
 														<div class="col-md-4">
@@ -504,26 +576,116 @@ echo "<div class='sidebar' id='sidebar'>
 														
 													</div>
                                                     <div class="row">
-															<div class="col-md-3">
+															<div class="col-md-2">
 																<div class="form-group">
 																	<label>Pax Name 1</label>
 																	<input type="text" name="pax1" class="form-control">
 																</div>
 															</div>
-															<div class="col-md-3">
+															<div class="col-md-1">
+                                                                <div class="form-group">
+                                                                    <label>Airlines :</label>
+                                                                    <select name="airlines1" class="select form-control"  >
+                                                                            <option value="" disabled selected>*</option>
+                                                                            <option value="6E">6E</option>
+                                                                            <option value="AI">AI</option>
+                                                                            <option value="BG">BG</option>
+                                                                            <option value="BS">BS </option>
+                                                                            <option value="CX">CX</option>
+                                                                            <option value="CZ">CZ</option>
+                                                                            <option value="EK">EK</option>
+                                                                            <option value="EY">EY</option>
+                                                                            <option value="FZ">FZ </option>	
+                                                                            <option value="GF">GF </option>
+                                                                            <option value="G9">G9 </option>
+                                                                            <option value="G8">G8 </option>	
+                                                                            <option value="H9">H9</option>
+                                                                            <option value="J9">J9</option>
+                                                                            <option value="KU">KU</option>
+                                                                            <option value="MH">MH</option>
+                                                                            <option value="MS">MS </option>	
+                                                                            <option value="OD">OD</option>	
+                                                                            <option value="OV">OV</option>
+                                                                            <option value="QR">QR </option>	
+                                                                            <option value="UL">UL</option>                                                                          
+                                                                            <option value="UK">UK</option>
+                                                                            <option value="SV">SV</option>
+                                                                            <option value="SQ">SQ </option>
+                                                                            <option value="SL">SL</option>
+                                                                            <option value="SG">SG </option>
+                                                                            <option value="TK">TK </option>	                                                                       
+                                                                            <option value="TG">TG </option>  	
+                                                                            <option value="VQ">VQ </option>                                                                                                                                                    
+                                                                            <option value="WY">WY</option>   
+                                                                        </select>
+                                                                	</div>
+																</div>
+															<div class="col-md-1">
 																<div class="form-group">
 																	<label>From</label>
-																	<input type="text" name="from1" class="form-control" required>
+																	<select name="from1" class="select form-control" required >
+                                                                            <option value="" disabled selected>*</option>
+                                                                            <?php
+                                                                                $sql = "SELECT DISTINCT code FROM airports order by code";
+                                                                                $result = $conn->query($sql);
+                                
+                                                                                if ($result->num_rows > 0) {
+                                                                                while($row = $result->fetch_assoc()) {
+                                                                                    $vnName = $row["code"];	
+                                                                                    echo "<option value=\"$vnName\">".$row["code"]."</option>";                                                                                 
+                                                                                }
+                                                                            }
+                                                                                ?>
+                                                                            
+                                                                </select>
 																</div>
 															</div>
-															<div class="col-md-3">
+															<div class="col-md-1">
 																<div class="form-group">
 																	<label>To</label>
-																	<input type="text" name="to1" class="form-control" required>
+																	<select name="to1" class="select form-control" required >
+                                                                            <option value="" disabled selected>*</option>
+                                                                            <?php
+                                                                                $sql = "SELECT DISTINCT code FROM airports order by code";
+                                                                                $result = $conn->query($sql);
+                                
+                                                                                if ($result->num_rows > 0) {
+                                                                                while($row = $result->fetch_assoc()) {
+                                                                                    $vnName = $row["code"];	
+                                                                                    echo "<option value=\"$vnName\">".$row["code"]."</option>";                                                                                 
+                                                                                }
+                                                                            }
+                                                                                ?>
+                                                                            
+                                                                </select>
 																</div>
 															</div>
+															<div class="col-md-2">
+                                                                <div class="form-group">
+                                                                    <label>Ticket Type :</label>
+                                                                    <select name="tickettype1" class="select form-control" required >
+                                                                            <option value="" disabled selected>Ticket Type</option>
+                                                                            <option value="Non Refundable">Non Refundable</option>
+                                                                            <option value="Refundable">Refundable</option>	
+                                                                            <option value="Refund Adjusted">Refund Adjusted </option>	
+                                                                            
+                                                                        </select>
+                                                                </div>
+                                                            </div>
+															<div class="col-md-2">
+                                                                <div class="form-group">
+                                                                    <label>Way:</label>
+                                                                    <select name="way1" class="select form-control" required >
+                                                                            <option value="" disabled selected>Way</option>
+                                                                            <option value="One Way">One Way</option>
+                                                                            <option value="Round Trip">Round Trip</option>	
+                                                                            <option value="Multiple City">Multiple City</option>	
+                                                                            
+                                                                        </select>
+                                                                </div>
+                                                            </div>
 															
-															<div class="col-md-3">
+															<div class="col-md-2">
 																<div class="form-group">
 																	<label>Amount</label>
 																	<input type="number" name="price1" class="form-control" required>
@@ -532,26 +694,117 @@ echo "<div class='sidebar' id='sidebar'>
 													</div>
                                                     
                                                     <div class="row">
-                                                    <div class="col-md-3">
+                                                    <div class="col-md-2">
 															<div class="form-group">
 																<label>Pax Name 2</label>
 																<input type="text" name="pax2" class="form-control">
 															</div>
 														</div>
-														<div class="col-md-3">
+														<div class="col-md-1">
+                                                                <div class="form-group">
+                                                                    <label>Airlines :</label>
+                                                                    <select name="airlines2" class="select form-control"  >
+                                                                            <option value="" disabled selected>*</option>
+                                                                            <option value="6E">6E</option>
+                                                                            <option value="AI">AI</option>
+                                                                            <option value="BG">BG</option>
+                                                                            <option value="BS">BS </option>
+                                                                            <option value="CX">CX</option>
+                                                                            <option value="CZ">CZ</option>
+                                                                            <option value="EK">EK</option>
+                                                                            <option value="EY">EY</option>
+                                                                            <option value="FZ">FZ </option>	
+                                                                            <option value="GF">GF </option>
+                                                                            <option value="G9">G9 </option>
+                                                                            <option value="G8">G8 </option>	
+                                                                            <option value="H9">H9</option>
+                                                                            <option value="J9">J9</option>
+                                                                            <option value="KU">KU</option>
+                                                                            <option value="MH">MH</option>
+                                                                            <option value="MS">MS </option>	
+                                                                            <option value="OD">OD</option>	
+                                                                            <option value="OV">OV</option>
+                                                                            <option value="QR">QR </option>	
+                                                                            <option value="UL">UL</option>                                                                          
+                                                                            <option value="UK">UK</option>
+                                                                            <option value="SV">SV</option>
+                                                                            <option value="SQ">SQ </option>
+                                                                            <option value="SL">SL</option>
+                                                                            <option value="SG">SG </option>
+                                                                            <option value="TK">TK </option>	                                                                       
+                                                                            <option value="TG">TG </option>  	
+                                                                            <option value="VQ">VQ </option>                                                                                                                                                    
+                                                                            <option value="WY">WY</option>   
+                                                                        </select>
+                                                                	</div>
+																</div>
+																<div class="col-md-1">
 																<div class="form-group">
 																	<label>From</label>
-																	<input type="text" name="from2" class="form-control">
+																	<select name="from2" class="select form-control" required >
+                                                                            <option value="" disabled selected>*</option>
+                                                                            <?php
+                                                                                $sql = "SELECT DISTINCT code FROM airports order by code";
+                                                                                $result = $conn->query($sql);
+                                
+                                                                                if ($result->num_rows > 0) {
+                                                                                while($row = $result->fetch_assoc()) {
+                                                                                    $vnName = $row["code"];	
+                                                                                    echo "<option value=\"$vnName\">".$row["code"]."</option>";                                                                                 
+                                                                                }
+                                                                            }
+                                                                                ?>
+                                                                            
+                                                                </select>
 																</div>
 															</div>
-															<div class="col-md-3">
+															<div class="col-md-1">
 																<div class="form-group">
 																	<label>To</label>
-																	<input type="text" name="to2" class="form-control">
+																	<select name="to2" class="select form-control" required >
+                                                                            <option value="" disabled selected>*</option>
+                                                                            <?php
+                                                                                $sql = "SELECT DISTINCT code FROM airports order by code";
+                                                                                $result = $conn->query($sql);
+                                
+                                                                                if ($result->num_rows > 0) {
+                                                                                while($row = $result->fetch_assoc()) {
+                                                                                    $vnName = $row["code"];	
+                                                                                    echo "<option value=\"$vnName\">".$row["code"]."</option>";                                                                                 
+                                                                                }
+                                                                            }
+                                                                                ?>
+                                                                            
+                                                                </select>
 																</div>
 															</div>
+														<div class="col-md-2">
+                                                                <div class="form-group">
+                                                                    <label>Ticket Type :</label>
+                                                                    <select name="tickettype2" class="select form-control" >
+                                                                            <option value="" disabled selected>Ticket Type</option>
+                                                                            <option value="Non Refundable">Non Refundable</option>
+                                                                            <option value="Refundable">Refundable</option>	
+                                                                            <option value="Refund Adjusted">Refund Adjusted </option>	
+                                                                            
+                                                                        </select>
+                                                                </div>
+                                                        </div>
+														<div class="col-md-2">
+                                                                <div class="form-group">
+                                                                    <label>Way:</label>
+                                                                    <select name="way2" class="select form-control" >
+                                                                            <option value="" disabled selected>Way</option>
+                                                                            <option value="One Way">One Way</option>
+                                                                            <option value="Round Trip">Round Trip</option>	
+                                                                            <option value="Multiple City">Multiple City</option>	
+                                                                            
+                                                                        </select>
+                                                                </div>
+                                                            </div>
 														
-                                                        <div class="col-md-3">
+														
+                                                        <div class="col-md-2">
 															<div class="form-group">
 																<label>Amount</label>
 																<input type="number" name="price2" class="form-control">
@@ -560,26 +813,118 @@ echo "<div class='sidebar' id='sidebar'>
 														
 													</div>
                                                     <div class="row">
-                                                    <div class="col-md-3">
+                                                    <div class="col-md-2">
 															<div class="form-group">
 																<label>Pax Name 3</label>
 																<input type="text" name="pax3" class="form-control">
 															</div>
 														</div>
-														<div class="col-md-3">
+														<div class="col-md-1">
+                                                                <div class="form-group">
+                                                                    <label>Airlines :</label>
+                                                                    <select name="airlines3" class="select form-control"  >
+                                                                            <option value="" disabled selected>*</option>
+                                                                            <option value="6E">6E</option>
+                                                                            <option value="AI">AI</option>
+                                                                            <option value="BG">BG</option>
+                                                                            <option value="BS">BS </option>
+                                                                            <option value="CX">CX</option>
+                                                                            <option value="CZ">CZ</option>
+                                                                            <option value="EK">EK</option>
+                                                                            <option value="EY">EY</option>
+                                                                            <option value="FZ">FZ </option>	
+                                                                            <option value="GF">GF </option>
+                                                                            <option value="G9">G9 </option>
+                                                                            <option value="G8">G8 </option>	
+                                                                            <option value="H9">H9</option>
+                                                                            <option value="J9">J9</option>
+                                                                            <option value="KU">KU</option>
+                                                                            <option value="MH">MH</option>
+                                                                            <option value="MS">MS </option>	
+                                                                            <option value="OD">OD</option>	
+                                                                            <option value="OV">OV</option>
+                                                                            <option value="QR">QR </option>	
+                                                                            <option value="UL">UL</option>                                                                          
+                                                                            <option value="UK">UK</option>
+                                                                            <option value="SV">SV</option>
+                                                                            <option value="SQ">SQ </option>
+                                                                            <option value="SL">SL</option>
+                                                                            <option value="SG">SG </option>
+                                                                            <option value="TK">TK </option>	                                                                       
+                                                                            <option value="TG">TG </option>  	
+                                                                            <option value="VQ">VQ </option>                                                                                                                                                    
+                                                                            <option value="WY">WY</option>   
+                                                                        </select>
+                                                                	</div>
+																</div>
+																<div class="col-md-1">
 																<div class="form-group">
 																	<label>From</label>
-																	<input type="text" name="from3" class="form-control">
+																	<select name="from3" class="select form-control" required >
+                                                                            <option value="" disabled selected>*</option>
+                                                                            <?php
+                                                                                $sql = "SELECT DISTINCT code FROM airports order by code";
+                                                                                $result = $conn->query($sql);
+                                
+                                                                                if ($result->num_rows > 0) {
+                                                                                while($row = $result->fetch_assoc()) {
+                                                                                    $vnName = $row["code"];	
+                                                                                    echo "<option value=\"$vnName\">".$row["code"]."</option>";                                                                                 
+                                                                                }
+                                                                            }
+                                                                                ?>
+                                                                            
+                                                                </select>
 																</div>
 															</div>
-															<div class="col-md-3">
+															<div class="col-md-1">
 																<div class="form-group">
 																	<label>To</label>
-																	<input type="text" name="to3" class="form-control">
+																	<select name="to3" class="select form-control" required >
+                                                                            <option value="" disabled selected>*</option>
+                                                                            <?php
+                                                                                $sql = "SELECT DISTINCT code FROM airports order by code";
+                                                                                $result = $conn->query($sql);
+                                
+                                                                                if ($result->num_rows > 0) {
+                                                                                while($row = $result->fetch_assoc()) {
+                                                                                    $vnName = $row["code"];	
+                                                                                    echo "<option value=\"$vnName\">".$row["code"]."</option>";                                                                                 
+                                                                                }
+                                                                            }
+                                                                                ?>
+                                                                            
+                                                                </select>
 																</div>
 															</div>
+
+															<div class="col-md-2">
+                                                                <div class="form-group">
+                                                                    <label>Ticket Type :</label>
+                                                                    <select name="tickettype3" class="select form-control" >
+                                                                            <option value="" disabled selected>Ticket Type</option>
+                                                                            <option value="Non Refundable">Non Refundable</option>
+                                                                            <option value="Refundable">Refundable</option>	
+                                                                            <option value="Refund Adjusted">Refund Adjusted </option>	
+                                                                            
+                                                                        </select>
+                                                                </div>
+                                                            </div>
+
+															<div class="col-md-2">
+                                                                <div class="form-group">
+                                                                    <label>Way:</label>
+                                                                    <select name="way3" class="select form-control" >
+                                                                            <option value="" disabled selected>Way</option>
+                                                                            <option value="One Way">One Way</option>
+                                                                            <option value="Round Trip">Round Trip</option>	
+                                                                            <option value="Multiple City">Multiple City</option>	
+                                                                            
+                                                                        </select>
+                                                                </div>
+                                                            </div>
 														
-                                                        <div class="col-md-3">
+                                                        <div class="col-md-2">
 															<div class="form-group">
 																<label>Amount</label>
 																<input type="number" name="price3" class="form-control">
@@ -589,26 +934,117 @@ echo "<div class='sidebar' id='sidebar'>
 													</div>
 
                                                <div class="row">
-                                                    <div class="col-md-3">
+                                                    <div class="col-md-2">
 															<div class="form-group">
 																<label>Pax Name 4</label>
 																<input type="text" name="pax4" class="form-control">
 															</div>
 														</div>
-														<div class="col-md-3">
+														<div class="col-md-1">
+                                                                <div class="form-group">
+                                                                    <label>Airlines :</label>
+                                                                    <select name="airlines4" class="select form-control"  >
+                                                                            <option value="" disabled selected>*</option>
+                                                                            <option value="6E">6E</option>
+                                                                            <option value="AI">AI</option>
+                                                                            <option value="BG">BG</option>
+                                                                            <option value="BS">BS </option>
+                                                                            <option value="CX">CX</option>
+                                                                            <option value="CZ">CZ</option>
+                                                                            <option value="EK">EK</option>
+                                                                            <option value="EY">EY</option>
+                                                                            <option value="FZ">FZ </option>	
+                                                                            <option value="GF">GF </option>
+                                                                            <option value="G9">G9 </option>
+                                                                            <option value="G8">G8 </option>	
+                                                                            <option value="H9">H9</option>
+                                                                            <option value="J9">J9</option>
+                                                                            <option value="KU">KU</option>
+                                                                            <option value="MH">MH</option>
+                                                                            <option value="MS">MS </option>	
+                                                                            <option value="OD">OD</option>	
+                                                                            <option value="OV">OV</option>
+                                                                            <option value="QR">QR </option>	
+                                                                            <option value="UL">UL</option>                                                                          
+                                                                            <option value="UK">UK</option>
+                                                                            <option value="SV">SV</option>
+                                                                            <option value="SQ">SQ </option>
+                                                                            <option value="SL">SL</option>
+                                                                            <option value="SG">SG </option>
+                                                                            <option value="TK">TK </option>	                                                                       
+                                                                            <option value="TG">TG </option>  	
+                                                                            <option value="VQ">VQ </option>                                                                                                                                                    
+                                                                            <option value="WY">WY</option>   
+                                                                        </select>
+                                                                	</div>
+																</div>
+																<div class="col-md-1">
 																<div class="form-group">
 																	<label>From</label>
-																	<input type="text" name="from4" class="form-control">
+																	<select name="from4" class="select form-control" required >
+                                                                            <option value="" disabled selected>*</option>
+                                                                            <?php
+                                                                                $sql = "SELECT DISTINCT code FROM airports order by code";
+                                                                                $result = $conn->query($sql);
+                                
+                                                                                if ($result->num_rows > 0) {
+                                                                                while($row = $result->fetch_assoc()) {
+                                                                                    $vnName = $row["code"];	
+                                                                                    echo "<option value=\"$vnName\">".$row["code"]."</option>";                                                                                 
+                                                                                }
+                                                                            }
+                                                                                ?>
+                                                                            
+                                                                </select>
 																</div>
 															</div>
-															<div class="col-md-3">
+															<div class="col-md-1">
 																<div class="form-group">
 																	<label>To</label>
-																	<input type="text" name="to4" class="form-control">
+																	<select name="to4" class="select form-control" required >
+                                                                            <option value="" disabled selected>*</option>
+                                                                            <?php
+                                                                                $sql = "SELECT DISTINCT code FROM airports order by code";
+                                                                                $result = $conn->query($sql);
+                                
+                                                                                if ($result->num_rows > 0) {
+                                                                                while($row = $result->fetch_assoc()) {
+                                                                                    $vnName = $row["code"];	
+                                                                                    echo "<option value=\"$vnName\">".$row["code"]."</option>";                                                                                 
+                                                                                }
+                                                                            }
+                                                                                ?>
+                                                                            
+                                                                </select>
 																</div>
 															</div>
+															<div class="col-md-2">
+                                                                <div class="form-group">
+                                                                    <label>Ticket Type :</label>
+                                                                    <select name="tickettype4" class="select form-control" >
+                                                                            <option value="" disabled selected>Ticket Type</option>
+                                                                            <option value="Non Refundable">Non Refundable</option>
+                                                                            <option value="Refundable">Refundable</option>	
+                                                                            <option value="Refund Adjusted">Refund Adjusted </option>	
+                                                                            
+                                                                        </select>
+                                                                </div>
+                                                            </div>
+
+															<div class="col-md-2">
+                                                                <div class="form-group">
+                                                                    <label>Way:</label>
+                                                                    <select name="way4" class="select form-control" >
+                                                                            <option value="" disabled selected>Way</option>
+                                                                            <option value="One Way">One Way</option>
+                                                                            <option value="Round Trip">Round Trip</option>	
+                                                                            <option value="Multiple City">Multiple City</option>	
+                                                                            
+                                                                        </select>
+                                                                </div>
+                                                            </div>
 														
-                                                        <div class="col-md-3">
+                                                        <div class="col-md-2">
 															<div class="form-group">
 																<label>Amount</label>
 																<input type="number" name="price4" class="form-control">
@@ -618,26 +1054,117 @@ echo "<div class='sidebar' id='sidebar'>
 													</div>
                                                
                                                <div class="row">
-                                                    <div class="col-md-3">
+                                                    <div class="col-md-2">
 															<div class="form-group">
 																<label>Pax Name 5</label>
 																<input type="text" name="pax5" class="form-control">
 															</div>
 														</div>
-														<div class="col-md-3">
-															<div class="form-group">
-																<label>From</label>
-																<input type="text" name="from5" class="form-control">
-															</div>
-															</div>
-															<div class="col-md-3">
+														<div class="col-md-1">
+                                                                <div class="form-group">
+                                                                    <label>Airlines :</label>
+                                                                    <select name="airlines5" class="select form-control"  >
+                                                                            <option value="" disabled selected>*</option>
+                                                                            <option value="6E">6E</option>
+                                                                            <option value="AI">AI</option>
+                                                                            <option value="BG">BG</option>
+                                                                            <option value="BS">BS </option>
+                                                                            <option value="CX">CX</option>
+                                                                            <option value="CZ">CZ</option>
+                                                                            <option value="EK">EK</option>
+                                                                            <option value="EY">EY</option>
+                                                                            <option value="FZ">FZ </option>	
+                                                                            <option value="GF">GF </option>
+                                                                            <option value="G9">G9 </option>
+                                                                            <option value="G8">G8 </option>	
+                                                                            <option value="H9">H9</option>
+                                                                            <option value="J9">J9</option>
+                                                                            <option value="KU">KU</option>
+                                                                            <option value="MH">MH</option>
+                                                                            <option value="MS">MS </option>	
+                                                                            <option value="OD">OD</option>	
+                                                                            <option value="OV">OV</option>
+                                                                            <option value="QR">QR </option>	
+                                                                            <option value="UL">UL</option>                                                                          
+                                                                            <option value="UK">UK</option>
+                                                                            <option value="SV">SV</option>
+                                                                            <option value="SQ">SQ </option>
+                                                                            <option value="SL">SL</option>
+                                                                            <option value="SG">SG </option>
+                                                                            <option value="TK">TK </option>	                                                                       
+                                                                            <option value="TG">TG </option>  	
+                                                                            <option value="VQ">VQ </option>                                                                                                                                                    
+                                                                            <option value="WY">WY</option>   
+                                                                        </select>
+                                                                	</div>
+																</div>
+																<div class="col-md-1">
 																<div class="form-group">
-																	<label>To</label>
-																	<input type="text" name="to5" class="form-control">
+																	<label>From</label>
+																	<select name="from5" class="select form-control" required >
+                                                                            <option value="" disabled selected>*</option>
+                                                                            <?php
+                                                                                $sql = "SELECT DISTINCT code FROM airports order by code";
+                                                                                $result = $conn->query($sql);
+                                
+                                                                                if ($result->num_rows > 0) {
+                                                                                while($row = $result->fetch_assoc()) {
+                                                                                    $vnName = $row["code"];	
+                                                                                    echo "<option value=\"$vnName\">".$row["code"]."</option>";                                                                                 
+                                                                                }
+                                                                            }
+                                                                                ?>
+                                                                            
+                                                                </select>
 																</div>
 															</div>
+															<div class="col-md-1">
+																<div class="form-group">
+																	<label>To</label>
+																	<select name="to5" class="select form-control" required >
+                                                                            <option value="" disabled selected>*</option>
+                                                                            <?php
+                                                                                $sql = "SELECT DISTINCT code FROM airports order by code";
+                                                                                $result = $conn->query($sql);
+                                
+                                                                                if ($result->num_rows > 0) {
+                                                                                while($row = $result->fetch_assoc()) {
+                                                                                    $vnName = $row["code"];	
+                                                                                    echo "<option value=\"$vnName\">".$row["code"]."</option>";                                                                                 
+                                                                                }
+                                                                            }
+                                                                                ?>
+                                                                            
+                                                                </select>
+																</div>
+															</div>
+
+															<div class="col-md-2">
+                                                                <div class="form-group">
+                                                                    <label>Ticket Type :</label>
+                                                                    <select name="tickettype5" class="select form-control" >
+                                                                            <option value="" disabled selected>Ticket Type</option>
+                                                                            <option value="Non Refundable">Non Refundable</option>
+                                                                            <option value="Refundable">Refundable</option>	
+                                                                            <option value="Refund Adjusted">Refund Adjusted </option>	
+                                                                            
+                                                                        </select>
+                                                                </div>
+                                                            </div>
+															<div class="col-md-2">
+                                                                <div class="form-group">
+                                                                    <label>Way:</label>
+                                                                    <select name="way5" class="select form-control" >
+                                                                            <option value="" disabled selected>Way</option>
+                                                                            <option value="One Way">One Way</option>
+                                                                            <option value="Round Trip">Round Trip</option>	
+                                                                            <option value="Multiple City">Multiple City</option>	
+                                                                            
+                                                                        </select>
+                                                                </div>
+                                                            </div>
 														
-                                                        <div class="col-md-3">
+                                                        <div class="col-md-2">
 															<div class="form-group">
 																<label>Amount</label>
 																<input type="number" name="price5" class="form-control">
