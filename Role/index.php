@@ -7,13 +7,12 @@ include('../session.php');
 ?>
 
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-	<title>Sales Quatation</title>
+	<title>Money Reciept</title>
 	<!-- Favicon -->
 	<link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.png">
 	<!-- Bootstrap CSS -->
@@ -38,12 +37,11 @@ include('../session.php');
 			
 			<!-- Logo -->
 			<div class="header-left">
-				<a href="index.php" class="logo">
+				<a href="../index.php" class="logo">
 					<img src="../logo.png" alt="Logo">
 				</a>
-				<a href="index.php" class="logo logo-small">
-					<img src="../assets/img/logo-small.png" alt="Logo" width="30" height="30"> -->
-
+				<a href="../index.php" class="logo logo-small">
+					<img src="../logo.png" alt="Logo" width="30" height="30">
 				</a>
 			</div>
 			<!-- /Logo -->
@@ -84,7 +82,7 @@ include('../session.php');
 									<a href="#">
 										<div class="media">
 											<span class="avatar avatar-sm">
-												<img class="avatar-img rounded-circle" alt="User Image" src="assets/img/profile.jpg">
+												<img class="avatar-img rounded-circle" alt="User Image" src="../assets/img/profile.jpg">
 											</span>
 											<div class="media-body">
 												<p class="noti-details"><span class="noti-title">Ashik </span> Schedule <span class="noti-title">Her appointment</span></p>
@@ -115,13 +113,13 @@ include('../session.php');
 							</div>
 							<div class="user-text">
 								<!-- #Username -->
-								<h6> <?php echo $userName; ?> </h6>
-                                <p class="text-muted mb-0"><?php echo $userRole; ?></p>
+								<h6>Admin</h6>
+								<p class="text-muted mb-0">Administrator</p>
 							</div>
 						</div>
 						<a class="dropdown-item" href="">My Profile</a>
 						<a class="dropdown-item" href="">Settings</a>
-						<a class="dropdown-item" href="../logout.php">Logout</a>
+						<a class="dropdown-item" href="logout.php">Logout</a>
 					</div>
 				</li>
 				<!-- /User Menu -->
@@ -131,12 +129,9 @@ include('../session.php');
 		</div>
 		<!-- /Header -->
 
-		 
-      <!-- Sidebar -->
+		 <!-- Sidebar -->
 
-       <!-- Sidebar -->
-
-       <?php if($userRole == 'reservation'){
+         <?php if($userRole == 'reservation'){
 
             print "<div class='sidebar' id='sidebar'>
                 <div class='sidebar-inner slimscroll'>
@@ -164,11 +159,11 @@ include('../session.php');
                                         
                                     </ul>
                             </li>
-							<li>
+                            <li>
                                 <a data-toggle='dropdown'><i class='fe fe-layout'></i> <span> Role</span></a>
                                     <ul>
-                                    <li><a href='../Role'><i class='fe fe-layout'> </i> <span> All Role </span></a></li>
-                                        <li><a href='../Role/AddRole.php'><i class='fe fe-layout'> </i> <span> Add Role </span></a></li>
+                                    <li><a href='../'><i class='fe fe-layout'> </i> <span> All Role </span></a></li>
+                                        <li><a href='AddRole.php'><i class='fe fe-layout'> </i> <span> Add Role </span></a></li>
                                         
                                     </ul>
                             </li>
@@ -217,7 +212,7 @@ include('../session.php');
                         <a href='dashboard.php'><i class='fe fe-home'></i> <span>Dashboard</span></a>
                     </li>
                     <li>
-                        <a href='salesQuotation.php'><i class='fe fe-layout'></i> <span>Sales Quotation</span></a>
+                        <a href='SalesQuatation'><i class='fe fe-layout'></i> <span>Sales Quotation</span></a>
                     </li>
                     <li>
                         <a data-toggle='dropdown'><i class='fe fe-layout'></i> <span>Invoice</span></a>
@@ -242,34 +237,27 @@ include('../session.php');
                         <a href='expense.php'><i class='fe fe-layout'></i> <span>Expense</span></a>
                     </li>
                     <li>
-                        <a href='moneyReceipt.php'><i class='fe fe-layout'></i> <span>Money Receipt</span></a>
+                        <a href='MoneyReceipt.php'><i class='fe fe-layout'></i> <span>Money Receipt</span></a>
                     </li>
 
                     <li>
-                        <a href='payment.php'><i class='fe fe-layout'></i> <span>Payment</span></a>
+                        <a href='Customer.php.php'><i class='fe fe-layout'></i> <span>Payment</span></a>
                     </li>
                     <li>
                         <a href='Salary/SalarySheet.php'><i class='fe fe-layout'></i> <span>Salary</span></a>
                     </li>
                     <li>
-                        <a href='project.php'><i class='fe fe-layout'></i> <span>Project</span></a>
+                        <a href='Customer.php.php'><i class='fe fe-layout'></i> <span>Payment</span></a>
                     </li>
                     <li>
                         <a href='employees.php'><i class='fe fe-layout'></i> <span>Employees</span></a>
                     </li>
-                    <li>
-                        <a href='Report.php'><i class='fe fe-layout'></i> <span>Report</span></a>
-                    </li>
-
-                    <li>
-                        <a href='refund.php'><i class='fe fe-layout'></i> <span>Refund</span></a>
-                    </li>
                     
-
                 </ul>
             </div>
             </div>
-            </div>";}elseif($userRole == 'admin'){
+            </div>";
+            }elseif($userRole == 'admin'){
             echo "<div class='sidebar' id='sidebar'>
             <div class='sidebar-inner slimscroll'>
             <div id='sidebar-menu' class='sidebar-menu'>
@@ -303,6 +291,7 @@ include('../session.php');
             
             ?>	
             <!--- Sidebar --->
+		
 
 		<!-- Page Wrapper -->
 		<div class="page-wrapper">
@@ -312,10 +301,10 @@ include('../session.php');
 				<div class="page-header">
 					<div class="row">
 						<div class="col-sm-12">
-							<h3 class="page-title">AirTicket Quatation</h3>
+							<h3 class="page-title">User Role</h3>
 							<ul class="breadcrumb">
 								<li class="breadcrumb-item"><a href="Employees.php">Dashboard</a></li>
-								<li class="breadcrumb-item active">AirTicket Quatation</li>
+								<li class="breadcrumb-item active">User Role</li>
 							</ul>
 						</div>
 					</div>
@@ -329,9 +318,14 @@ include('../session.php');
 					<div class="col-md-12">
 							<div class="card">
 								<div class="card-header">
-									<h4 class="card-title">AirTicket Quatation Details</h4>
+									
 									<div class="text-right">
-										<a href="AddAirTicket.php" class="btn btn-primary"> Create +</a>
+
+										<?php if($AddPermission == 'yes'){
+                                            echo '<a href="AddRole.php" class="btn btn-primary"> Create +</a>';
+                                         }else{
+
+                                         } ?>
 									</div>
 								</div>
 								
@@ -340,50 +334,32 @@ include('../session.php');
 										<table class="datatable table table-stripped">
 											<thead>
 												<tr>
-													<th>Quatation No</th>
-													<th>Issue Date</th>
-													<th>Amount</th>													
-													<th>createdBy</th>
-													<th>Client Name</th>
-													<th>Pax No</th>
+													
+													<th>Name</th>
+													<th>Email</th>
+													<th>Role</th>													
 													<th>Action</th>
-													<th>Invoice</th>
+                                                    <th></th>
 												</tr>
 											</thead>
 											<tbody>
 											<?php
 
-												$sql = "SELECT
-                                                        sqNo,
-                                                        createdDate,
-                                                        createdBy,
-                                                        clientName,
-                                                        pax,
-                                                        SUM(
-                                                            cost1 + cost2 + cost3 + cost4 + cost5
-                                                        ) AS Amount
-                                                    FROM
-                                                        `salesqutation`
-                                                    GROUP BY
-                                                        sqNo DESC";
-
+												$sql = "SELECT *  FROM `users` ORDER BY id DESC";
 												$result = $conn->query($sql);
 
 												if ($result->num_rows > 0) {
   												while($row = $result->fetch_assoc()) {	
-													$SQT = $row["sqNo"];
-													echo "<tr><td>".$row["sqNo"]."</td>
-																<td>".$row["createdDate"]."</td> 
-														 		<td>".$row["Amount"]."</td>
-																<td>".$row["createdBy"]."</td>
-																<td>".$row["clientName"]."</td>
-																<td>".$row["pax"]."</td>
-																<td><a href='Invoice.php?SQT=$SQT' class='btn btn-primary'> View </a></td>
-																<td><a href='../AirInvoice/AirTicket.php?SQT=$SQT' class='btn btn-primary'> Make Invoice </a></td>
+													$Rno = $row["id"];
+													echo "<tr><td>".$row["username"]."</td>
+																<td>".$row["email"]."</td> 
+														 		<td>".$row["role"]."</td>
+																<td><a href='Moneyreciept/Invoice.php?Rno=$Rno' class='btn btn-primary'> View </a><td>
 																 </tr>";   											
 												  }
 												} else {
   												
+
 											    }
 												?>
 											</tbody>
@@ -397,6 +373,7 @@ include('../session.php');
 				</div>
 				<!-- /Page Wrapper -->
 			</div>
+			<!-- /Main Wrapper -->
 			<!-- jQuery -->
 			<script src="../assets/js/jquery-3.2.1.min.js"></script>
 			<!-- Bootstrap Core JS -->
@@ -409,5 +386,5 @@ include('../session.php');
 			<script src="../assets/plugins/datatables/datatables.min.js"></script>
 			<!-- Custom JS -->
 			<script  src="../assets/js/script.js"></script>
-	</body>
-</html>
+		</body>
+		</html>

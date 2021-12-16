@@ -161,6 +161,14 @@ include('../session.php');
 										
 									</ul>
 							</li>
+							<li>
+                                <a data-toggle='dropdown'><i class='fe fe-layout'></i> <span> Role</span></a>
+                                    <ul>
+                                    <li><a href='../Role'><i class='fe fe-layout'> </i> <span> All Role </span></a></li>
+                                        <li><a href='../Role/AddRole.php'><i class='fe fe-layout'> </i> <span> Add Role </span></a></li>
+                                        
+                                    </ul>
+                            </li>
 							
 						</ul>
 					</div>
@@ -333,7 +341,6 @@ include('../session.php');
 													<th>INV ID</th>
 													<th>Issue Date</th>
 													<th>Amount</th>
-													<th>Cabin Class</th>
 													<th>Vendor Cost</th>
 													<th>Profit</th>
 													<th>Client Name</th>
@@ -350,7 +357,6 @@ include('../session.php');
 														invoice.createdtime,
 														SUM(airticket.vPrice1 + airticket.vPrice2 + airticket.vPrice3 + airticket.vPrice4 + airticket.vPrice1) As vCost,
 														invoice.pax,
-														invoice.class,
 														invoice.clientName,
 														SUM(
 															airticket.cost1 + airticket.cost2 + airticket.cost3 + airticket.cost4 + airticket.cost5
@@ -369,7 +375,6 @@ include('../session.php');
 													echo "<tr><td>".$row["invNo"]."</td>
 																<td>".$row["createdtime"]."</td> 
 														 		<td>".$row["Amount"]."</td>
-																<td>".$row["class"]."</td>
 														 		<td>".$row["vCost"]."</td>
 																<td>".$Profit."</td>
 																<td>".$row["clientName"]."</td>

@@ -148,7 +148,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $Client_Name = $_POST['client'];
     $Pax_No = $_POST['pax'];
     $System =  $_POST['system'];
-    $Class =  $_POST['class'];
     $Rev_Officer = $_POST['revofficer'];
 
 
@@ -157,8 +156,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         `clientName`,
         `pax`,
         `system`,
-        `class`,
-        `ticketType`,
         `recofficer`
     )
     VALUES(
@@ -166,7 +163,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         '$Client_Name',
         '$Pax_No',
         '$System',
-        '$Class',
         '$Rev_Officer'
     )";
 
@@ -445,7 +441,6 @@ if (mysqli_query($conn, $invoice)) {
 	<!-- Feathericon CSS -->
 	<link rel="stylesheet" href="../assets/css/feathericon.min.css">
 
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<!-- Datatables CSS -->
 	<link rel="stylesheet" href="../assets/plugins/datatables/datatables.min.css">
 	<!-- Main CSS -->
@@ -455,44 +450,44 @@ if (mysqli_query($conn, $invoice)) {
 <body>
 	
 	<!-- Main Wrapper -->
-	<div class="main-wrapper">
-		
-		<!-- Header -->
-		<div class="header">
-			
-			<!-- Logo -->
-			<div class="header-left">
-				<a href="../index.php" class="logo">
-					 <img src="../logo.png" alt="Logo">
-				</a>
-				<a href="../index.php" class="logo logo-small">
-					<img src="../logo.png" alt="Logo" width="30" height="30">
-					<h4>YOUR LOGO</h4>
-				</a>
-			</div>
-			<!-- /Logo -->
+    <div class="main-wrapper">
 
-			<a href="javascript:void(0);" id="toggle_btn">
-				<i class="fe fe-text-align-left"></i>
-			</a>
+        <!-- Header -->
+        <div class="header">
 
-			<div class="top-nav-search">
-				<form>
-					<input type="text" name="search" class="form-control" placeholder="Search here">
-					<button class="btn" type="submit"><i class="fa fa-search"></i></button>
-				</form>
-			</div>
+            <!-- Logo -->
+            <div class="header-left">
+                <a href="index.php" class="logo">
+                    <img src="../logo.png" alt="Logo">
 
-			<!-- Mobile Menu Toggle -->
-			<a class="mobile_btn" id="mobile_btn">
-				<i class="fa fa-bars"></i>
-			</a>
-			<!-- /Mobile Menu Toggle -->
+                </a>
+                <a href="index.php" class="logo logo-small">
+                    <img src="../logo.png" alt="Logo" width="30" height="30">
+                </a>
+            </div>
+            <!-- /Logo -->
 
-			<!-- Header Right Menu -->
-			<ul class="nav user-menu">
+            <a href="javascript:void(0);" id="toggle_btn">
+                <i class="fe fe-text-align-left"></i>
+            </a>
 
-				<!-- Notifications -->
+            <div class="top-nav-search">
+                <form>
+                    <input type="text" class="form-control" placeholder="Search here">
+                    <button class="btn" type="submit"><i class="fa fa-search"></i></button>
+                </form>
+            </div>
+
+            <!-- Mobile Menu Toggle -->
+            <a class="mobile_btn" id="mobile_btn">
+                <i class="fa fa-bars"></i>
+            </a>
+            <!-- /Mobile Menu Toggle -->
+
+            <!-- Header Right Menu -->
+            <ul class="nav user-menu">
+
+                <!-- Notifications -->
 				<li class="nav-item dropdown noti-dropdown">
 					<a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
 						<i class="fe fe-bell"></i> <span class="badge badge-pill">1</span>
@@ -527,33 +522,34 @@ if (mysqli_query($conn, $invoice)) {
 				</li>
 				<!-- /Notifications -->
 
-				<!-- User Menu -->
-				<li class="nav-item dropdown has-arrow">
-					<a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-						<span class="user-img"><img class="rounded-circle" src="assets/img/profile.jpg" width="31" alt="Ryan Taylor"></span>
-					</a>
-					<div class="dropdown-menu">
-						<div class="user-header">
-							<div class="avatar avatar-sm">
-								<img src="assets/img/profile.jpg" alt="User Image" class="avatar-img rounded-circle">
-							</div>
-							<div class="user-text">
-								<!-- #Username -->
-								<h6>Admin</h6>
-								<p class="text-muted mb-0">Administrator</p>
-							</div>
-						</div>
-						<a class="dropdown-item" href="">My Profile</a>
-						<a class="dropdown-item" href="">Settings</a>
-						<a class="dropdown-item" href="../logout.php">Logout</a>
-					</div>
-				</li>
-				<!-- /User Menu -->
-			</ul>
-			<!-- /Header Right Menu -->
+                <!-- User Menu -->
+                <li class="nav-item dropdown has-arrow">
+                    <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+                        <span class="user-img"><img class="rounded-circle" src="assets/img/profile.jpg" width="31"
+                                alt="Ryan Taylor"></span>
+                    </a>
+                    <div class="dropdown-menu">
+                        <div class="user-header">
+                            <div class="avatar avatar-sm">
+                                <img src="assets/img/profile.jpg" alt="User Image" class="avatar-img rounded-circle">
+                            </div>
+                            <div class="user-text">
+                                <!-- #Username -->
+                                <h6> <?php echo $userName; ?> </h6>
+                                <p class="text-muted mb-0"><?php echo $userRole; ?></p>
+                            </div>
+                        </div>
+                        <a class="dropdown-item" href="">My Profile</a>
+                        <a class="dropdown-item" href="">Settings</a>
+                        <a class="dropdown-item" href="logout.php">Logout</a>
+                    </div>
+                </li>
+                <!-- /User Menu -->
+            </ul>
+            <!-- /Header Right Menu -->
 
-		</div>
-		<!-- /Header -->
+        </div>
+        <!-- /Header -->
 
                     <!-- Sidebar -->
 
@@ -573,7 +569,7 @@ if (mysqli_query($conn, $invoice)) {
                             <li>
                             <a data-toggle='dropdown'><i class='fe fe-layout'></i> <span>Sales Quatation</span></a>
                                 <ul>
-                                    <li><a href='../SalesQuatation/AddAirTicket.php'><i class='fe fe-layout'> </i> <span> Air Ticket</span></a></li>
+                                    <li><a class='active' href='../SalesQuatation'><i class='fe fe-layout'> </i> <span> Air Ticket</span></a></li>
                                     
                                 </ul>
                             </li>
@@ -581,8 +577,16 @@ if (mysqli_query($conn, $invoice)) {
                             <li>
                                 <a data-toggle='dropdown'><i class='fe fe-layout'></i> <span> Invoice</span></a>
                                     <ul>
-                                        <li><a href='AirInvoice/AirInvoice'><i class='fe fe-layout'> </i> <span> Air Ticket </span></a></li>
+                                        <li><a href='../AirInvoice'><i class='fe fe-layout'> </i> <span> Air Ticket </span></a></li>
                                        
+                                    </ul>
+                            </li>
+                            <li>
+                                <a data-toggle='dropdown'><i class='fe fe-layout'></i> <span> Role</span></a>
+                                    <ul>
+                                    <li><a href='../Role'><i class='fe fe-layout'> </i> <span> All Role </span></a></li>
+                                        <li><a href='../Role/AddRole.php'><i class='fe fe-layout'> </i> <span> Add Role </span></a></li>
+                                        
                                     </ul>
                             </li>
                             
@@ -756,8 +760,7 @@ if (mysqli_query($conn, $invoice)) {
 									<div class="card-body">
 										<form action="#" autocomplete="off" method="post">
 											<div class="row">
-												<div class="col-md-12">
-													<h4 class="card-title">Invoice Details</h4>
+												<div class="col-md-12">													
 													<div class="row">
 
 													<div class="col-md-3">
@@ -773,16 +776,12 @@ if (mysqli_query($conn, $invoice)) {
 															</div>
 														</div>
                                                         
-														<div class="col-md-3">
+														<div class="col-md-1">
 															<div class="form-group">
 																<label>Pax No</label>
-																<input type="number" name="pax" value="<?php echo $Pax_No ?>" class="form-control"  required>
+																<input type="number" name="pax" value="<?php echo $Pax_No ?>" min="1" max="5" class="form-control"  required>
 															</div>
 														</div>
-														
-													</div>
-                                                    <div class="row">
-
                                                         <div class="col-md-3">
                                                                 <div class="form-group">
                                                                     <label>System</label>
@@ -801,28 +800,17 @@ if (mysqli_query($conn, $invoice)) {
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-md-3">
-                                                                <div class="form-group">
-                                                                    <label>Class</label>
-                                                                    <select name="class" class="select form-control"  required>
-                                                                            <option value="" disabled selected>Cabin Class</option>
-                                                                            <option value="Economy">Economy</option>
-                                                                            <option value="Premium Economy">Premium Economy</option>	
-                                                                            <option value="Business">Business</option>	
-                                                                            <option value="First Class">First Class</option>	
-                                                                            
-                                                                        </select>
-                                                                </div>
-                                                            </div>
                                                             
-                                                            <div class="col-md-3">
+                                                            
+                                                            <div class="col-md-2">
                                                                 <div class="form-group">
                                                                     <label>Reservation officer</label>
                                                                     <input type="name" name="revofficer" class="form-control"  required>
                                                                 </div>
                                                             </div>
-                                                            
-                                                        </div>
+														
+													</div>
+
 
                                                     <div class="row">
                                                         <div class="col-md-2">
@@ -887,7 +875,7 @@ if (mysqli_query($conn, $invoice)) {
                                                                 <div class="form-group">
                                                                     <label>From</label>
                                                                     <select name="from1" class="select form-control"  >
-                                                                            <option value="" disabled selected>Choose</option>
+                                                                            <option value="" disabled selected>*</option>
                                                                            
                                                                             <?php
                                                                                 $sql = "SELECT DISTINCT code FROM airports order by code";
@@ -909,7 +897,7 @@ if (mysqli_query($conn, $invoice)) {
                                                                 <div class="form-group">
                                                                     <label>To</label>
                                                                     <select name="to1" class="select form-control"  >
-                                                                            <option value="" disabled selected>Choose</option>
+                                                                            <option value="" disabled selected>*</option>
                                                                            
                                                                             <?php
                                                                                 $sql = "SELECT DISTINCT code FROM airports order by code";
@@ -1048,7 +1036,7 @@ if (mysqli_query($conn, $invoice)) {
                                                                 <div class="form-group">
                                                                     <label>From</label>
                                                                     <select name="from2" class="select form-control"  >
-                                                                            <option value="" disabled selected>Choose</option>
+                                                                            <option value="" disabled selected>*</option>
                                                                             <option value="<?php echo $from2 ?>" selected><?php echo $from2 ?></option>
                                                                             <?php
                                                                                 $sql = "SELECT DISTINCT code FROM airports order by code";
@@ -1069,7 +1057,7 @@ if (mysqli_query($conn, $invoice)) {
                                                                 <div class="form-group">
                                                                     <label>To</label>
                                                                     <select name="to2" class="select form-control"  >
-                                                                            <option value="" disabled selected>Choose</option>
+                                                                            <option value="" disabled selected>*</option>
                                                                             <option value="<?php echo $to2 ?>" selected><?php echo $to2 ?></option>
                                                                             <?php
                                                                                 $sql = "SELECT DISTINCT code FROM airports order by code";
@@ -1208,7 +1196,7 @@ if (mysqli_query($conn, $invoice)) {
                                                                 <div class="form-group">
                                                                     <label>From</label>
                                                                     <select name="from3" class="select form-control"  >
-                                                                            <option value="" disabled selected>Choose</option>
+                                                                            <option value="" disabled selected>*</option>
                                                                             <?php
                                                                                 $sql = "SELECT DISTINCT code FROM airports order by code";
                                                                                 $result = $conn->query($sql);
@@ -1229,7 +1217,7 @@ if (mysqli_query($conn, $invoice)) {
                                                                 <div class="form-group">
                                                                     <label>To</label>
                                                                     <select name="to3" class="select form-control"  >
-                                                                            <option value="" disabled selected>Choose</option>
+                                                                            <option value="" disabled selected>*</option>
 
                                                                             <?php
                                                                                 $sql = "SELECT DISTINCT code FROM airports order by code";
@@ -1282,7 +1270,7 @@ if (mysqli_query($conn, $invoice)) {
 															<div class="form-group">
 																<label>Vendor :</label>
 																<select name="vendor3" class="select form-control"  >
-                                                                            <option value="" disabled selected>Choose</option>
+                                                                            <option value="" disabled selected>*</option>
                                                                             <?php
                                                                                 $sql = "SELECT *  FROM `vendor` ORDER BY name DESC";
                                                                                 $result = $conn->query($sql);
@@ -1369,7 +1357,7 @@ if (mysqli_query($conn, $invoice)) {
                                                                 <div class="form-group">
                                                                     <label>From</label>
                                                                     <select name="from4" class="select form-control"  >
-                                                                            <option value="" disabled selected>Choose</option>
+                                                                            <option value="" disabled selected>*</option>
                                                                             <option value="<?php echo $from4 ?>" selected><?php echo $from4 ?></option>
                                                                             <?php
                                                                                 $sql = "SELECT DISTINCT code FROM airports order by code";
@@ -1390,7 +1378,7 @@ if (mysqli_query($conn, $invoice)) {
                                                                 <div class="form-group">
                                                                     <label>To</label>
                                                                     <select name="to4" class="select form-control"  >
-                                                                            <option value="" disabled selected>Choose</option>
+                                                                            <option value="" disabled selected>*</option>
                                                                             <option value="<?php echo $to4 ?>" selected><?php echo $to4 ?></option>
                                                                             <?php
                                                                                 $sql = "SELECT DISTINCT code FROM airports order by code";
@@ -1443,7 +1431,7 @@ if (mysqli_query($conn, $invoice)) {
 															<div class="form-group">
 																<label>Vendor :</label>
 																<select name="vendor4" class="select form-control"  >
-                                                                            <option value="" disabled selected>Choose</option>
+                                                                            <option value="" disabled selected>*</option>
                                                                             <?php
                                                                                 $sql = "SELECT *  FROM `vendor` ORDER BY name DESC";
                                                                                 $result = $conn->query($sql);
@@ -1530,7 +1518,7 @@ if (mysqli_query($conn, $invoice)) {
                                                                 <div class="form-group">
                                                                     <label>From</label>
                                                                     <select name="from5" class="select form-control"  >
-                                                                            <option value="" disabled selected>Choose</option>
+                                                                            <option value="" disabled selected>*</option>
                                                                             <?php
                                                                                 $sql = "SELECT DISTINCT code FROM airports order by code";
                                                                                 $result = $conn->query($sql);
@@ -1542,7 +1530,7 @@ if (mysqli_query($conn, $invoice)) {
                                                                                 }
                                                                             }
                                                                                 ?>
-                                                                                <option value="<?php echo $fromn5 ?>" selected><?php echo $from5 ?></option>
+                                                                                <option value="<?php echo $from5 ?>" selected><?php echo $from5 ?></option>
                                                                             
                                                                 </select>
                                                                 </div>
@@ -1551,8 +1539,8 @@ if (mysqli_query($conn, $invoice)) {
                                                                 <div class="form-group">
                                                                     <label>To</label>
                                                                     <select name="to5" class="select form-control"  >
-                                                                            <option value="" disabled selected>Choose</option>
-                                                                            <option value="<?php echo $to5 ?>" selected><?php echo $to5 ?></option>
+                                                                            <option value="" disabled selected>*</option>
+                                                                            
                                                                             <?php
                                                                                 $sql = "SELECT DISTINCT code FROM airports order by code";
                                                                                 $result = $conn->query($sql);
@@ -1564,6 +1552,7 @@ if (mysqli_query($conn, $invoice)) {
                                                                                 }
                                                                             }
                                                                                 ?>
+                                                                            <option value="<?php echo $to5 ?>" selected><?php echo $to5 ?></option>
                                                                             
                                                                 </select>
                                                                 </div>
@@ -1623,7 +1612,7 @@ if (mysqli_query($conn, $invoice)) {
                                                             <div class="col-md-1">
                                                                 <div class="form-group">
                                                                     <label>Vndr Cost</label>
-                                                                    <input type="text" name="vprice5" class="form-control"  >
+                                                                    <input type="number" name="vprice5" class="form-control"  >
                                                                 </div>
                                                             </div>													
                                                     </div>
@@ -1658,7 +1647,7 @@ if (mysqli_query($conn, $invoice)) {
 			</script>
 			
 			<!-- jQuery -->
-			<script src="../assets/js/jquery-3.2.1.min.js"></script>
+            <script src="../assets/js/jquery-3.2.1.min.js"></script>
 			<!-- Bootstrap Core JS -->
 			<script src="../assets/js/popper.min.js"></script>
 			<script src="../assets/js/bootstrap.min.js"></script>

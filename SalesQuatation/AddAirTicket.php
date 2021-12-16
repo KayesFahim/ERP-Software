@@ -310,22 +310,22 @@ if ($result->num_rows > 0) {
 				<!-- User Menu -->
 				<li class="nav-item dropdown has-arrow">
 					<a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-						<span class="user-img"><img class="rounded-circle" src="assets/img/profile.jpg" width="31" alt="Ryan Taylor"></span>
+						<span class="user-img"><img class="rounded-circle" src="../assets/img/profile.jpg" width="31" alt="Ryan Taylor"></span>
 					</a>
 					<div class="dropdown-menu">
 						<div class="user-header">
 							<div class="avatar avatar-sm">
-								<img src="assets/img/profile.jpg" alt="User Image" class="avatar-img rounded-circle">
+								<img src="../assets/img/profile.jpg" alt="User Image" class="avatar-img rounded-circle">
 							</div>
 							<div class="user-text">
 								<!-- #Username -->
-								<h6> <?php echo $login_session; ?> </h6>
+								<h6> <?php echo $userName; ?> </h6>
                                 <p class="text-muted mb-0"><?php echo $userRole; ?></p>
 							</div>
 						</div>
 						<a class="dropdown-item" href="">My Profile</a>
 						<a class="dropdown-item" href="">Settings</a>
-						<a class="dropdown-item" href="logout.php">Logout</a>
+						<a class="dropdown-item" href="../logout.php">Logout</a>
 					</div>
 				</li>
 				<!-- /User Menu -->
@@ -354,7 +354,7 @@ if ($result->num_rows > 0) {
 							<li>
 							<a data-toggle='dropdown'><i class='fe fe-layout'></i> <span>Sales Quatation</span></a>
 								<ul>
-									<li><a href='SalesQuatation'><i class='fe fe-layout'> </i> <span> Air Ticket</span></a></li>
+									<li><a href='../SalesQuatation'><i class='fe fe-layout'> </i> <span> Air Ticket</span></a></li>
 									
 								</ul>
 							</li>
@@ -366,6 +366,14 @@ if ($result->num_rows > 0) {
 										
 									</ul>
 							</li>
+							<li>
+                                <a data-toggle='dropdown'><i class='fe fe-layout'></i> <span> Role</span></a>
+                                    <ul>
+                                    <li><a href='../Role'><i class='fe fe-layout'> </i> <span> All Role </span></a></li>
+                                        <li><a href='../Role/AddRole.php'><i class='fe fe-layout'> </i> <span> Add Role </span></a></li>
+                                        
+                                    </ul>
+                            </li>
 							
 						</ul>
 					</div>
@@ -381,7 +389,7 @@ print "<div class='sidebar' id='sidebar'>
 			 <span>Main</span>
 		 </li>
 		 <li>
-			 <a href='dashboard.php'><i class='fe fe-home'></i> <span>Dashboard</span></a>
+			 <a href='Dashboard.php'><i class='fe fe-home'></i> <span>Dashboard</span></a>
 		 </li>
 		 
 		 <li>
@@ -570,7 +578,7 @@ echo "<div class='sidebar' id='sidebar'>
 														<div class="col-md-4">
 															<div class="form-group">
 																<label>Pax No</label>
-																<input type="number" name="pax" class="form-control" required>
+																<input type="number" name="pax" min="1" max="5" class="form-control" required>
 															</div>
 														</div>
 														
@@ -1177,7 +1185,7 @@ echo "<div class='sidebar' id='sidebar'>
                                             </div>
 
 											<div class="text-right">
-												<button type="submit" class="btn btn-primary"> Generate</button>
+												<button type="submit" class="btn btn-primary"> Create Quatation</button>
 											</div>
 										</form>
 									</div>

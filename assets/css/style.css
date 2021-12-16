@@ -1675,7 +1675,7 @@ html.menu-opened body {
     position: fixed;
     top: 60px;
     transition: all 0.2s ease-in-out 0s;
-    width: 240px;
+    width: 200px;
     z-index: 1001;
 }
 .sidebar.opened {
@@ -1974,13 +1974,13 @@ html.menu-opened body {
 	min-height: 100vh;
 }
 .page-wrapper {
-	margin-left: 240px;
-	padding-top: 60px;
+	margin-left: 200px;
+	padding-top: 40px;
 	position: relative;
 	transition: all 0.4s ease;
 }
 .page-wrapper > .content {
-	padding: 1.875rem 1.875rem 0;
+	padding: 1.575rem 1.275rem 0;
 }
 .page-header {
 	margin-bottom: 1.875rem;

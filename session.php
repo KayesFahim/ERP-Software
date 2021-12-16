@@ -11,8 +11,10 @@
    $login_session = $row['email'];
    $userRole = $row['role'];
    $userName = $row['username'];
-
-   
+   $AddPermission = $row['add'];
+   $EditPermission = $row['edit'];
+   $DeletePermission = $row['delete'];
+  
    if(!isset($_SESSION['login_user'])){
       header("location:../index.php");
       die();

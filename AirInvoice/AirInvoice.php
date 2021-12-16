@@ -15,7 +15,6 @@ while($row1 = $result1->fetch_assoc()) {
   $Created_By = $row1['createdBy'];
   $Pax_No = $row1['pax'];
   $System =  $row1['system'];
-  $Class =  $row1['class'];
   $Rev_Officer = $row1['recofficer'];
   }
 }
@@ -35,7 +34,7 @@ while($row = $result->fetch_assoc()) {
         $from1 = $row['placeFrom1'];
         $to1 = $row['placeTo1'];
         $way1 = $row['way1'];        
-        $Ticket_Type1 = $row['cost1']; 
+        $Ticket_Type1 = $row['ticketType1']; 
         $price1 = $row['cost1']; 
     
         //Pax2
@@ -43,8 +42,10 @@ while($row = $result->fetch_assoc()) {
         $pnr2 = $row['PNR2'];
         $ticket2 = $row['TicketNo2'];
         $airlines2 = $row['Airlines2'];
+        $Ticket_Type2 = $row['ticketType2']; 
         $from2 = $row['placeFrom2'];
         $to2 = $row['placeTo2'];
+        $way2 = $row['way2']; 
         $price2 = $row['cost2'];
         
     
@@ -54,8 +55,10 @@ while($row = $result->fetch_assoc()) {
         $pnr3 = $row['PNR3'];
         $ticket3 = $row['TicketNo3'];
         $airlines3 = $row['Airlines3'];
+        $Ticket_Type3 = $row['ticketType3']; 
         $from3 = $row['placeFrom3'];
         $to3 = $row['placeTo3'];
+        $way3 = $row['way3']; 
         $price3 = $row['cost3'];
        
     
@@ -65,8 +68,10 @@ while($row = $result->fetch_assoc()) {
          $pnr4 = $row['PNR4'];
          $ticket4 = $row['TicketNo4'];
          $airlines4 = $row['Airlines4'];
+         $Ticket_Type4 = $row['ticketType4']; 
          $from4 = $row['placeFrom4'];
          $to4 = $row['placeTo4'];
+         $way4 = $row['way4']; 
          $price4 = $row['cost4'];
          
     
@@ -75,8 +80,10 @@ while($row = $result->fetch_assoc()) {
          $pnr5 = $row['PNR5'];
          $ticket5 = $row['TicketNo5'];
          $airlines5 = $row['Airlines5'];
+         $Ticket_Type5 = $row['ticketType5']; 
          $from5 = $row['placeFrom5'];
          $to5 = $row['placeTo5'];
+         $way5 = $row['way5']; 
          $price5 = $row['cost5'];
 						
 	}
@@ -112,16 +119,14 @@ while($row = $result->fetch_assoc()) {
 
         <div class="d-flex">
             <div class="mr-auto p-2">
-              <h5>INVOICE NO: #<?php echo $INV_No; ?> </h5>
+              <h5>#<?php echo $INV_No; ?> </h5>
               <h6>Client Name: <?php echo $Client_Name; ?></h6>
               <h6>Reservation officer: <?php echo $Rev_Officer; ?></h6>
               <h6>Service: Air Ticket</h6>
-              <h6>Cabin Class: <?php echo $Class; ?></h6>
             </div>
             <div class="p-2">
               <h6>Issue Date: <?php echo $Created_Date; ?></h6>
               <h6>Created By: <?php echo $Created_By; ?></h6>
-              <h6>Ticket Type: <?php echo $Ticket_Type; ?></h6>
               <h6>Pax No: <?php echo $Pax_No; ?></h6>
 
 
@@ -139,8 +144,10 @@ while($row = $result->fetch_assoc()) {
                             <th scope="col">PNR</th>
                             <th scope="col">Ticket Number</th>
                             <th scope="col">Airlines</th>
+                            <th scope="col">Type</th>
                             <th scope="col">Place To</th>
                             <th scope="col">Place From</th>
+                            <th scope="col">Way</th>
                             <th scope="col">Price</th>
                             </tr>
                         </thead>
@@ -150,8 +157,10 @@ while($row = $result->fetch_assoc()) {
                             <td><?php echo $pnr1; ?></td>
                             <td><?php echo $ticket1; ?></td>
                             <td><?php echo $airlines1; ?></td>
+                            <td><?php echo $Ticket_Type1; ?></td>
                             <td><?php echo $to1; ?></td>
                             <td><?php echo $from1; ?></td>
+                            <td><?php echo $way1; ?></td>
                             <td><?php echo $price1; ?></td>
                             </tr>
 
@@ -160,8 +169,10 @@ while($row = $result->fetch_assoc()) {
                             <td><?php echo $pnr2; ?></td>
                             <td><?php echo $ticket2; ?></td>
                             <td><?php echo $airlines2; ?></td>
+                            <td><?php echo $Ticket_Type2; ?></td>
                             <td><?php echo $to2; ?></td>
                             <td><?php echo $from2; ?></td>
+                            <td><?php echo $way2; ?></td>
                             <td><?php echo $price2; ?></td>
                             </tr>
                             <tr>
@@ -169,8 +180,10 @@ while($row = $result->fetch_assoc()) {
                             <td><?php echo $pnr3; ?></td>
                             <td><?php echo $ticket3; ?></td>
                             <td><?php echo $airlines3; ?></td>
+                            <td><?php echo $Ticket_Type3; ?></td>
                             <td><?php echo $to3; ?></td>
                             <td><?php echo $from3; ?></td>
+                            <td><?php echo $way3; ?></td>
                             <td><?php echo $price3; ?></td>
                             </tr>
                             <tr>
@@ -178,8 +191,10 @@ while($row = $result->fetch_assoc()) {
                             <td><?php echo $pnr4; ?></td>
                             <td><?php echo $ticket4; ?></td>
                             <td><?php echo $airlines4; ?></td>
+                            <td><?php echo $Ticket_Type4; ?></td>
                             <td><?php echo $to4; ?></td>
                             <td><?php echo $from4; ?></td>
+                            <td><?php echo $way4; ?></td>
                             <td><?php echo $price4; ?></td>
                             </tr>
                             <tr>
@@ -187,14 +202,16 @@ while($row = $result->fetch_assoc()) {
                             <td><?php echo $pnr5; ?></td>
                             <td><?php echo $ticket5; ?></td>
                             <td><?php echo $airlines5; ?></td>
+                            <td><?php echo $Ticket_Type5; ?></td>
                             <td><?php echo $to5; ?></td>
                             <td><?php echo $from5; ?></td>
+                            <td><?php echo $way5; ?></td>
                             <td><?php echo $price5; ?></td>
                             </tr>
                             
                             <tr>
                             
-                            <td rowspan="3" colspan="5" style="text-align:center;"> </td>
+                            <td rowspan="3" colspan="7" style="text-align:center;"> </td>
                             <td>Total</td>
                             <td><?php $Total = $price1 + $price2 + $price3 + $price4 + $price5;
                               echo number_format($Total, 2)
@@ -218,6 +235,12 @@ while($row = $result->fetch_assoc()) {
 
 
     <!-- Optional JavaScript -->
+
+    <script type="text/javascript">
+    <!--
+    window.print();
+    //-->
+    </script>
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
