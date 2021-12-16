@@ -156,14 +156,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         `clientName`,
         `pax`,
         `system`,
-        `recofficer`
+        `recofficer`,
+        `createdBy`
     )
     VALUES(
         '$INV_No',
         '$Client_Name',
         '$Pax_No',
         '$System',
-        '$Rev_Officer'
+        '$Rev_Officer',
+        '$userName'
     )";
 
 if (mysqli_query($conn, $invoice)) {
