@@ -1,7 +1,7 @@
 <?php
 
-include 'config.php';
-include('session.php');
+include '../config.php';
+include('../session.php');
 
 
 ?>
@@ -17,15 +17,15 @@ include('session.php');
 	<!-- Favicon -->
 	<link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.png">
 	<!-- Bootstrap CSS -->
-	<link rel="stylesheet" href="assets/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../assets/css/bootstrap.min.css">
 	<!-- Fontawesome CSS -->
-	<link rel="stylesheet" href="assets/css/font-awesome.min.css">
+	<link rel="stylesheet" href="../assets/css/font-awesome.min.css">
 	<!-- Feathericon CSS -->
-	<link rel="stylesheet" href="assets/css/feathericon.min.css">
+	<link rel="stylesheet" href="../assets/css/feathericon.min.css">
 	<!-- Datatables CSS -->
-	<link rel="stylesheet" href="assets/plugins/datatables/datatables.min.css">
+	<link rel="stylesheet" href="../assets/plugins/datatables/datatables.min.css">
 	<!-- Main CSS -->
-	<link rel="stylesheet" href="assets/css/style.css">
+	<link rel="stylesheet" href="../assets/css/style.css">
 
 </head>
 <body>
@@ -39,10 +39,10 @@ include('session.php');
 			<!-- Logo -->
 			<div class="header-left">
 				<a href="index.php" class="logo">
-					<img src="logo.png" alt="Logo">
+					<img src="../logo.png" alt="Logo">
 				</a>
 				<a href="index.php" class="logo logo-small">
-					<img src="assets/img/logo-small.png" alt="Logo" width="30" height="30"> -->
+					<img src="../logo.png" alt="Logo" width="30" height="30"> -->
 					<h4>YOUR LOGO</h4>
 				</a>
 			</div>
@@ -84,7 +84,7 @@ include('session.php');
 									<a href="#">
 										<div class="media">
 											<span class="avatar avatar-sm">
-												<img class="avatar-img rounded-circle" alt="User Image" src="assets/img/profile.jpg">
+												<img class="avatar-img rounded-circle" alt="User Image" src="../assets/img/profile.jpg">
 											</span>
 											<div class="media-body">
 												<p class="noti-details"><span class="noti-title">Ashik </span> Schedule <span class="noti-title">Her appointment</span></p>
@@ -111,7 +111,7 @@ include('session.php');
 					<div class="dropdown-menu">
 						<div class="user-header">
 							<div class="avatar avatar-sm">
-								<img src="assets/img/profile.jpg" alt="User Image" class="avatar-img rounded-circle">
+								<img src="../assets/img/profile.jpg" alt="User Image" class="avatar-img rounded-circle">
 							</div>
 							<div class="user-text">
 								<!-- #Username -->
@@ -121,7 +121,7 @@ include('session.php');
 						</div>
 						<a class="dropdown-item" href="">My Profile</a>
 						<a class="dropdown-item" href="">Settings</a>
-						<a class="dropdown-item" href="logout.php">Logout</a>
+						<a class="dropdown-item" href="../logout.php">Logout</a>
 					</div>
 				</li>
 				<!-- /User Menu -->
@@ -132,98 +132,14 @@ include('session.php');
 		<!-- /Header -->
 
 		 
-       <!-- Sidebar -->
+       <!--- Sidebar --->
 
-       <?php if($userRole == 'reservation'){
+       <?php
+        include '../sidebar.php';
+        ?>
 
-			print "<div class='sidebar' id='sidebar'>
-				<div class='sidebar-inner slimscroll'>
-					<div id='sidebar-menu' class='sidebar-menu'>
-						<ul>
-							<li class='menu-title'>
-								<span>Main</span>
-							</li>
-							<li>
-								<a href='dashboard.php'><i class='fe fe-home'></i> <span>Dashboard</span></a>
-							</li>
-							
-							<li>
-								<a href='Bill.php'><i class='fe fe-layout'></i> <span>Bill</span></a>
-							</li>
-
-							<li>
-								<a href='MoneyReceipt.php'><i class='fe fe-layout'></i> <span>Money Receipt</span></a>
-							</li>
-							
-						</ul>
-					</div>
-				</div>
-			</div>" ;
-
-			}elseif($userRole == 'admin' || $userRole =='developer'){
-
-			echo "<div class='sidebar' id='sidebar'>
-			<div class='sidebar-inner slimscroll'>
-			<div id='sidebar-menu' class='sidebar-menu'>
-				<ul>
-					<li class='menu-title'>
-						<span>Main</span>
-					</li>
-					<li>
-						<a href='dashboard.php'><i class='fe fe-home'></i> <span>Dashboard</span></a>
-					</li>
-					<li>
-						<a href='salesQuotation.php'><i class='fe fe-layout'></i> <span>Sales Quotation</span></a>
-					</li>
-					<li>
-						<a href='invoice.php'><i class='fe fe-layout'></i> <span>Invoice</span></a>
-					</li>
-					<li>
-						<a data-toggle='dropdown'><i class='fe fe-layout'></i> <span>Accounting</span></a>
-							<ul>
-								<li><a href='CashEquivalent.php'><i class='fe fe-layout'></i> <span>Cash And Cash</span></a></li>
-								<li><a href='access.php'><i class='fe fe-layout'></i> <span>Acces control</span></a> </li>
-								<li><a href='#'><i class='fe fe-layout'></i> Portal</a></li>
-							</ul>
-					</li>
-					<li>
-						<a href='Bill.php'><i class='fe fe-layout'></i> <span>Bill</span></a>
-					</li>
-					<li>
-						<a href='expense.php'><i class='fe fe-layout'></i> <span>Expense</span></a>
-					</li>
-					<li>
-						<a href='moneyReceipt.php'><i class='fe fe-layout'></i> <span>Money Receipt</span></a>
-					</li>
-
-					<li>
-						<a href='payment.php'><i class='fe fe-layout'></i> <span>Payment</span></a>
-					</li>
-					<li>
-						<a href='Salary/SalarySheet.php'><i class='fe fe-layout'></i> <span>Salary</span></a>
-					</li>
-					<li>
-						<a href='project.php'><i class='fe fe-layout'></i> <span>Project</span></a>
-					</li>
-					<li>
-						<a href='employees.php'><i class='fe fe-layout'></i> <span>Employees</span></a>
-					</li>
-					<li>
-						<a href='Report.php'><i class='fe fe-layout'></i> <span>Report</span></a>
-					</li>
-
-					<li>
-						<a href='refund.php'><i class='fe fe-layout'></i> <span>Refund</span></a>
-					</li>
-					
-
-				</ul>
-			</div>
-			</div>
-			</div>";}
-			
-			?>	
-			<!--- Sidebar --->
+      
+        <!--- Sidebar --->
 		
 
 		<!-- Page Wrapper -->
@@ -284,7 +200,7 @@ include('session.php');
 														 		<td>".$row["amount"]."</td>
 														 		<td>".$row["category"]."</td>
 																 <td>".$row["purpose"]."</td>
-																<td><a href='Expense/Invoice.php?Exp=$EXP_NO' class='btn btn-primary'> View </a><td>
+																<td><a href='Invoice.php?Exp=$EXP_NO' class='btn btn-primary'> View </a><td>
 																 </tr>";   											
 												  }
 												} else {
@@ -303,16 +219,16 @@ include('session.php');
 				<!-- /Page Wrapper -->
 			</div>
 			<!-- jQuery -->
-			<script src="assets/js/jquery-3.2.1.min.js"></script>
+			<script src="../assets/js/jquery-3.2.1.min.js"></script>
 			<!-- Bootstrap Core JS -->
-			<script src="assets/js/popper.min.js"></script>
-			<script src="assets/js/bootstrap.min.js"></script>
+			<script src="../assets/js/popper.min.js"></script>
+			<script src="../assets/js/bootstrap.min.js"></script>
 			<!-- Slimscroll JS -->
-			<script src="assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+			<script src="../assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 			<!-- Datatables JS -->
-			<script src="assets/plugins/datatables/jquery.dataTables.min.js"></script>
-			<script src="assets/plugins/datatables/datatables.min.js"></script>
+			<script src="../assets/plugins/datatables/jquery.dataTables.min.js"></script>
+			<script src="../assets/plugins/datatables/datatables.min.js"></script>
 			<!-- Custom JS -->
-			<script  src="assets/js/script.js"></script>
+			<script  src="../assets/js/script.js"></script>
 	</body>
 </html>

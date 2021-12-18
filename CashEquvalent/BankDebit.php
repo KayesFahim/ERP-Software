@@ -147,66 +147,13 @@ if ($result->num_rows > 0) {
 		</div>
 		<!-- /Header -->
 
-		 <!-- Sidebar -->
-		 <div class="sidebar" id="sidebar">
-            <div class="sidebar-inner slimscroll">
-                <div id="sidebar-menu" class="sidebar-menu">
-                    <ul>
-                        <li class="menu-title">
-                            <span>Main</span>
-                        </li>
-                        <li>
-                            <a href="dashboard.php"><i class="fe fe-home"></i> <span>Dashboard</span></a>
-                        </li>
-                        <li>
-                            <a href="salesQuotation.php"><i class="fe fe-layout"></i> <span>Sales Quotation</span></a>
-                        </li>
-                        <li>
-                            <a href="invoice.php"><i class="fe fe-layout"></i> <span>Invoice</span></a>
-                        </li>
-                        <li>
-                            <a href="Bill.php"><i class="fe fe-layout"></i> <span>Bill</span></a>
-                        </li>
-                        <li>
-                            <a href="expense.php"><i class="fe fe-layout"></i> <span>Expense</span></a>
-                        </li>
-						<li>
-							<a data-toggle="dropdown"><i class="fe fe-layout"></i> <span>Accounting</span></a>
-								<ul>
-									<li><a href="CashEquivalent.php"><i class="fe fe-layout"></i> <span>Cash And Cash</span></a></li>
-									<li><a href="access.php"><i class="fe fe-layout"></i> <span>Acces control</span></a> </li>
-									<li><a href="#"><i class="fe fe-layout"></i> Portal</a></li>
-								</ul>
-						</li>
-                        <li>
-                            <a href="moneyReceipt.php"><i class="fe fe-layout"></i> <span>Money Receipt</span></a>
-                        </li>
+		
+        <!-- Sidebar -->
 
-                        <li>
-                            <a href="payment.php"><i class="fe fe-layout"></i> <span>Payment</span></a>
-                        </li>
-                        <li>
-                            <a href="transfer.php"><i class="fe fe-layout"></i> <span>Transfer</span></a>
-                        </li>
-                        <li>
-                            <a href="project.php"><i class="fe fe-layout"></i> <span>Project</span></a>
-                        </li>
-                        <li>
-                            <a href="employees.php"><i class="fe fe-layout"></i> <span>Employees</span></a>
-                        </li>
-                        <li>
-                            <a href="Report.php"><i class="fe fe-layout"></i> <span>Report</span></a>
-                        </li>
-
-                        <li>
-                            <a href="refund.php"><i class="fe fe-layout"></i> <span>Refund</span></a>
-                        </li>
-
-                    </ul>
-                </div>
-            </div>
-        </div>
-
+		<?php
+        	include '../sidebar.php';
+        ?>	
+			<!--- Sidebar --->
 		
 
 		<!-- Page Wrapper -->

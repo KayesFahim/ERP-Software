@@ -31,6 +31,7 @@ if (array_key_exists('SQT', $_GET)){
 		if ($result->num_rows > 0) {
 			while($row = $result->fetch_assoc()) {
                 $Client_Name = $row['clientName'];
+                $Client_Id = $row['csrId'];
                 $Pax_No = $row['pax'];
 				$pax1 = $row['PaxName1'];
                 $Airlines1 = $row['Airlines1'];       
@@ -553,175 +554,13 @@ if (mysqli_query($conn, $invoice)) {
         </div>
         <!-- /Header -->
 
-                    <!-- Sidebar -->
+          <!-- SideBar -->
 
-         <?php if($userRole == 'reservation'){
+        <?php
+        include '../sidebar.php';
+        ?>
 
-            print "<div class='sidebar' id='sidebar'>
-                <div class='sidebar-inner slimscroll'>
-                    <div id='sidebar-menu' class='sidebar-menu'>
-                        <ul>
-                            <li class='menu-title'>
-                                <span>Main</span>
-                            </li>
-                            <li>
-                                <a href='../dashboard.php'><i class='fe fe-home'></i> <span> Dashboard</span></a>
-                            </li>
-                            
-                            <li>
-                            <a data-toggle='dropdown'><i class='fe fe-layout'></i> <span>Sales Quatation</span></a>
-                                <ul>
-                                    <li><a class='active' href='../SalesQuatation'><i class='fe fe-layout'> </i> <span> Air Ticket</span></a></li>
-                                    
-                                </ul>
-                            </li>
-
-                            <li>
-                                <a data-toggle='dropdown'><i class='fe fe-layout'></i> <span> Invoice</span></a>
-                                    <ul>
-                                        <li><a href='../AirInvoice'><i class='fe fe-layout'> </i> <span> Air Ticket </span></a></li>
-                                       
-                                    </ul>
-                            </li>
-                            <li>
-                                <a data-toggle='dropdown'><i class='fe fe-layout'></i> <span> Role</span></a>
-                                    <ul>
-                                    <li><a href='../Role'><i class='fe fe-layout'> </i> <span> All Role </span></a></li>
-                                        <li><a href='../Role/AddRole.php'><i class='fe fe-layout'> </i> <span> Add Role </span></a></li>
-                                        
-                                    </ul>
-                            </li>
-                            
-                        </ul>
-                    </div>
-                </div>
-            </div>" ;
-
-            }elseif($userRole == 'accounts'){
-            print "<div class='sidebar' id='sidebar'>
-            <div class='sidebar-inner slimscroll'>
-            <div id='sidebar-menu' class='sidebar-menu'>
-                <ul>
-                    <li class='menu-title'>
-                        <span>Main</span>
-                    </li>
-                    <li>
-                        <a href='../dashboard.php'><i class='fe fe-home'></i> <span>Dashboard</span></a>
-                    </li>
-                    
-                    <li>
-                        <a href='../Bill.php'><i class='fe fe-layout'></i> <span>Bill</span></a>
-                    </li>
-
-                    <li>
-                        <a href='../MoneyReceipt.php'><i class='fe fe-layout'></i> <span>Money Receipt</span></a>
-                    </li>
-                    
-                </ul>
-            </div>
-            </div>
-            </div>" ;
-
-
-            } elseif($userRole =='developer'){
-
-            echo "<div class='sidebar' id='sidebar'>
-            <div class='sidebar-inner slimscroll'>
-            <div id='sidebar-menu' class='sidebar-menu'>
-                <ul>
-                    <li class='menu-title'>
-                        <span>Main</span>
-                    </li>
-                    <li>
-                        <a href='../Dashboard.php'><i class='fe fe-home'></i> <span>Dashboard</span></a>
-                    </li>
-                    <li>
-                        <a href='../SalesQuotation'><i class='fe fe-layout'></i> <span>Sales Quotation</span></a>
-                    </li>
-                    <li>
-                        <a data-toggle='dropdown'><i class='fe fe-layout'></i> <span>Invoice</span></a>
-                            <ul>
-                                <li><a href='index.php'><i class='fe fe-layout'> </i> <span> Air Ticket</span></a></li>
-                                <li><a href='access.php'><i class='fe fe-layout'> </i> <span> Visa</span></a> </li>
-                                <li><a href='#'><i class='fe fe-layout'></i> Others</a></li>
-                            </ul>
-                            </li>
-                    <li>
-                        <a data-toggle='dropdown'><i class='fe fe-layout'></i> <span>Accounting</span></a>
-                            <ul>
-                                <li><a href='CashEquivalent.php'><i class='fe fe-layout'></i> <span>Cash And Cash</span></a></li>
-                                <li><a href='access.php'><i class='fe fe-layout'></i> <span>Acces control</span></a> </li>
-                                <li><a href='#'><i class='fe fe-layout'></i> Portal</a></li>
-                            </ul>
-                    </li>
-                    <li>
-                        <a href='Bill.php'><i class='fe fe-layout'></i> <span>Bill</span></a>
-                    </li>
-                    <li>
-                        <a href='expense.php'><i class='fe fe-layout'></i> <span>Expense</span></a>
-                    </li>
-                    <li>
-                        <a href='moneyReceipt.php'><i class='fe fe-layout'></i> <span>Money Receipt</span></a>
-                    </li>
-
-                    <li>
-                        <a href='payment.php'><i class='fe fe-layout'></i> <span>Payment</span></a>
-                    </li>
-                    <li>
-                        <a href='Salary/SalarySheet.php'><i class='fe fe-layout'></i> <span>Salary</span></a>
-                    </li>
-                    <li>
-                        <a href='project.php'><i class='fe fe-layout'></i> <span>Project</span></a>
-                    </li>
-                    <li>
-                        <a href='employees.php'><i class='fe fe-layout'></i> <span>Employees</span></a>
-                    </li>
-                    <li>
-                        <a href='Report.php'><i class='fe fe-layout'></i> <span>Report</span></a>
-                    </li>
-
-                    <li>
-                        <a href='refund.php'><i class='fe fe-layout'></i> <span>Refund</span></a>
-                    </li>
-                    
-
-                </ul>
-            </div>
-            </div>
-            </div>";}elseif($userRole == 'admin'){
-            echo "<div class='sidebar' id='sidebar'>
-            <div class='sidebar-inner slimscroll'>
-            <div id='sidebar-menu' class='sidebar-menu'>
-                <ul>
-                    <li class='menu-title'>
-                        <span>Main</span>
-                    </li>
-
-                    <li>
-                        <a href='Inventory.php'><i class='fe fe-layout'></i> <span> Inventory</span></a>
-                    </li>
-                    
-                    <li>
-                        <a href='Salary/SalarySheet.php'><i class='fe fe-layout'></i> <span>Salary</span></a>
-                    </li>
-                    <li>
-                        <a href='Attandance.php'><i class='fe fe-layout'></i> <span> Attandance</span></a>
-                    </li>
-                    <li>
-                        <a href='Employees.php'><i class='fe fe-layout'></i> <span> Employees</span></a>
-                    </li>
-                    
-                    
-
-                </ul>
-            </div>
-            </div>
-            </div>";
-
-            }
-            
-            ?>	
-            <!--- Sidebar --->
+        <!-- SideBar -->
                     
 
 		<!-- Page Wrapper -->
@@ -958,8 +797,9 @@ if (mysqli_query($conn, $invoice)) {
                                                                                 $result = $conn->query($sql);                              
                                                                                 if ($result->num_rows > 0) {
                                                                                 while($row = $result->fetch_assoc()) {
-                                                                                    $vnName = $row["name"];	
-                                                                                    echo "<option value=\"$vnName\">".$row["name"]."</option>";                                                                                 
+                                                                                    $vnName = $row['name'];
+                                                                                    $vendorId= $row['vendorId'];
+                                                                                    echo "<option value=\"$vendorId\">".$row['name']."</option>";                                                                                 
                                                                                 }
                                                                             }
                                                                                 ?>
@@ -1118,8 +958,9 @@ if (mysqli_query($conn, $invoice)) {
                                 
                                                                                 if ($result->num_rows > 0) {
                                                                                 while($row = $result->fetch_assoc()) {
-                                                                                    $vnName = $row["name"];	
-                                                                                    echo "<option value=\"$vnName\">".$row["name"]."</option>";                                                                                 
+                                                                                    $vnName = $row["name"];
+                                                                                    $vendorId= $row['vendorId'];	
+                                                                                    echo "<option value=\"$vendorId\">".$row["name"]."</option>";                                                                                 
                                                                                 }
                                                                             }
                                                                                 ?>
@@ -1280,7 +1121,8 @@ if (mysqli_query($conn, $invoice)) {
                                                                                 if ($result->num_rows > 0) {
                                                                                 while($row = $result->fetch_assoc()) {
                                                                                     $vnName = $row["name"];	
-                                                                                    echo "<option value=\"$vnName\">".$row["name"]."</option>";                                                                                 
+                                                                                    $vendorId = $row['vendorId'];
+                                                                                    echo "<option value=\"$vendorId\">".$row["name"]."</option>";                                                                                 
                                                                                 }
                                                                             }
                                                                                 ?>
@@ -1388,8 +1230,8 @@ if (mysqli_query($conn, $invoice)) {
                                 
                                                                                 if ($result->num_rows > 0) {
                                                                                 while($row = $result->fetch_assoc()) {
-                                                                                    $vnName = $row["name"];	
-                                                                                    echo "<option value=\"$vnName\">".$row["name"]."</option>";                                                                                 
+                                                                                    $vnName = $row["code"];	
+                                                                                    echo "<option value=\"$vnName\">".$row["code"]."</option>";                                                                                 
                                                                                 }
                                                                             }
                                                                                 ?>
@@ -1440,8 +1282,9 @@ if (mysqli_query($conn, $invoice)) {
                                 
                                                                                 if ($result->num_rows > 0) {
                                                                                 while($row = $result->fetch_assoc()) {
-                                                                                    $vnName = $row["name"];	
-                                                                                    echo "<option value=\"$vnName\">".$row["name"]."</option>";                                                                                 
+                                                                                    $vnName = $row["name"];
+                                                                                    $vendorId= $row['vendorId'];	
+                                                                                    echo "<option value=\"$vendorId\">".$row["name"]."</option>";                                                                                 
                                                                                 }
                                                                             }
                                                                                 ?>
@@ -1602,8 +1445,9 @@ if (mysqli_query($conn, $invoice)) {
                                 
                                                                                 if ($result->num_rows > 0) {
                                                                                 while($row = $result->fetch_assoc()) {
-                                                                                    $vnName = $row["name"];	
-                                                                                    echo "<option value=\"$vnName\">".$row["name"]."</option>";                                                                                 
+                                                                                    $vnName = $row["name"];
+                                                                                    $vendorId = $row['vendorId'];	
+                                                                                    echo "<option value=\"$vendorId\">".$row["name"]."</option>";                                                                                 
                                                                                 }
                                                                             }
                                                                                 ?>
