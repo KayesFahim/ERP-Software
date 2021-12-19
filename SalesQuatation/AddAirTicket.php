@@ -24,8 +24,13 @@ if ($result->num_rows > 0) {
 
  if ($_SERVER["REQUEST_METHOD"] == "POST") { 	
 	 
-	$Client_Name = $_POST['client'];
 	$Client_Id = $_POST['client'];
+
+    $ses_sql = mysqli_query($conn,"select * from customer where CustomerId = '$Client_Id' "); 
+    $row = mysqli_fetch_array($ses_sql,MYSQLI_ASSOC);   
+    $Client_Name = $row['name'];
+
+
 	$Pax_No = $_POST['pax'];
     //Pax
     $pax1 = $_POST['pax1'];
@@ -118,6 +123,7 @@ if ($result->num_rows > 0) {
         `sqNo`,
 		`createdBy`,
 		`clientName`,
+		`csrId`,
 		`pax`,
 		`PaxName1`,
 		`Airlines1`,
@@ -159,6 +165,7 @@ if ($result->num_rows > 0) {
         '$SQT_No',
 		'$userName',
 		'$Client_Name',
+		'$Client_Id',
 		'$Pax_No',
         '$pax1',
 		'$Airlines1',
@@ -386,7 +393,6 @@ if ($result->num_rows > 0) {
 										<form action="#" autocomplete="off" method="post">
 											<div class="row">
 												<div class="col-md-12">
-													<h4 class="card-title">Details</h4>
 													<div class="row">
 
 													<div class="col-md-4">
@@ -406,8 +412,9 @@ if ($result->num_rows > 0) {
                                 
                                                                                 if ($result->num_rows > 0) {
                                                                                 while($row = $result->fetch_assoc()) {
-                                                                                    $vnName = $row["name"];	
-                                                                                    echo "<option value=\"$vnName\">".$row["name"]."</option>";                                                                                 
+                                                                                    $vnName = $row["name"];
+																					$CId = $row["CustomerId"];	
+                                                                                    echo "<option value=\"$CId\">".$row["name"]."</option>";                                                                                 
                                                                                 }
                                                                             }
                                                                                 ?>
@@ -427,13 +434,13 @@ if ($result->num_rows > 0) {
 															<div class="col-md-2">
 																<div class="form-group">
 																	<label>Pax Name 1</label>
-																	<input type="text" name="pax1" class="form-control">
+																	<input type="text" name="pax1" class="form-control" required>
 																</div>
 															</div>
 															<div class="col-md-1">
                                                                 <div class="form-group">
                                                                     <label>Airlines :</label>
-                                                                    <select name="airlines1" class="select form-control"  >
+                                                                    <select name="airlines1" class="select form-control"  required>
                                                                             <option value="" disabled selected>*</option>
                                                                             <option value="6E">6E</option>
                                                                             <option value="AI">AI</option>
@@ -589,7 +596,7 @@ if ($result->num_rows > 0) {
 																<div class="col-md-1">
 																<div class="form-group">
 																	<label>From</label>
-																	<select name="from2" class="select form-control" required >
+																	<select name="from2" class="select form-control" >
                                                                             <option value="" disabled selected>*</option>
                                                                             <?php
                                                                                 $sql = "SELECT DISTINCT code FROM airports order by code";
@@ -609,7 +616,7 @@ if ($result->num_rows > 0) {
 															<div class="col-md-1">
 																<div class="form-group">
 																	<label>To</label>
-																	<select name="to2" class="select form-control" required >
+																	<select name="to2" class="select form-control" >
                                                                             <option value="" disabled selected>*</option>
                                                                             <?php
                                                                                 $sql = "SELECT DISTINCT code FROM airports order by code";
@@ -708,7 +715,7 @@ if ($result->num_rows > 0) {
 																<div class="col-md-1">
 																<div class="form-group">
 																	<label>From</label>
-																	<select name="from3" class="select form-control" required >
+																	<select name="from3" class="select form-control" >
                                                                             <option value="" disabled selected>*</option>
                                                                             <?php
                                                                                 $sql = "SELECT DISTINCT code FROM airports order by code";
@@ -728,7 +735,7 @@ if ($result->num_rows > 0) {
 															<div class="col-md-1">
 																<div class="form-group">
 																	<label>To</label>
-																	<select name="to3" class="select form-control" required >
+																	<select name="to3" class="select form-control">
                                                                             <option value="" disabled selected>*</option>
                                                                             <?php
                                                                                 $sql = "SELECT DISTINCT code FROM airports order by code";
@@ -829,7 +836,7 @@ if ($result->num_rows > 0) {
 																<div class="col-md-1">
 																<div class="form-group">
 																	<label>From</label>
-																	<select name="from4" class="select form-control" required >
+																	<select name="from4" class="select form-control" >
                                                                             <option value="" disabled selected>*</option>
                                                                             <?php
                                                                                 $sql = "SELECT DISTINCT code FROM airports order by code";
@@ -849,7 +856,7 @@ if ($result->num_rows > 0) {
 															<div class="col-md-1">
 																<div class="form-group">
 																	<label>To</label>
-																	<select name="to4" class="select form-control" required >
+																	<select name="to4" class="select form-control" >
                                                                             <option value="" disabled selected>*</option>
                                                                             <?php
                                                                                 $sql = "SELECT DISTINCT code FROM airports order by code";
@@ -949,7 +956,7 @@ if ($result->num_rows > 0) {
 																<div class="col-md-1">
 																<div class="form-group">
 																	<label>From</label>
-																	<select name="from5" class="select form-control" required >
+																	<select name="from5" class="select form-control">
                                                                             <option value="" disabled selected>*</option>
                                                                             <?php
                                                                                 $sql = "SELECT DISTINCT code FROM airports order by code";
@@ -969,7 +976,7 @@ if ($result->num_rows > 0) {
 															<div class="col-md-1">
 																<div class="form-group">
 																	<label>To</label>
-																	<select name="to5" class="select form-control" required >
+																	<select name="to5" class="select form-control">
                                                                             <option value="" disabled selected>*</option>
                                                                             <?php
                                                                                 $sql = "SELECT DISTINCT code FROM airports order by code";

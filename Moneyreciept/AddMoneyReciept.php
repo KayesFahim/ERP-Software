@@ -548,8 +548,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 						<div class="row">
 							<div class="col-md-12">
 								<div class="card">
-									<div class="card-header">
-										<h4 class="text-danger card-title">Customer Details</h4>
+									<div class="card-header">										
 										<div class="text-right">
 										<a href="../Customer/AddCustomer.php" class="btn btn-primary">Add customer</a>
 

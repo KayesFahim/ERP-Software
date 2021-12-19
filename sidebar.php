@@ -173,6 +173,12 @@ if($userRole == 'reservation'){
              <li>
                  <a href='../Employee'><i class='fe fe-layout'></i> <span>Employee</span></a>
              </li>
+             <li>
+                 <a href='../Vendor'><i class='fe fe-layout'></i> <span>Vendor</span></a>
+             </li>
+             <li>
+                 <a href='../Customer'><i class='fe fe-layout'></i> <span>Customer</span></a>
+             </li>
              
          </ul>
      </div>

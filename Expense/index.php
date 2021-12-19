@@ -169,7 +169,7 @@ include('../session.php');
 								<div class="card-header">
 									<h4 class="card-title">Expense Details</h4>
 									<div class="text-right">
-										<a href="Expense/AddExpense.php" class="btn btn-primary"> Create +</a>
+										<a href="AddExpense.php" class="btn btn-primary"> Create +</a>
 									</div>
 								</div>
 								

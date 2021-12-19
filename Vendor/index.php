@@ -165,7 +165,6 @@ include('../session.php');
 					<div class="col-md-12">
 							<div class="card">
 								<div class="card-header">
-									<h4 class="card-title">Vendor Detail</h4>
 									<div class="text-right">
 										<a href="AddVendor.php" class="btn btn-primary"> Add +</a>
 									</div>

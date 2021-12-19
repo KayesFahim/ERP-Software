@@ -83,12 +83,59 @@ if (array_key_exists('SQT', $_GET)){
                 $price5 = $row['cost5'];     								
 			}
 		} else {
-		
+            $Pax_No = " ";
+            $pax1 = " ";
+            $Airlines1 = " ";         
+            $from1 = " ";
+            $to1 = " ";
+            $type1= " ";
+            $way1 = " ";
+            $price1 = " "; 
+        
+            //Pax2
+            $pax2 = " ";
+            $Airlines2 = " ";
+            $from2 = " ";
+            $to2 = " ";
+            $type2 = " ";
+            $way2 = " ";      
+            $price2 = " ";
+            
+        
+            //Pax3
+
+            $pax3 = " "; 
+            $Airlines3 = " ";
+            $from3 = " ";
+            $to3 = " ";
+            $type3 =" ";
+            $way3 = " "; 
+            $price3 = " ";
+        
+        
+            //Pax4
+
+            $pax4 = " ";
+            $Airlines4 = " ";       
+            $from4 = " ";
+            $to4 = " ";
+            $type4 = " ";
+            $way4 = " ";   
+            $price4 = " ";
+            
+        
+            //Pax 5
+            $pax5 = " ";
+            $Airlines5 = " ";
+            $from5 = " ";
+            $to5 = " ";
+            $type5= " ";
+            $way5 = " ";  
+            $price5 = " ";
+            $searchvar= " ";		
 		}
 		
 }else{
-
-        $Client_Name = " ";
         $Pax_No = " ";
 	    $pax1 = " ";
         $Airlines1 = " ";         
@@ -138,6 +185,7 @@ if (array_key_exists('SQT', $_GET)){
          $type5= " ";
          $way5 = " ";  
          $price5 = " ";
+         $searchvar= " ";
 }
 
 
@@ -146,7 +194,11 @@ if (array_key_exists('SQT', $_GET)){
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    $Client_Name = $_POST['client'];
+    $csrId = $_POST['client'];
+    $ses_sql = mysqli_query($conn,"select * from customer where CustomerId = '$csrId' "); 
+    $row = mysqli_fetch_array($ses_sql,MYSQLI_ASSOC);   
+    $Client_Name = $row['name'];
+
     $Pax_No = $_POST['pax'];
     $System =  $_POST['system'];
     $Rev_Officer = $_POST['revofficer'];
@@ -155,6 +207,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $invoice = "INSERT INTO `invoice`(
         `invNo`,
         `clientName`,
+        `csrId`,
         `pax`,
         `system`,
         `recofficer`,
@@ -163,6 +216,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     VALUES(
         '$INV_No',
         '$Client_Name',
+        '$csrId',
         '$Pax_No',
         '$System',
         '$Rev_Officer',
@@ -297,6 +351,8 @@ if (mysqli_query($conn, $invoice)) {
 	
     $mrgenerate = "INSERT INTO `airticket`(
         `invNo`,
+        `sqNo`,
+        `csrId`,
         `PaxName1`,
         `PNR1`,
         `TicketNo1`,
@@ -355,6 +411,8 @@ if (mysqli_query($conn, $invoice)) {
     )
     VALUES(
         '$INV_No',
+        '$searchvar',
+        '$csrId',
         '$pax1',
         '$pnr1',
         '$ticket1',
@@ -613,7 +671,27 @@ if (mysqli_query($conn, $invoice)) {
 														<div class="col-md-3">
 															<div class="form-group">
 																<label>Client Name</label>
-																<input type="text" name="client" value="<?php echo $Client_Name ?>" class="form-control" required >
+																<select name="client" class="select form-control" required>
+                                                                            <option value="" disabled selected>*</option>
+                                                                            <?php
+                                                                                $sql = "SELECT *  FROM `customer` ORDER BY name DESC";
+                                                                                $result = $conn->query($sql);                              
+                                                                                if ($result->num_rows > 0) {
+                                                                                while($row = $result->fetch_assoc()) {
+                                                                                    $vnName = $row['name'];
+                                                                                    $csrId= $row['CustomerId'];
+                                                                                    echo "<option value=\"$csrId\">".$row['name']."</option>";                                                                                 
+                                                                                }
+                                                                            }
+                                                                                ?>
+
+                                                                            <?php if(isset($Client_Id)){
+                                                                                    echo "<option value=\"$Client_Id\" selected>".$Client_Name."</option>";  
+
+                                                                            }  ?>
+
+                                                                            
+                                                                </select>
 															</div>
 														</div>
                                                         

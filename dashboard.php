@@ -298,11 +298,17 @@
                                     </ul>
                             </li>
                             <li>
-                                <a href='Salary/SalarySheet.php'><i class='fe fe-layout'></i> <span>Salary</span></a>
+                                <a href='Salary'><i class='fe fe-layout'></i> <span>Salary</span></a>
                             </li>
                             
                             <li>
                                 <a href='Employee'><i class='fe fe-layout'></i> <span>Employees</span></a>
+                            </li>
+                            <li>
+                                <a href='Vendor'><i class='fe fe-layout'></i> <span>Vendor</span></a>
+                            </li>
+                            <li>
+                                <a href='Customer'><i class='fe fe-layout'></i> <span>Customer</span></a>
                             </li>
                             
                         </ul>
