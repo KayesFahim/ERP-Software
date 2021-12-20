@@ -2,7 +2,7 @@
 include '../config.php';
 require '../session.php';
 
-$EmployeeId ="";
+$EmployeeId;
 
 
 $sql = "SELECT * FROM employee ORDER BY id DESC LIMIT 1";
@@ -12,7 +12,7 @@ if ($result->num_rows > 0) {
 		$EmployeeId = "FFI-".(int)$row["id"] + 1 ;									
  }
 } else {
-echo "0 results";
+	$EmployeeId ="FFI-1000";
 }
 
 											
@@ -112,12 +112,12 @@ echo "0 results";
 				<!-- User Menu -->
 				<li class="nav-item dropdown has-arrow">
 					<a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-						<span class="user-img"><img class="rounded-circle" src="assets/img/profile.jpg" width="31" alt="Ryan Taylor"></span>
+						<span class="user-img"><img class="rounded-circle" src="../assets/img/profile.jpg" width="31" alt="Ryan Taylor"></span>
 					</a>
 					<div class="dropdown-menu">
 						<div class="user-header">
 							<div class="avatar avatar-sm">
-								<img src="assets/img/profile.jpg" alt="User Image" class="avatar-img rounded-circle">
+								<img src="../assets/img/profile.jpg" alt="User Image" class="avatar-img rounded-circle">
 							</div>
 							<div class="user-text">
 								<!-- #Username -->
@@ -127,7 +127,7 @@ echo "0 results";
 						</div>
 						<a class="dropdown-item" href="">My Profile</a>
 						<a class="dropdown-item" href="">Settings</a>
-						<a class="dropdown-item" href="logout.php">Logout</a>
+						<a class="dropdown-item" href="../logout.php">Logout</a>
 					</div>
 				</li>
 				<!-- /User Menu -->
