@@ -143,7 +143,7 @@ if($userRole == 'reservation'){
              <li>
                  <a data-toggle='dropdown'><i class='fe fe-layout'></i> <span>Accounting</span></a>
                      <ul>
-                         <li><a href='../CashEquivalent.php'><i class='fe fe-layout'></i> <span>Cash And Cash</span></a></li>
+                         <li><a href='../CashEquvalent'><i class='fe fe-layout'></i> <span>Cash And Cash</span></a></li>
                          <li><a href='access.php'><i class='fe fe-layout'></i> <span>Acces control</span></a> </li>
                          <li><a href='#'><i class='fe fe-layout'></i> Portal</a></li>
                      </ul>
@@ -168,6 +168,10 @@ if($userRole == 'reservation'){
              </li>
              <li>
                  <a href='../Salary/SalarySheet.php'><i class='fe fe-layout'></i> <span>Salary</span></a>
+             </li>
+
+             <li>
+                <a href='../Attendance'><i class='fe fe-layout'></i> <span>Attendance</span></a>
              </li>
              
              <li>
@@ -214,6 +218,36 @@ if($userRole == 'reservation'){
  </div>
 </div>";
 
-}
+}elseif($userRole == 'employee'){
+    echo "<div class='sidebar' id='sidebar'>
+    <div class='sidebar-inner slimscroll'>
+        <div id='sidebar-menu' class='sidebar-menu'>
+            <ul>
+                <li class='menu-title'>
+                    <span>Main</span>
+                </li>
+
+                <li>
+                 <a href='../SalesQuatation'><i class='fe fe-layout'></i> <span>Sales Quotation</span></a>
+             </li>
+             <li>
+                  <a data-toggle='dropdown'><i class='fe fe-layout'></i> <span>Invoice</span></a>
+                    <ul>
+                         <li><a href='../AirInvoice'><i class='fe fe-layout'> </i> <span> Air Ticket</span></a></li>
+                          <li><a href='access.php'><i class='fe fe-layout'> </i> <span> Visa</span></a> </li>
+                         <li><a href='#'><i class='fe fe-layout'></i> Others</a></li>
+                    </ul>
+            </li>
+             
+                <li>
+                    <a href='../Attendance'><i class='fe fe-layout'></i> <span> Attandance</span></a>
+                </li>
+              
+            </ul>
+        </div>
+    </div>
+    </div>";
+
+    }
      
 ?>	

@@ -8,17 +8,31 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
  
    $userEmail = mysqli_real_escape_string($conn,$_POST['userEmail']);
    $mypassword = mysqli_real_escape_string($conn,$_POST['userPassword']); 
+
+
    
    $sql = "SELECT id FROM users WHERE email = '$userEmail' and password = '$mypassword'";
+   $sql1 = "SELECT id FROM employee WHERE email = '$userEmail' and password = '$mypassword'";
+
    $result = mysqli_query($conn,$sql);
+   $result1 = mysqli_query($conn,$sql1);
+
    $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
+   $row1 = mysqli_fetch_array($result1,MYSQLI_ASSOC);
    
    $count = mysqli_num_rows($result);
+   $count1 = mysqli_num_rows($result1);
 
    if($count == 1) {
-    $_SESSION['login_user'] = $userEmail;      
-    header("location: Dashboard.php");
-    }else {
+        $_SESSION['login_user'] = $userEmail;      
+        header("location: Dashboard.php");
+    }elseif($count1 == 1){
+        $_SESSION['login_user'] = $userEmail;      
+        header("location: Dashboard.php");
+    }
+
+    else {
+
         $error = 0;
     }
 }

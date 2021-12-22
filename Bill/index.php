@@ -1,7 +1,7 @@
 <?php
 
-include 'config.php';
-include('session.php');
+include '../config.php';
+include('../session.php');
 
 
 ?>
@@ -17,15 +17,15 @@ include('session.php');
 	<!-- Favicon -->
 	<link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.png">
 	<!-- Bootstrap CSS -->
-	<link rel="stylesheet" href="assets/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../assets/css/bootstrap.min.css">
 	<!-- Fontawesome CSS -->
-	<link rel="stylesheet" href="assets/css/font-awesome.min.css">
+	<link rel="stylesheet" href="../assets/css/font-awesome.min.css">
 	<!-- Feathericon CSS -->
-	<link rel="stylesheet" href="assets/css/feathericon.min.css">
+	<link rel="stylesheet" href="../assets/css/feathericon.min.css">
 	<!-- Datatables CSS -->
-	<link rel="stylesheet" href="assets/plugins/datatables/datatables.min.css">
+	<link rel="stylesheet" href="../assets/plugins/datatables/datatables.min.css">
 	<!-- Main CSS -->
-	<link rel="stylesheet" href="assets/css/style.css">
+	<link rel="stylesheet" href="../assets/css/style.css">
 
 </head>
 <body>
@@ -38,11 +38,11 @@ include('session.php');
 			
 			<!-- Logo -->
 			<div class="header-left">
-				<a href="index.php" class="logo">
-					<img src="logo.png" alt="Logo">
+				<a href="../index.php" class="logo">
+					<img src="../logo.png" alt="Logo">
 				</a>
 				<a href="index.php" class="logo logo-small">
-					<img src="assets/img/logo-small.png" alt="Logo" width="30" height="30"> -->
+					<img src="../logo.png" alt="Logo" width="30" height="30"> -->
 					<h4>YOUR LOGO</h4>
 				</a>
 			</div>
@@ -106,12 +106,12 @@ include('session.php');
 				<!-- User Menu -->
 				<li class="nav-item dropdown has-arrow">
 					<a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-						<span class="user-img"><img class="rounded-circle" src="assets/img/profile.jpg" width="31" alt="Ryan Taylor"></span>
+						<span class="user-img"><img class="rounded-circle" src="../assets/img/profile.jpg" width="31" alt="Ryan Taylor"></span>
 					</a>
 					<div class="dropdown-menu">
 						<div class="user-header">
 							<div class="avatar avatar-sm">
-								<img src="assets/img/profile.jpg" alt="User Image" class="avatar-img rounded-circle">
+								<img src="../assets/img/profile.jpg" alt="User Image" class="avatar-img rounded-circle">
 							</div>
 							<div class="user-text">
 								<!-- #Username -->
@@ -121,7 +121,7 @@ include('session.php');
 						</div>
 						<a class="dropdown-item" href="">My Profile</a>
 						<a class="dropdown-item" href="">Settings</a>
-						<a class="dropdown-item" href="logout.php">Logout</a>
+						<a class="dropdown-item" href="../logout.php">Logout</a>
 					</div>
 				</li>
 				<!-- /User Menu -->
@@ -220,16 +220,16 @@ include('session.php');
 				<!-- /Page Wrapper -->
 			</div>
 			<!-- jQuery -->
-			<script src="assets/js/jquery-3.2.1.min.js"></script>
+			<script src="../assets/js/jquery-3.2.1.min.js"></script>
 			<!-- Bootstrap Core JS -->
-			<script src="assets/js/popper.min.js"></script>
-			<script src="assets/js/bootstrap.min.js"></script>
+			<script src="../assets/js/popper.min.js"></script>
+			<script src="../assets/js/bootstrap.min.js"></script>
 			<!-- Slimscroll JS -->
-			<script src="assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+			<script src="../assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 			<!-- Datatables JS -->
-			<script src="assets/plugins/datatables/jquery.dataTables.min.js"></script>
-			<script src="assets/plugins/datatables/datatables.min.js"></script>
+			<script src="../assets/plugins/datatables/jquery.dataTables.min.js"></script>
+			<script src="../assets/plugins/datatables/datatables.min.js"></script>
 			<!-- Custom JS -->
-			<script  src="assets/js/script.js"></script>
+			<script  src="../assets/js/script.js"></script>
 	</body>
 </html>

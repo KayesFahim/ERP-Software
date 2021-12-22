@@ -17,7 +17,7 @@ while($row = $result->fetch_assoc()) {
 		$Cid =$row["vendorId"];
 		$CDate =$row["issueDate"];
 		$Pm =$row["paymentMethod"];
-		$Pid = $row["paymentId"];
+		$Pid = $row["paymentway"];
 		$Item = $row["purpose"];
 						
 	}
