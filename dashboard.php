@@ -153,7 +153,7 @@
                                         <a href='Moneyreciept/AddMoneyReciept.php'><i class='fe fe-plus'> </i> <span> Money Reciept</span></a><br/>
                                         <a href='Bill/AddBill.php'><i class='fe fe-plus'> </i> <span> Bill</span></a><br/>
                                         <a href='Customer/AddCustomer.php'><i class='fe fe-plus'> </i> <span> Add Customer</span></a><br/>
-                                        <a href='Vendor/AddVendor.php'><i class='fe fe-plus'> </i> <span> Add Vendor</span></a><br/>
+                                        <a href='Vendors/AddVendor.php'><i class='fe fe-plus'> </i> <span> Add Vendor</span></a><br/>
                                         <a href='Employee/AddEmployee.php'><i class='fe fe-plus'> </i> <span> Add Employee</span></a><br/>
                                     </div>
 
@@ -305,7 +305,7 @@
                                 <a href='Employee'><i class='fe fe-layout'></i> <span>Employees</span></a>
                             </li>
                             <li>
-                                <a href='Vendor'><i class='fe fe-layout'></i> <span>Vendor</span></a>
+                                <a href='Vendors'><i class='fe fe-layout'></i> <span>Vendor</span></a>
                             </li>
                             <li>
                                 <a href='Attendance'><i class='fe fe-layout'></i> <span>Attendance</span></a>

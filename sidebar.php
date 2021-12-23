@@ -22,7 +22,7 @@ print "<div class='modal fade bd-example-modal-lg' id='exampleModal' tabindex='-
                         <a href='../MoneyReciept/AddMoneyReciept.php'><i class='fe fe-plus'> </i> <span> Money Reciept</span></a><br/>
                         <a href='../Bill/AddBill.php'><i class='fe fe-plus'> </i> <span> Bill</span></a><br/>
                         <a href='../Customer/AddCustomer.php'><i class='fe fe-plus'> </i> <span> Add Customer</span></a><br/>
-                        <a href='../Vendor/AddVendor.php'><i class='fe fe-plus'> </i> <span> Add Vendor</span></a><br/>
+                        <a href='../Vendors/AddVendor.php'><i class='fe fe-plus'> </i> <span> Add Vendor</span></a><br/>
                         <a href='../Employee/AddEmployee.php'><i class='fe fe-plus'> </i> <span> Add Employee</span></a><br/>
                     </div>
 
@@ -178,7 +178,7 @@ if($userRole == 'reservation'){
                  <a href='../Employee'><i class='fe fe-layout'></i> <span>Employee</span></a>
              </li>
              <li>
-                 <a href='../Vendor'><i class='fe fe-layout'></i> <span>Vendor</span></a>
+                 <a href='../Vendors'><i class='fe fe-layout'></i> <span>Vendor</span></a>
              </li>
              <li>
                  <a href='../Customer'><i class='fe fe-layout'></i> <span>Customer</span></a>
