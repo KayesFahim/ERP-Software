@@ -253,6 +253,7 @@ if (mysqli_query($conn, $invoice)) {
     $price2 = $_POST['price2'];
     $vendor2 = $_POST['vendor2'];
     $vprice2 = $_POST['vprice2'];
+    $flight2 = $_POST['flight2'];
     }else{
         $pax2 = " ";
         $pnr2 = " ";
@@ -282,6 +283,7 @@ if (mysqli_query($conn, $invoice)) {
     $price3 = $_POST['price3'];
     $vendor3 = $_POST['vendor3'];
     $vprice3 = $_POST['vprice3'];
+    $flight3 = $_POST['flight3'];
     }else{
         $pax3 = " ";
         $pnr3 = " ";
@@ -310,6 +312,7 @@ if (mysqli_query($conn, $invoice)) {
      $price4 = $_POST['price4'];
      $vendor4 = $_POST['vendor4'];
      $vprice4 = $_POST['vprice4'];
+     $flight4 = $_POST['flight4'];
      }else{
         $pax4 = " ";
         $pnr4 = " ";
@@ -338,6 +341,7 @@ if (mysqli_query($conn, $invoice)) {
      $price5 = $_POST['price5'];
      $vendor5 = $_POST['vendor5'];
      $vprice5 = $_POST['vprice5'];
+     $flight5 = $_POST['flight5'];
      }else{
         $pax5 = " ";
         $pnr5 = " ";
@@ -479,7 +483,12 @@ if (mysqli_query($conn, $invoice)) {
         '$type2',
         '$type3',
         '$type4',
-        '$type5'
+        '$type5',
+        '$flight1',
+        '$flight2',
+        '$flight3',
+        '$flight4',
+        '$flight5'
     )";
 
 	if (mysqli_query($conn, $mrgenerate)) {
@@ -538,20 +547,7 @@ if (mysqli_query($conn, $invoice)) {
 
             } 
             
-            
-
-
-
-
-            if (mysqli_query($conn, $vendorLedger)) {
-
-            }
-                
-                
-
-
-            
-            
+             
         }
         
         
@@ -878,7 +874,7 @@ if (mysqli_query($conn, $invoice)) {
                                                                             <option value="TG">TG </option>  	
                                                                             <option value="VQ">VQ </option>                                                                                                                                                    
                                                                             <option value="WY">WY</option>                                                                           
-                                                                            <?php if(empty($Airlines1)){
+                                                                            <?php if(!empty($Airlines1)){
                                                                                     echo "<option value=\"$Airlines1\" selected>".$Airlines1."</option>";  
                                                                             }  ?>                                                                                                                                                                                                                                 
                                                                         </select>
@@ -901,7 +897,7 @@ if (mysqli_query($conn, $invoice)) {
                                                                                     }
                                                                                 }
                                                                                 ?>
-                                                                                <?php if(empty($from1)){
+                                                                                <?php if(!empty($from1)){
                                                                                     echo "<option value=\"$from1\" selected>".$from1."</option>";  
                                                                                 }
                                                                             ?>                                                                           
@@ -927,7 +923,7 @@ if (mysqli_query($conn, $invoice)) {
                                                                             }
                                                                                 ?>
 
-                                                                                 <?php if(empty($to1)){
+                                                                                 <?php if(!empty($to1)){
                                                                                     echo "<option value=\"$to1\" selected>".$to1."</option>";  
                                                                                     }  ?>
                                                                                 
@@ -948,12 +944,12 @@ if (mysqli_query($conn, $invoice)) {
                                                                 <div class="form-group">
                                                                     <label>Way:</label>
                                                                     <select name="way1" class="select form-control" >
-                                                                            <option value="" disabled selected>Way</option>
+                                                                            <option value="" disabled selected>Select Way</option>
                                                                             <option value="One Way">One Way</option>
                                                                             <option value="Round Trip">Round Trip</option>	
                                                                             <option value="Multiple City">Multiple City</option>
 
-                                                                            <?php if(empty($way1)){
+                                                                            <?php if(!empty($way1)){
                                                                                     echo "<option value=\"$way1\" selected>".$way1."</option>";  
                                                                                     }  ?>                                                                           
                                                                             
@@ -968,7 +964,7 @@ if (mysqli_query($conn, $invoice)) {
                                                                             <option value="Non Refundable">Non Refundable</option>
                                                                             <option value="Refundable">Refundable</option>	
                                                                             <option value="Refund Adjusted">Refund Adjusted </option>
-                                                                            <?php if(empty($type1)){
+                                                                            <?php if(!empty($type1)){
                                                                                     echo "<option value=\"$type1\" selected>".$type1."</option>";  
                                                                                     }  ?>
                                                                                                                                                        
@@ -1149,12 +1145,12 @@ if (mysqli_query($conn, $invoice)) {
                                                                 <div class="form-group">
                                                                     <label>Way:</label>
                                                                     <select name="way2" class="select form-control" >
-                                                                            <option value="" disabled selected>Way</option>
+                                                                            <option value="" disabled selected>Select Way</option>
                                                                             <option value="One Way">One Way</option>
                                                                             <option value="Round Trip">Round Trip</option>	
                                                                             <option value="Multiple City">Multiple City</option>
 
-                                                                            <?php if(empty($way1)){
+                                                                            <?php if(empty($way2)){
                                                                                     echo "<option value=\"$way2\" selected>".$way2."</option>";  
                                                                                     }  ?>                                                                           
                                                                             
@@ -1169,7 +1165,7 @@ if (mysqli_query($conn, $invoice)) {
                                                                             <option value="Non Refundable">Non Refundable</option>
                                                                             <option value="Refundable">Refundable</option>	
                                                                             <option value="Refund Adjusted">Refund Adjusted </option>
-                                                                            <?php if(empty($type1)){
+                                                                            <?php if(empty($type2)){
                                                                                     echo "<option value=\"$type2\" selected>".$type2."</option>";  
                                                                                     }  ?>
                                                                                                                                                        
@@ -1303,7 +1299,7 @@ if (mysqli_query($conn, $invoice)) {
                                                                                     }
                                                                                 }
                                                                                 ?>
-                                                                                <?php if(empty($from1)){
+                                                                                <?php if(empty($from3)){
                                                                                     echo "<option value=\"$from3\" selected>".$from3."</option>";  
                                                                                 }
                                                                             ?>                                                                           
@@ -1329,7 +1325,7 @@ if (mysqli_query($conn, $invoice)) {
                                                                             }
                                                                                 ?>
 
-                                                                                 <?php if(empty($to1)){
+                                                                                 <?php if(empty($to3)){
                                                                                     echo "<option value=\"$to3\" selected>".$to3."</option>";  
                                                                                     }  ?>
                                                                                 
@@ -1350,7 +1346,7 @@ if (mysqli_query($conn, $invoice)) {
                                                                 <div class="form-group">
                                                                     <label>Way:</label>
                                                                     <select name="way3" class="select form-control" >
-                                                                            <option value="" disabled selected>Way</option>
+                                                                            <option value="" disabled selected>Select Way</option>
                                                                             <option value="One Way">One Way</option>
                                                                             <option value="Round Trip">Round Trip</option>	
                                                                             <option value="Multiple City">Multiple City</option>
@@ -1504,7 +1500,7 @@ if (mysqli_query($conn, $invoice)) {
                                                                                     }
                                                                                 }
                                                                                 ?>
-                                                                                <?php if(empty($from1)){
+                                                                                <?php if(empty($from4)){
                                                                                     echo "<option value=\"$from4\" selected>".$from4."</option>";  
                                                                                 }
                                                                             ?>                                                                           
@@ -1530,7 +1526,7 @@ if (mysqli_query($conn, $invoice)) {
                                                                             }
                                                                                 ?>
 
-                                                                                 <?php if(empty($to1)){
+                                                                                 <?php if(empty($to4)){
                                                                                     echo "<option value=\"$to4\" selected>".$to4."</option>";  
                                                                                     }  ?>
                                                                                 
@@ -1551,12 +1547,12 @@ if (mysqli_query($conn, $invoice)) {
                                                                 <div class="form-group">
                                                                     <label>Way:</label>
                                                                     <select name="way4" class="select form-control" >
-                                                                            <option value="" disabled selected>Way</option>
+                                                                            <option value="" disabled selected>Select Way</option>
                                                                             <option value="One Way">One Way</option>
                                                                             <option value="Round Trip">Round Trip</option>	
                                                                             <option value="Multiple City">Multiple City</option>
 
-                                                                            <?php if(empty($way1)){
+                                                                            <?php if(empty($way4)){
                                                                                     echo "<option value=\"$way4\" selected>".$way4."</option>";  
                                                                                     }  ?>                                                                           
                                                                             
@@ -1705,7 +1701,7 @@ if (mysqli_query($conn, $invoice)) {
                                                                                     }
                                                                                 }
                                                                                 ?>
-                                                                                <?php if(empty($from1)){
+                                                                                <?php if(empty($from4)){
                                                                                     echo "<option value=\"$from5\" selected>".$from5."</option>";  
                                                                                 }
                                                                             ?>                                                                           
@@ -1731,7 +1727,7 @@ if (mysqli_query($conn, $invoice)) {
                                                                             }
                                                                                 ?>
 
-                                                                                 <?php if(empty($to1)){
+                                                                                 <?php if(empty($to5)){
                                                                                     echo "<option value=\"$to5\" selected>".$to5."</option>";  
                                                                                     }  ?>
                                                                                 

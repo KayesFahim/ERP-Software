@@ -108,7 +108,7 @@ while($row = $result->fetch_assoc()) {
 
         <div class="d-flex">
             <div class="mr-auto p-2">
-              <h5>QT NO: #<?php echo $STQ; ?> </h5>
+              <h5>#<?php echo $STQ; ?> </h5>
               <h6>Client Name: <?php echo $Client_Name; ?></h6>
               <h6>Service: Air Ticket</h6>
 
