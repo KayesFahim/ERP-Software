@@ -39,7 +39,6 @@ print "<div class='modal fade bd-example-modal-lg' id='exampleModal' tabindex='-
 </div>";
 
 
-
 if($userRole == 'reservation'){
 
     print "<div class='sidebar' id='sidebar'>
