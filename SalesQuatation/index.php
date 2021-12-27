@@ -167,7 +167,6 @@ include('../session.php');
 					<div class="col-md-12">
 							<div class="card">
 								<div class="card-header">
-									<h4 class="card-title">AirTicket Quatation Details</h4>
 									<div class="text-right">
 										<a href="AddAirTicket.php" class="btn btn-primary"> Create +</a>
 									</div>

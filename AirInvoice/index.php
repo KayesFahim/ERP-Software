@@ -165,9 +165,8 @@ include('../session.php');
 					<div class="col-md-12">
 							<div class="card">
 								<div class="card-header">
-									<h4 class="card-title">Invoice Details</h4>
 									<div class="text-right">
-										<a href="AirTicket.php" class="btn btn-primary"> Create +</a>
+										<a href="Issue.php" class="btn btn-primary"> Create +</a>
 									</div>
 								</div>
 								
@@ -217,7 +216,10 @@ include('../session.php');
 																<td>".$Profit."</td>
 																<td>".$row["clientName"]."</td>
 																<td>".$row["pax"]."</td>
-																<td><a href='AirInvoice.php?INV=$INV' class='btn btn-primary'> View </a><td>
+																<td><a href='Isuee.php?INV=$INV' class='btn btn-primary'> View </a>
+																<a href='ReIssue.php?INV=$INV' class='btn btn-primary'> Reissue </a>
+																<a href='ReIssue.php?INV=$INV' class='btn btn-primary'> Refund </a>
+																<a href='ReIssue.php?INV=$INV' class='btn btn-primary'> Void </a><td>
 																 </tr>";   											
 												  }
 												} else {
