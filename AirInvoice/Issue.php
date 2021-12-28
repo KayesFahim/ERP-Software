@@ -265,7 +265,7 @@ if (mysqli_query($conn, $invoice)) {
         $type2 = " ";
         $price2 = " ";
         $vendor2 = " ";
-        $vprice2 = " ";
+        $vprice2 = 0;
         $flight2 = " ";
     }
     }
@@ -295,7 +295,7 @@ if (mysqli_query($conn, $invoice)) {
         $type3 = " ";
         $price3 = " ";
         $vendor3 = " ";
-        $vprice3 = " ";
+        $vprice3 = 0;
         $flight3 = " ";
     }
 
@@ -324,7 +324,7 @@ if (mysqli_query($conn, $invoice)) {
         $type4= " ";
         $price4 = " ";
         $vendor4 = " ";
-        $vprice4 = " ";
+        $vprice4 = 0;
         $flight4 = " ";
      }
 
@@ -353,7 +353,7 @@ if (mysqli_query($conn, $invoice)) {
         $type5 = " ";
         $price5 =" ";
         $vendor5 =" ";
-        $vprice5 = " ";
+        $vprice5 = 0;
         $flight5 = " ";
 
      }
@@ -493,7 +493,7 @@ if (mysqli_query($conn, $invoice)) {
 
 	if (mysqli_query($conn, $mrgenerate)) {
 
-        $Client_Cost = $price1 + $price2 + $price3 + $price4 + $price5;
+        $Client_Cost = (int)$price1 + (int)$price2 + (int)$price3 + (int)$price4 + (int)$price5;
         $ClientLedger ="INSERT INTO `ledger`(`txType`, `personType`, `debit`) VALUES ('$INV_No','$csrId','$Client_Cost')";
 
         if (mysqli_query($conn, $ClientLedger)) {

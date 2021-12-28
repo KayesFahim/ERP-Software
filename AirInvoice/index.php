@@ -210,25 +210,24 @@ include('../session.php');
 													$INV = $row["invNo"];
 													$Profit = $row['Amount'] -  $row['vCost'];
 
-													$start = date("2021-12-26 4:31:09");
-													$end = date("Y-m-d H:i:s");
-													$timediff = date("H",strtotime($start) - strtotime($end)); 
-													$totaltime = ($end - $start); 
-													$hours = intval($totaltime / 3600);
-
+													date_default_timezone_set('Asia/Dhaka');
+													$startTime = $row['createdtime'];
+													$date = date_create($startTime);
+													$dataDate = date_format($date,"Y-m-d");													
+													$endTime = date("Y-m-d");
 													echo "<tr>
-																<td>".$row["createdtime"]. "</td> 
+																<td>".$row["createdtime"]. "</td>
+																<td>kaka</td> 
 														 		<td>".$row["Amount"]."</td>
-																 <td>".$timediff."</td>
 														 		<td>".$row["vCost"]."</td>
 																<td>".$Profit."</td>
 																<td>".$row["clientName"]."</td>
-																<td><a href='Isuee.php?INV=$INV' class='btn btn-primary'> View </a>
+																<td><a href='IsueeInvoice.php?INV=$INV' class='btn btn-primary'> View </a>
 																<a href='ReIssue.php?INV=$INV' class='btn btn-primary'> Reissue </a>
 																<a href='Void.php?INV=$INV' class='btn btn-primary'> Refund </a> ";
 
-													if($hours < 24){
-															echo "<a href='Void.php?INV=$INV' class='btn btn-primary'> Void </a><td></tr>";
+													if($dataDate == $endTime){														
+														echo "<a href='Void.php?INV=$INV' class='btn btn-primary'> Void </a> ";																
 													}
 																 											
 												  }
