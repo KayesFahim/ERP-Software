@@ -548,7 +548,7 @@ if (mysqli_query($conn, $invoice)) {
             } 
 
             echo '<script language="javascript">';
-		    echo 'alert("Successfully Created"); location.href="AirInvoice.php?INV='.$INV_No.'"';
+		    echo 'alert("Successfully Created"); location.href="IssueInvoice.php?INV='.$INV_No.'"';
 		    echo '</script>';
             
              

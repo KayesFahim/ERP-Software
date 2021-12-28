@@ -175,13 +175,12 @@ include('../session.php');
 										<table class="datatable table table-stripped">
 											<thead>
 												<tr>
-													<th>INV ID</th>
 													<th>Issue Date</th>
+													<th>Type </th>
 													<th>Amount</th>
 													<th>Vendor Cost</th>
 													<th>Profit</th>
 													<th>Client Name</th>
-													<th>Pax No</th>
 													<th>Action</th>
 													<th> </th>
 												</tr>
@@ -192,13 +191,14 @@ include('../session.php');
 												$sql = "SELECT
 														invoice.invNo,
 														invoice.createdtime,
+														invoice.type,
 														SUM(airticket.vPrice1 + airticket.vPrice2 + airticket.vPrice3 + airticket.vPrice4 + airticket.vPrice1) As vCost,
 														invoice.pax,
 														invoice.clientName,
 														SUM(
 															airticket.cost1 + airticket.cost2 + airticket.cost3 + airticket.cost4 + airticket.cost5
 														) AS Amount
-														
+
 														FROM invoice
 														INNER JOIN airticket ON invoice.invNo = airticket.invNo
 														Group By createdtime DESC";
@@ -209,22 +209,30 @@ include('../session.php');
   												while($row = $result->fetch_assoc()) {	
 													$INV = $row["invNo"];
 													$Profit = $row['Amount'] -  $row['vCost'];
-													echo "<tr><td>".$row["invNo"]."</td>
-																<td>".$row["createdtime"]."</td> 
+
+													$start = date("2021-12-26 4:31:09");
+													$end = date("Y-m-d H:i:s");
+													$timediff = date("H",strtotime($start) - strtotime($end)); 
+													$totaltime = ($end - $start); 
+													$hours = intval($totaltime / 3600);
+
+													echo "<tr>
+																<td>".$row["createdtime"]. "</td> 
 														 		<td>".$row["Amount"]."</td>
+																 <td>".$timediff."</td>
 														 		<td>".$row["vCost"]."</td>
 																<td>".$Profit."</td>
 																<td>".$row["clientName"]."</td>
-																<td>".$row["pax"]."</td>
 																<td><a href='Isuee.php?INV=$INV' class='btn btn-primary'> View </a>
 																<a href='ReIssue.php?INV=$INV' class='btn btn-primary'> Reissue </a>
-																<a href='ReIssue.php?INV=$INV' class='btn btn-primary'> Refund </a>
-																<a href='ReIssue.php?INV=$INV' class='btn btn-primary'> Void </a><td>
-																 </tr>";   											
+																<a href='Void.php?INV=$INV' class='btn btn-primary'> Refund </a> ";
+
+													if($hours < 24){
+															echo "<a href='Void.php?INV=$INV' class='btn btn-primary'> Void </a><td></tr>";
+													}
+																 											
 												  }
-												} else {
-  												echo "0 results";
-											    }
+												}
 												?>
 											</tbody>
 										</table>

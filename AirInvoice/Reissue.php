@@ -279,7 +279,7 @@ if (mysqli_query($conn, $invoice)) {
      }
 
 	
-    $mrgenerate = "INSERT INTO `airticket`(
+    $mrgenerate = "INSERT INTO `airticketreissue`(
         `invNo`,
         `sqNo`,
         `csrId`,

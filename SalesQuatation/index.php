@@ -216,7 +216,7 @@ include('../session.php');
 																<td>".$row["clientName"]."</td>
 																<td>".$row["pax"]."</td>
 																<td><a href='Invoice.php?SQT=$SQT' class='btn btn-primary'> View </a></td>
-																<td><a href='../AirInvoice/AirTicket.php?SQT=$SQT' class='btn btn-primary'> Make Invoice </a></td>
+																<td><a href='../AirInvoice/Issue.php?SQT=$SQT' class='btn btn-primary'> Make Invoice </a></td>
 																 </tr>";   											
 												  }
 												} else {
