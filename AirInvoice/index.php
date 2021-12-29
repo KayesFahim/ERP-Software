@@ -192,12 +192,9 @@ include('../session.php');
 														invoice.invNo,
 														invoice.createdtime,
 														invoice.type,
-														SUM(airticket.vPrice1 + airticket.vPrice2 + airticket.vPrice3 + airticket.vPrice4 + airticket.vPrice1) As vCost,
-														invoice.pax,
+														airticket.vPrice1 As vCost,														
 														invoice.clientName,
-														SUM(
-															airticket.cost1 + airticket.cost2 + airticket.cost3 + airticket.cost4 + airticket.cost5
-														) AS Amount
+														airticket.cost1 AS Amount
 
 														FROM invoice
 														INNER JOIN airticket ON invoice.invNo = airticket.invNo
@@ -222,7 +219,7 @@ include('../session.php');
 														 		<td>".$row["vCost"]."</td>
 																<td>".$Profit."</td>
 																<td>".$row["clientName"]."</td>
-																<td><a href='IsueeInvoice.php?INV=$INV' class='btn btn-primary'> View </a>
+																<td><a href='IssueInvoice.php?INV=$INV' class='btn btn-primary'> View </a>
 																<a href='ReIssue.php?INV=$INV' class='btn btn-primary'> Reissue </a>
 																<a href='Void.php?INV=$INV' class='btn btn-primary'> Refund </a> ";
 

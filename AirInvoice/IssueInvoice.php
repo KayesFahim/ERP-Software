@@ -1,7 +1,6 @@
 <?php
 
 require '../config.php';
-require '../session.php';
 
 $INV_No = $_GET['INV'];
 
@@ -37,60 +36,32 @@ while($row = $result->fetch_assoc()) {
         $Ticket_Type1 = $row['ticketType1']; 
         $price1 = $row['cost1']; 
     
-        //Pax2
-        $pax2 = $row['PaxName2'];
-        $pnr2 = $row['PNR2'];
-        $ticket2 = $row['TicketNo2'];
-        $airlines2 = $row['Airlines2'];
-        $Ticket_Type2 = $row['ticketType2']; 
-        $from2 = $row['placeFrom2'];
-        $to2 = $row['placeTo2'];
-        $way2 = $row['way2']; 
-        $price2 = $row['cost2'];
         
-    
-        //Pax3
-
-        $pax3 = $row['PaxName3'];
-        $pnr3 = $row['PNR3'];
-        $ticket3 = $row['TicketNo3'];
-        $airlines3 = $row['Airlines3'];
-        $Ticket_Type3 = $row['ticketType3']; 
-        $from3 = $row['placeFrom3'];
-        $to3 = $row['placeTo3'];
-        $way3 = $row['way3']; 
-        $price3 = $row['cost3'];
-       
-    
-         //Pax4
-
-         $pax4 = $row['PaxName4'];
-         $pnr4 = $row['PNR4'];
-         $ticket4 = $row['TicketNo4'];
-         $airlines4 = $row['Airlines4'];
-         $Ticket_Type4 = $row['ticketType4']; 
-         $from4 = $row['placeFrom4'];
-         $to4 = $row['placeTo4'];
-         $way4 = $row['way4']; 
-         $price4 = $row['cost4'];
-         
-    
-         //Pax 5
-         $pax5 = $row['PaxName5'];
-         $pnr5 = $row['PNR5'];
-         $ticket5 = $row['TicketNo5'];
-         $airlines5 = $row['Airlines5'];
-         $Ticket_Type5 = $row['ticketType5']; 
-         $from5 = $row['placeFrom5'];
-         $to5 = $row['placeTo5'];
-         $way5 = $row['way5']; 
-         $price5 = $row['cost5'];
 						
 	}
 } else {
   
 }
 
+  
+// Include the qrlib file
+include '../vendor/phpqrcode/qrlib.php';
+$text = "http://erp.flyfar.tech/AirInvoice/IssueInvoice.php?INV=$INV_No";
+  
+// $path variable store the location where to 
+// store image and $file creates directory name
+// of the QR code file by using 'uniqid'
+// uniqid creates unique id based on microtime
+$path = 'images/';
+$file = $path.uniqid().".png";
+  
+// $ecc stores error correction capability('L')
+$ecc = 'L';
+$pixel_Size = 5;
+  
+// Generates QR Code and Stores it in directory given
+QRcode::png($text, $file, $ecc, $pixel_Size);
+  
 
 
 ?>
@@ -127,9 +98,7 @@ while($row = $result->fetch_assoc()) {
             <div class="p-2">
               <h6>Issue Date: <?php echo $Created_Date; ?></h6>
               <h6>Created By: <?php echo $Created_By; ?></h6>
-              <h6>Pax No: <?php echo $Pax_No; ?></h6>
-
-
+              
             </div>
         </div>
 
@@ -164,56 +133,13 @@ while($row = $result->fetch_assoc()) {
                             <td><?php echo $price1; ?></td>
                             </tr>
 
-                            <tr>
-                            <th scope="row"><?php echo $pax2; ?></th>
-                            <td><?php echo $pnr2; ?></td>
-                            <td><?php echo $ticket2; ?></td>
-                            <td><?php echo $airlines2; ?></td>
-                            <td><?php echo $Ticket_Type2; ?></td>
-                            <td><?php echo $to2; ?></td>
-                            <td><?php echo $from2; ?></td>
-                            <td><?php echo $way2; ?></td>
-                            <td><?php echo $price2; ?></td>
-                            </tr>
-                            <tr>
-                            <th scope="row"><?php echo $pax3; ?></th>
-                            <td><?php echo $pnr3; ?></td>
-                            <td><?php echo $ticket3; ?></td>
-                            <td><?php echo $airlines3; ?></td>
-                            <td><?php echo $Ticket_Type3; ?></td>
-                            <td><?php echo $to3; ?></td>
-                            <td><?php echo $from3; ?></td>
-                            <td><?php echo $way3; ?></td>
-                            <td><?php echo $price3; ?></td>
-                            </tr>
-                            <tr>
-                            <th scope="row"><?php echo $pax4; ?></th>
-                            <td><?php echo $pnr4; ?></td>
-                            <td><?php echo $ticket4; ?></td>
-                            <td><?php echo $airlines4; ?></td>
-                            <td><?php echo $Ticket_Type4; ?></td>
-                            <td><?php echo $to4; ?></td>
-                            <td><?php echo $from4; ?></td>
-                            <td><?php echo $way4; ?></td>
-                            <td><?php echo $price4; ?></td>
-                            </tr>
-                            <tr>
-                            <th scope="row"><?php echo $pax5; ?></th>
-                            <td><?php echo $pnr5; ?></td>
-                            <td><?php echo $ticket5; ?></td>
-                            <td><?php echo $airlines5; ?></td>
-                            <td><?php echo $Ticket_Type5; ?></td>
-                            <td><?php echo $to5; ?></td>
-                            <td><?php echo $from5; ?></td>
-                            <td><?php echo $way5; ?></td>
-                            <td><?php echo $price5; ?></td>
-                            </tr>
                             
-                            <tr>
                             
-                            <td rowspan="3" colspan="7" style="text-align:center;"> </td>
+                            <tr>                           
+                            <td rowspan="3" colspan="7" style="text-align:center;">
+                            <?php echo "<center><img src='".$file."'></center>"; ?> </td>
                             <td>Total</td>
-                            <td><?php $Total = $price1 + $price2 + $price3 + $price4 + $price5;
+                            <td><?php $Total = $price1;
                               echo number_format($Total, 2)
                             
                             ?></td>
