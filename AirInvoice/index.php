@@ -221,7 +221,8 @@ include('../session.php');
 																<td>".$row["clientName"]."</td>
 																<td><a href='IssueInvoice.php?INV=$INV' class='btn btn-primary'> View </a>
 																<a href='ReIssue.php?INV=$INV' class='btn btn-primary'> Reissue </a>
-																<a href='Void.php?INV=$INV' class='btn btn-primary'> Refund </a> ";
+																<a href='Void.php?INV=$INV' class='btn btn-primary'> Refund </a>
+																<a href='SecondSegment.php?INV=$INV' class='btn btn-primary'> Return Segment</a> ";
 
 													if($dataDate == $endTime){														
 														echo "<a href='Void.php?INV=$INV' class='btn btn-primary'> Void </a> ";																
