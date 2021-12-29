@@ -4777,7 +4777,8 @@ CREATE TABLE `employee` (
   `name` varchar(30) NOT NULL,
   `phone` varchar(20) NOT NULL,
   `department` varchar(30) NOT NULL,
-  `password` varchar(100) NOT NULL
+  `password` varchar(100) NOT NULL,
+  
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --

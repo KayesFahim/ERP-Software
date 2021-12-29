@@ -328,17 +328,17 @@
                             </li>
 
                             <li>
-                                <a href='Inventory.php'><i class='fe fe-layout'></i> <span> Inventory</span></a>
+                                <a href='Inventory'><i class='fe fe-layout'></i> <span> Inventory</span></a>
                             </li>
                             
                             <li>
-                                <a href='Salary/SalarySheet.php'><i class='fe fe-layout'></i> <span>Salary</span></a>
+                                <a href='Salary'><i class='fe fe-layout'></i> <span>Salary</span></a>
                             </li>
                             <li>
-                                <a href='Attandance.php'><i class='fe fe-layout'></i> <span> Attandance</span></a>
+                                <a href='Attandance'><i class='fe fe-layout'></i> <span> Attandance</span></a>
                             </li>
                             <li>
-                                <a href='Employees.php'><i class='fe fe-layout'></i> <span> Employees</span></a>
+                                <a href='Employee'><i class='fe fe-layout'></i> <span> Employees</span></a>
                             </li>
                             
                             
@@ -382,6 +382,11 @@
                     </div>";
     
                     }else{
+
+                        echo '<script language="javascript">';
+                        echo 'alert("Successfully Created"); location.href="index.php"';
+                        echo '</script>';
+
 
                     }
                     
