@@ -10,10 +10,10 @@ $result = $conn->query($sql);
 if ($result->num_rows > 0) {
 	while($row = $result->fetch_assoc()) {
         $outputString = preg_replace('/[^0-9]/', '', $row["CustomerId"]);
-		$CustomerId = "CSR-00".(int)$outputString + 1 ;									
+		$CustomerId = "CSR-100".(int)$outputString + 1 ;									
  }
 } else {
-	$CustomerId = "CSR-001";
+	$CustomerId = "CSR-1000";
  }
 
  if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -40,7 +40,23 @@ if ($result->num_rows > 0) {
     )";
         
         if ($conn->query($sqlquery) === TRUE) {
-            $success = "Record inserted successfully";
+
+			$ClientLedger ="INSERT INTO `client_ledger`(`TxType`, `CSR_ID`, `PaxName`, `serviceType`, `Details`, `cost`, `Balance`)
+                         VALUES ('Open','$CustomerId',' ','Account Open','Opening Balanced',' ','0')";
+
+        if (mysqli_query($conn, $ClientLedger)) {
+
+			echo '<script language="javascript">';
+		    echo 'alert("Successfully Created"); location.href="index.php"';
+		    echo '</script>';
+
+		}
+
+
+
+
+
+            
         } else {
             echo "Error: " . $sqlquery . "<br>" . $conn->error;
         }

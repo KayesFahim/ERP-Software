@@ -12,10 +12,13 @@ $result = $conn->query($sql);
 if ($result->num_rows > 0) {
 	while($row = $result->fetch_assoc()) {
         $outputString = preg_replace('/[^0-9]/', '', $row["recieptNo"]);
-		$Reciept_No = "RCP-".(int)$outputString + 1 ;									
+		$number= (int)$outputString + 1;
+		$Reciept_No = "RCP-$number";							
  }
 } else {
-echo "0 results";
+	$Reciept_No = "RCP-1000";
+
+
  }
 
 
@@ -59,7 +62,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 	
     $mrgenerate = "INSERT INTO `moneyreciept`(
-		`TxType`,
+		`recieptNo`,
+		`createdBy`,
 		`customerId`,
 		`TxId`,
 		`amount`,
@@ -69,6 +73,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	)
 	VALUES(
 		'$Reciept_No',
+		'$userName',
 		'$Customer_Id',
 		'$TxId',
 		'$amount',
@@ -78,311 +83,296 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	)";
 
 	if (mysqli_query($conn, $mrgenerate)) {
+		$ses_sql = mysqli_query($conn,"SELECT * FROM `client_ledger` WHERE CSR_ID='$Customer_Id' ORDER BY DateTime DESC LIMIT 1");
+        $row = mysqli_fetch_array($ses_sql,MYSQLI_ASSOC);
+        
+        $Balanced = $row['Balance'] + $amount;
+
+        $ClientLedger ="INSERT INTO `client_ledger`(`TxType`, `CSR_ID`, `serviceType`, `Details`, `deposit`, `Balance`)
+                         VALUES ('$Reciept_No','$Customer_Id','$payWay $payMethod ','$TxId $comment','$amount',' $Balanced')";
 		
-	} else {
-		echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-	}
-	
-	
-	if($payWay == 'bank'){
+		if (mysqli_query($conn, $ClientLedger)) {
+			if($payWay == 'bank'){
 
-		if($payMethod == 'city'){
-
-			$credit = "INSERT INTO `bank`(
+				if($payMethod == 'city'){
+		
+					$credit = "INSERT INTO `bank`(
+						
+						`bankId`,
+						`bankname`,				
+						`TxType`,
+						`credit`,
+						`creditComment`				
+					)
+					VALUES(
+						'BNK-001',
+						'City Bank Limited',
+						'$Reciept_No',
+						'$amount',
+						'$TxId'				
+					)";
+		
+					if (mysqli_query($conn, $credit)) {
+									
+						echo '<script language="javascript">';
+				echo 'alert("Successfully Created"); location.href="invoice.php?Rno='.$Reciept_No.'"';
+				echo '</script>';
+						
+					}
+		
+				}else if($payMethod == 'brac'){
+					$credit = "INSERT INTO `bank`(				
+						`bankId`,
+						`bankname`,				
+						`TxType`,
+						`credit`,
+						`creditComment`
+						
+					)
+					VALUES(
+						'BNK-002',
+						'Brac Bank Limited',
+						'$Reciept_No',
+						'$amount',
+						'$TxId'
+						
+					)";
+		
+					if (mysqli_query($conn, $credit)) {
+					
+						echo '<script language="javascript">';
+						echo 'alert("Successfully Created"); location.href="invoice.php?Rno='.$Reciept_No.'"';
+						echo '</script>';
+						
+				 }
+		
+				}else if($payMethod == 'islami'){
+					$credit = "INSERT INTO `bank`(
+						
+						`bankId`,
+						`bankname`,				
+						`TxType`,
+						`credit`,
+						`creditComment`
+						
+					)
+					VALUES(
+						'BNK-003',
+						'Islami Bank',
+						'$Reciept_No',
+						'$amount',
+						'$TxId'
+						
+					)";
+		
+					if (mysqli_query($conn, $credit)) {
+									
+						echo '<script language="javascript">';
+						echo 'alert("Successfully Created"); location.href="invoice.php?Rno='.$Reciept_No.'"';
+						echo '</script>';
+						
+					}
+		
+				}else if($payMethod == 'sonali'){
+					$credit = "INSERT INTO `bank`(
+						
+						`bankId`,
+						`bankname`,				
+						`TxType`,
+						`credit`,
+						`creditComment`
+						
+					)
+					VALUES(
+						'BNK-004',
+						'Sonali Bank',
+						'$Reciept_No',
+						'$amount',
+						'$TxId'
+						
+					)";
+		
+					if (mysqli_query($conn, $credit)) {
+									
+						echo '<script language="javascript">';
+						echo 'alert("Successfully Created"); location.href="invoice.php?Rno='.$Reciept_No.'"';
+						echo '</script>';
+						
+					}
+		
+		
+				}elseif($payMethod == 'dutch'){
+					$credit = "INSERT INTO `bank`(
+						
+						`bankId`,
+						`bankname`,				
+						`TxType`,
+						`credit`,
+						`creditComment`
+						
+					)
+					VALUES(
+						'BNK-005',
+						'Dutch Bangla Bank',
+						'$Reciept_No',
+						'$amount',
+						'$TxId'
+						
+					)";
+		
+					if (mysqli_query($conn, $credit)) {
+									
+						echo '<script language="javascript">';
+						echo 'alert("Successfully Created"); location.href="invoice.php?Rno='.$Reciept_No.'"';
+						echo '</script>';
+						
+					}
+		
+				}elseif($payMethod == 'commercial'){
 				
-				`bankId`,
-				`bankname`,				
-				`TxType`,
-				`credit`,
-				`creditComment`				
-			)
-			VALUES(
-				'BNK-001',
-				'City Bank Limited',
-				'$Reciept_No',
-				'$amount',
-				'$TxId'				
-			)";
-
-			if (mysqli_query($conn, $credit)) {
-							
-				echo '<script language="javascript">';
-		echo 'alert("Successfully Created"); location.href="invoice.php?Rno='.$Reciept_No.'"';
-		echo '</script>';
-				
-			} else {
-			echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-			}
-
-		}else if($payMethod == 'brac'){
-			$credit = "INSERT INTO `bank`(				
-				`bankId`,
-				`bankname`,				
-				`TxType`,
-				`credit`,
-				`creditComment`
-				
-			)
-			VALUES(
-				'BNK-002',
-				'Brac Bank Limited',
-				'$Reciept_No',
-				'$amount',
-				'$TxId'
-				
-			)";
-
-			if (mysqli_query($conn, $credit)) {
+					$credit = "INSERT INTO `bank`(
+						
+						`bankId`,
+						`bankname`,				
+						`TxType`,
+						`credit`,
+						`creditComment`
+						
+					)
+					VALUES(
+						'BNK-006',
+						'Commercial Bank',
+						'$Reciept_No',
+						'$amount',
+						'$TxId'
+						
+					)";
+		
+					if (mysqli_query($conn, $credit)) {
+									
+						echo '<script language="javascript">';
+						echo 'alert("Successfully Created"); location.href="invoice.php?Rno='.$Reciept_No.'"';
+						echo '</script>';
+						
+					}
+		
+		
+				}elseif($payMethod == 'ncc'){
+					$credit = "INSERT INTO `bank`(
+						
+						`bankId`,
+						`bankname`,				
+						`TxType`,
+						`credit`,
+						`creditComment`
+						
+					)
+					VALUES(
+						'BNK-007',
+						'NCC Bank',
+						'$Reciept_No',
+						'$amount',
+						'$TxId'
+						
+					)";
+		
+					if (mysqli_query($conn, $credit)) {
+									
+						echo '<script language="javascript">';
+						echo 'alert("Successfully Created"); location.href="invoice.php?Rno='.$Reciept_No.'"';
+						echo '</script>';
+						
+					}
+		
+				}elseif($payMethod == 'modhumoti'){
+		
+					$credit = "INSERT INTO `bank`(				
+						`bankId`,
+						`bankname`,				
+						`TxType`,
+						`credit`,
+						`creditComment`
+						
+					)
+					VALUES(
+						'BNK-008',
+						'Modhumoti Bank',
+						'$Reciept_No',
+						'$amount',
+						'$TxId'
+						
+					)";
+		
+					if (mysqli_query($conn, $credit)) {
+									
+						echo '<script language="javascript">';
+						echo 'alert("Successfully Created"); location.href="invoice.php?Rno='.$Reciept_No.'"';
+						echo '</script>';
+						
+					}
+				}
 			
-				echo '<script language="javascript">';
-				echo 'alert("Successfully Created"); location.href="invoice.php?Rno='.$Reciept_No.'"';
-				echo '</script>';
-				
-		 } else {
-			echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-		}
-
-		}else if($payMethod == 'islami'){
-			$credit = "INSERT INTO `bank`(
-				
-				`bankId`,
-				`bankname`,				
-				`TxType`,
-				`credit`,
-				`creditComment`
-				
-			)
-			VALUES(
-				'BNK-003',
-				'Islami Bank',
-				'$Reciept_No',
-				'$amount',
-				'$TxId'
-				
-			)";
-
-			if (mysqli_query($conn, $credit)) {
-							
-				echo '<script language="javascript">';
-				echo 'alert("Successfully Created"); location.href="invoice.php?Rno='.$Reciept_No.'"';
-				echo '</script>';
-				
-			} else {
-			echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-			}
-
-		}else if($payMethod == 'sonali'){
-			$credit = "INSERT INTO `bank`(
-				
-				`bankId`,
-				`bankname`,				
-				`TxType`,
-				`credit`,
-				`creditComment`
-				
-			)
-			VALUES(
-				'BNK-004',
-				'Sonali Bank',
-				'$Reciept_No',
-				'$amount',
-				'$TxId'
-				
-			)";
-
-			if (mysqli_query($conn, $credit)) {
-							
-				echo '<script language="javascript">';
-				echo 'alert("Successfully Created"); location.href="invoice.php?Rno='.$Reciept_No.'"';
-				echo '</script>';
-				
-			} else {
-			echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-			}
-
-
-		}elseif($payMethod == 'dutch'){
-			$credit = "INSERT INTO `bank`(
-				
-				`bankId`,
-				`bankname`,				
-				`TxType`,
-				`credit`,
-				`creditComment`
-				
-			)
-			VALUES(
-				'BNK-005',
-				'Dutch Bangla Bank',
-				'$Reciept_No',
-				'$amount',
-				'$TxId'
-				
-			)";
-
-			if (mysqli_query($conn, $credit)) {
-							
-				echo '<script language="javascript">';
-				echo 'alert("Successfully Created"); location.href="invoice.php?Rno='.$Reciept_No.'"';
-				echo '</script>';
-				
-			} else {
-			echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-			}
-
-		}elseif($payMethod == 'commercial'){
 		
-			$credit = "INSERT INTO `bank`(
-				
-				`bankId`,
-				`bankname`,				
-				`TxType`,
-				`credit`,
-				`creditComment`
-				
-			)
-			VALUES(
-				'BNK-006',
-				'Commercial Bank',
-				'$Reciept_No',
-				'$amount',
-				'$TxId'
-				
-			)";
-
-			if (mysqli_query($conn, $credit)) {
-							
-				echo '<script language="javascript">';
-				echo 'alert("Successfully Created"); location.href="invoice.php?Rno='.$Reciept_No.'"';
-				echo '</script>';
-				
-			} else {
-			echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+			}elseif($payWay == 'cash'){
+		
+				if($payMethod == 'cash'){
+		
+				$credit = "INSERT INTO `cash`(
+		
+							`TxType`,
+							`cashIn`,
+							`cashInTxId`
+						)
+						VALUES(
+							'$Reciept_No',
+							'$amount',
+							'$TxId'
+						)";
+		
+				if (mysqli_query($conn, $credit)) {						
+					echo '<script language="javascript">';
+					echo 'alert("Successfully Created"); location.href="invoice.php?Rno='.$Reciept_No.'"';
+					echo '</script>';
+					
+				}
 			}
-
-
-		}elseif($payMethod == 'ncc'){
-			$credit = "INSERT INTO `bank`(
+		
+		
+			}elseif($payWay == 'mobile_banking'){
 				
-				`bankId`,
-				`bankname`,				
-				`TxType`,
-				`credit`,
-				`creditComment`
+		
 				
-			)
-			VALUES(
-				'BNK-007',
-				'NCC Bank',
-				'$Reciept_No',
-				'$amount',
-				'$TxId'
-				
-			)";
-
-			if (mysqli_query($conn, $credit)) {
-							
-				echo '<script language="javascript">';
-				echo 'alert("Successfully Created"); location.href="invoice.php?Rno='.$Reciept_No.'"';
-				echo '</script>';
-				
-			} else {
-			echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-			}
-
-		}elseif($payMethod == 'modhumoti'){
-
-			$credit = "INSERT INTO `bank`(				
-				`bankId`,
-				`bankname`,				
-				`TxType`,
-				`credit`,
-				`creditComment`
-				
-			)
-			VALUES(
-				'BNK-008',
-				'Modhumoti Bank',
-				'$Reciept_No',
-				'$amount',
-				'$TxId'
-				
-			)";
-
-			if (mysqli_query($conn, $credit)) {
-							
-				echo '<script language="javascript">';
-				echo 'alert("Successfully Created"); location.href="invoice.php?Rno='.$Reciept_No.'"';
-				echo '</script>';
-				
-			} else {
-			echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-			}
-		}else{
-			echo 'Wrong Selection';
-		}
-	
-
-	}elseif($payWay == 'cash'){
-
-		if($payMethod == 'cash'){
-
-		$credit = "INSERT INTO `cash`(
-
-					`TxType`,
-					`cashIn`,
-					`cashInTxId`
-				)
-				VALUES(
-					'$Reciept_No',
-					'$amount',
-					'$TxId'
-				)";
-
-		if (mysqli_query($conn, $credit)) {						
-			echo '<script language="javascript">';
-			echo 'alert("Successfully Created"); location.href="invoice.php?Rno='.$Reciept_No.'"';
-			echo '</script>';
+		
+			}elseif($payWay == 'ssl_commerce'){
+				if($payMethod == 'ssl_commerce'){
+					$credit = "INSERT INTO `ssl_commerce`(
+						`TxId`,
+						`amount`,
+						`TxType`
+					)
+					VALUES(
+		
+						'$TxId',
+						'$amount',
+						'$Reciept_No'
+					)";
 			
-		} else {
-		echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-		}
-	}else{
-		echo 'Wrong Selection';
-	}
-
-
-	}elseif($payWay == 'mobile_banking'){
-		echo $payWay;
-		echo $payMethod;
+					if (mysqli_query($conn, $credit)) {						
+						echo '<script language="javascript">';
+						echo 'alert("Successfully Created"); location.href="invoice.php?Rno='.$Reciept_No.'"';
+						echo '</script>';
+						
+					}
 		
+				}
+			}                          
 
-	}elseif($payWay == 'ssl_commerce'){
-		if($payMethod == 'ssl_commerce'){
-			$credit = "INSERT INTO `ssl_commerce`(
-				`TxId`,
-				`amount`,
-				`TxType`
-			)
-			VALUES(
-
-				'$TxId',
-				'$amount',
-				'$Reciept_No'
-			)";
-	
-			if (mysqli_query($conn, $credit)) {						
-				echo '<script language="javascript">';
-				echo 'alert("Successfully Created"); location.href="invoice.php?Rno='.$Reciept_No.'"';
-				echo '</script>';
-				
-			} else {
-			echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-			}
-		}else{
-			echo 'Wrong Selection';
 		}
-	}                                                                                    
+
+		
+	}
+		
+	                                                          
 }
 
 
@@ -738,8 +728,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 																	<a href='Invoice.php?Rno=$Rno' class='btn btn-danger'> <i class='fe fe-mail'></i> </a>
 																	</tr>";   											
 													}
-													} else {
-													echo "0 results";
 													}
 													?>
                                                     </td>

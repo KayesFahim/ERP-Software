@@ -158,7 +158,7 @@ if($userRole == 'reservation'){
              </li>
 
              <li>
-                 <a data-toggle='dropdown'><i class='fe fe-layout'></i> <span>Report</span></a>
+                 <a data-toggle='dropdown'><i class='fe fe-layout'></i> <span> Report</span></a>
                      <ul>
                          <li><a href='../Report/ClientLedger.php'><i class='fe fe-layout'></i> <span>Client Report</span></a></li>
                          <li><a href='../Report/VendorLedger.php'><i class='fe fe-layout'></i> <span>Vendor Report</span></a> </li>

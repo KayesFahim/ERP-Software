@@ -277,7 +277,14 @@ if (mysqli_query($conn, $invoice)) {
 
 	if (mysqli_query($conn, $mrgenerate)) {
 
-        $ClientLedger ="INSERT INTO `ledger`(`txType`, `personType`, `debit`) VALUES ('$INV_No','$csrId','$price1')";
+        $ses_sql = mysqli_query($conn,"SELECT * FROM client_ledger where CSR_ID='$csrId' ORDER BY DateTime DESC LIMIT 1");
+        $row = mysqli_fetch_array($ses_sql,MYSQLI_ASSOC);
+        
+        $Balanced = $row['Balance'] - $price1;
+
+
+        $ClientLedger ="INSERT INTO `client_ledger`(`TxType`, `CSR_ID`, `PaxName`, `serviceType`, `Details`, `cost`, `Balance`)
+                         VALUES ('$INV_No','$csrId','$pax1','$type1','$pnr1 $ticket1 $airlines1 $way1 $from1-$to1','$price1',' $Balanced')";
 
         if (mysqli_query($conn, $ClientLedger)) {
 

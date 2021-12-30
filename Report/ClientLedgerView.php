@@ -175,42 +175,50 @@ include('../session.php');
 										<table class="datatable table table-stripped">
 											<thead>
 												<tr>
-													<th>Client ID</th>
-													<th>Name</th>
-													<th>Balance</th>
-													<th>Phone</th>
-													<th>Action</th>
+													<th>Date</th>
+													<th>Type</th>
+													<th>Details</th>
+                                                    <th>Service</th>
+													<th>Cost</th>
+													<th>Deposit</th>
+													<th>Last Balanced</th>
                                                     <th></th>
+
 												</tr>
 											</thead>
 											<tbody>
 
 												<?php
 
-												$sql = "SELECT * FROM `customer`";
+                                                        $encryption = $_GET['cId'];
+                                                        $ciphering = "AES-128-CTR";
+                                                        $iv_length = openssl_cipher_iv_length($ciphering);
+                                                        $options = 0;
+                                                        $decryption_iv  = '1234567891011121';
+                                                        $decryption_key  = "FlyFarInterNational";
+                                                        $decryption=openssl_decrypt ($encryption, $ciphering, 
+                                                                $decryption_key, $options, $decryption_iv);
+
+                                                        $Client_Id = $decryption;
+
+												$sql = "SELECT * FROM `client_ledger` WHERE CSR_ID='$Client_Id' Order By DateTime DESC";
 												$result = $conn->query($sql);
 
 												if ($result->num_rows > 0) {
   												while($row = $result->fetch_assoc()) {													  
-													  $vendor_id = "".$row["CustomerId"];
-													  $ciphering = "AES-128-CTR";
-													  $iv_length = openssl_cipher_iv_length($ciphering);
-													  $options = 0;
-													  $encryption_iv = '1234567891011121';
-													  $encryption_key = "FlyFarInterNational";
-													  $encryption = openssl_encrypt($vendor_id, $ciphering,
-																$encryption_key, $options, $encryption_iv);
-
-													echo "<tr><td>".$row["CustomerId"]."</td>
-																<td>".$row["name"]."</td> 
-																<td>".$row["phone"]."</td>
-														 		<td>".$row["email"]."</td>
-																<td><a href='ClientLedgerView.php?cId=$encryption' class='btn btn-primary'> View </a><td>
-																 </tr>";   											
+													  
+													echo "<tr><td>".$row["DateTime"]."</td>
+																<td>".$row["TxType"]."</td> 
+														 		<td>".$row["Details"]."</td>
+																<td>".$row["serviceType"]."</td>
+														 		<td>".$row["cost"]."</td>
+                                                                <td>".$row["deposit"]."</td>
+                                                                <td>".$row["Balance"]."</td>
+                                                                <td> </td>
+                                                                </tr>";   											
 												  }
-												} else {
+												} 
 
-											    }
 												?>
 
 
