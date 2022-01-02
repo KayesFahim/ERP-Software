@@ -48,10 +48,6 @@ while($row = $result->fetch_assoc()) {
 include '../vendor/phpqrcode/qrlib.php';
 $text = "http://erp.flyfar.tech/AirInvoice/IssueInvoice.php?INV=$INV_No";
   
-// $path variable store the location where to 
-// store image and $file creates directory name
-// of the QR code file by using 'uniqid'
-// uniqid creates unique id based on microtime
 $path = 'images/';
 $file = $path.uniqid().".png";
   
@@ -136,8 +132,8 @@ QRcode::png($text, $file, $ecc, $pixel_Size);
                             
                             
                             <tr>                           
-                            <td rowspan="3" colspan="7" style="text-align:center;">
-                            <?php echo "<center><img src='".$file."'></center>"; ?> </td>
+                            <td rowspan="3" colspan="7" style="text-align:left;">
+                            <?php echo "<left><img src='".$file."'></left>"; ?> </td>
                             <td>Total</td>
                             <td><?php $Total = $price1;
                               echo number_format($Total, 2)

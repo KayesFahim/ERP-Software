@@ -3,10 +3,18 @@
 include '../config.php';
 include('../session.php');
 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
+
+require '../vendor/autoload.php';
+include '../vendor/phpqrcode/qrlib.php';
+
+  
 
 //Reciept No
 
-$INV_No;
 $sql1 = "SELECT * FROM `invoice` ORDER By id DESC LIMIT 1";
 $result = $conn->query($sql1);
 if ($result->num_rows > 0) {
@@ -20,173 +28,13 @@ if ($result->num_rows > 0) {
  }
 
 
-
-//Employee Info
-
-if (array_key_exists('SQT', $_GET)){
-	$searchvar = $_GET['SQT'];
-		
-		$sql = "SELECT * FROM salesqutation where sqNo='$searchvar'";
-		$result = $conn->query($sql);
-		if ($result->num_rows > 0) {
-			while($row = $result->fetch_assoc()) {
-                $Client_Name = $row['clientName'];
-                $Client_Id = $row['csrId'];
-                $Pax_No = $row['pax'];
-				$pax1 = $row['PaxName1'];
-                $Airlines1 = $row['Airlines1'];       
-                $from1 = $row['from1'];
-                $to1 = $row['to1'];
-                $type1= $row['type1'];
-                $way1= $row['way1']; 
-                $price1 = $row['cost1']; 
-            
-                //Pax2
-                $pax2 = $row['PaxName2'];
-                $Airlines2 = $row['Airlines2'];
-                $from2 = $row['from2'];
-                $to2 = $row['to2'];
-                $type2 = $row['type2']; 
-                $way2 = $row['way2'];        
-                $price2 = $row['cost2'];
-                
-            
-                //Pax3
-
-                $pax3 = $row['PaxName3']; 
-                $Airlines3 = $row['Airlines3'];   
-                $from3 = $row['from3'];
-                $to3 = $row['to3'];
-                $type3 = $row['type3'];
-                $way3 = $row['way3'];    
-                $price3 = $row['cost3'];
-            
-            
-                //Pax4
-
-                $pax4 = $row['PaxName4'];
-                $Airlines4 = $row['Airlines4'];       
-                $from4 = $row['from4'];
-                $to4 = $row['to4'];
-                $type4 = $row['type4']; 
-                $way4 = $row['way4'];    
-                $price4 = $row['cost4'];
-                
-            
-                //Pax 5
-                $pax5 = $row['PaxName5'];
-                $Airlines5 = $row['Airlines5'];
-                $from5 = $row['from5'];
-                $to5 = $row['to5'];
-                $type5= $row['type5'];
-                $way5 = $row['way5'];    
-                $price5 = $row['cost5'];     								
-			}
-		} else {
-            $Pax_No = " ";
-            $pax1 = " ";
-            $Airlines1 = " ";         
-            $from1 = " ";
-            $to1 = " ";
-            $type1= " ";
-            $way1 = " ";
-            $price1 = " "; 
-        
-            //Pax2
-            $pax2 = " ";
-            $Airlines2 = " ";
-            $from2 = " ";
-            $to2 = " ";
-            $type2 = " ";
-            $way2 = " ";      
-            $price2 = " ";
-            
-        
-            //Pax3
-
-            $pax3 = " "; 
-            $Airlines3 = " ";
-            $from3 = " ";
-            $to3 = " ";
-            $type3 =" ";
-            $way3 = " "; 
-            $price3 = " ";
-        
-        
-            //Pax4
-
-            $pax4 = " ";
-            $Airlines4 = " ";       
-            $from4 = " ";
-            $to4 = " ";
-            $type4 = " ";
-            $way4 = " ";   
-            $price4 = " ";
-            
-        
-            //Pax 5
-            $pax5 = " ";
-            $Airlines5 = " ";
-            $from5 = " ";
-            $to5 = " ";
-            $type5= " ";
-            $way5 = " ";  
-            $price5 = " ";
-            $searchvar= " ";		
-		}
-		
-}else{
-        $Pax_No = " ";
-	    $pax1 = " ";
-        $Airlines1 = " ";         
-        $from1 = " ";
-        $to1 = " ";
-        $type1= " ";
-        $way1 = " ";
-        $price1 = " "; 
-    
-        //Pax2
-        $pax2 = " ";
-        $Airlines2 = " ";
-        $from2 = " ";
-        $to2 = " ";
-        $type2 = " ";
-        $way2 = " ";      
-        $price2 = " ";
-        
-    
-        //Pax3
-
-        $pax3 = " "; 
-        $Airlines3 = " ";
-        $from3 = " ";
-        $to3 = " ";
-        $type3 =" ";
-        $way3 = " "; 
-        $price3 = " ";
-       
-    
-         //Pax4
-
-         $pax4 = " ";
-         $Airlines4 = " ";       
-         $from4 = " ";
-         $to4 = " ";
-         $type4 = " ";
-         $way4 = " ";   
-         $price4 = " ";
-         
-    
-         //Pax 5
-         $pax5 = " ";
-         $Airlines5 = " ";
-         $from5 = " ";
-         $to5 = " ";
-         $type5= " ";
-         $way5 = " ";  
-         $price5 = " ";
-         $searchvar= " ";
-}
+$text = "http://erp.flyfar.tech/AirInvoice/IssueInvoice.php?INV=$INV_No";
+$path = 'images/';
+$file = $path.uniqid().".png";
+$ecc = 'L';
+$pixel_Size = 5;
+  
+QRcode::png($text, $file, $ecc, $pixel_Size);
 
 
 
@@ -240,7 +88,6 @@ if (mysqli_query($conn, $invoice)) {
 	
     $mrgenerate = "INSERT INTO `airticket`(
         `invNo`,
-        `sqNo`,
         `csrId`,
         `PaxName1`,
         `PNR1`,
@@ -258,7 +105,6 @@ if (mysqli_query($conn, $invoice)) {
     )
     VALUES(
         '$INV_No',
-        '$searchvar',
         '$csrId',
         '$pax1',
         '$pnr1',
@@ -281,27 +127,252 @@ if (mysqli_query($conn, $invoice)) {
         $row = mysqli_fetch_array($ses_sql,MYSQLI_ASSOC);
         
         $Balanced = $row['Balance'] - $price1;
-
+        
 
         $ClientLedger ="INSERT INTO `client_ledger`(`TxType`, `CSR_ID`, `PaxName`, `serviceType`, `Details`, `cost`, `Balance`)
                          VALUES ('$INV_No','$csrId','$pax1','$type1','$pnr1 $ticket1 $airlines1 $way1 $from1-$to1','$price1',' $Balanced')";
 
         if (mysqli_query($conn, $ClientLedger)) {
 
-            if(!empty($vendor1 && $vprice1)){
-                $vendorLedger ="INSERT INTO `ledger`(`txType`, `personType`, `debit`) VALUES ('$INV_No','$vendor1','$vprice1')";
-
-                if (mysqli_query($conn, $vendorLedger)) {
-                
-                
-                }
-
-            } 
+            $ses_sql1 = mysqli_query($conn,"SELECT * FROM vendor_ledger where VDR_ID='$vendor1' ORDER BY DateTime DESC LIMIT 1");
+            $row1 = mysqli_fetch_array($ses_sql1,MYSQLI_ASSOC);
             
+            $vBalanced = $row1['balance'] - $vprice1;
+             $vendorLedger ="INSERT INTO `vendor_ledger`(`txType`, `VDR_ID`, `pax`, `pnr`, `ticket`, `serviceType`, `details`, `cost`,`balance`)
+             VALUES ('$INV_No','$vendor1','$pax1','$pnr1','$ticket1','$type1','$airlines1 ' \n ' $way1 ' \n ' $from1-$to1','$vprice1','$vBalanced')";
 
-            echo '<script language="javascript">';
-		    echo 'alert("Successfully Created"); location.href="IssueInvoice.php?INV='.$INV_No.'"';
-		    echo '</script>';
+            if (mysqli_query($conn, $vendorLedger)) {
+
+
+                $body="
+                <html>
+                    <head>                
+                        <style>
+                            .invoice-box {
+                                max-width: 1000px;
+                                margin: auto;
+                                padding: 30px;
+                                border: 1px solid #eee;
+                                box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+                                font-size: 16px;
+                                line-height: 24px;
+                                font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+                                color: #555;
+                            }
+                
+                            .invoice-box table {
+                                width: 100%;
+                                line-height: inherit;
+                                text-align: left;
+                            }
+                
+                            .invoice-box table td {
+                                padding: 5px;
+                                vertical-align: top;
+                            }
+                
+                            .invoice-box table tr td:nth-child(2) {
+                                text-align: right;
+                            }
+                
+                            .invoice-box table tr.top table td {
+                                padding-bottom: 20px;
+                            }
+                
+                            .invoice-box table tr.top table td.title {
+                                font-size: 45px;
+                                line-height: 45px;
+                                color: #333;
+                            }
+                
+                            .invoice-box table tr.information table td {
+                                padding-bottom: 40px;
+                            }
+                
+                            .invoice-box table tr.heading td {
+                                background: #eee;
+                                border-bottom: 1px solid #ddd;
+                                font-weight: bold;
+                            }
+                
+                            .invoice-box table tr.details td {
+                                padding-bottom: 20px;
+                            }
+                
+                            .invoice-box table tr.item td {
+                                border-bottom: 1px solid #eee;
+                            }
+                
+                            .invoice-box table tr.item.last td {
+                                border-bottom: none;
+                            }
+                
+                            .invoice-box table tr.total td:nth-child(2) {
+                                border-top: 2px solid #eee;
+                                font-weight: bold;
+                            }
+                
+                            @media only screen and (max-width: 600px) {
+                                .invoice-box table tr.top table td {
+                                    width: 100%;
+                                    display: block;
+                                    text-align: center;
+                                }
+                
+                                .invoice-box table tr.information table td {
+                                    width: 100%;
+                                    display: block;
+                                    text-align: center;
+                                }
+                            }
+                
+
+                            .invoice-box.rtl {
+                                direction: rtl;
+                                font-family: Tahoma, 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+                            }
+                
+                            .invoice-box.rtl table {
+                                text-align: right;
+                            }
+                
+                            .invoice-box.rtl table tr td:nth-child(2) {
+                                text-align: left;
+                            }
+                        </style>
+                    </head>
+                
+                    <body>
+                        <div class='invoice-box'>
+                            <table cellpadding='0' cellspacing='0'>
+                                <tr class='top'>
+                                    <td colspan='2'>
+                                        <table>
+                                            <tr>
+                                                <td class='title'>
+                                                    <img src='https://erp.flyfar.tech/logo.png' style='width: 100%; max-width: 180px' />
+                                                </td>
+                
+                                                <td>
+                                                    #: $INV_No;<br />
+                                                    Created By : $userName<br />
+                                                    Issue Date: CDate<br />
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                
+                                <tr class='information'>
+                                    <td colspan='3'>
+                                        <table>
+                                            <tr>
+                                                <td>
+                                                    Fly Far International<br />
+                                                    Ka 11/2A, Jagannathpur,<br />
+                                                    Bashundhora Road, Dhaka, 1229 <br/>
+                                                </td>
+                
+                                                <td>
+                                                 Paid By :  $Client_Name<br />
+                                                  Rev officer :  $Rev_Officer<br/>          
+                                                </td>
+                                                <td>
+                                                <right><img src='".$file."'></right>    
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                
+                                <tr class='heading'>
+                                <th>Pax Name</th>
+                                <th>PNR</th>
+                                <th>Ticket Number</th>
+                                <th>Airlines</th>
+                                <th>Type</th>
+                                <th >Place To</th>
+                                <th >Place From</th>
+                                <th>Way</th>
+                                <th>Price</th>
+                                </tr>
+                
+                                <tr class='item'>
+                                    <th>$pax1</th>
+                                    <td>$pnr1</td>
+                                    <td>$ticket1</td>
+                                    <td>$airlines1</td>
+                                    <td>$type1</td>
+                                    <td>$to1</td>
+                                    <td>$from1</td>
+                                    <td>$way1</td>
+                                    <td>$price1</td>
+                                </tr>
+                
+                
+                                <tr class='total'>
+                                <td></td>
+
+					            <td>Total: $price1</td>
+                                    
+                                </tr>
+                            </table>
+                
+                            <table>
+                                <th>
+                                <tr>
+                                <tr>
+                                </th>
+                
+                            </table>
+                
+                
+                
+                        </div>
+                    </body>
+                </html>";
+
+                
+
+
+                    $clientsql = mysqli_query($conn,"SELECT * FROM customer where CustomerId='$csrId'");
+                    $row2 = mysqli_fetch_array($clientsql,MYSQLI_ASSOC);
+                    
+                    $Email = $row2['email'];
+                        $mail = new PHPMailer(true);
+
+                           
+                           // $mail->SMTPDebug = 2;                     
+                            $mail->isSMTP();                                     
+                            $mail->Host       = 'flyfar.tech';                    
+                            $mail->SMTPAuth   = true;                                   
+                            $mail->Username   = 'noreply@flyfar.tech';                  
+                            $mail->Password   = '@Flyfar123';                               
+                            $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;           
+                            $mail->Port       = 465; 
+                                                         
+                            //Recipients
+                            $mail->setFrom('noreply@flyfar.tech', 'ERP Software - FLy Far');
+                            $mail->addAddress($Email, $Client_Name);  
+                        
+                            $mail->addCC('ceo@flyfarint.com');
+                            $mail->addBCC('fahim@flyfarint.com');
+                        
+                        
+                            $mail->isHTML(true);                              
+                            $mail->Subject = 'Invoice Created On Your Account';
+                            $mail->Body    = $body;
+                            $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+                        
+                            $mail->send();                       
+                            echo '<script language="javascript">';
+		                    echo 'alert("Successfully Created"); location.href="IssueInvoice.php?INV='.$INV_No.'"';
+		                    echo '</script>';
+
+
+              
+                
+            }
             
              
         }
@@ -310,6 +381,7 @@ if (mysqli_query($conn, $invoice)) {
 	}
 
 } 
+
 	
 ?>
 
@@ -474,12 +546,7 @@ if (mysqli_query($conn, $invoice)) {
 									<div class="card-header">
 										<h4 class="text-danger card-title">Invoice  Details</h4>
 										<div class="text-right">
-										
 
-										<?php if(isset($success)){
-                                        echo "<div class='alert alert-success' role='alert'> $success  </div> ";
-                                            }
-                                      ?>
 									</div>
 
 											
@@ -500,7 +567,7 @@ if (mysqli_query($conn, $invoice)) {
 															<div class="form-group">
 																<label>Client Name</label>
 																<select name="client" class="select form-control" required>
-                                                                            <option value="" disabled selected>Select Client Name</option>
+                                                                            <option value="" disabled selected> Select Client Name</option>
                                                                             <?php
                                                                                 $sql = "SELECT *  FROM `customer` ORDER BY name DESC";
                                                                                 $result = $conn->query($sql);                              
@@ -576,7 +643,7 @@ if (mysqli_query($conn, $invoice)) {
                                                         <div class="col-md-2">
                                                                 <div class="form-group">
                                                                     <label>Pax Name</label>
-                                                                    <input type="text" name="pax1" value="<?php echo $pax1 ?>" class="form-control" required >
+                                                                    <input type="text" name="pax1" class="form-control" required >
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-2">
@@ -627,9 +694,7 @@ if (mysqli_query($conn, $invoice)) {
                                                                             <option value="TG">TG </option>  	
                                                                             <option value="VQ">VQ </option>                                                                                                                                                    
                                                                             <option value="WY">WY</option>                                                                           
-                                                                            <?php if(!empty($Airlines1)){
-                                                                                    echo "<option value=\"$Airlines1\" selected>".$Airlines1."</option>";  
-                                                                            }  ?>                                                                                                                                                                                                                                 
+                                                                                                                                                                                                                                                                                                            
                                                                         </select>
                                                                 </div>
                                                             </div>                                                            
@@ -637,7 +702,7 @@ if (mysqli_query($conn, $invoice)) {
                                                                 <div class="form-group">
                                                                     <label>From</label>
                                                                     <select name="from1" class="select form-control"  >
-                                                                            <option value="" disabled selected>Place From</option>
+                                                                            <option value="" disabled selected> Place From</option>
                                                                            
                                                                             <?php
                                                                                 $sql = "SELECT DISTINCT code FROM airports order by code";
@@ -650,10 +715,7 @@ if (mysqli_query($conn, $invoice)) {
                                                                                     }
                                                                                 }
                                                                                 ?>
-                                                                                <?php if(!empty($from1)){
-                                                                                    echo "<option value=\"$from1\" selected>".$from1."</option>";  
-                                                                                }
-                                                                            ?>                                                                           
+                                                                                                                                                           
                                                                            
                                                                      </select>
                                                                 </div>
@@ -672,14 +734,11 @@ if (mysqli_query($conn, $invoice)) {
                                                                                 while($row = $result->fetch_assoc()) {
                                                                                     $vnName = $row["code"];	
                                                                                     echo "<option value=\"$vnName\">".$row["code"]."</option>";                                                                                 
+                                                                                    }
                                                                                 }
-                                                                            }
                                                                                 ?>
 
-                                                                                 <?php if(!empty($to1)){
-                                                                                    echo "<option value=\"$to1\" selected>".$to1."</option>";  
-                                                                                    }  ?>
-                                                                                
+                                                                                                                                                                
                                                                             
                                                                 </select>
                                                                 </div>
@@ -700,11 +759,7 @@ if (mysqli_query($conn, $invoice)) {
                                                                             <option value="" disabled selected>Select Way</option>
                                                                             <option value="One Way">One Way</option>
                                                                             <option value="Round Trip">Round Trip</option>	
-                                                                            <option value="Multiple City">Multiple City</option>
-
-                                                                            <?php if(!empty($way1)){
-                                                                                    echo "<option value=\"$way1\" selected>".$way1."</option>";  
-                                                                                    }  ?>                                                                           
+                                                                            <option value="Multiple City">Multiple City</option>                                                                         
                                                                             
                                                                         </select>
                                                                 </div>
@@ -717,10 +772,7 @@ if (mysqli_query($conn, $invoice)) {
                                                                             <option value="Non Refundable">Non Refundable</option>
                                                                             <option value="Refundable">Refundable</option>	
                                                                             <option value="Refund Adjusted">Refund Adjusted </option>
-                                                                            <?php if(!empty($type1)){
-                                                                                    echo "<option value=\"$type1\" selected>".$type1."</option>";  
-                                                                                    }  ?>
-                                                                                                                                                       
+                                                                                                                                                      
                                                                         </select>
                                                                 </div>
                                                             </div>
@@ -734,7 +786,7 @@ if (mysqli_query($conn, $invoice)) {
 															<div class="form-group">
 																<label>Vendor :</label>
 																<select name="vendor1" class="select form-control" required>
-                                                                            <option value="" disabled selected>Select Vendor</option>
+                                                                            <option value="" disabled selected> Select Vendor</option>
                                                                             <?php
                                                                                 $sql = "SELECT *  FROM `vendor` ORDER BY name DESC";
                                                                                 $result = $conn->query($sql);                              
@@ -743,8 +795,8 @@ if (mysqli_query($conn, $invoice)) {
                                                                                     $vnName = $row['name'];
                                                                                     $vendorId= $row['vendorId'];
                                                                                     echo "<option value=\"$vendorId\">".$row['name']."</option>";                                                                                 
+                                                                                    }
                                                                                 }
-                                                                            }
                                                                                 ?>
                                                                                 
                                                                             
