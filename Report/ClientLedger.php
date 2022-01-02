@@ -192,13 +192,13 @@ include('../session.php');
 
 												if ($result->num_rows > 0) {
   												while($row = $result->fetch_assoc()) {													  
-													  $vendor_id = "".$row["CustomerId"];
+													  $client_id = "".$row["CustomerId"];
 													  $ciphering = "AES-128-CTR";
 													  $iv_length = openssl_cipher_iv_length($ciphering);
 													  $options = 0;
 													  $encryption_iv = '1234567891011121';
 													  $encryption_key = "FlyFarInterNational";
-													  $encryption = openssl_encrypt($vendor_id, $ciphering,
+													  $encryption = openssl_encrypt($client_id, $ciphering,
 																$encryption_key, $options, $encryption_iv);
 
 													echo "<tr><td>".$row["CustomerId"]."</td>

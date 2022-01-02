@@ -1402,7 +1402,7 @@ button.bg-danger:hover {
 	padding: 0 20px;
 	position: relative;
 	text-align: center;
-	width: 240px;
+	width: 300px;
 	z-index: 1;
 	transition: all 0.2s ease-in-out;
 }
@@ -4270,12 +4270,13 @@ table.table-inbox tbody tr.checked {
 		font-size: 30px;
 		height: 60px;
 		justify-content: center;
-		margin-left: 15px;
-		padding: 0 15px;
+		margin-left: 30px;
+		padding: 0 30px;
 	}
 	.mini-sidebar .header-left .logo img {
 		height: auto;
-		max-height: 40px;
+		max-height: 35px;
+		margin-left: 5px;
 		width: auto;
 	}
 	.mini-sidebar .header .header-left .logo {

@@ -11,7 +11,7 @@ include('../session.php');
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-	<title>Customer List</title>
+	<title>Vendor List</title>
 	<!-- Favicon -->
 	<link rel="shortcut icon" type="image/x-icon" href="../assets/img/favicon.png">
 	<!-- Bootstrap CSS -->
@@ -29,105 +29,10 @@ include('../session.php');
 
 <body>
 	
-	<!-- Main Wrapper -->
-	<div class="main-wrapper">
-		
-		<!-- Header -->
-		<div class="header">
-			
-			<!-- Logo -->
-			<div class="header-left">
-				<a href="../index.php" class="logo">
-					<img src="../logo.png" alt="Logo">
-				</a>
-				<a href="../index.php" class="logo logo-small">
-					<img src="../logo.png" alt="Logo" width="30" height="30">
-
-				</a>
-			</div>
-			<!-- /Logo -->
-
-			<a href="javascript:void(0);" id="toggle_btn">
-				<i class="fe fe-text-align-left"></i>
-			</a>
-
-			<div class="top-nav-search">
-				<form>
-					<input type="text" class="form-control" placeholder="Search here">
-					<button class="btn" type="submit"><i class="fa fa-search"></i></button>
-				</form>
-			</div>
-
-			<!-- Mobile Menu Toggle -->
-			<a class="mobile_btn" id="mobile_btn">
-				<i class="fa fa-bars"></i>
-			</a>
-			<!-- /Mobile Menu Toggle -->
-
-			<!-- Header Right Menu -->
-			<ul class="nav user-menu">
-
-				<!-- Notifications -->
-				<li class="nav-item dropdown noti-dropdown">
-					<a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-						<i class="fe fe-bell"></i> <span class="badge badge-pill">1</span>
-					</a>
-					<div class="dropdown-menu notifications">
-						<div class="topnav-dropdown-header">
-							<span class="notification-title">Notifications</span>
-							<a href="javascript:void(0)" class="clear-noti"> Clear All </a>
-						</div>
-						<div class="noti-content">
-							<ul class="notification-list">
-								<li class="notification-message">
-									<a href="#">
-										<div class="media">
-											<span class="avatar avatar-sm">
-												<img class="avatar-img rounded-circle" alt="User Image" src="assets/img/profile.jpg">
-											</span>
-											<div class="media-body">
-												<p class="noti-details"><span class="noti-title">Ashik </span> Schedule <span class="noti-title">Her appointment</span></p>
-												<p class="noti-time"><span class="notification-time">4 mins ago</span></p>
-											</div>
-										</div>
-									</a>
-								</li>
-
-							</ul>
-						</div>
-						<div class="topnav-dropdown-footer">
-							<a href="#"> View all Notifications</a>
-						</div>
-					</div>
-				</li>
-				<!-- /Notifications -->
-
-				<!-- User Menu -->
-				<li class="nav-item dropdown has-arrow">
-					<a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-						<span class="user-img"><img class="rounded-circle" src="assets/img/profile.jpg" width="31" alt="Ryan Taylor"></span>
-					</a>
-					<div class="dropdown-menu">
-						<div class="user-header">
-							<div class="avatar avatar-sm">
-								<img src="assets/img/profile.jpg" alt="User Image" class="avatar-img rounded-circle">
-							</div>
-							<div class="user-text">
-								<!-- #Username -->
-								<h6>Admin</h6>
-								<p class="text-muted mb-0">Administrator</p>
-							</div>
-						</div>
-						<a class="dropdown-item" href="">My Profile</a>
-						<a class="dropdown-item" href="">Settings</a>
-						<a class="dropdown-item" href="../logout.php">Logout</a>
-					</div>
-				</li>
-				<!-- /User Menu -->
-			</ul>
-			<!-- /Header Right Menu -->
-
-		</div>
+		<!-- /Header -->
+		<?php
+        	include '../header.php';
+        ?>
 		<!-- /Header -->
 
 		
@@ -148,10 +53,10 @@ include('../session.php');
 				<div class="page-header">
 					<div class="row">
 						<div class="col-sm-12">
-							<h3 class="page-title">Customer</h3>
+							<h3 class="page-title">Vendor</h3>
 							<ul class="breadcrumb">
 								<li class="breadcrumb-item"><a href="Dashboard.php">Dashboard</a></li>
-								<li class="breadcrumb-item active">Customer</li>
+								<li class="breadcrumb-item active">Vendor</li>
 							</ul>
 						</div>
 					</div>
@@ -166,7 +71,7 @@ include('../session.php');
 							<div class="card">
 								<div class="card-header">
 									<div class="text-right">
-										<a href="AddCustomer.php" class="btn btn-primary"> Add +</a>
+										<a href="AddVendor.php" class="btn btn-primary"> Add +</a>
 									</div>
 								</div>
 								
@@ -175,10 +80,10 @@ include('../session.php');
 										<table class="datatable table table-stripped">
 											<thead>
 												<tr>
-													<th>Client ID</th>
+													<th>Vendor ID</th>
 													<th>Name</th>
-													<th>Balance</th>
 													<th>Phone</th>
+													<th>Company</th>
 													<th>Action</th>
                                                     <th></th>
 												</tr>
@@ -187,12 +92,12 @@ include('../session.php');
 
 												<?php
 
-												$sql = "SELECT * FROM `customer`";
+												$sql = "SELECT * FROM vendor ORDER BY id DESC";
 												$result = $conn->query($sql);
 
 												if ($result->num_rows > 0) {
   												while($row = $result->fetch_assoc()) {													  
-													  $vendor_id = "".$row["CustomerId"];
+													  $vendor_id = "".$row["vendorId"];
 													  $ciphering = "AES-128-CTR";
 													  $iv_length = openssl_cipher_iv_length($ciphering);
 													  $options = 0;
@@ -201,11 +106,11 @@ include('../session.php');
 													  $encryption = openssl_encrypt($vendor_id, $ciphering,
 																$encryption_key, $options, $encryption_iv);
 
-													echo "<tr><td>".$row["CustomerId"]."</td>
+													echo "<tr><td>".$row["vendorId"]."</td>
 																<td>".$row["name"]."</td> 
 																<td>".$row["phone"]."</td>
-														 		<td>".$row["email"]."</td>
-																<td><a href='ClientLedgerView.php?cId=$encryption' class='btn btn-primary'> View </a><td>
+														 		<td>".$row["company"]."</td>
+																<td><a href='VendorLedgerView.php?vId=$encryption' class='btn btn-primary'> View </a><td>
 																 </tr>";   											
 												  }
 												} else {
