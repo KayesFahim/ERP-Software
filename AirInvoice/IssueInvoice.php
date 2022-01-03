@@ -44,20 +44,6 @@ while($row = $result->fetch_assoc()) {
 }
 
   
-// Include the qrlib file
-include '../vendor/phpqrcode/qrlib.php';
-$text = "http://erp.flyfar.tech/AirInvoice/IssueInvoice.php?INV=$INV_No";
-  
-$path = 'images/';
-$file = $path.uniqid().".png";
-  
-// $ecc stores error correction capability('L')
-$ecc = 'L';
-$pixel_Size = 5;
-  
-// Generates QR Code and Stores it in directory given
-QRcode::png($text, $file, $ecc, $pixel_Size);
-  
 
 
 ?>
@@ -133,7 +119,7 @@ QRcode::png($text, $file, $ecc, $pixel_Size);
                             
                             <tr>                           
                             <td rowspan="3" colspan="7" style="text-align:left;">
-                            <?php echo "<left><img src='".$file."'></left>"; ?> </td>
+                            <?php echo "<left><img src='images/$INV_No.png'></left>"; ?> </td>
                             <td>Total</td>
                             <td><?php $Total = $price1;
                               echo number_format($Total, 2)

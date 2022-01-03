@@ -28,19 +28,19 @@ if ($result->num_rows > 0) {
  }
 
 
-$text = "http://erp.flyfar.tech/AirInvoice/IssueInvoice.php?INV=$INV_No";
-$path = 'images/';
-$file = $path.uniqid().".png";
-$ecc = 'L';
-$pixel_Size = 5;
-  
-QRcode::png($text, $file, $ecc, $pixel_Size);
-
-
-
 // Generate PDF
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+    $date = date("Y/m/d h:m:i");
+
+    $text = "https://erp.flyfar.tech/AirInvoice/IssueInvoice.php?INV=$INV_No";
+    $path = 'images/';
+    $file = $path.$INV_No.".png";
+    $ecc = 'L';
+    $pixel_Size = 5;
+    
+    QRcode::png($text, $file, $ecc, $pixel_Size);
 
     $csrId = $_POST['client'];
     $ses_sql = mysqli_query($conn,"select * from customer where CustomerId = '$csrId' "); 
@@ -144,193 +144,130 @@ if (mysqli_query($conn, $invoice)) {
             if (mysqli_query($conn, $vendorLedger)) {
 
 
-                $body="
+                $Cbody="
                 <html>
-                    <head>                
-                        <style>
-                            .invoice-box {
-                                max-width: 1000px;
-                                margin: auto;
-                                padding: 30px;
-                                border: 1px solid #eee;
-                                box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
-                                font-size: 16px;
-                                line-height: 24px;
-                                font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
-                                color: #555;
-                            }
-                
-                            .invoice-box table {
-                                width: 100%;
-                                line-height: inherit;
-                                text-align: left;
-                            }
-                
-                            .invoice-box table td {
-                                padding: 5px;
-                                vertical-align: top;
-                            }
-                
-                            .invoice-box table tr td:nth-child(2) {
-                                text-align: right;
-                            }
-                
-                            .invoice-box table tr.top table td {
-                                padding-bottom: 20px;
-                            }
-                
-                            .invoice-box table tr.top table td.title {
-                                font-size: 45px;
-                                line-height: 45px;
-                                color: #333;
-                            }
-                
-                            .invoice-box table tr.information table td {
-                                padding-bottom: 40px;
-                            }
-                
-                            .invoice-box table tr.heading td {
-                                background: #eee;
-                                border-bottom: 1px solid #ddd;
-                                font-weight: bold;
-                            }
-                
-                            .invoice-box table tr.details td {
-                                padding-bottom: 20px;
-                            }
-                
-                            .invoice-box table tr.item td {
-                                border-bottom: 1px solid #eee;
-                            }
-                
-                            .invoice-box table tr.item.last td {
-                                border-bottom: none;
-                            }
-                
-                            .invoice-box table tr.total td:nth-child(2) {
-                                border-top: 2px solid #eee;
-                                font-weight: bold;
-                            }
-                
-                            @media only screen and (max-width: 600px) {
-                                .invoice-box table tr.top table td {
-                                    width: 100%;
-                                    display: block;
-                                    text-align: center;
-                                }
-                
-                                .invoice-box table tr.information table td {
-                                    width: 100%;
-                                    display: block;
-                                    text-align: center;
-                                }
-                            }
-                
+<head>
+    <style>
+         body {
+      width: 80% !important;
+      height: 100%;
+      margin: 0;
+      border: 1px solid #868484;
+      text-align: center;
+      -webkit-text-size-adjust: none;
+    }
 
-                            .invoice-box.rtl {
-                                direction: rtl;
-                                font-family: Tahoma, 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
-                            }
-                
-                            .invoice-box.rtl table {
-                                text-align: right;
-                            }
-                
-                            .invoice-box.rtl table tr td:nth-child(2) {
-                                text-align: left;
-                            }
-                        </style>
-                    </head>
-                
-                    <body>
-                        <div class='invoice-box'>
-                            <table cellpadding='0' cellspacing='0'>
-                                <tr class='top'>
-                                    <td colspan='2'>
-                                        <table>
-                                            <tr>
-                                                <td class='title'>
-                                                    <img src='https://erp.flyfar.tech/logo.png' style='width: 100%; max-width: 180px' />
-                                                </td>
-                
-                                                <td>
-                                                    #: $INV_No;<br />
-                                                    Created By : $userName<br />
-                                                    Issue Date: CDate<br />
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </td>
-                                </tr>
-                
-                                <tr class='information'>
-                                    <td colspan='3'>
-                                        <table>
-                                            <tr>
-                                                <td>
-                                                    Fly Far International<br />
-                                                    Ka 11/2A, Jagannathpur,<br />
-                                                    Bashundhora Road, Dhaka, 1229 <br/>
-                                                </td>
-                
-                                                <td>
-                                                 Paid By :  $Client_Name<br />
-                                                  Rev officer :  $Rev_Officer<br/>          
-                                                </td>
-                                                <td>
-                                                <right><img src='".$file."'></right>    
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </td>
-                                </tr>
-                
-                                <tr class='heading'>
-                                <th>Pax Name</th>
-                                <th>PNR</th>
-                                <th>Ticket Number</th>
-                                <th>Airlines</th>
-                                <th>Type</th>
-                                <th >Place To</th>
-                                <th >Place From</th>
-                                <th>Way</th>
-                                <th>Price</th>
-                                </tr>
-                
-                                <tr class='item'>
-                                    <th>$pax1</th>
-                                    <td>$pnr1</td>
-                                    <td>$ticket1</td>
-                                    <td>$airlines1</td>
-                                    <td>$type1</td>
-                                    <td>$to1</td>
-                                    <td>$from1</td>
-                                    <td>$way1</td>
-                                    <td>$price1</td>
-                                </tr>
-                
-                
-                                <tr class='total'>
-                                <td></td>
+    table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 80%;
+    }
 
-					            <td>Total: $price1</td>
-                                    
-                                </tr>
-                            </table>
-                
-                            <table>
-                                <th>
-                                <tr>
-                                <tr>
-                                </th>
-                
-                            </table>
-                
-                
-                
-                        </div>
-                    </body>
-                </html>";
+    th {
+    background-color: #b3aeae;
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+    }
+    td {
+        
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+    }
+
+    .leftbar {
+    float: left;
+    padding: 20px;
+    width: 50%;
+
+    }
+
+    .rightbar {
+    padding: 20px;
+    width: 50%;
+
+    }
+
+    .footer {
+        background-color: antiquewhite;
+    }
+
+    </style>
+
+</head>
+<body>
+<center>
+<img src='https://erp.flyfar.tech/logo.gif'><br/>
+<h3>Invoice Created Date : $date</h3><br/>
+
+
+<h3><b> Hi $Client_Name </b> This is an invoice for your recent purchase. <br/></h3>
+
+
+<div class='header'>
+    <div class='leftbar'>
+        <h2> #$INV_No</h2>
+
+    </div>
+    <div class='rightbar'>
+        <h5>Created By : $userName</h5>
+        
+    </div>
+</div>
+   
+
+    <table>
+        <tr>
+          <th>Pax Name</th>
+          <th>PNR</th>
+          <th>Ticket No</th>
+          <th>From - To</th>
+          <th>Service Type</th>
+          <th>Cost</th>
+        </tr>
+        <tr>
+          <td>$pax1</td>
+          <td>$pnr1</td>
+          <td>$ticket1</td>
+          <td>$from1 - $to1</td>
+          <td>$type1</td>
+          <td>$price1</td>
+        </tr>
+        <tr>
+        <td rowspan='3' colspan='4' style='text-align:left;'></td>
+          <td>Discount</td>
+          <td>0,00</td>
+        </tr>
+        <tr>
+              <td>Total</td>
+              <td>$price1</td>
+            </tr>
+      </table>
+
+      <h3> Verify your Invoice</h3>
+      <img src='https://erp.flyfar.tech/AirInvoice/images/$INV_No.png' >
+</center>
+    <center>   
+    <h4> If you have any questions about this invoice, simply reply to this email or reach out to our support team ( {{ support_url }} ) for help. </h4>
+        
+        <h3>Cheers, <br>
+        The Fly Far Team</h3>
+        
+        <p>If you’re having trouble with the button above, copy and paste the URL below into your web browser.<br/>
+        
+        {{action_url}} </p>
+    </center> 
+  <div class='footer'>
+    <center><p>© 2021 Fly Far International. All rights reserved.<br/>
+       
+    Ka 11/2A, Jagannathpur, Bashundhora Road, Above Standard Chartered Bank. <br/>
+    
+    Dhaka, 1229. <br/></p>
+</center>
+</div>
+</body>
+</html>";
 
                 
 
@@ -346,7 +283,7 @@ if (mysqli_query($conn, $invoice)) {
                             $mail->isSMTP();                                     
                             $mail->Host       = 'flyfar.tech';                    
                             $mail->SMTPAuth   = true;                                   
-                            $mail->Username   = 'noreply@flyfar.tech';                  
+                            $mail->Username   = 'invoice@flyfar.tech';                  
                             $mail->Password   = '@Flyfar123';                               
                             $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;           
                             $mail->Port       = 465; 
@@ -361,10 +298,175 @@ if (mysqli_query($conn, $invoice)) {
                         
                             $mail->isHTML(true);                              
                             $mail->Subject = 'Invoice Created On Your Account';
-                            $mail->Body    = $body;
+                            $mail->Body    = $Cbody;
                             $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
                         
-                            $mail->send();                       
+                            $mail->send();
+
+
+                            //vendor mail
+
+                            $vendorsql = mysqli_query($conn,"SELECT * FROM vendor where vendorId='$vendor1'");
+                            $row3 = mysqli_fetch_array($vendorsql,MYSQLI_ASSOC);
+                            
+                            $VendorEmail = $row3['email'];
+                            $vendor_Name = $row3['name'];
+
+
+
+                            $Vbody="
+                            <html>
+            <head>
+                <style>
+                     body {
+                  width: 80% !important;
+                  height: 100%;
+                  margin: 0;
+                  border: 1px solid #868484;
+                  text-align: center;
+                  -webkit-text-size-adjust: none;
+                }
+            
+                table {
+                font-family: arial, sans-serif;
+                border-collapse: collapse;
+                width: 80%;
+                }
+            
+                th {
+                background-color: #b3aeae;
+                border: 1px solid #dddddd;
+                text-align: left;
+                padding: 8px;
+                }
+                td {
+                    
+                border: 1px solid #dddddd;
+                text-align: left;
+                padding: 8px;
+                }
+            
+                .leftbar {
+                float: left;
+                padding: 20px;
+                width: 50%;
+            
+                }
+            
+                .rightbar {
+                padding: 20px;
+                width: 50%;
+            
+                }
+            
+                .footer {
+                    background-color: antiquewhite;
+                }
+            
+                </style>
+            
+            </head>
+            <body>
+            <center>
+            <img src='https://erp.flyfar.tech/logo.gif'><br/>
+            <h3>Invoice Created Date : $date</h3><br/>
+            
+            
+            <h3><b> Hi $vendor_Name </b> This is an Debit Voucher purchase from you. <br/></h3>
+            
+            
+            <div class='header'>
+                <div class='leftbar'>
+
+            
+                </div>
+                <div class='rightbar'>
+                   
+                </div>
+            </div>
+               
+            
+                <table>
+                    <tr>
+                      <th>Pax Name</th>
+                      <th>PNR</th>
+                      <th>Ticket No</th>
+                      <th>From - To</th>
+                      <th>Service Type</th>
+                      <th>Cost</th>
+                    </tr>
+                    <tr>
+                      <td>$pax1</td>
+                      <td>$pnr1</td>
+                      <td>$ticket1</td>
+                      <td>$from1 - $to1</td>
+                      <td>$type1</td>
+                      <td>$vprice1</td>
+                    </tr>
+                    <tr>
+                    <td rowspan='3' colspan='4' style='text-align:left;'></td>
+                      <td>Discount</td>
+                      <td>0,00</td>
+                    </tr>
+                    <tr>
+                          <td>Total</td>
+                          <td>$vprice1</td>
+                        </tr>
+                  </table>
+            
+            </center>
+                <center>   
+                <h4> If you have any questions about this invoice, simply reply to this email or reach out to our support team ( {{ support_url }} ) for help. </h4>
+                    
+                    <h3>Cheers, <br>
+                    The Fly Far Team</h3>
+                    
+                    <p>If you’re having trouble with the button above, copy and paste the URL below into your web browser.<br/>
+                    
+                    {{action_url}} </p>
+                </center> 
+              <div class='footer'>
+                <center><p>© 2021 Fly Far International. All rights reserved.<br/>
+                   
+                Ka 11/2A, Jagannathpur, Bashundhora Road, Above Standard Chartered Bank. <br/>
+                
+                Dhaka, 1229. <br/></p>
+            </center>
+            </div>
+            </body>
+            </html>";
+
+
+                        
+                                $mail1 = new PHPMailer(true);
+        
+                                   
+                                   // $mail->SMTPDebug = 2;                     
+                                    $mail1->isSMTP();                                     
+                                    $mail1->Host       = 'flyfar.tech';                    
+                                    $mail1->SMTPAuth   = true;                                   
+                                    $mail1->Username   = 'invoice@flyfar.tech';                  
+                                    $mail1->Password   = '@Flyfar123';                               
+                                    $mail1->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;           
+                                    $mail1->Port       = 465; 
+                                                                 
+                                    //Recipients
+                                    $mail1->setFrom('invoice@flyfar.tech', 'ERP Software - FLy Far');
+                                    $mail1->addAddress($VendorEmail, $$vendor_Name);  
+                                
+                                    $mail1->addCC('ceo@flyfarint.com');
+                                    $mail1->addBCC('fahim@flyfarint.com');
+                                
+                                
+                                    $mail1->isHTML(true);                              
+                                    $mail1->Subject = 'Debit Voucher Created On Your Account';
+                                    $mail1->Body    = $Vbody;
+                                    $mail1->AltBody = 'This is the body in plain text for non-HTML mail clients';
+                                
+                                    $mail1->send();        
+                            
+                            
+
                             echo '<script language="javascript">';
 		                    echo 'alert("Successfully Created"); location.href="IssueInvoice.php?INV='.$INV_No.'"';
 		                    echo '</script>';
