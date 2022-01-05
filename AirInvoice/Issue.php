@@ -137,7 +137,7 @@ if (mysqli_query($conn, $invoice)) {
             $ses_sql1 = mysqli_query($conn,"SELECT * FROM vendor_ledger where VDR_ID='$vendor1' ORDER BY DateTime DESC LIMIT 1");
             $row1 = mysqli_fetch_array($ses_sql1,MYSQLI_ASSOC);
             
-            $vBalanced = $row1['balance'] - $vprice1;
+            $vBalanced = (int)$row1['balance'] + $vprice1;
              $vendorLedger ="INSERT INTO `vendor_ledger`(`txType`, `VDR_ID`, `pax`, `pnr`, `ticket`, `serviceType`, `details`, `cost`,`balance`)
              VALUES ('$INV_No','$vendor1','$pax1','$pnr1','$ticket1','$type1','$airlines1 ' \n ' $way1 ' \n ' $from1-$to1','$vprice1','$vBalanced')";
 
@@ -421,7 +421,7 @@ if (mysqli_query($conn, $invoice)) {
                     <h3>Cheers, <br>
                     The Fly Far Team</h3>
                     
-                    <p>If you’re having trouble with the button above, copy and paste the URL below into your web browser.<br/>
+                    <p>If youre having trouble with the button above, copy and paste the URL below into your web browser.<br/>
                     
                     {{action_url}} </p>
                 </center> 

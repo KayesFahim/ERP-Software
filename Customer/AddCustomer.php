@@ -41,8 +41,8 @@ if ($result->num_rows > 0) {
         
     if ($conn->query($sqlquery) === TRUE) {
 
-			$ClientLedger ="INSERT INTO `client_ledger`(`TxType`, `CSR_ID`, `PaxName`, `serviceType`, `Details`, `cost`, `Balance`)
-                         VALUES ('Open','$CustomerId',' ','Account Open','Opening Balanced',' ','$balance')";
+			$ClientLedger ="INSERT INTO `client_ledger`(`TxType`, `CSR_ID`, `PaxName`, `serviceType`, `Details`, `deposit`, `Balance`)
+                         VALUES ('Open','$CustomerId',' ','Account Open','Opening Balanced','$balance','$balance')";
 
         if (mysqli_query($conn, $ClientLedger)) {
 

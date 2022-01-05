@@ -1,6 +1,91 @@
 <?php
    include('session.php');
 
+
+   // Recievable 
+   $sql = "SELECT SUM(deposit-cost) as Total FROM `client_ledger`";
+												$result = $conn->query($sql);
+
+												if ($result->num_rows > 0) {
+  												while($row = $result->fetch_assoc()) {													  
+                                                        $Recievable = $row['Total'];										
+												  }
+												}
+
+    
+                                                
+
+
+   // Payable 
+   $sql1 = "SELECT SUM(deposit-cost) as Total FROM `vendor_ledger`";
+												$result1 = $conn->query($sql1);
+
+												if ($result1->num_rows > 0) {
+  												while($row1 = $result1->fetch_assoc()) {													  
+                                                        $Payable = $row1['Total'];										
+												  }
+												} 
+
+
+    // Cash and Cash Equvalent
+
+$bank = "SELECT SUM(credit - debit) as amount from bank";
+$mobilebanking = "SELECT SUM(cashIn - cashOut) as amount from mobile_banking GROUP By mb_number";
+$ssl = "SELECT * FROM `ssl_commerce`";
+$cash = "SELECT SUM(cashIn - cashOut) as amount from cash";
+
+
+
+
+$result = $conn->query($bank);
+$result1 = $conn->query($mobilebanking);
+$result2 = $conn->query($ssl);
+$result3 = $conn->query($cash);
+
+
+$Bank_Amount; $MobileBanking_Amount; $SSL_Amount; $Cash;
+
+if ($result->num_rows > 0) {
+	while($row = $result->fetch_assoc()) {
+		$Bank_Amount = $row["amount"];
+
+	}
+}
+
+// Mobile banking
+
+if ($result1->num_rows > 0) {
+	while($row = $result1->fetch_assoc()) {
+
+	$MobileBanking_Amount = $row["amount"];
+		
+	}
+}
+
+//Portal Balanced
+
+if ($result2->num_rows > 0) {
+	while($row = $result2->fetch_assoc()) {
+		$SSL_Amount = $row["amount"];
+
+
+
+	}
+}
+
+//Cash Balanced
+
+if ($result3->num_rows > 0) {
+	while($row = $result3->fetch_assoc()) {
+		$Cash = $row["amount"];
+
+
+	}
+}
+
+$Cashequvalent = $Bank_Amount + $MobileBanking_Amount + $SSL_Amount + $Cash;
+
+
 ?>
 
 <!DOCTYPE html>
@@ -398,32 +483,7 @@
 
 
         <!-- Page Wrapper -->
-        <?php if($userRole == 'reservation'){
-
-            print "<div class='page-wrapper'>
-            <div class='content container-fluid'>
-
-                
-                <div class='page-header'>
-                    <div class='row'>
-                        <div class='col-sm-12'>
-                            <h3 class='page-title'>Dashboard</h3>
-                            <ul class='breadcrumb'>
-                                <li class='breadcrumb-item'> <a href='dashboard.php'>Dashboard</a></li>
-                                <li class='breadcrumb-item active'>Dashboard</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <h1> You Have No Permission</h1>
-                              
-            </div>
-        </div>" ;
-
-            }elseif($userRole =='developer'){
-
-            echo "<div class='page-wrapper'>
+        <<div class='page-wrapper'>
             <div class='content container-fluid'>
 
                 
@@ -448,8 +508,8 @@
                             </div>
                             <div class='col-md-4'>
                                 <div class='row'>
-                                    <label class='col-lg-12 col-form-label'>Cash And Cash Equivalents <u><b><span
-                                                    style='color:red; font-size: 20px;'>00.00 TK</span></b></u></label>
+                                    <label class='col-lg-12 col-form-label'> Cash And Cash Equivalents:  <b><span
+                                                    style='color:red; font-size: 20px;'><?php echo "$Cashequvalent Taka" ?></span></b></label>
                                 </div>
                             </div>
                         </div>
@@ -462,29 +522,89 @@
                                     <div class='col-lg-12'>
                                         <select class='select form-control'>
                                             <option>Total Payable</option>
-                                            <option value='1'>A+</option>
-                                            <option value='2'>O+</option>
-                                            <option value='3'>B+</option>
-                                            <option value='4'>AB+</option>
+                                            <?php
+
+                                            $payList = "SELECT vendor.vendorId, vendor.name, SUM(deposit-cost) as Total FROM vendor_ledger
+                                             INNER JOIN vendor ON vendor_ledger.VDR_ID=vendor.vendorId
+                                              GROUP BY vendor_ledger.VDR_ID
+                                              HAVING Total < 0";
+                                            $result = $conn->query($payList);
+                                            $Payable = 0;
+                                            if ($result->num_rows > 0) {
+                                            while($row = $result->fetch_assoc()) {
+                                                $csrId = $row['vendorId'];
+                                                $Payable += $row['Total'];
+                                                echo "<option value=\"$csrId\">".$row['name']." (".$row['Total']." Taka)</option>";
+												  
+                                                    							
+                                            }
+                                            }
+
+                                            ?>
                                         </select>
                                     </div>
                                 </div>
-                                <h6 class='text-center'>0.00</h6>
+                                <h6 class='text-center'><b style="color:red;"><?php echo "$Payable Taka" ?></b></h6>
                             </div>
                             <div class='col-md-2'>
                                 <h6 class='text-center'>Receivable</h6>
                                 <div class='form-group row'>
                                     <div class='col-lg-12 '>
-                                        <select class='select form-control'>
+                                        <select class='select form-control'>                                       
                                             <option>Total Receivable</option>
-                                            <option value='1'>A+</option>
-                                            <option value='2'>O+</option>
-                                            <option value='3'>B+</option>
-                                            <option value='4'>AB+</option>
+                                            <?php
+
+                                            $recvList = 'SELECT customer.name, SUM(deposit-cost) as Total FROM client_ledger
+                                            INNER JOIN customer ON client_ledger.CSR_ID=customer.CustomerId                                        
+                                            GROUP BY client_ledger.CSR_ID
+                                            HAVING Total < 0';
+                                            $result = $conn->query($recvList);
+
+                                            if ($result->num_rows > 0) {
+                                                $Recievable = 0;
+                                            while($row = $result->fetch_assoc()){
+                                                $csrId = $row['CustomerId'];
+                                                $Recievable += $row['Total'];
+                                                echo "<option value=\"$csrId\">".$row['name']." (".$row['Total']." Taka)</option>";
+												                                                     							
+                                                }
+                                            }
+
+                                            ?>
                                         </select>
                                     </div>
                                 </div>
-                                <h6 class='text-center'>0.00</h6>
+                                <h6 class='text-center'><b style="color:red;"><?php echo "$Recievable Taka" ?></b></h6>
+                            </div>
+                            <div class='col-md-2'>
+                                <h6 class='text-center'>Unearned Revenue</h6>
+                                <div class='form-group row'>
+                                    <div class='col-lg-12'>
+                                        <select class='select form-control'>
+                                            <option>Unearned Revenue</option>
+                                            <?php
+
+                                            $recvList = 'SELECT customer.name, SUM(deposit-cost) as Total FROM client_ledger
+                                            INNER JOIN customer ON client_ledger.CSR_ID=customer.CustomerId 
+                                            GROUP BY client_ledger.CSR_ID
+                                            Having Total >  0';
+                                            $result = $conn->query($recvList);
+                                            $UnEarned = 0;
+                                            if ($result->num_rows > 0) {
+                                            while($row = $result->fetch_assoc()) {
+                                                $csrId = $row['CustomerId'];
+                                                $UnEarned += $row['Total'];
+                                                echo "<option value=\"$csrId\">".$row['name']." (".$row['Total']." Taka)</option>";
+												  
+                                                    							
+                                                }
+                                            }
+
+                                            ?>
+                                        </select>
+                                    </div>
+                                </div>
+                                <h6 class='text-center'><b style="color:red;"><?php echo "$UnEarned Taka" ?> </b></h6>
                             </div>
                             <div class='col-md-2'>
                                 <h6 class='text-center'>Liabilities</h6>
@@ -492,47 +612,64 @@
                                     <div class='col-lg-12'>
                                         <select class='select form-control'>
                                             <option>Total Liabilities</option>
-                                            <option value='1'>A+</option>
-                                            <option value='2'>O+</option>
-                                            <option value='3'>B+</option>
-                                            <option value='4'>AB+</option>
+                                            <option value='1'><?php echo "Payable ( $Payable Taka )"?></option>
+                                            <option value='2'><?php echo "Unearned ( $UnEarned Taka )" ?></option>
+                                            
                                         </select>
                                     </div>
                                 </div>
-                                <h6 class='text-center'>0.00</h6>
+                                <h6 class='text-center'><b style="color:red;"><?php echo $TotalLib  = $Payable + $UnEarned; ?> </b></h6>
                             </div>
                             <div class='col-md-2'>
-                                <h6 class='text-center'>Overpaid</h6>
+                                <h6 class='text-center'>Pre Paid</h6>
                                 <div class='form-group row'>
                                     <div class='col-lg-12'>
                                         <select class='select form-control'>
-                                            <option>Total Overpaid</option>
-                                            <option value='1'>A+</option>
-                                            <option value='2'>O+</option>
-                                            <option value='3'>B+</option>
-                                            <option value='4'>AB+</option>
+                                            <option>Total Liabilities</option>
+                                            <?php
+
+                                                $payList = "SELECT vendor.vendorId, vendor.name, SUM(deposit-cost) as Total FROM vendor_ledger
+                                                INNER JOIN vendor ON vendor_ledger.VDR_ID=vendor.vendorId
+                                                GROUP BY vendor_ledger.VDR_ID
+                                                HAVING Total > 0";
+                                                $result = $conn->query($payList);
+                                                $PrePaid = 0;
+                                                if ($result->num_rows > 0) {
+                                                while($row = $result->fetch_assoc()) {
+                                                    $csrId = $row['vendorId'];
+                                                    $PrePaid += $row['Total'];
+                                                    echo "<option value=\"$csrId\">".$row['name']." (".$row['Total']." Taka)</option>";
+                                                    
+                                                                                    
+                                                }
+                                                }
+
+                                                ?>
+                                            
                                         </select>
                                     </div>
                                 </div>
-                                <h6 class='text-center'>0.00</h6>
+                                <h6 class='text-center'><b style="color:red;"><?php echo $PrePaid; ?> </b></h6>
                             </div>
-                            <div class='col-md-4'>
+                            
+                            <div class='col-md-2'>
                                 <h6 class='text-center'>Bank Accounts Total Taka</h6>
                                 <div class='form-group row'>
                                     <div class='col-lg-12'>
                                         <select class='select form-control' multiple>
-                                            <option value='1'>A+</option>
-                                            <option value='2'>O+</option>
-                                            <option value='3'>B+</option>
-                                            <option value='4'>AB+</option>
-                                            <option value='1'>A+</option>
-                                            <option value='2'>O+</option>
-                                            <option value='3'>B+</option>
-                                            <option value='4'>AB+</option>
-                                            <option value='1'>A+</option>
-                                            <option value='2'>O+</option>
-                                            <option value='3'>B+</option>
-                                            <option value='4'>AB+</option>
+                                        <?php
+
+                                                $sql = "SELECT DISTINCT id, bankId, bankname,bankaccno, branchname, SUM(credit-debit) as Amount FROM bank GROUP BY bankname";
+                                                $result = $conn->query($sql);
+                                                if ($result->num_rows > 0) {
+                                                while($row = $result->fetch_assoc()) {	
+                                                    $bankgetID = $row["bankId"];
+                                                    echo "<option value=\"$bankgetID\">".$row['bankname']." ( ".$row['Amount']." Taka )</option>";
+                                                    
+ 											
+                                                    }
+                                                }
+                                                ?>
                                         </select>
                                     </div>
                                 </div>
@@ -709,32 +846,7 @@
                 </div>
                 
             </div>
-        </div>";}else{
-            print "<div class='page-wrapper'>
-            <div class='content container-fluid'>
-
-                
-                <div class='page-header'>
-                    <div class='row'>
-                        <div class='col-sm-12'>
-                            <h3 class='page-title'>Dashboard</h3>
-                            <ul class='breadcrumb'>
-                                <li class='breadcrumb-item'> <a href='dashboard.php'>Dashboard</a></li>
-                                <li class='breadcrumb-item active'>Dashboard</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <h1> You Have No Permission</h1>
-                                
-                </div>
-            </div>" ;
-
-        }
-            
-            ?>
-        
+        </div>
 
         <!-- /Page Wrapper -->
 

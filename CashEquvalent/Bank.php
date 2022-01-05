@@ -201,9 +201,7 @@ include('../session.php');
 																<a href='BankDebit.php?getBankId=$bankgetID' class='btn btn-danger'> Debit </a><td>
 																 </tr>";   											
 												  }
-												} else {
-  												echo "0 results";
-											    }
+												}
 												?>
 
 

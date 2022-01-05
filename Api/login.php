@@ -1,20 +1,20 @@
 <?php
 
-  require 'connection.php';
+  require '../config.php';
 
-  $email=$_POST['email'];
-  $password=md5($_POST['password']);
+  $email =$_GET['email'];
+  $password =$_GET['password'];
 
-  $checkUser="SELECT * FROM employee WHERE email='$email'";
+  $checkUser="SELECT EMP_ID FROM employee WHERE email = '$email' and password = '$password'";
 
-  $result=mysqli_query($con,$checkUser);
+  $result=mysqli_query($conn,$checkUser);
 
 
 
   if(mysqli_num_rows($result)>0){ 
 
-    $checkUserquery="SELECT * employee WHERE email='$email' and password='$password'";
-    $resultant=mysqli_query($con,$checkUserquery);
+    $checkUserquery="SELECT EMP_ID fROM employee WHERE email='$email' and password='$password'";
+    $resultant=mysqli_query($conn,$checkUserquery);
 
     if(mysqli_num_rows($resultant)>0){
 
