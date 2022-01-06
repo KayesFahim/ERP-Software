@@ -516,7 +516,7 @@ $Cashequvalent = $Bank_Amount + $MobileBanking_Amount + $SSL_Amount + $Cash;
                         <hr>
 
                         <div class='row'>
-                            <div class='col-md-2'>
+                            <div class='col-md-3'>
                                 <h6 class='text-center'>Payable</h6>
                                 <div class='form-group row'>
                                     <div class='col-lg-12'>
@@ -546,7 +546,7 @@ $Cashequvalent = $Bank_Amount + $MobileBanking_Amount + $SSL_Amount + $Cash;
                                 </div>
                                 <h6 class='text-center'><b style="color:red;"><?php echo "$Payable Taka" ?></b></h6>
                             </div>
-                            <div class='col-md-2'>
+                            <div class='col-md-3'>
                                 <h6 class='text-center'>Receivable</h6>
                                 <div class='form-group row'>
                                     <div class='col-lg-12 '>
@@ -651,29 +651,7 @@ $Cashequvalent = $Bank_Amount + $MobileBanking_Amount + $SSL_Amount + $Cash;
                                 </div>
                                 <h6 class='text-center'><b style="color:red;"><?php echo $PrePaid; ?> </b></h6>
                             </div>
-                            
-                            <div class='col-md-2'>
-                                <h6 class='text-center'>Bank Accounts Total Taka</h6>
-                                <div class='form-group row'>
-                                    <div class='col-lg-12'>
-                                        <select class='select form-control' multiple>
-                                        <?php
-
-                                                $sql = "SELECT DISTINCT id, bankId, bankname,bankaccno, branchname, SUM(credit-debit) as Amount FROM bank GROUP BY bankname";
-                                                $result = $conn->query($sql);
-                                                if ($result->num_rows > 0) {
-                                                while($row = $result->fetch_assoc()) {	
-                                                    $bankgetID = $row["bankId"];
-                                                    echo "<option value=\"$bankgetID\">".$row['bankname']." ( ".$row['Amount']." Taka )</option>";
-                                                    
- 											
-                                                    }
-                                                }
-                                                ?>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
+                                                      
                         </div>
 
                         <hr>
@@ -685,14 +663,37 @@ $Cashequvalent = $Bank_Amount + $MobileBanking_Amount + $SSL_Amount + $Cash;
                                     <div class='col-lg-12'>
                                         <select class='select form-control'>
                                             <option>Today Sale</option>
-                                            <option value='1'>A+</option>
-                                            <option value='2'>O+</option>
-                                            <option value='3'>B+</option>
-                                            <option value='4'>AB+</option>
+                                            <?php
+                                            
+                                                $Today = date("Y-m-d");
+                                                $sql = "SELECT
+                                                invoice.invNo,
+                                                invoice.createdtime,
+                                                invoice.vendorName,
+                                                invoice.type,
+                                                airticket.vPrice1 AS vCost,
+                                                invoice.clientName,
+                                                airticket.cost1 AS Amount
+                                            FROM
+                                                invoice
+                                            INNER JOIN airticket ON invoice.invNo = airticket.invNo
+                                            WHERE invoice.createdtime LIKE '2022-01-06%'";
+                                                $result = $conn->query($sql);
+                                                if ($result->num_rows > 0) {
+                                                while($row = $result->fetch_assoc()) {	
+                                                    $INV_NO = $row["invNo"];
+                                                    $Sales += $row['vCost'];
+                                                    echo "<option value=\"$INV_NO\">".$row['clientName']." To ( ".$row['Amount']." Taka )</option>";
+                                                    
+ 											
+                                                    }
+                                                }
+                                                ?>
+                                            
                                         </select>
                                     </div>
                                 </div>
-                                <h6 class='text-center'>0.00</h6>
+                                <h6 class='text-center'><b style="color:red;"><?php echo "$Sales Taka" ?></b></h6>
                             </div>
                             <div class='col-md-3'>
                                 <h6 class='text-center'>Purchase</h6>
@@ -700,14 +701,37 @@ $Cashequvalent = $Bank_Amount + $MobileBanking_Amount + $SSL_Amount + $Cash;
                                     <div class='col-lg-12 '>
                                         <select class='select form-control'>
                                             <option>Today Purchase</option>
-                                            <option value='1'>A+</option>
-                                            <option value='2'>O+</option>
-                                            <option value='3'>B+</option>
-                                            <option value='4'>AB+</option>
+                                            <?php
+                                            
+                                                $Today = date("Y-m-d");
+                                                $sql = "SELECT
+                                                invoice.invNo,
+                                                invoice.createdtime,
+                                                invoice.vendorName,
+                                                invoice.type,
+                                                airticket.vPrice1 AS vCost,
+                                                invoice.clientName,
+                                                airticket.cost1 AS Amount
+                                            FROM
+                                                invoice
+                                            INNER JOIN airticket ON invoice.invNo = airticket.invNo
+                                            WHERE invoice.createdtime LIKE '2022-01-06%'";
+                                                $result = $conn->query($sql);
+                                                if ($result->num_rows > 0) {
+                                                while($row = $result->fetch_assoc()) {	
+                                                    $INV_NO = $row["invNo"];
+                                                    $Purchase += $row['vCost'];
+                                                    echo "<option value=\"$INV_NO\">".$row['vendorName']." From ( ".$row['vCost']." Taka )</option>";
+                                                    
+ 											
+                                                    }
+                                                }
+                                                ?>
+                                            
                                         </select>
                                     </div>
                                 </div>
-                                <h6 class='text-center'>0.00</h6>
+                                <h6 class='text-center'><b style="color:red;"><?php echo "$Purchase Taka" ?></b></h6>
                             </div>
                             <div class='col-md-3'>
                                 <h6 class='text-center'>Profit/Loss</h6>
@@ -715,132 +739,234 @@ $Cashequvalent = $Bank_Amount + $MobileBanking_Amount + $SSL_Amount + $Cash;
                                     <div class='col-lg-12'>
                                         <select class='select form-control'>
                                             <option>Today Profit/Loss</option>
-                                            <option value='1'>A+</option>
-                                            <option value='2'>O+</option>
-                                            <option value='3'>B+</option>
-                                            <option value='4'>AB+</option>
+                                            <?php
+                                            
+                                                $Today = date("Y-m-d");
+                                                $sql = "SELECT
+                                                invoice.invNo,
+                                                invoice.createdtime,
+                                                invoice.vendorName,
+                                                invoice.type,
+                                                airticket.vPrice1 AS vCost,
+                                                invoice.clientName,
+                                                airticket.cost1 AS Amount
+                                            FROM
+                                                invoice
+                                            INNER JOIN airticket ON invoice.invNo = airticket.invNo
+                                            WHERE invoice.createdtime LIKE '2022-01-06%'";
+                                                $result = $conn->query($sql);
+                                                if ($result->num_rows > 0) {
+                                                while($row = $result->fetch_assoc()) {	
+                                                    $INV_NO = $row["invNo"];
+                                                    $Profit = $row['Amount'] - $row['vCost'];
+                                                    $TotalProfit += $row['Amount'] - $row['vCost'];
+
+                                                    echo "<option value=\"$INV_NO\">".$row['invNo']." From ( ".$Profit." Taka )</option>";
+                                                    
+ 											
+                                                    }
+                                                }
+                                                ?>
+                                            
                                         </select>
                                     </div>
                                 </div>
-                                <h6 class='text-center'>0.00</h6>
+                                <h6 class='text-center'><b style="color:red;"><?php echo "$TotalProfit Taka" ?></b></h6>
                             </div>
+                            <div class='col-md-3'>
+                                <h6 class='text-center'>Profit/Loss</h6>
+                                <div class='form-group row'>
+                                    <div class='col-lg-12'>
+                                        <select class='select form-control'>
+                                            <option>Today Profit/Loss</option>
+                                            <?php
+                                            
+                                                $Today = date("Y-m-d");
+                                                $sql = "SELECT
+                                                invoice.invNo,
+                                                invoice.createdtime,
+                                                invoice.vendorName,
+                                                invoice.type,
+                                                airticket.vPrice1 AS vCost,
+                                                invoice.clientName,
+                                                airticket.cost1 AS Amount
+                                            FROM
+                                                invoice
+                                            INNER JOIN airticket ON invoice.invNo = airticket.invNo
+                                            WHERE invoice.createdtime LIKE '2022-01-06%'";
+                                                $result = $conn->query($sql);
+                                                if ($result->num_rows > 0) {
+                                                while($row = $result->fetch_assoc()) {	
+                                                    $INV_NO = $row["invNo"];
+                                                    $Profit = $row['Amount'] - $row['vCost'];
+                                                    $TotalProfit += $row['Amount'] - $row['vCost'];
+
+                                                    echo "<option value=\"$INV_NO\">".$row['invNo']." From ( ".$Profit." Taka )</option>";
+                                                    
+ 											
+                                                    }
+                                                }
+                                                ?>
+                                            
+                                        </select>
+                                    </div>
+                                </div>
+                                <h6 class='text-center'><b style="color:red;"><?php echo "$TotalProfit Taka" ?></b></h6>
+                            </div>
+
+                        </div>
+                        <hr>
+
+                        <h6>Bank Statement Information</h6>
+                        <div class='row'>
+                            <div class='col-md-3'>
+                                <h6 class='text-center'>Bank Accounts Total Taka</h6>
+                                <div class='form-group row'>
+                                    <div class='col-lg-12'>
+                                        <select class='select form-control'>
+
+                                        <?php
+
+                                        $sql = "SELECT DISTINCT id, bankId, bankname,bankaccno, branchname, SUM(credit-debit) as Amount FROM bank GROUP BY bankname";
+                                        $result = $conn->query($sql);
+                                        if ($result->num_rows > 0) {
+                                        while($row = $result->fetch_assoc()) {	
+                                            $bankgetID = $row["bankId"];
+                                            echo "<option value=\"$bankgetID\">".$row['bankname']." ( ".$row['Amount']." Taka )</option>";
+                                            
+
+                                            }
+                                        }
+                                        ?>
+                                            
+                                        </select>
+                                    </div>
+                                </div>
+                                <h6 class='text-center'><b style="color:red;"><?php echo "$Sales Taka" ?></b></h6>
+                            </div>
+                            <div class='col-md-3'>
+                                <h6 class='text-center'>Portal Balanced</h6>
+                                <div class='form-group row'>
+                                    <div class='col-lg-12 '>
+                                        <select class='select form-control'>
+                                            <option>Portal Balanced</option>
+                                            <?php
+                                            
+                                                $Today = date("Y-m-d");
+                                                $sql = "SELECT
+                                                invoice.invNo,
+                                                invoice.createdtime,
+                                                invoice.vendorName,
+                                                invoice.type,
+                                                airticket.vPrice1 AS vCost,
+                                                invoice.clientName,
+                                                airticket.cost1 AS Amount
+                                            FROM
+                                                invoice
+                                            INNER JOIN airticket ON invoice.invNo = airticket.invNo
+                                            WHERE invoice.createdtime LIKE '2022-01-06%'";
+                                                $result = $conn->query($sql);
+                                                if ($result->num_rows > 0) {
+                                                while($row = $result->fetch_assoc()) {	
+                                                    $INV_NO = $row["invNo"];
+                                                    $Purchase += $row['vCost'];
+                                                    echo "<option value=\"$INV_NO\">".$row['vendorName']." From ( ".$row['vCost']." Taka )</option>";
+                                                    
+ 											
+                                                    }
+                                                }
+                                                ?>
+                                            
+                                        </select>
+                                    </div>
+                                </div>
+                                <h6 class='text-center'><b style="color:red;"><?php echo "$Purchase Taka" ?></b></h6>
+                            </div>
+                            <div class='col-md-3'>
+                                <h6 class='text-center'>Mobile Banking Balanced</h6>
+                                <div class='form-group row'>
+                                    <div class='col-lg-12'>
+                                        <select class='select form-control'>
+                                            <option>Mobile Banking Balanced</option>
+                                            <?php
+                                            
+                                                $Today = date("Y-m-d");
+                                                $sql = "SELECT
+                                                invoice.invNo,
+                                                invoice.createdtime,
+                                                invoice.vendorName,
+                                                invoice.type,
+                                                airticket.vPrice1 AS vCost,
+                                                invoice.clientName,
+                                                airticket.cost1 AS Amount
+                                            FROM
+                                                invoice
+                                            INNER JOIN airticket ON invoice.invNo = airticket.invNo
+                                            WHERE invoice.createdtime LIKE '2022-01-06%'";
+                                                $result = $conn->query($sql);
+                                                if ($result->num_rows > 0) {
+                                                while($row = $result->fetch_assoc()) {	
+                                                    $INV_NO = $row["invNo"];
+                                                    $Profit = $row['Amount'] - $row['vCost'];
+                                                    $TotalProfit += $row['Amount'] - $row['vCost'];
+
+                                                    echo "<option value=\"$INV_NO\">".$row['invNo']." From ( ".$Profit." Taka )</option>";
+                                                    
+ 											
+                                                    }
+                                                }
+                                                ?>
+                                            
+                                        </select>
+                                    </div>
+                                </div>
+                                <h6 class='text-center'><b style="color:red;"><?php echo "$TotalProfit Taka" ?></b></h6>
+                            </div>
+                            <div class='col-md-3'>
+                                <h6 class='text-center'>Cash Balanced</h6>
+                                <div class='form-group row'>
+                                    <div class='col-lg-12'>
+                                        <select class='select form-control'>
+                                            <option>Cash Balanced</option>
+                                            <?php
+                                            
+                                                $Today = date("Y-m-d");
+                                                $sql = "SELECT
+                                                invoice.invNo,
+                                                invoice.createdtime,
+                                                invoice.vendorName,
+                                                invoice.type,
+                                                airticket.vPrice1 AS vCost,
+                                                invoice.clientName,
+                                                airticket.cost1 AS Amount
+                                            FROM
+                                                invoice
+                                            INNER JOIN airticket ON invoice.invNo = airticket.invNo
+                                            WHERE invoice.createdtime LIKE '2022-01-06%'";
+                                                $result = $conn->query($sql);
+                                                if ($result->num_rows > 0) {
+                                                while($row = $result->fetch_assoc()) {	
+                                                    $INV_NO = $row["invNo"];
+                                                    $Profit = $row['Amount'] - $row['vCost'];
+                                                    $TotalProfit += $row['Amount'] - $row['vCost'];
+
+                                                    echo "<option value=\"$INV_NO\">".$row['invNo']." From ( ".$Profit." Taka )</option>";
+                                                    
+ 											
+                                                    }
+                                                }
+                                                ?>
+                                            
+                                        </select>
+                                    </div>
+                                </div>
+                                <h6 class='text-center'><b style="color:red;"><?php echo "$TotalProfit Taka" ?></b></h6>
+                            </div>
+
                         </div>
                         <hr>
                         
-                        <div class='container'>
-                            <div class='row'>
-                                <div class='col-md-4'>
-                                    <div class='donut-chart-block block'>
-                                        <h2 class='titular' style='color:white;'>Income State Chart</h2>
-                                        <div class='donut-chart'>
-                                            <div id='porcion1' class='recorte'>
-                                                <div class='quesito ios' data-rel='21'></div>
-                                            </div>
-                                            <div id='porcion2' class='recorte'>
-                                                <div class='quesito mac' data-rel='39'></div>
-                                            </div>
-                                            <div id='porcion3' class='recorte'>
-                                                <div class='quesito win' data-rel='31'></div>
-                                            </div>
-                                            <div id='porcionFin' class='recorte'>
-                                                <div class='quesito linux' data-rel='9'></div>
-                                            </div>
-                                            
-                                            <p class='center-date' style='color:white;'>JUNE<br><span
-                                                    class='scnd-font-color'>2013</span></p>
-                                        </div>
-                                        <ul class='os-percentages horizontal-list' style='color:white;'>
-                                            <li>
-                                                <p class='ios os scnd-font-color'>Sale</p>
-                                                <p class='os-percentage'>21<sup>%</sup></p>
-                                            </li>
-                                            <li>
-                                                <p class='mac os scnd-font-color'>Cost</p>
-                                                <p class='os-percentage'>39<sup>%</sup></p>
-                                            </li>
-                                            <li>
-                                                <p class='linux os scnd-font-color'>Profit</p>
-                                                <p class='os-percentage'>9<sup>%</sup></p>
-                                            </li>
-                                            <li>
-                                                <p class='win os scnd-font-color'>Loss</p>
-                                                <p class='os-percentage'>31<sup>%</sup></p>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class='col-md-4'>
-                                    
-                                    <div class='line-chart-block block'>
-                                        <h2 class='titular' style='color:white;'>Sale Growth Chart</h2>
-                                        <div class='line-chart'>
-                                            <div class='grafico'>
-                                                <ul class='eje-y'>
-                                                    <li data-ejeY='4000'></li>
-                                                    <li data-ejeY='3000'></li>
-                                                    <li data-ejeY='2000'></li>
-                                                    <li data-ejeY='0'></li>
-                                                </ul>
-                                                <ul class='eje-x'>
-                                                    <li>2020</li>
-                                                    <li>2021</li>
-                                                    <li>2022</li>
-                                                </ul>
-                                                <span data-valor='25'>
-                                                    <span data-valor='8'>
-                                                        <span data-valor='13'>
-                                                            <span data-valor='5'>
-                                                                <span data-valor='23'>
-                                                                    <span data-valor='12'>
-                                                                        <span data-valor='15'>
-                                                                        </span></span></span></span></span></span></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class='col-md-3'>
-                                    <h6 class='text-center'>Bank Accounts Total Taka</h6>
-                                    <div class='form-group row'>
-                                        <div class='col-lg-12'>
-                                            <select class='select form-control' multiple>
-                                                <option value='1'>A+</option>
-                                                <option value='2'>O+</option>
-                                                <option value='3'>B+</option>
-                                                <option value='4'>AB+</option>
-                                                <option value='1'>A+</option>
-                                                <option value='2'>O+</option>
-                                                <option value='3'>B+</option>
-                                                <option value='4'>AB+</option>
-                                                <option value='1'>A+</option>
-                                                <option value='2'>O+</option>
-                                                <option value='3'>B+</option>
-                                                <option value='4'>AB+</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <h6 class='text-center'>Mobile Banking Total Taka</h6>
-                                    <div class='form-group row'>
-                                        <div class='col-lg-12'>
-                                            <select class='select form-control' multiple>
-                                                <option value='1'>A+</option>
-                                                <option value='2'>O+</option>
-                                                <option value='3'>B+</option>
-                                                <option value='4'>AB+</option>
-                                                <option value='1'>A+</option>
-                                                <option value='2'>O+</option>
-                                                <option value='3'>B+</option>
-                                                <option value='4'>AB+</option>
-                                                <option value='1'>A+</option>
-                                                <option value='2'>O+</option>
-                                                <option value='3'>B+</option>
-                                                <option value='4'>AB+</option>
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <h6 class='text-center'><u>Portal Total Taka</u></h6>
-                                </div>
-                            </div>
+                        
                         </div>
                     </div>
                 </div>

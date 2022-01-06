@@ -47,13 +47,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $row = mysqli_fetch_array($ses_sql,MYSQLI_ASSOC);   
     $Client_Name = $row['name'];
 
+    $vendor1 = $_POST['vendor1'];
+    $ses_sql1 = mysqli_query($conn,"select * from vendor where vendorId = '$vendor1' "); 
+    $row = mysqli_fetch_array($ses_sql1,MYSQLI_ASSOC);   
+    $Vendor_Name = $row['name'];
+
     $System =  $_POST['system'];
     $Rev_Officer = $_POST['revofficer'];
 
 
     $invoice = "INSERT INTO `invoice`(
         `invNo`,
+        `type`,
         `clientName`,
+        `vendorName`,
         `csrId`,
         `system`,
         `recofficer`,
@@ -61,7 +68,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     )
     VALUES(
         '$INV_No',
+        'Issue',
         '$Client_Name',
+        '$Vendor_Name',
         '$csrId',
         '$System',
         '$Rev_Officer',
