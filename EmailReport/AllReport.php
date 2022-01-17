@@ -16,10 +16,10 @@ try {
     
     $mail->SMTPDebug = SMTP::DEBUG_SERVER;                     
     $mail->isSMTP();                                     
-    $mail->Host       = 'flyfar.tech';                    
+    $mail->Host       = 'smtp.gmail.com';                    
     $mail->SMTPAuth   = true;                                   
-    $mail->Username   = 'noreply@flyfar.tech';                  
-    $mail->Password   = '@Flyfar123';                               
+    $mail->Username   = 'MRFAWBD@GMAIL.COM';                  
+    $mail->Password   = '@Kayes321';                               
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;           
     $mail->Port       = 465;                                    
 

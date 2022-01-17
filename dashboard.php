@@ -517,7 +517,6 @@ $Cashequvalent = $Bank_Amount + $MobileBanking_Amount + $SSL_Amount + $Cash;
 
                         <div class='row'>
                             <div class='col-md-3'>
-                                <h6 class='text-center'>Payable</h6>
                                 <div class='form-group row'>
                                     <div class='col-lg-12'>
                                         <select class='select form-control'>
@@ -547,7 +546,7 @@ $Cashequvalent = $Bank_Amount + $MobileBanking_Amount + $SSL_Amount + $Cash;
                                 <h6 class='text-center'><b style="color:red;"><?php echo "$Payable Taka" ?></b></h6>
                             </div>
                             <div class='col-md-3'>
-                                <h6 class='text-center'>Receivable</h6>
+                                
                                 <div class='form-group row'>
                                     <div class='col-lg-12 '>
                                         <select class='select form-control'>                                       
@@ -577,7 +576,6 @@ $Cashequvalent = $Bank_Amount + $MobileBanking_Amount + $SSL_Amount + $Cash;
                                 <h6 class='text-center'><b style="color:red;"><?php echo "$Recievable Taka" ?></b></h6>
                             </div>
                             <div class='col-md-2'>
-                                <h6 class='text-center'>Unearned Revenue</h6>
                                 <div class='form-group row'>
                                     <div class='col-lg-12'>
                                         <select class='select form-control'>
@@ -607,7 +605,6 @@ $Cashequvalent = $Bank_Amount + $MobileBanking_Amount + $SSL_Amount + $Cash;
                                 <h6 class='text-center'><b style="color:red;"><?php echo "$UnEarned Taka" ?> </b></h6>
                             </div>
                             <div class='col-md-2'>
-                                <h6 class='text-center'>Liabilities</h6>
                                 <div class='form-group row'>
                                     <div class='col-lg-12'>
                                         <select class='select form-control'>
@@ -621,11 +618,10 @@ $Cashequvalent = $Bank_Amount + $MobileBanking_Amount + $SSL_Amount + $Cash;
                                 <h6 class='text-center'><b style="color:red;"><?php echo $TotalLib  = $Payable + $UnEarned; ?> </b></h6>
                             </div>
                             <div class='col-md-2'>
-                                <h6 class='text-center'>Pre Paid</h6>
                                 <div class='form-group row'>
                                     <div class='col-lg-12'>
                                         <select class='select form-control'>
-                                            <option>Total Liabilities</option>
+                                            <option>Total Pre-Paid</option>
                                             <?php
 
                                                 $payList = "SELECT vendor.vendorId, vendor.name, SUM(deposit-cost) as Total FROM vendor_ledger
@@ -658,26 +654,26 @@ $Cashequvalent = $Bank_Amount + $MobileBanking_Amount + $SSL_Amount + $Cash;
                         <h6>Income Statement Information</h6>
                         <div class='row'>
                             <div class='col-md-3'>
-                                <h6 class='text-center'>Sale</h6>
+
                                 <div class='form-group row'>
                                     <div class='col-lg-12'>
                                         <select class='select form-control'>
-                                            <option>Today Sale</option>
+                                            <option>Today Sales</option>
                                             <?php
                                             
                                                 $Today = date("Y-m-d");
                                                 $sql = "SELECT
-                                                invoice.invNo,
-                                                invoice.createdtime,
-                                                invoice.vendorName,
-                                                invoice.type,
-                                                airticket.vPrice1 AS vCost,
-                                                invoice.clientName,
-                                                airticket.cost1 AS Amount
+                                                            invoice.invNo,
+                                                            invoice.createdtime,
+                                                            invoice.vendorName,
+                                                            invoice.type,
+                                                            airticket.vPrice1 AS vCost,
+                                                            invoice.clientName,
+                                                            airticket.cost1 AS Amount
                                             FROM
                                                 invoice
                                             INNER JOIN airticket ON invoice.invNo = airticket.invNo
-                                            WHERE invoice.createdtime LIKE '2022-01-06%'";
+                                            WHERE invoice.createdtime LIKE '$Today%'";
                                                 $result = $conn->query($sql);
                                                 if ($result->num_rows > 0) {
                                                 while($row = $result->fetch_assoc()) {	
@@ -696,7 +692,6 @@ $Cashequvalent = $Bank_Amount + $MobileBanking_Amount + $SSL_Amount + $Cash;
                                 <h6 class='text-center'><b style="color:red;"><?php echo "$Sales Taka" ?></b></h6>
                             </div>
                             <div class='col-md-3'>
-                                <h6 class='text-center'>Purchase</h6>
                                 <div class='form-group row'>
                                     <div class='col-lg-12 '>
                                         <select class='select form-control'>
@@ -715,7 +710,7 @@ $Cashequvalent = $Bank_Amount + $MobileBanking_Amount + $SSL_Amount + $Cash;
                                             FROM
                                                 invoice
                                             INNER JOIN airticket ON invoice.invNo = airticket.invNo
-                                            WHERE invoice.createdtime LIKE '2022-01-06%'";
+                                            WHERE invoice.createdtime LIKE '$Today%'";
                                                 $result = $conn->query($sql);
                                                 if ($result->num_rows > 0) {
                                                 while($row = $result->fetch_assoc()) {	
@@ -734,7 +729,6 @@ $Cashequvalent = $Bank_Amount + $MobileBanking_Amount + $SSL_Amount + $Cash;
                                 <h6 class='text-center'><b style="color:red;"><?php echo "$Purchase Taka" ?></b></h6>
                             </div>
                             <div class='col-md-3'>
-                                <h6 class='text-center'>Profit/Loss</h6>
                                 <div class='form-group row'>
                                     <div class='col-lg-12'>
                                         <select class='select form-control'>
@@ -753,7 +747,7 @@ $Cashequvalent = $Bank_Amount + $MobileBanking_Amount + $SSL_Amount + $Cash;
                                             FROM
                                                 invoice
                                             INNER JOIN airticket ON invoice.invNo = airticket.invNo
-                                            WHERE invoice.createdtime LIKE '2022-01-06%'";
+                                            WHERE invoice.createdtime LIKE '$Today%'";
                                                 $result = $conn->query($sql);
                                                 if ($result->num_rows > 0) {
                                                 while($row = $result->fetch_assoc()) {	
@@ -774,7 +768,6 @@ $Cashequvalent = $Bank_Amount + $MobileBanking_Amount + $SSL_Amount + $Cash;
                                 <h6 class='text-center'><b style="color:red;"><?php echo "$TotalProfit Taka" ?></b></h6>
                             </div>
                             <div class='col-md-3'>
-                                <h6 class='text-center'>Profit/Loss</h6>
                                 <div class='form-group row'>
                                     <div class='col-lg-12'>
                                         <select class='select form-control'>
@@ -793,7 +786,7 @@ $Cashequvalent = $Bank_Amount + $MobileBanking_Amount + $SSL_Amount + $Cash;
                                             FROM
                                                 invoice
                                             INNER JOIN airticket ON invoice.invNo = airticket.invNo
-                                            WHERE invoice.createdtime LIKE '2022-01-06%'";
+                                            WHERE invoice.createdtime LIKE '$Today%'";
                                                 $result = $conn->query($sql);
                                                 if ($result->num_rows > 0) {
                                                 while($row = $result->fetch_assoc()) {	
@@ -817,14 +810,14 @@ $Cashequvalent = $Bank_Amount + $MobileBanking_Amount + $SSL_Amount + $Cash;
                         </div>
                         <hr>
 
-                        <h6>Bank Statement Information</h6>
+                        <h6> Cash And Cash Equivalents: <?php echo "$Cashequvalent Taka" ?></h6>
                         <div class='row'>
                             <div class='col-md-3'>
-                                <h6 class='text-center'>Bank Accounts Total Taka</h6>
+
                                 <div class='form-group row'>
                                     <div class='col-lg-12'>
                                         <select class='select form-control'>
-
+                                        <option>Today Bank Statement</option>
                                         <?php
 
                                         $sql = "SELECT DISTINCT id, bankId, bankname,bankaccno, branchname, SUM(credit-debit) as Amount FROM bank GROUP BY bankname";
@@ -845,7 +838,6 @@ $Cashequvalent = $Bank_Amount + $MobileBanking_Amount + $SSL_Amount + $Cash;
                                 <h6 class='text-center'><b style="color:red;"><?php echo "$Sales Taka" ?></b></h6>
                             </div>
                             <div class='col-md-3'>
-                                <h6 class='text-center'>Portal Balanced</h6>
                                 <div class='form-group row'>
                                     <div class='col-lg-12 '>
                                         <select class='select form-control'>
@@ -864,7 +856,7 @@ $Cashequvalent = $Bank_Amount + $MobileBanking_Amount + $SSL_Amount + $Cash;
                                             FROM
                                                 invoice
                                             INNER JOIN airticket ON invoice.invNo = airticket.invNo
-                                            WHERE invoice.createdtime LIKE '2022-01-06%'";
+                                            WHERE invoice.createdtime LIKE '$Today%'";
                                                 $result = $conn->query($sql);
                                                 if ($result->num_rows > 0) {
                                                 while($row = $result->fetch_assoc()) {	
@@ -883,7 +875,6 @@ $Cashequvalent = $Bank_Amount + $MobileBanking_Amount + $SSL_Amount + $Cash;
                                 <h6 class='text-center'><b style="color:red;"><?php echo "$Purchase Taka" ?></b></h6>
                             </div>
                             <div class='col-md-3'>
-                                <h6 class='text-center'>Mobile Banking Balanced</h6>
                                 <div class='form-group row'>
                                     <div class='col-lg-12'>
                                         <select class='select form-control'>
@@ -902,7 +893,7 @@ $Cashequvalent = $Bank_Amount + $MobileBanking_Amount + $SSL_Amount + $Cash;
                                             FROM
                                                 invoice
                                             INNER JOIN airticket ON invoice.invNo = airticket.invNo
-                                            WHERE invoice.createdtime LIKE '2022-01-06%'";
+                                            WHERE invoice.createdtime LIKE '$Today%'";
                                                 $result = $conn->query($sql);
                                                 if ($result->num_rows > 0) {
                                                 while($row = $result->fetch_assoc()) {	
@@ -920,10 +911,9 @@ $Cashequvalent = $Bank_Amount + $MobileBanking_Amount + $SSL_Amount + $Cash;
                                         </select>
                                     </div>
                                 </div>
-                                <h6 class='text-center'><b style="color:red;"><?php echo "$TotalProfit Taka" ?></b></h6>
+                                <h6 class='text-center'><b style="color:red;"><?php echo "$Mobile_Banking Taka" ?></b></h6>
                             </div>
                             <div class='col-md-3'>
-                                <h6 class='text-center'>Cash Balanced</h6>
                                 <div class='form-group row'>
                                     <div class='col-lg-12'>
                                         <select class='select form-control'>
@@ -942,7 +932,7 @@ $Cashequvalent = $Bank_Amount + $MobileBanking_Amount + $SSL_Amount + $Cash;
                                             FROM
                                                 invoice
                                             INNER JOIN airticket ON invoice.invNo = airticket.invNo
-                                            WHERE invoice.createdtime LIKE '2022-01-06%'";
+                                            WHERE invoice.createdtime LIKE '$Today%'";
                                                 $result = $conn->query($sql);
                                                 if ($result->num_rows > 0) {
                                                 while($row = $result->fetch_assoc()) {	
@@ -960,7 +950,7 @@ $Cashequvalent = $Bank_Amount + $MobileBanking_Amount + $SSL_Amount + $Cash;
                                         </select>
                                     </div>
                                 </div>
-                                <h6 class='text-center'><b style="color:red;"><?php echo "$TotalProfit Taka" ?></b></h6>
+                                <h6 class='text-center'><b style="color:red;"><?php echo "$Cash Taka" ?></b></h6>
                             </div>
 
                         </div>

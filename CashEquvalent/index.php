@@ -5,7 +5,7 @@ include('../session.php');
 
 $bank = "SELECT SUM(credit - debit) as amount from bank";
 $mobilebanking = "SELECT SUM(cashIn - cashOut) as amount from mobile_banking GROUP By mb_number";
-$ssl = "SELECT * FROM `ssl_commerce`";
+$ssl = "SELECT id, Sum(amount) as balance FROM `ssl_commerce`";
 $cash = "SELECT SUM(cashIn - cashOut) as amount from cash";
 
 
@@ -40,7 +40,7 @@ if ($result1->num_rows > 0) {
 
 if ($result2->num_rows > 0) {
 	while($row = $result2->fetch_assoc()) {
-		$SSL_Amount = $row["amount"];
+		$SSL_Amount = $row["balance"];
 
 
 

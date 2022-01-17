@@ -177,7 +177,6 @@ include('../session.php');
 													<th>No</th>
 													<th>Operator Name</th>
 													<th>Account No:</th>
-													<th>Account Type</th>
 													<th>Amount</th>
 													<th>Action</th>
 												</tr>
@@ -186,21 +185,18 @@ include('../session.php');
 
 												<?php
 
-												$sql = "SELECT id, EMP_ID, email, name, phone, department FROM bank ORDER BY ID DESC";
+												$sql = "SELECT id, MB_ID, mb_operator, mb_number, SUM(cashIn-cashOut) as balance FROM `mobile_banking` GROUP By MB_ID;";
 												$result = $conn->query($sql);
 												if ($result->num_rows > 0) {
   												while($row = $result->fetch_assoc()) {													  													 
-													echo "<tr><td>".$row["EMP_ID"]."</td>
-																<td>".$row["name"]."</td> 
-														 		<td>".$row["email"]."</td>
-																<td>".$row["phone"]."</td>
-														 		<td>".$row["department"]."</td>
-																<td><a href='UpdateEmployee.php' class='btn btn-primary'> View </a><td>
+													echo "<tr><td>".$row["MB_ID"]."</td>
+																<td>".$row["mb_operator"]."</td> 
+														 		<td>".$row["mb_number"]."</td>
+																<td>".$row["balance"]."</td>
+																<td><a  class='btn btn-primary'> View </a><td>
 																 </tr>";   											
 												  }
-												} else {
-  												echo "0 results";
-											    }
+												}
 												?>
 
 

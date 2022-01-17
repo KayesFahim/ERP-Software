@@ -339,6 +339,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		
 		
 			}elseif($payWay == 'mobile_banking'){
+				if($payMethod == 'mobile_banking'){
+					$credit = "INSERT INTO `mobile_banking`(
+						`MB_ID`,
+						`cashIn`,
+						`TxType`
+					)
+					VALUES(
+		
+						'$TxId',
+						'$amount',
+						'$Reciept_No'
+					)";
+			
+					if (mysqli_query($conn, $credit)) {						
+						echo '<script language="javascript">';
+						echo 'alert("Successfully Created"); location.href="invoice.php?Rno='.$Reciept_No.'"';
+						echo '</script>';
+						
+					}
+		
+				}
+
 				
 		
 				

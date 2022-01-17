@@ -38,13 +38,7 @@ while($row = $result->fetch_assoc()) {
         
 						
 	}
-} else {
-  
 }
-
-  
-
-
 ?>
 
 <!doctype html>

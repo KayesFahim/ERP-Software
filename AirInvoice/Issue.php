@@ -91,7 +91,10 @@ if (mysqli_query($conn, $invoice)) {
     $price1 = $_POST['price1'];
     $vendor1 = $_POST['vendor1'];
     $vprice1 = $_POST['vprice1'];
-    $flight1 = $_POST['flight1'];
+    $date = $_POST['date'];
+    $time = $_POST['time'];
+
+    $dateTime = $date." ".$time;
 
 }
 	
@@ -126,7 +129,7 @@ if (mysqli_query($conn, $invoice)) {
         '$vprice1',
         '$way1',
         '$type1',
-        '$flight1'
+        '$dateTime'
         
     )";
 
@@ -139,14 +142,14 @@ if (mysqli_query($conn, $invoice)) {
         
 
         $ClientLedger ="INSERT INTO `client_ledger`(`TxType`, `CSR_ID`, `PaxName`, `serviceType`, `Details`, `cost`, `Balance`)
-                         VALUES ('$INV_No','$csrId','$pax1','$type1','$pnr1 $ticket1 $airlines1 $way1 $from1-$to1','$price1',' $Balanced')";
+                         VALUES ('$INV_No','$csrId','$pax1','$type1','$pnr1 $ticket1 $airlines1 $way1 $from1-$to1','$price1','$Balanced')";
 
         if (mysqli_query($conn, $ClientLedger)) {
 
             $ses_sql1 = mysqli_query($conn,"SELECT * FROM vendor_ledger where VDR_ID='$vendor1' ORDER BY DateTime DESC LIMIT 1");
             $row1 = mysqli_fetch_array($ses_sql1,MYSQLI_ASSOC);
             
-            $vBalanced = (int)$row1['balance'] + $vprice1;
+             $vBalanced = (int)$row1['balance'] + $vprice1;
              $vendorLedger ="INSERT INTO `vendor_ledger`(`txType`, `VDR_ID`, `pax`, `pnr`, `ticket`, `serviceType`, `details`, `cost`,`balance`)
              VALUES ('$INV_No','$vendor1','$pax1','$pnr1','$ticket1','$type1','$airlines1 ' \n ' $way1 ' \n ' $from1-$to1','$vprice1','$vBalanced')";
 
@@ -285,15 +288,16 @@ if (mysqli_query($conn, $invoice)) {
                     $row2 = mysqli_fetch_array($clientsql,MYSQLI_ASSOC);
                     
                     $Email = $row2['email'];
-                        $mail = new PHPMailer(true);
 
-                           
+
+                        $mail = new PHPMailer(true);
+                         
                            // $mail->SMTPDebug = 2;                     
                             $mail->isSMTP();                                     
-                            $mail->Host       = 'flyfar.tech';                    
+                            $mail->Host       = 'SMTP.GMAIL.COM';                    
                             $mail->SMTPAuth   = true;                                   
-                            $mail->Username   = 'invoice@flyfar.tech';                  
-                            $mail->Password   = '@Flyfar123';                               
+                            $mail->Username   = 'mrfawbd@gmail.com';                  
+                            $mail->Password   = '@Kayes321';                               
                             $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;           
                             $mail->Port       = 465; 
                                                          
@@ -303,15 +307,14 @@ if (mysqli_query($conn, $invoice)) {
                         
                             $mail->addCC('ceo@flyfarint.com');
                             $mail->addBCC('fahim@flyfarint.com');
-                        
-                        
+                                                
                             $mail->isHTML(true);                              
                             $mail->Subject = 'Invoice Created On Your Account';
                             $mail->Body    = $Cbody;
-                            $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
-                        
+                            $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';                        
                             $mail->send();
 
+                        
 
                             //vendor mail
 
@@ -452,16 +455,16 @@ if (mysqli_query($conn, $invoice)) {
                                    
                                    // $mail->SMTPDebug = 2;                     
                                     $mail1->isSMTP();                                     
-                                    $mail1->Host       = 'flyfar.tech';                    
+                                    $mail1->Host       = 'SMTP.GMAIL.COM';                    
                                     $mail1->SMTPAuth   = true;                                   
-                                    $mail1->Username   = 'invoice@flyfar.tech';                  
-                                    $mail1->Password   = '@Flyfar123';                               
+                                    $mail1->Username   = 'mrfawbd@gmail.com';                  
+                                    $mail1->Password   = '@Kayes321';                               
                                     $mail1->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;           
                                     $mail1->Port       = 465; 
                                                                  
                                     //Recipients
                                     $mail1->setFrom('invoice@flyfar.tech', 'ERP Software - FLy Far');
-                                    $mail1->addAddress($VendorEmail, $$vendor_Name);  
+                                    $mail1->addAddress($VendorEmail, $vendor_Name);  
                                 
                                     $mail1->addCC('ceo@flyfarint.com');
                                     $mail1->addBCC('fahim@flyfarint.com');
@@ -472,7 +475,7 @@ if (mysqli_query($conn, $invoice)) {
                                     $mail1->Body    = $Vbody;
                                     $mail1->AltBody = 'This is the body in plain text for non-HTML mail clients';
                                 
-                                    $mail1->send();        
+                                    $mail1->send();      
                             
                             
 
@@ -859,7 +862,14 @@ if (mysqli_query($conn, $invoice)) {
                                                             <div class="col-md-2">
                                                                     <div class="form-group">
                                                                         <label>Flight Date</label>
-                                                                        <input type="date" name="flight1" class="form-control"  required>
+                                                                        <input type="date" name="date" class="form-control"  required>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-md-2">
+                                                                    <div class="form-group">
+                                                                        <label>Flight Time</label>
+                                                                        <input type="time" name="time" class="form-control"  required>
                                                                     </div>
                                                                 </div>
 

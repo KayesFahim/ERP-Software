@@ -3,53 +3,100 @@
 include '../config.php';
 include('../session.php');
 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
+
+require '../vendor/autoload.php';
+include '../vendor/phpqrcode/qrlib.php';
+
+  
 
 //Reciept No
+$csrId;
+$vendor1;
+$Rev_Officer;
 
 $INV_No= $_GET['INV'];
 
-
-//Employee Info
-
-if (array_key_exists('SQT', $_GET)){
-	$searchvar = $_GET['SQT'];
-		
-		$sql = "SELECT * FROM salesqutation where sqNo='$searchvar'";
-		$result = $conn->query($sql);
-		if ($result->num_rows > 0) {
-			while($row = $result->fetch_assoc()) {
-                $Client_Name = $row['clientName'];
-                $Client_Id = $row['csrId'];
-                $Pax_No = $row['pax'];
-				$pax1 = $row['PaxName1'];
-                $Airlines1 = $row['Airlines1'];       
-                $from1 = $row['from1'];
-                $to1 = $row['to1'];
-                $type1= $row['type1'];
-                $way1= $row['way1']; 
-                $price1 = $row['cost1']; 
-            
-            }
-        }               
-
+$sql1 = "SELECT
+                invoice.invNo,
+                invoice.createdtime,
+                invoice.vendorName,
+                invoice.type,
+                airticket.vPrice1,
+                invoice.clientName,
+                airticket.cost1,
+                airticket.PaxName1,
+                airticket.csrId,
+                airticket.PNR1,
+                airticket.TicketNo1,
+                airticket.ticketType1,
+                airticket.placeTo1,
+                airticket.way1,
+                airticket.placeFrom1,
+                airticket.Airlines1,
+                airticket.flight1,
+                airticket.vendor1,
+                invoice.recofficer
+                FROM invoice
+                INNER JOIN airticket ON invoice.invNo = airticket.invNo
+                WHERE invoice.type = 'Issue' AND invoice.invNo = '$INV_No'";
+$return = $conn->query($sql1);
+if ($return->num_rows > 0) {
+	while($data = $return->fetch_assoc()) {
+        $csrId = $data['csrId'];
+        $vendor1 = $data['vendor1'];
+        $Rev_Officer = $data['recofficer']; 
+        $Client_Name = $data['clientName'];
+        $Vendor_Name = $data['vendorName'];
+        $pax = $data['PaxName1'];
+        $from = $data['placeFrom1'];
+        $to = $data['placeTo1'];
+        
+        									
     }
+}
+
+
 
 // Generate PDF
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    $csrId = $_POST['client'];
-    $ses_sql = mysqli_query($conn,"select * from customer where CustomerId = '$csrId' "); 
-    $row = mysqli_fetch_array($ses_sql,MYSQLI_ASSOC);   
-    $Client_Name = $row['name'];
+    $date = date("Y/m/d h:m:i");
 
+    $text = "https://erp.flyfar.tech/AirInvoice/IssueInvoice.php?INV=$INV_No";
+    $path = 'images/';
+    $file = $path.$INV_No.".png";
+    $ecc = 'L';
+    $pixel_Size = 5;
+    
+    QRcode::png($text, $file, $ecc, $pixel_Size);
+
+    //Pax
+    $pax1 = $_POST['pax1'];
+    $pnr1 = $_POST['pnr1'];
+    $ticket1 = $_POST['ticket1'];
+    $airlines1 = $_POST['airlines1'];
     $System =  $_POST['system'];
-    $Rev_Officer = $_POST['revofficer'];
+    $way1= $_POST['way1'];
+    $type1= $_POST['type1'];
+    $price1 = $_POST['price1'];
+    $vendor1 = $_POST['vendor1'];
+    $vprice1 = $_POST['vprice1'];
+    $date = $_POST['date'];
+    $time = $_POST['time'];
+
+    $dateTime = $date." ".$time;
 
 
     $invoice = "INSERT INTO `invoice`(
         `invNo`,
+        `type`,
         `clientName`,
+        `vendorName`,
         `csrId`,
         `system`,
         `recofficer`,
@@ -57,34 +104,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     )
     VALUES(
         '$INV_No',
+        'ReIssue',
         '$Client_Name',
+        '$Vendor_Name',
         '$csrId',
-        '$System',
+        ' ',
         '$Rev_Officer',
         '$userName'
     )";
 
 if (mysqli_query($conn, $invoice)) {
     		
-    //Pax
-    $pax1 = $_POST['pax1'];
-    $pnr1 = $_POST['pnr1'];
-    $ticket1 = $_POST['ticket1'];
-    $airlines1 = $_POST['airlines1'];
-    $from1 = $_POST['from1'];
-    $to1 = $_POST['to1'];
-    $way1= $_POST['way1'];
-    $type1= $_POST['type1'];
-    $price1 = $_POST['price1'];
-    $vendor1 = $_POST['vendor1'];
-    $vprice1 = $_POST['vprice1'];
-    $flight1 = $_POST['flight1'];
-
-}
 	
     $mrgenerate = "INSERT INTO `airticket`(
         `invNo`,
-        `sqNo`,
         `csrId`,
         `PaxName1`,
         `PNR1`,
@@ -102,7 +135,6 @@ if (mysqli_query($conn, $invoice)) {
     )
     VALUES(
         '$INV_No',
-        '$searchvar',
         '$csrId',
         '$pax1',
         '$pnr1',
@@ -121,32 +153,44 @@ if (mysqli_query($conn, $invoice)) {
 
 	if (mysqli_query($conn, $mrgenerate)) {
 
-        $ClientLedger ="INSERT INTO `ledger`(`txType`, `personType`, `debit`) VALUES ('$INV_No','$csrId','$price1')";
+        $ses_sql = mysqli_query($conn,"SELECT * FROM client_ledger where CSR_ID='$csrId' ORDER BY DateTime DESC LIMIT 1");
+        $row = mysqli_fetch_array($ses_sql,MYSQLI_ASSOC);
+        
+        $Balanced = $row['Balance'] - (int)$price1;
+        
+
+        $ClientLedger ="INSERT INTO `client_ledger`(`TxType`,`type`, `CSR_ID`, `PaxName`, `serviceType`, `Details`, `cost`, `Balance`)
+                         VALUES ('$INV_No','$Type Refund','$csrId','$pax1','$type1','$pnr1 $ticket1 $airlines1 $way1 $from1-$to1','$price1',' $Balanced')";
 
         if (mysqli_query($conn, $ClientLedger)) {
 
-            if(!empty($vendor1 && $vprice1)){
-                $vendorLedger ="INSERT INTO `ledger`(`txType`, `personType`, `debit`) VALUES ('$INV_No','$vendor1','$vprice1')";
-
-                if (mysqli_query($conn, $vendorLedger)) {
-                
-                
-                }
-
-            } 
+            $ses_sql1 = mysqli_query($conn,"SELECT * FROM vendor_ledger where VDR_ID='$vendor1' ORDER BY DateTime DESC LIMIT 1");
+            $row1 = mysqli_fetch_array($ses_sql1,MYSQLI_ASSOC);
             
 
-            echo '<script language="javascript">';
-		    echo 'alert("Successfully Created"); location.href="IssueInvoice.php?INV='.$INV_No.'"';
-		    echo '</script>';
+            $vBalanced = (int)$row1['balance'] - (int)$vprice1;
+
+
+             $vendorLedger ="INSERT INTO `vendor_ledger`(`txType`,`type`, `VDR_ID`, `pax`, `pnr`, `ticket`, `serviceType`, `details`, `cost`,`balance`)
+             VALUES ('$INV_No','$Type Refund','$vendor1','$pax1','$pnr1','$ticket1','$type1','$airlines1 ' \n ' $way1 ' \n ' $from1-$to1','$vendorBalance','$vBalanced')";
+
+            if (mysqli_query($conn, $vendorLedger)) {
+
+                echo '<script language="javascript">';
+		        echo 'alert("Successfully Created"); location.href="IssueInvoice.php?INV='.$INV_No.'"';
+		        echo '</script>';
+                         
+            }
             
              
         }
         
         
 	}
+}
 
 } 
+
 	
 ?>
 
@@ -156,7 +200,7 @@ if (mysqli_query($conn, $invoice)) {
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-	<title>Second Segment Issue</title>
+	<title>Add Invoice</title>
 	<!-- Favicon -->
 	<link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.png">
 	<!-- Bootstrap CSS -->
@@ -293,7 +337,7 @@ if (mysqli_query($conn, $invoice)) {
 				<div class="page-header">
 					<div class="row">
 						<div class="col-sm-12">
-							<h3 class="page-title">Invoice</h3>
+							<h3 class="page-title">Second Segment Invoice</h3>
 							<ul class="breadcrumb">
 								<li class="breadcrumb-item"><a href="../Dashboard.php">Dashboard</a></li>
 								<li class="breadcrumb-item active">Invoice</li>
@@ -309,14 +353,9 @@ if (mysqli_query($conn, $invoice)) {
 							<div class="col-md-12">
 								<div class="card">
 									<div class="card-header">
-										<h4 class="text-danger card-title">Second Segment Issue Details</h4>
+										<h4 class="text-danger card-title">Invoice  Details</h4>
 										<div class="text-right">
-										
 
-										<?php if(isset($success)){
-                                        echo "<div class='alert alert-success' role='alert'> $success  </div> ";
-                                            }
-                                      ?>
 									</div>
 
 											
@@ -327,45 +366,22 @@ if (mysqli_query($conn, $invoice)) {
 												<div class="col-md-12">													
 													<div class="row">
 
-													    <div class="col-md-3">
+													    <div class="col-md-2">
 															<div class="form-group">
 																<label>Invoice No:</label>
 																<input type="text" value="<?php echo $INV_No ?>" class="form-control" disabled>
 															</div>
 														</div>
-														<div class="col-md-3">
+														<div class="col-md-2">
 															<div class="form-group">
 																<label>Client Name</label>
-																<select name="client" class="select form-control" required>
-                                                                            <option value="" disabled selected>Select Client Name</option>
-                                                                            <?php
-                                                                                $sql = "SELECT *  FROM `customer` ORDER BY name DESC";
-                                                                                $result = $conn->query($sql);                              
-                                                                                if ($result->num_rows > 0) {
-                                                                                while($row = $result->fetch_assoc()) {
-                                                                                    $vnName = $row['name'];
-                                                                                    $csrId= $row['CustomerId'];
-                                                                                    
-                                                                                    echo "<option value=\"$csrId\">".$row['name']."</option>";                                                                                 
-                                                                                }
-                                                                            }
-                                                                                ?>
-
-                                                                            <?php if(isset($Client_Id)){
-                                                                                    echo "<option value=\"$Client_Id\" selected>".$Client_Name."</option>";  
-
-                                                                            }  ?>
-
-                                                                            
-                                                                </select>
+																<input type="text" value="<?php echo $Client_Name ?>" class="form-control" disabled>
 															</div>
 														</div>
 
-                                                        
-													
                                                         <div class="col-md-3">
-                                                                <div class="form-group">
-                                                                    <label>System</label>
+                                                            <div class="form-group">
+                                                                 <label>System</label>
                                                                     <div class="form-group row">
                                                                         <div class="col-lg-12">
                                                                         <select name="system" class="select form-control"  required>
@@ -378,19 +394,17 @@ if (mysqli_query($conn, $invoice)) {
                                                                             <option value="Portal 3">Portal 3</option>	
                                                                         </select>
                                                                         </div>
-                                                                    </div>
                                                                 </div>
                                                             </div>
-
-                                                                                                               
-                                                            
-                                                            <div class="col-md-2">
-                                                                <div class="form-group">
-                                                                    <label>Reservation officer</label>
-                                                                    <input type="name" name="revofficer" class="form-control"  required>
-                                                                </div>
+                                                        </div>
+ 
+                                                        <div class="col-md-2">
+                                                            <div class="form-group">
+                                                                <label>Reservation officer</label>
+                                                                <input type="text" value="<?php echo $Rev_Officer ?>" class="form-control" disabled>
                                                             </div>
-														
+                                                        </div>
+                                                                                                                                         														
 													</div>
                                                                                                      											
 
@@ -409,11 +423,11 @@ if (mysqli_query($conn, $invoice)) {
 									</div>
 									<div class="card-body">
 										
-                                                    <div class="row">
+                                    <div class="row">
                                                         <div class="col-md-2">
                                                                 <div class="form-group">
                                                                     <label>Pax Name</label>
-                                                                    <input type="text" name="pax1" value="<?php echo $pax1 ?>" class="form-control" required >
+                                                                    <input type="text" value="<?php echo $pax ?>" class="form-control" disabled >
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-2">
@@ -464,61 +478,20 @@ if (mysqli_query($conn, $invoice)) {
                                                                             <option value="TG">TG </option>  	
                                                                             <option value="VQ">VQ </option>                                                                                                                                                    
                                                                             <option value="WY">WY</option>                                                                           
-                                                                            <?php if(!empty($Airlines1)){
-                                                                                    echo "<option value=\"$Airlines1\" selected>".$Airlines1."</option>";  
-                                                                            }  ?>                                                                                                                                                                                                                                 
+                                                                                                                                                                                                                                                                                                            
                                                                         </select>
                                                                 </div>
                                                             </div>                                                            
                                                             <div class="col-md-2">
                                                                 <div class="form-group">
                                                                     <label>From</label>
-                                                                    <select name="from1" class="select form-control"  >
-                                                                            <option value="" disabled selected>Place From</option>
-                                                                           
-                                                                            <?php
-                                                                                $sql = "SELECT DISTINCT code FROM airports order by code";
-                                                                                $result = $conn->query($sql);
-                                
-                                                                                if ($result->num_rows > 0) {
-                                                                                while($row = $result->fetch_assoc()) {
-                                                                                    $vnName = $row["code"];	
-                                                                                    echo "<option value=\"$vnName\">".$row["code"]."</option>";                                                                                 
-                                                                                    }
-                                                                                }
-                                                                                ?>
-                                                                                <?php if(!empty($from1)){
-                                                                                    echo "<option value=\"$from1\" selected>".$from1."</option>";  
-                                                                                }
-                                                                            ?>                                                                           
-                                                                           
-                                                                     </select>
+                                                                    <input type="text" value="<?php echo $to ?>" class="form-control" disabled >
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-2">
                                                                 <div class="form-group">
                                                                     <label>To</label>
-                                                                    <select name="to1" class="select form-control"  >
-                                                                            <option value="" disabled selected>Place To</option>
-                                                                          
-                                                                            <?php
-                                                                                $sql = "SELECT DISTINCT code FROM airports order by code";
-                                                                                $result = $conn->query($sql);
-                                
-                                                                                if ($result->num_rows > 0) {
-                                                                                while($row = $result->fetch_assoc()) {
-                                                                                    $vnName = $row["code"];	
-                                                                                    echo "<option value=\"$vnName\">".$row["code"]."</option>";                                                                                 
-                                                                                }
-                                                                            }
-                                                                                ?>
-
-                                                                                 <?php if(!empty($to1)){
-                                                                                    echo "<option value=\"$to1\" selected>".$to1."</option>";  
-                                                                                    }  ?>
-                                                                                
-                                                                            
-                                                                </select>
+                                                                    <input type="text" value="<?php echo $from ?>" class="form-control" disabled >
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -526,7 +499,14 @@ if (mysqli_query($conn, $invoice)) {
                                                             <div class="col-md-2">
                                                                     <div class="form-group">
                                                                         <label>Flight Date</label>
-                                                                        <input type="date" name="flight1" class="form-control"  required>
+                                                                        <input type="date" name="date" class="form-control"  required>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-md-2">
+                                                                    <div class="form-group">
+                                                                        <label>Flight Time</label>
+                                                                        <input type="time" name="time" class="form-control"  required>
                                                                     </div>
                                                                 </div>
 
@@ -534,8 +514,8 @@ if (mysqli_query($conn, $invoice)) {
                                                                 <div class="form-group">
                                                                     <label>Way:</label>
                                                                     <select name="way1" class="select form-control" >
-                                                                            <option value="" selected>Returned</option>
-                                                                                                                                                                                         
+                                                                            <option value="" disabled selected>Select Way</option>
+                                                                            <option value="One Way">One Way</option>                                                                                                                                                 
                                                                             
                                                                         </select>
                                                                 </div>
@@ -545,10 +525,10 @@ if (mysqli_query($conn, $invoice)) {
                                                                     <label> Ticket Type</label>
                                                                     <select name="type1" class="select form-control" required >
                                                                             <option value="" disabled selected> Select Ticket Type</option>
-                                                                            <option value="Non Refundable">Void Return</option>
-                                                                            <option value="Refundable">Genuine Return</option>	
-                                                                            
-                                                                                                                                                       
+                                                                            <option value="Non Refundable">Non Refundable</option>
+                                                                            <option value="Refundable">Refundable</option>	
+                                                                            <option value="Refund Adjusted">Refund Adjusted </option>
+                                                                                                                                                      
                                                                         </select>
                                                                 </div>
                                                             </div>
@@ -562,7 +542,7 @@ if (mysqli_query($conn, $invoice)) {
 															<div class="form-group">
 																<label>Vendor :</label>
 																<select name="vendor1" class="select form-control" required>
-                                                                            <option value="" disabled selected>Select Vendor</option>
+                                                                            <option value="" disabled selected> Select Vendor</option>
                                                                             <?php
                                                                                 $sql = "SELECT *  FROM `vendor` ORDER BY name DESC";
                                                                                 $result = $conn->query($sql);                              
@@ -571,8 +551,8 @@ if (mysqli_query($conn, $invoice)) {
                                                                                     $vnName = $row['name'];
                                                                                     $vendorId= $row['vendorId'];
                                                                                     echo "<option value=\"$vendorId\">".$row['name']."</option>";                                                                                 
+                                                                                    }
                                                                                 }
-                                                                            }
                                                                                 ?>
                                                                                 
                                                                             
@@ -588,7 +568,7 @@ if (mysqli_query($conn, $invoice)) {
                                                         </div>
 
                                                         <div class="text-right">
-												    <button type="submit" class="btn btn-primary">Generate Invoice</button>
+												    <button type="submit" class="btn btn-primary">Refund Issue</button>
 											    </div>
 									</div>
 								</div>

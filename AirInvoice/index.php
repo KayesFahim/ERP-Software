@@ -169,6 +169,7 @@ include('../session.php');
 										<a href="Issue.php" class="btn btn-primary"> Create +</a>
 									</div>
 								</div>
+								<div id="example_filter" class="dataTables_filter"><label>Search:<input type="search" class="" placeholder="" aria-controls="example"></label></div>
 								
 								<div class="card-body">
 									<div class="table-responsive">
@@ -176,6 +177,7 @@ include('../session.php');
 											<thead>
 												<tr>
 													<th>Issue Date</th>
+													<th>Invoice No</th>
 													<th>Type </th>
 													<th>Amount</th>
 													<th>Vendor Cost</th>
@@ -192,10 +194,9 @@ include('../session.php');
 														invoice.invNo,
 														invoice.createdtime,
 														invoice.type,
-														airticket.vPrice1 As vCost,														
+														airticket.vPrice1,														
 														invoice.clientName,
-														airticket.cost1 AS Amount
-
+														airticket.cost1
 														FROM invoice
 														INNER JOIN airticket ON invoice.invNo = airticket.invNo
 														Group By createdtime DESC";
@@ -205,7 +206,7 @@ include('../session.php');
 												if ($result->num_rows > 0) {
   												while($row = $result->fetch_assoc()) {	
 													$INV = $row["invNo"];
-													$Profit = $row['Amount'] -  $row['vCost'];
+													$Profit = $row['cost1'] -  $row['vPrice1'];
 
 													date_default_timezone_set('Asia/Dhaka');
 													$startTime = $row['createdtime'];
@@ -214,19 +215,38 @@ include('../session.php');
 													$endTime = date("Y-m-d");
 													echo "<tr>
 																<td>".$row["createdtime"]. "</td>
-																<td>kaka</td> 
-														 		<td>".$row["Amount"]."</td>
-														 		<td>".$row["vCost"]."</td>
+																<td>".$row["invNo"]. "</td>
+																<td>".$row["type"]."</td> 
+														 		<td>".$row["cost1"]."</td>
+														 		<td>".$row["vPrice1"]."</td>
 																<td>".$Profit."</td>
-																<td>".$row["clientName"]."</td>
-																<td><a href='IssueInvoice.php?INV=$INV' class='btn btn-primary'> View </a>
-																<a href='ReIssue.php?INV=$INV' class='btn btn-primary'> Reissue </a>
-																<a href='Void.php?INV=$INV' class='btn btn-primary'> Refund </a>
-																<a href='SecondSegment.php?INV=$INV' class='btn btn-primary'> Return Segment</a> ";
+																<td>".$row["clientName"]."</td>";
 
-													if($dataDate == $endTime){														
-														echo "<a href='Void.php?INV=$INV' class='btn btn-primary'> Void </a> ";																
-													}
+																if($row["type"] == 'Issue'){														
+																	echo "<td><a href='IssueInvoice.php?INV=$INV' class='btn btn-primary'> View </a> ";
+																	echo "<a href='ReIssue.php?INV=$INV' class='btn btn-primary'> ReIssue </a> ";
+																	echo "<a href='SecondSegment.php?INV=$INV' class='btn btn-primary'> Second Segment </a> ";
+																	echo "<a href='Refund.php?INV=$INV' class='btn btn-primary'> Refund </a> ";
+																	if($dataDate == $endTime){														
+																		echo "<a href='Void.php?INV=$INV' class='btn btn-primary'> Void </a> </td>";																
+																	}															
+																}else if ($row["type"] == 'Void'){														
+																	echo "<td><a href='VoidInvoice.php?INV=$INV' class='btn btn-primary'> View </a> ";
+																	
+																}else if ($row["type"] == 'Refund'){														
+																	echo "<td><a href='IssueInvoice.php?INV=$INV' class='btn btn-primary'> View </a> ";
+																}else if($row["type"] == 'ReIssue'){														
+																	echo "<td><a href='ReIssueInvoice.php?INV=$INV' class='btn btn-primary'> View </a> ";
+																	echo "<a href='ReIssue.php?INV=$INV' class='btn btn-primary'> ReIssue </a> ";
+																	echo "<a href='SecondSegment.php?INV=$INV' class='btn btn-primary'> Second Segment </a> ";
+																	echo "<a href='Refund.php?INV=$INV' class='btn btn-primary'> Refund </a> ";
+																	if($dataDate == $endTime){														
+																		echo "<a href='Void.php?INV=$INV' class='btn btn-primary'> Void </a> </td>";																
+																	}
+																}	
+																		
+																
+																																																																
 																 											
 												  }
 												}
@@ -242,6 +262,9 @@ include('../session.php');
 				</div>
 				<!-- /Page Wrapper -->
 			</div>
+			<script>
+				
+		</script>
 			<!-- jQuery -->
 			<script src="../assets/js/jquery-3.2.1.min.js"></script>
 			<!-- Bootstrap Core JS -->
