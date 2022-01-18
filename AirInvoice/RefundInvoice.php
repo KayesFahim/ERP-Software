@@ -34,12 +34,8 @@ while($row = $result->fetch_assoc()) {
         $way1 = $row['way1'];        
         $Ticket_Type1 = $row['ticketType1']; 
         $price1 = $row['cost1']; 
-    
-        
-						
+           						
 	}
-} else {
-  
 }
 
   
@@ -74,7 +70,7 @@ while($row = $result->fetch_assoc()) {
               <h5>#<?php echo $INV_No; ?> </h5>
               <h6>Client Name: <?php echo $Client_Name; ?></h6>
               <h6>Reservation officer: <?php echo $Rev_Officer; ?></h6>
-              <h6>Service: Air Ticket</h6>
+              <h6>Service: Air Ticket (Refund)</h6>
             </div>
             <div class="p-2">
               <h6>Issue Date: <?php echo $Created_Date; ?></h6>

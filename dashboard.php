@@ -615,7 +615,7 @@ $Cashequvalent = $Bank_Amount + $MobileBanking_Amount + $SSL_Amount + $Cash;
                                         </select>
                                     </div>
                                 </div>
-                                <h6 class='text-center'><b style="color:red;"><?php echo $TotalLib  = $Payable + $UnEarned; ?> </b></h6>
+                                <h6 class='text-center'><b style="color:red;"><?php $TotalLib  = $Payable + $UnEarned; echo "$TotalLib Taka" ?> </b></h6>
                             </div>
                             <div class='col-md-2'>
                                 <div class='form-group row'>
@@ -645,7 +645,7 @@ $Cashequvalent = $Bank_Amount + $MobileBanking_Amount + $SSL_Amount + $Cash;
                                         </select>
                                     </div>
                                 </div>
-                                <h6 class='text-center'><b style="color:red;"><?php echo $PrePaid; ?> </b></h6>
+                                <h6 class='text-center'><b style="color:red;"><?php echo "$PrePaid Taka"; ?> </b></h6>
                             </div>
                                                       
                         </div>
@@ -683,6 +683,8 @@ $Cashequvalent = $Bank_Amount + $MobileBanking_Amount + $SSL_Amount + $Cash;
                                                     
  											
                                                     }
+                                                }else{
+                                                    $Sales=0;
                                                 }
                                                 ?>
                                             
@@ -720,6 +722,8 @@ $Cashequvalent = $Bank_Amount + $MobileBanking_Amount + $SSL_Amount + $Cash;
                                                     
  											
                                                     }
+                                                }else{
+                                                    $Purchase=0;
                                                 }
                                                 ?>
                                             
@@ -759,6 +763,8 @@ $Cashequvalent = $Bank_Amount + $MobileBanking_Amount + $SSL_Amount + $Cash;
                                                     
  											
                                                     }
+                                                }else{
+                                                    $TotalProfit=0;
                                                 }
                                                 ?>
                                             
@@ -798,6 +804,8 @@ $Cashequvalent = $Bank_Amount + $MobileBanking_Amount + $SSL_Amount + $Cash;
                                                     
  											
                                                     }
+                                                }else{
+                                                    $TotalProfit=0;
                                                 }
                                                 ?>
                                             
@@ -825,6 +833,7 @@ $Cashequvalent = $Bank_Amount + $MobileBanking_Amount + $SSL_Amount + $Cash;
                                         if ($result->num_rows > 0) {
                                         while($row = $result->fetch_assoc()) {	
                                             $bankgetID = $row["bankId"];
+                                            $BankTotal += $row['Amount'];
                                             echo "<option value=\"$bankgetID\">".$row['bankname']." ( ".$row['Amount']." Taka )</option>";
                                             
 
@@ -835,7 +844,7 @@ $Cashequvalent = $Bank_Amount + $MobileBanking_Amount + $SSL_Amount + $Cash;
                                         </select>
                                     </div>
                                 </div>
-                                <h6 class='text-center'><b style="color:red;"><?php echo "$Sales Taka" ?></b></h6>
+                                <h6 class='text-center'><b style="color:red;"><?php echo "$BankTotal Taka" ?></b></h6>
                             </div>
                             <div class='col-md-3'>
                                 <div class='form-group row'>
@@ -882,26 +891,13 @@ $Cashequvalent = $Bank_Amount + $MobileBanking_Amount + $SSL_Amount + $Cash;
                                             <?php
                                             
                                                 $Today = date("Y-m-d");
-                                                $sql = "SELECT
-                                                invoice.invNo,
-                                                invoice.createdtime,
-                                                invoice.vendorName,
-                                                invoice.type,
-                                                airticket.vPrice1 AS vCost,
-                                                invoice.clientName,
-                                                airticket.cost1 AS Amount
-                                            FROM
-                                                invoice
-                                            INNER JOIN airticket ON invoice.invNo = airticket.invNo
-                                            WHERE invoice.createdtime LIKE '$Today%'";
+                                                $sql = "SELECT id, MB_ID, mb_operator, mb_number, SUM(cashIn-cashOut) as balance FROM `mobile_banking` GROUP By MB_ID";
                                                 $result = $conn->query($sql);
                                                 if ($result->num_rows > 0) {
                                                 while($row = $result->fetch_assoc()) {	
-                                                    $INV_NO = $row["invNo"];
-                                                    $Profit = $row['Amount'] - $row['vCost'];
-                                                    $TotalProfit += $row['Amount'] - $row['vCost'];
-
-                                                    echo "<option value=\"$INV_NO\">".$row['invNo']." From ( ".$Profit." Taka )</option>";
+                                                    $Mobile_Banking += $row['balance'];
+                                                   
+                                                    echo "<option>".$row['mb_number']." To ( ".$row['balance']." Taka )</option>";
                                                     
  											
                                                     }
@@ -921,28 +917,12 @@ $Cashequvalent = $Bank_Amount + $MobileBanking_Amount + $SSL_Amount + $Cash;
                                             <?php
                                             
                                                 $Today = date("Y-m-d");
-                                                $sql = "SELECT
-                                                invoice.invNo,
-                                                invoice.createdtime,
-                                                invoice.vendorName,
-                                                invoice.type,
-                                                airticket.vPrice1 AS vCost,
-                                                invoice.clientName,
-                                                airticket.cost1 AS Amount
-                                            FROM
-                                                invoice
-                                            INNER JOIN airticket ON invoice.invNo = airticket.invNo
-                                            WHERE invoice.createdtime LIKE '$Today%'";
+                                                $sql = "SELECT SUM(cashIn - cashOut) as amount from cash";
                                                 $result = $conn->query($sql);
                                                 if ($result->num_rows > 0) {
-                                                while($row = $result->fetch_assoc()) {	
-                                                    $INV_NO = $row["invNo"];
-                                                    $Profit = $row['Amount'] - $row['vCost'];
-                                                    $TotalProfit += $row['Amount'] - $row['vCost'];
+                                                while($row = $result->fetch_assoc()) {	                                                  
+                                                    echo "<option>".$row['amount']." Taka </option>";                                                   
 
-                                                    echo "<option value=\"$INV_NO\">".$row['invNo']." From ( ".$Profit." Taka )</option>";
-                                                    
- 											
                                                     }
                                                 }
                                                 ?>

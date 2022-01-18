@@ -5,35 +5,9 @@ include('../session.php');
 
 ?>
 
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-	<title>Vendor List</title>
-	<!-- Favicon -->
-	<link rel="shortcut icon" type="image/x-icon" href="../assets/img/favicon.png">
-	<!-- Bootstrap CSS -->
-	<link rel="stylesheet" href="../assets/css/bootstrap.min.css">
-	<!-- Fontawesome CSS -->
-	<link rel="stylesheet" href="../assets/css/font-awesome.min.css">
-	<!-- Feathericon CSS -->
-	<link rel="stylesheet" href="../assets/css/feathericon.min.css">
-	<!-- Datatables CSS -->
-	<link rel="stylesheet" href="../assets/plugins/datatables/datatables.min.css">
-	<!-- Main CSS -->
-	<link rel="stylesheet" href="../assets/css/style.css">
-
-</head>
-
-<body>
-	
-		<!-- /Header -->
-		<?php
-        	include '../header.php';
-        ?>
-		<!-- /Header -->
+<!------------  Header ----------->
+<?php include '../header.php'; ?>
+<!------------  Header ----------->
 
 		
         <!-- Sidebar -->
@@ -131,17 +105,7 @@ include('../session.php');
 				<!-- /Page Wrapper -->
 			</div>
 			<!-- /Main Wrapper -->
-			<!-- jQuery -->
-			<script src="../assets/js/jquery-3.2.1.min.js"></script>
-			<!-- Bootstrap Core JS -->
-			<script src="../assets/js/popper.min.js"></script>
-			<script src="../assets/js/bootstrap.min.js"></script>
-			<!-- Slimscroll JS -->
-			<script src="../assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-			<!-- Datatables JS -->
-			<script src="../assets/plugins/datatables/jquery.dataTables.min.js"></script>
-			<script src="../assets/plugins/datatables/datatables.min.js"></script>
-			<!-- Custom JS -->
-			<script  src="../assets/js/script.js"></script>
-		</body>
-		</html>
+
+<!------------  Footer ----------->
+<?php include '../footer.php'; ?>
+<!------------  Footer ----------->

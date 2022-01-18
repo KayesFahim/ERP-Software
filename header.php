@@ -8,6 +8,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.1/css/responsive.dataTables.min.css">
     <title><?php  
     $curPageName = substr($_SERVER["SCRIPT_NAME"],strrpos($_SERVER["SCRIPT_NAME"],"/")+1); 
     $Title = explode(".",$curPageName); $PageTitele = $Title[0]; $Words = preg_replace('/(?<!\ )[A-Z]/', ' $0', $PageTitele);  echo $Words;
@@ -21,6 +22,7 @@
     <link rel="stylesheet" href="../assets/css/font-awesome.min.css">
     <!-- Feathericon CSS -->
     <link rel="stylesheet" href="../assets/css/feathericon.min.css">
+
     <!-- Main CSS -->
     <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="stylesheet" href="../assets/css/main.css">

@@ -166,7 +166,7 @@ if($userRole == 'reservation'){
                      </ul>
              </li>
              <li>
-                 <a href='../Salary/SalarySheet.php'><i class='fe fe-layout'></i> <span>Salary</span></a>
+                 <a href='../Salary'><i class='fe fe-layout'></i> <span>Salary</span></a>
              </li>
 
              <li>

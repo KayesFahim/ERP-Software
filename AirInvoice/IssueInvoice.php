@@ -111,7 +111,7 @@ while($row = $result->fetch_assoc()) {
                             <td><?php echo $to1; ?></td>
                             <td><?php echo $from1; ?></td>
                             <td><?php echo $way1; ?></td>
-                            <td><?php echo $price1; ?></td>
+                            <td><?php echo number_format($price1, 2) ?></td>
                             </tr>
 
                             

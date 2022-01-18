@@ -180,7 +180,6 @@ include('../session.php');
 													<th>Balance</th>
 													<th>Phone</th>
 													<th>Action</th>
-                                                    <th></th>
 												</tr>
 											</thead>
 											<tbody>
@@ -226,17 +225,12 @@ include('../session.php');
 				<!-- /Page Wrapper -->
 			</div>
 			<!-- /Main Wrapper -->
-			<!-- jQuery -->
-			<script src="../assets/js/jquery-3.2.1.min.js"></script>
-			<!-- Bootstrap Core JS -->
-			<script src="../assets/js/popper.min.js"></script>
-			<script src="../assets/js/bootstrap.min.js"></script>
-			<!-- Slimscroll JS -->
-			<script src="../assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-			<!-- Datatables JS -->
-			<script src="../assets/plugins/datatables/jquery.dataTables.min.js"></script>
-			<script src="../assets/plugins/datatables/datatables.min.js"></script>
-			<!-- Custom JS -->
-			<script  src="../assets/js/script.js"></script>
-		</body>
-		</html>
+			<script>
+				$('#myTable').DataTable( {
+					responsive: true
+				} );
+			</script>
+			
+<! ------------  Footer ----------->
+<?php include '../footer.php'; ?>
+<! ------------  Footer ----------->

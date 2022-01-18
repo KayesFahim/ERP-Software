@@ -74,7 +74,7 @@ while($row = $result->fetch_assoc()) {
               <h5>#<?php echo $INV_No; ?> </h5>
               <h6>Client Name: <?php echo $Client_Name; ?></h6>
               <h6>Reservation officer: <?php echo $Rev_Officer; ?></h6>
-              <h6>Service: Air Ticket</h6>
+              <h6>Service: Air Ticket (Second Segment)</h6>
             </div>
             <div class="p-2">
               <h6>Issue Date: <?php echo $Created_Date; ?></h6>
