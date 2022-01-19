@@ -34,7 +34,6 @@ if ($result->num_rows > 0) {
 		`name`,
 		`phone`,
 		`company`,
-		`balance`,
 		`address`,
 		`conPername`,
 		`conPerPhone`
@@ -45,14 +44,21 @@ if ($result->num_rows > 0) {
         '$vName',
         '$vPhone',
         '$Comname',
-        '$Balance',
         '$vAddress',
 		'$CoName',
         '$CoPhone'
     )";
         
         if ($conn->query($sqlquery) === TRUE) {
-            $success = "Data Saved successfully";
+            $ClientLedger ="INSERT INTO `vendor_ledger`(`txType`, `VDR_ID`,`serviceType`, `details`,`balance`)
+                         VALUES ('Open','$Vendor_Id','Account Open','Opening Balanced','$Balance')";
+
+		if ($conn->query($ClientLedger) === TRUE) {
+			
+			echo '<script language="javascript">';
+			echo 'alert("Successfully Created"); location.href="index.php"';
+			echo '</script>';
+		}
         } else {
             echo "Error: " . $sqlquery . "<br>" . $conn->error;
         }

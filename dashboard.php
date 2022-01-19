@@ -1,32 +1,6 @@
 <?php
    include('session.php');
 
-
-   // Recievable 
-   $sql = "SELECT SUM(deposit-cost) as Total FROM `client_ledger`";
-												$result = $conn->query($sql);
-
-												if ($result->num_rows > 0) {
-  												while($row = $result->fetch_assoc()) {													  
-                                                        $Recievable = $row['Total'];										
-												  }
-												}
-
-    
-                                                
-
-
-   // Payable 
-   $sql1 = "SELECT SUM(deposit-cost) as Total FROM `vendor_ledger`";
-												$result1 = $conn->query($sql1);
-
-												if ($result1->num_rows > 0) {
-  												while($row1 = $result1->fetch_assoc()) {													  
-                                                        $Payable = $row1['Total'];										
-												  }
-												} 
-
-
     // Cash and Cash Equvalent
 
 $bank = "SELECT SUM(credit - debit) as amount from bank";
@@ -43,7 +17,10 @@ $result2 = $conn->query($ssl);
 $result3 = $conn->query($cash);
 
 
-$Bank_Amount; $MobileBanking_Amount; $SSL_Amount; $Cash;
+$Bank_Amount;
+$MobileBanking_Amount;
+$SSL_Amount;
+$Cash;
 
 if ($result->num_rows > 0) {
 	while($row = $result->fetch_assoc()) {
@@ -67,10 +44,9 @@ if ($result1->num_rows > 0) {
 if ($result2->num_rows > 0) {
 	while($row = $result2->fetch_assoc()) {
 		$SSL_Amount = $row["amount"];
-
-
-
 	}
+}else{
+    $SSL_Amount = 0;
 }
 
 //Cash Balanced
@@ -371,7 +347,7 @@ $Cashequvalent = $Bank_Amount + $MobileBanking_Amount + $SSL_Amount + $Cash;
                                 <a href='Expense'><i class='fe fe-layout'></i> <span>Expense</span></a>
                             </li>
                             <li>
-                                <a href='MoneyReceipt'><i class='fe fe-layout'></i> <span>Money Receipt</span></a>
+                                <a href='MoneyReciept'><i class='fe fe-layout'></i> <span>Money Receipt</span></a>
                             </li>
 
                             <li>
@@ -536,7 +512,7 @@ $Cashequvalent = $Bank_Amount + $MobileBanking_Amount + $SSL_Amount + $Cash;
                                                 echo "<option value=\"$csrId\">".$row['name']." (".$row['Total']." Taka)</option>";
 												  
                                                     							
-                                            }
+                                                }
                                             }
 
                                             ?>
@@ -558,12 +534,11 @@ $Cashequvalent = $Bank_Amount + $MobileBanking_Amount + $SSL_Amount + $Cash;
                                             GROUP BY client_ledger.CSR_ID
                                             HAVING Total < 0';
                                             $result = $conn->query($recvList);
-
-                                            if ($result->num_rows > 0) {
-                                                $Recievable = 0;
+                                            $Rcv = 0;
+                                            if ($result->num_rows > 0) {    
                                             while($row = $result->fetch_assoc()){
                                                 $csrId = $row['CustomerId'];
-                                                $Recievable += $row['Total'];
+                                                $Rcv += $row['Total'];
                                                 echo "<option value=\"$csrId\">".$row['name']." (".$row['Total']." Taka)</option>";
 												                                                     							
                                                 }
@@ -573,7 +548,7 @@ $Cashequvalent = $Bank_Amount + $MobileBanking_Amount + $SSL_Amount + $Cash;
                                         </select>
                                     </div>
                                 </div>
-                                <h6 class='text-center'><b style="color:red;"><?php echo "$Recievable Taka" ?></b></h6>
+                                <h6 class='text-center'><b style="color:red;"><?php echo "$Rcv Taka" ?></b></h6>
                             </div>
                             <div class='col-md-2'>
                                 <div class='form-group row'>
@@ -678,7 +653,7 @@ $Cashequvalent = $Bank_Amount + $MobileBanking_Amount + $SSL_Amount + $Cash;
                                                 if ($result->num_rows > 0) {
                                                 while($row = $result->fetch_assoc()) {	
                                                     $INV_NO = $row["invNo"];
-                                                    $Sales += $row['vCost'];
+                                                    $Sales += $row['Amount'];
                                                     echo "<option value=\"$INV_NO\">".$row['clientName']." To ( ".$row['Amount']." Taka )</option>";
                                                     
  											
@@ -777,7 +752,7 @@ $Cashequvalent = $Bank_Amount + $MobileBanking_Amount + $SSL_Amount + $Cash;
                                 <div class='form-group row'>
                                     <div class='col-lg-12'>
                                         <select class='select form-control'>
-                                            <option>Today Profit/Loss</option>
+                                            <option>Today Expense</option>
                                             <?php
                                             
                                                 $Today = date("Y-m-d");
@@ -794,25 +769,21 @@ $Cashequvalent = $Bank_Amount + $MobileBanking_Amount + $SSL_Amount + $Cash;
                                             INNER JOIN airticket ON invoice.invNo = airticket.invNo
                                             WHERE invoice.createdtime LIKE '$Today%'";
                                                 $result = $conn->query($sql);
+                                                $Todayexpense = 0;
                                                 if ($result->num_rows > 0) {
                                                 while($row = $result->fetch_assoc()) {	
                                                     $INV_NO = $row["invNo"];
-                                                    $Profit = $row['Amount'] - $row['vCost'];
-                                                    $TotalProfit += $row['Amount'] - $row['vCost'];
-
+                                                
                                                     echo "<option value=\"$INV_NO\">".$row['invNo']." From ( ".$Profit." Taka )</option>";
-                                                    
- 											
+                                                   											
                                                     }
-                                                }else{
-                                                    $TotalProfit=0;
                                                 }
                                                 ?>
                                             
                                         </select>
                                     </div>
                                 </div>
-                                <h6 class='text-center'><b style="color:red;"><?php echo "$TotalProfit Taka" ?></b></h6>
+                                <h6 class='text-center'><b style="color:red;"><?php echo "$Todayexpense Taka" ?></b></h6>
                             </div>
 
                         </div>

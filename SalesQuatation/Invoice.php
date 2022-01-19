@@ -33,51 +33,8 @@ while($row = $result->fetch_assoc()) {
         $type1= $row['type1'];
         $way1= $row['way1'];  
         $price1 = $row['cost1']; 
-    
-        //Pax2
-        $pax2 = $row['PaxName2'];
-        $Airlines2 = $row['Airlines2'];
-        $from2 = $row['from2'];
-        $to2 = $row['to2'];
-        $type2 = $row['type2']; 
-        $way2= $row['way2'];        
-        $price2 = $row['cost2'];
-        
-    
-        //Pax3
-
-        $pax3 = $row['PaxName3']; 
-        $Airlines3 = $row['Airlines3'];   
-        $from3 = $row['from3'];
-        $to3 = $row['to3'];
-        $type3 = $row['type3'];
-        $way3= $row['way3'];    
-        $price3 = $row['cost3'];
-       
-    
-         //Pax4
-
-         $pax4 = $row['PaxName4'];
-         $Airlines4 = $row['Airlines4'];       
-         $from4 = $row['from4'];
-         $to4 = $row['to4'];
-         $type4 = $row['type4'];
-         $way4= $row['way4'];      
-         $price4 = $row['cost4'];
-         
-    
-         //Pax 5
-         $pax5 = $row['PaxName5'];
-         $Airlines5 = $row['Airlines5'];
-         $from5 = $row['from5'];
-         $to5 = $row['to5'];
-         $type5= $row['type5']; 
-         $way5= $row['way5'];    
-         $price5 = $row['cost5'];
-						
+    						
 	}
-} else {
-  	echo "0 results";
 }
 
 

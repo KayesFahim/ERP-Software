@@ -4,6 +4,9 @@ include '../config.php';
 include('../session.php');
 
 
+$SQT = $_GET['SQT'];
+
+
 ?>
 
 <!------------  Header ----------->
@@ -46,7 +49,7 @@ include('../session.php');
 							<div class="card">
 								<div class="card-header">
 									<div class="text-right">
-										<a href="AddAirTicket.php" class="btn btn-primary"> Create +</a>
+										<a href="Invoice.php?SQT=<?php echo $SQT; ?>" class="btn btn-primary"> Print +</a>
 									</div>
 								</div>
 								
@@ -55,41 +58,64 @@ include('../session.php');
 										<table class="datatable table table-stripped">
 											<thead>
 												<tr>
-													<th>Quatation No</th>
 													<th>Issue Date</th>
-													<th>Amount</th>													
-													<th>createdBy</th>
-													<th>Client Name</th>
-													<th>Pax No</th>
+													<th>Pax Name</th>													
+													<th>Airlines</th>
+													<th>From</th>
+													<th>To</th>
+                                                    <th>Type</th>
+													<th>Cost</th>
+                                                    <th>Way</th>
 													<th>Action</th>
 												</tr>
 											</thead>
 											<tbody>
 											<?php
 
+
+
 												$sql = "SELECT
                                                         sqNo,
-                                                        createdDate,
-                                                        createdBy,
                                                         clientName,
-                                                        pax, SUM(cost)   as Cost                                                     
+                                                        csrId,
+                                                        createdDate,
+                                                        PaxName,
+                                                        Airlines,
+                                                        placeFrom, placeTo, ticketType, cost, way                                                     
                                                     FROM
                                                         `salesqutation`
                                                     GROUP BY
-                                                        sqNo DESC";
+                                                        id ASC";
 
 												$result = $conn->query($sql);
 
 												if ($result->num_rows > 0) {
   												while($row = $result->fetch_assoc()) {	
 													$SQT = $row["sqNo"];
-													echo "<tr><td>".$row["sqNo"]."</td>
+                                                    $ClientName = $row["clientName"];
+                                                    $Client_Id = $row["csrId"];
+                                                    $PaxName = $row["PaxName"];
+                                                    $Airlines = $row["Airlines"];
+                                                    $From = $row["placeFrom"];
+                                                    $To = $row["placeTo"];
+                                                    $Type = $row["ticketType"];
+                                                    $Cost = $row["cost"];
+                                                    $Way = $row["way"];
+
+
+                                                    $Param = "SQT=$SQT&ClientName=$ClientName&Client_Id=$Client_Id&PaxName=$PaxName&Airlines=$Airlines&From=$From&To=$To&Type=$Type&Cost=$Cost&Way=$Way";
+                                                    
+													echo "<tr>
 																<td>".$row["createdDate"]."</td> 
-														 		<td>".$row["Cost"]."</td>
-																<td>".$row["createdBy"]."</td>
-																<td>".$row["clientName"]."</td>
-																<td>".$row["pax"]."</td>
-																<td><a href='AirTicketDetails.php?SQT=$SQT' class='btn btn-primary'> View </a></td>																
+														 		<td>".$row["PaxName"]."</td>																
+																<td>".$row["Airlines"]."</td>
+                                                                <td>".$row["placeFrom"]."</td>
+																<td>".$row["placeTo"]."</td>
+																<td>".$row["ticketType"]."</td>
+																<td>".$row["cost"]."</td>
+                                                                <td>".$row["way"]."</td>
+																<td><a href='../AirInvoice/Issue.php?$Param' class='btn btn-primary'> Make Invoice </a></td>
+                                                                
 																 </tr>";   											
 												  }
 												} else {

@@ -30,10 +30,10 @@ include('../session.php');
 				<div class="page-header">
 					<div class="row">
 						<div class="col-sm-12">
-							<h3 class="page-title">Customer</h3>
+							<h3 class="page-title">Vendor Ledger</h3>
 							<ul class="breadcrumb">
 								<li class="breadcrumb-item"><a href="Dashboard.php">Dashboard</a></li>
-								<li class="breadcrumb-item active">Customer</li>
+								<li class="breadcrumb-item active">Vendor Report</li>
 							</ul>
 						</div>
 					</div>
@@ -47,9 +47,7 @@ include('../session.php');
 					<div class="col-md-12">
 							<div class="card">
 								<div class="card-header">
-									<div class="text-right">
-										<a href="AddCustomer.php" class="btn btn-primary"> Add +</a>
-									</div>
+									
 								</div>
 								
 								<div class="card-body">
@@ -59,6 +57,9 @@ include('../session.php');
 												<tr>
 													<th>Date</th>
 													<th>Type</th>
+													<th>Pax Name</th>
+													<th>PNR No</th>
+													<th>Ticket No</th>
 													<th>Details</th>
                                                     <th>Service</th>
 													<th>Cost</th>
@@ -91,6 +92,9 @@ include('../session.php');
 													  
 													echo "<tr><td>".$row["dateTime"]."</td>
 																<td>".$row["txType"]."</td> 
+																<td>".$row["pax"]."</td> 
+																<td>".$row["pnr"]."</td> 
+																<td>".$row["ticket"]."</td> 
 														 		<td>".$row["details"]."</td>
 																<td>".$row["serviceType"]."</td>
 														 		<td>".$row["cost"]."</td>

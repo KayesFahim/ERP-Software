@@ -1,6 +1,5 @@
 <?php
 
-require '../config.php';
 require('../session.php');
 
 
@@ -34,8 +33,7 @@ if ($result->num_rows > 0) {
 		`email`,
 		`name`,
 		`phone`,
-		`company`,
-		`balance`,
+		`company`,		
 		`address`,
 		`conPername`,
 		`conPerPhone`
@@ -46,26 +44,23 @@ if ($result->num_rows > 0) {
         '$vName',
         '$vPhone',
         '$Comname',
-        '$Balance',
         '$vAddress',
 		'$CoName',
         '$CoPhone'
     )";
         
         if ($conn->query($sqlquery) === TRUE) {
-			$ClientLedger ="INSERT INTO `vendor_ledger`(`txType`, `VDR_ID`,`serviceType`, `details`,`balance`)
-                         VALUES ('Open','$Vendor_Id','Account Open','Opening Balanced','$Balance')";
+			$ClientLedger ="INSERT INTO `vendor_ledger`(`txType`, `VDR_ID`,`serviceType`, `details`,`deposit`,`balance`)
+                         VALUES ('Open','$Vendor_Id','Account Open','Opening Balanced','$Balance','$Balance')";
 
 		if ($conn->query($ClientLedger) === TRUE) {
-			$success = "New Vendor Created successfully";
+			
 			echo '<script language="javascript">';
 			echo 'alert("Successfully Created"); location.href="index.php"';
 			echo '</script>';
 		}
-
-
-        
-        }
+       
+    }
                                                                                        
 }
 
@@ -115,10 +110,6 @@ if ($result->num_rows > 0) {
 										<h4 class="text-danger card-title">Vendor Information</h4>
 									</div>
                                     
-                                     <?php if(isset($success)){
-                                        echo "<div class='alert alert-success' role='alert'> $success  </div> ";
-                                            }
-                                      ?>
 
 									<div class="card-body">
 										<form action="#" autocomplete="off" method='post'>
@@ -204,15 +195,7 @@ if ($result->num_rows > 0) {
 			<!-- /Main Wrapper -->
 			<input type="hidden" id="refresh" value="no">
 
-			<script>
-				jQuery( document ).ready(function( $ ) {
-				//Use this inside your document ready jQuery 
-				$(window).on('popstate', function() {
-				location.reload(true);
-				});
 
-				});
-			</script>
 			
 <!------------  Footer ----------->
 <?php include '../footer.php'; ?>

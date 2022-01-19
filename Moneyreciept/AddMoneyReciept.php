@@ -17,43 +17,14 @@ if ($result->num_rows > 0) {
  }
 } else {
 	$Reciept_No = "RCP-1000";
-
-
  }
-
-
-
-//Employee Info
-
-if (array_key_exists('search', $_GET)){
-	$searchvar = $_GET['search'];
-		
-		$sql = "SELECT * FROM customer where CustomerId='$searchvar' or phone='$searchvar' or email='$searchvar'";
-		$result = $conn->query($sql);
-		if ($result->num_rows > 0) {
-			while($row = $result->fetch_assoc()) {
-				$Customer_Id = $row["CustomerId"];
-				$Customer_Name = $row["name"];
-				$Customer_Email = $row["email"];
-				$Customer_Address = $row["address"];
-				$Customer_Phone = $row["phone"];     								
-			}
-		} else {
-		echo "No Result Found";
-		}
-		
-}else{
-	$Customer_Name=" ";
-	$Customer_Email=" ";
-	$Customer_Address=" ";
-	$Customer_Phone=" ";
-}
 
 
 
 // Generate PDF
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+	$Customer_Id = $_POST['customerId'];
     $comment = $_POST['comment'];
     $amount = $_POST['amount'];
     $payWay = $_POST['paymentway'];
@@ -310,6 +281,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 						echo '</script>';
 						
 					}
+				}elseif($payMethod == 'ebl'){
+		
+					$credit = "INSERT INTO `bank`(				
+						`bankId`,
+						`bankname`,				
+						`TxType`,
+						`credit`,
+						`creditComment`
+						
+					)
+					VALUES(
+						'BNK-009',
+						'Estern Bank Limited',
+						'$Reciept_No',
+						'$amount',
+						'$TxId'
+						
+					)";
+		
+					if (mysqli_query($conn, $credit)) {									
+						echo '<script language="javascript">';
+						echo 'alert("Successfully Created"); location.href="invoice.php?Rno='.$Reciept_No.'"';
+						echo '</script>';
+						
+					}
 				}
 			
 		
@@ -439,16 +435,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 							<div class="col-md-12">
 								<div class="card">
 									<div class="card-header">										
-										<div class="text-right">
-										<a href="../Customer/AddCustomer.php" class="btn btn-primary">Add customer</a>
-
-										<?php if(isset($success)){
-                                        echo "<div class='alert alert-success' role='alert'> $success  </div> ";
-                                            }
-                                      ?>
-									</div>
-
-											
+										
 									</div>
 									<div class="card-body">
 										<form action="" method="post">
@@ -464,42 +451,39 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 														</div>
 														<div class="col-md-4">
 															<div class="form-group">
-																<label>Name:</label>
-																<input type="text" value="<?php echo $Customer_Name ?>" class="form-control" required>
+																<label>Client Name:</label>
+																<select name="customerId" class="select form-control" required>
+                                                                            <option value="" disabled selected> Select Client Name</option>
+                                                                            <?php
+                                                                                $sql = "SELECT *  FROM `customer` ORDER BY name DESC";
+                                                                                $result = $conn->query($sql);                              
+                                                                                if ($result->num_rows > 0) {
+                                                                                while($row = $result->fetch_assoc()) {
+                                    
+                                                                                    $csrId= $row['CustomerId'];
+                                                                                    
+                                                                                    echo "<option value=\"$csrId\">".$row['name']."</option>";                                                                                 
+                                                                                }
+                                                                            }
+                                                                                ?>
+
+                                                                            
+
+                                                                            
+                                                                </select>
 															</div>
 														</div>
-														<div class="col-md-4">
-															<div class="form-group">
-																<label>Phone: </label>
-																<input type="phone" value="<?php echo $Customer_Phone ?>" class="form-control" required>
-															</div>
-														</div>
-														
-													</div>
-													<div class="row">
-														<div class="col-md-4">
-																<div class="form-group">
-																	<label>Email :</label>
-																	<input type="email" value="<?php echo $Customer_Email ?>" class="form-control" required>
-																</div>
-															</div>
+
 														<div class="col-md-4">
 															<div class="form-group">
 																<label>BCC :</label>
 																<input type="email" name="bccemail"  class="form-control" required>
 															</div>
 														</div>
-
-														<div class="col-md-4">
-															<div class="form-group">
-																<label>Purchase Item Description :</label>
-																<input type="text" name="comment" class="form-control" required>
-															</div>
-														</div>
-												
-
-
+														
+														
 													</div>
+													
 													<div class="row">
 														<div class="col-md-3">
 																<div class="form-group">
@@ -515,12 +499,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 															</div>
 														</div>
 
-														<div class="col-md-6">
+														<div class="col-md-4">
 															<div class="form-group">
-																<label>Address :</label>
-																<input type="text" value="<?php echo $Customer_Address ?>" class="form-control" required>
+																<label>Purchase Item Description :</label>
+																<input type="text" name="comment" class="form-control" required>
 															</div>
 														</div>
+
+														
 														
 													</div>
 													<div class="row">
@@ -557,7 +543,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 																		<option value="dutch">Dutch Bangla Bank</option>	
 																		<option value="commercial">Commercial Bank</option>	
 																		<option value="ncc">NCC Bank</option>	
-																		<option value="modhumoti">Modhumoti Bank</option>	
+																		<option value="modhumoti">Modhumoti Bank</option>
+																		<option value="ebl">Estern Bank</option>		
 																		<option value="mobile_banking">Mobile Banking</option>
 																		
 

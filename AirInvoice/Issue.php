@@ -13,6 +13,8 @@ include '../vendor/phpqrcode/qrlib.php';
 
   
 
+
+
 //Reciept No
 
 $sql1 = "SELECT * FROM `invoice` ORDER By id DESC LIMIT 1";
@@ -26,6 +28,23 @@ if ($result->num_rows > 0) {
 } else {
     $INV_No ="INV-1000";
  }
+
+
+ if (array_key_exists("SQT",$_GET) && array_key_exists("PaxName",$_GET) && array_key_exists("Airlines",$_GET) 
+ && array_key_exists("From",$_GET) && array_key_exists("To",$_GET) && array_key_exists("Type",$_GET) 
+ && array_key_exists("Cost",$_GET) && array_key_exists("Way",$_GET) && array_key_exists("ClientName",$_GET) && array_key_exists("Client_Id",$_GET)){  
+    $SQT = $_GET['SQT'];
+    $Client_Id1 = $_GET['Client_Id'];
+    $ClientName1 = $_GET['ClientName'];
+    $PaxName = $_GET['PaxName'];
+    $Airlines = $_GET['Airlines'];
+    $From = $_GET['From'];
+    $To = $_GET['To'];
+    $Type = $_GET['Type'];
+    $Cost = $_GET['Cost'];
+    $Way = $_GET['Way'];
+
+}
 
 
 // Generate PDF
@@ -569,8 +588,8 @@ if (mysqli_query($conn, $invoice)) {
                                                                             }
                                                                                 ?>
 
-                                                                            <?php if(isset($Client_Id)){
-                                                                                    echo "<option value=\"$Client_Id\" selected>".$Client_Name."</option>";  
+                                                                            <?php if(isset($ClientName1)){
+                                                                                    echo "<option value=\"$Client_Id1\" selected>".$ClientName1."</option>";  
 
                                                                             }  ?>
 
@@ -631,7 +650,7 @@ if (mysqli_query($conn, $invoice)) {
                                                         <div class="col-md-2">
                                                                 <div class="form-group">
                                                                     <label>Pax Name</label>
-                                                                    <input type="text" name="pax1" class="form-control" required >
+                                                                    <input type="text" name="pax1" value="<?php echo $PaxName; ?>" class="form-control" required >
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-2">
@@ -681,7 +700,12 @@ if (mysqli_query($conn, $invoice)) {
                                                                             <option value="TK">TK </option>	                                                                       
                                                                             <option value="TG">TG </option>  	
                                                                             <option value="VQ">VQ </option>                                                                                                                                                    
-                                                                            <option value="WY">WY</option>                                                                           
+                                                                            <option value="WY">WY</option> 
+
+                                                                            <?php if(isset($Airlines)){
+                                                                                    echo "<option value=\"$Airlines\" selected>".$Airlines."</option>";  
+
+                                                                            }  ?>                                                                          
                                                                                                                                                                                                                                                                                                             
                                                                         </select>
                                                                 </div>
@@ -689,7 +713,7 @@ if (mysqli_query($conn, $invoice)) {
                                                             <div class="col-md-2">
                                                                 <div class="form-group">
                                                                     <label>From</label>
-                                                                    <select name="from1" class="select form-control"  >
+                                                                    <select name="from1" class="select form-control" Required >
                                                                             <option value="" disabled selected> Place From</option>
                                                                            
                                                                             <?php
@@ -702,7 +726,13 @@ if (mysqli_query($conn, $invoice)) {
                                                                                     echo "<option value=\"$vnName\">".$row["code"]."</option>";                                                                                 
                                                                                     }
                                                                                 }
+
+                                                                                
                                                                                 ?>
+                                                                                 <?php if(isset($From)){
+                                                                                    echo "<option value=\"$From\" selected>".$From."</option>";  
+
+                                                                            }  ?> 
                                                                                                                                                            
                                                                            
                                                                      </select>
@@ -711,7 +741,7 @@ if (mysqli_query($conn, $invoice)) {
                                                             <div class="col-md-2">
                                                                 <div class="form-group">
                                                                     <label>To</label>
-                                                                    <select name="to1" class="select form-control"  >
+                                                                    <select name="to1" class="select form-control"  required>
                                                                             <option value="" disabled selected>Place To</option>
                                                                           
                                                                             <?php
@@ -725,6 +755,11 @@ if (mysqli_query($conn, $invoice)) {
                                                                                     }
                                                                                 }
                                                                                 ?>
+
+                                                                            <?php if(isset($To)){
+                                                                                    echo "<option value=\"$To\" selected>".$To."</option>";  
+
+                                                                            }  ?> 
 
                                                                                                                                                                 
                                                                             
@@ -754,7 +789,11 @@ if (mysqli_query($conn, $invoice)) {
                                                                             <option value="" disabled selected>Select Way</option>
                                                                             <option value="One Way">One Way</option>
                                                                             <option value="Round Trip">Round Trip</option>	
-                                                                            <option value="Multiple City">Multiple City</option>                                                                         
+                                                                            <option value="Multiple City">Multiple City</option> 
+                                                                            <?php if(isset($Way)){
+                                                                                    echo "<option value=\"$Way\" selected>".$Way."</option>";  
+
+                                                                            }  ?>                                                                         
                                                                             
                                                                         </select>
                                                                 </div>
@@ -767,6 +806,10 @@ if (mysqli_query($conn, $invoice)) {
                                                                             <option value="Non Refundable">Non Refundable</option>
                                                                             <option value="Refundable">Refundable</option>	
                                                                             <option value="Refund Adjusted">Refund Adjusted </option>
+                                                                            <?php if(isset($Type)){
+                                                                                    echo "<option value=\"$Type\" selected>".$Type."</option>";  
+
+                                                                            }  ?> 
                                                                                                                                                       
                                                                         </select>
                                                                 </div>
