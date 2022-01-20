@@ -807,7 +807,6 @@ $Cashequvalent = $Bank_Amount + $MobileBanking_Amount + $SSL_Amount + $Cash;
                                             $BankTotal += $row['Amount'];
                                             echo "<option value=\"$bankgetID\">".$row['bankname']." ( ".$row['Amount']." Taka )</option>";
                                             
-
                                             }
                                         }
                                         ?>

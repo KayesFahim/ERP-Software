@@ -31,6 +31,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $payMethod = $_POST['paymentmethod'];
     $TxId = $_POST['txid']; 
 
+    if($payWay == 'bank'){
+        $bank = mysqli_query($conn,"SELECT * FROM bank where bankId='$payMethod'");
+        $row = mysqli_fetch_array($bank,MYSQLI_ASSOC);                          
+        $BankName = $row['bankname'];
+    }
+
 	
     $mrgenerate = "INSERT INTO `moneyreciept`(
 		`recieptNo`,
@@ -49,7 +55,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		'$TxId',
 		'$amount',
 		'$payWay',
-		'$payMethod',
+		'$BankName',
 		'$comment'
 	)";
 
@@ -65,8 +71,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		if (mysqli_query($conn, $ClientLedger)) {
 			if($payWay == 'bank'){
 
-				if($payMethod == 'city'){
-		
+                		
 					$credit = "INSERT INTO `bank`(
 						
 						`bankId`,
@@ -76,8 +81,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 						`creditComment`				
 					)
 					VALUES(
-						'BNK-001',
-						'City Bank Limited',
+						'$payMethod',
+						'$BankName',
 						'$Reciept_No',
 						'$amount',
 						'$TxId'				
@@ -86,227 +91,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 					if (mysqli_query($conn, $credit)) {
 									
 						echo '<script language="javascript">';
-				echo 'alert("Successfully Created"); location.href="invoice.php?Rno='.$Reciept_No.'"';
-				echo '</script>';
+                        echo 'alert("Successfully Created"); location.href="invoice.php?Rno='.$Reciept_No.'"';
+                        echo '</script>';
 						
 					}
 		
-				}else if($payMethod == 'brac'){
-					$credit = "INSERT INTO `bank`(				
-						`bankId`,
-						`bankname`,				
-						`TxType`,
-						`credit`,
-						`creditComment`
-						
-					)
-					VALUES(
-						'BNK-002',
-						'Brac Bank Limited',
-						'$Reciept_No',
-						'$amount',
-						'$TxId'
-						
-					)";
-		
-					if (mysqli_query($conn, $credit)) {
-					
-						echo '<script language="javascript">';
-						echo 'alert("Successfully Created"); location.href="invoice.php?Rno='.$Reciept_No.'"';
-						echo '</script>';
-						
-				 }
-		
-				}else if($payMethod == 'islami'){
-					$credit = "INSERT INTO `bank`(
-						
-						`bankId`,
-						`bankname`,				
-						`TxType`,
-						`credit`,
-						`creditComment`
-						
-					)
-					VALUES(
-						'BNK-003',
-						'Islami Bank',
-						'$Reciept_No',
-						'$amount',
-						'$TxId'
-						
-					)";
-		
-					if (mysqli_query($conn, $credit)) {
-									
-						echo '<script language="javascript">';
-						echo 'alert("Successfully Created"); location.href="invoice.php?Rno='.$Reciept_No.'"';
-						echo '</script>';
-						
-					}
-		
-				}else if($payMethod == 'sonali'){
-					$credit = "INSERT INTO `bank`(
-						
-						`bankId`,
-						`bankname`,				
-						`TxType`,
-						`credit`,
-						`creditComment`
-						
-					)
-					VALUES(
-						'BNK-004',
-						'Sonali Bank',
-						'$Reciept_No',
-						'$amount',
-						'$TxId'
-						
-					)";
-		
-					if (mysqli_query($conn, $credit)) {
-									
-						echo '<script language="javascript">';
-						echo 'alert("Successfully Created"); location.href="invoice.php?Rno='.$Reciept_No.'"';
-						echo '</script>';
-						
-					}
-		
-		
-				}elseif($payMethod == 'dutch'){
-					$credit = "INSERT INTO `bank`(
-						
-						`bankId`,
-						`bankname`,				
-						`TxType`,
-						`credit`,
-						`creditComment`
-						
-					)
-					VALUES(
-						'BNK-005',
-						'Dutch Bangla Bank',
-						'$Reciept_No',
-						'$amount',
-						'$TxId'
-						
-					)";
-		
-					if (mysqli_query($conn, $credit)) {
-									
-						echo '<script language="javascript">';
-						echo 'alert("Successfully Created"); location.href="invoice.php?Rno='.$Reciept_No.'"';
-						echo '</script>';
-						
-					}
-		
-				}elseif($payMethod == 'commercial'){
-				
-					$credit = "INSERT INTO `bank`(
-						
-						`bankId`,
-						`bankname`,				
-						`TxType`,
-						`credit`,
-						`creditComment`
-						
-					)
-					VALUES(
-						'BNK-006',
-						'Commercial Bank',
-						'$Reciept_No',
-						'$amount',
-						'$TxId'
-						
-					)";
-		
-					if (mysqli_query($conn, $credit)) {
-									
-						echo '<script language="javascript">';
-						echo 'alert("Successfully Created"); location.href="invoice.php?Rno='.$Reciept_No.'"';
-						echo '</script>';
-						
-					}
-		
-		
-				}elseif($payMethod == 'ncc'){
-					$credit = "INSERT INTO `bank`(
-						
-						`bankId`,
-						`bankname`,				
-						`TxType`,
-						`credit`,
-						`creditComment`
-						
-					)
-					VALUES(
-						'BNK-007',
-						'NCC Bank',
-						'$Reciept_No',
-						'$amount',
-						'$TxId'
-						
-					)";
-		
-					if (mysqli_query($conn, $credit)) {
-									
-						echo '<script language="javascript">';
-						echo 'alert("Successfully Created"); location.href="invoice.php?Rno='.$Reciept_No.'"';
-						echo '</script>';
-						
-					}
-		
-				}elseif($payMethod == 'modhumoti'){
-		
-					$credit = "INSERT INTO `bank`(				
-						`bankId`,
-						`bankname`,				
-						`TxType`,
-						`credit`,
-						`creditComment`
-						
-					)
-					VALUES(
-						'BNK-008',
-						'Modhumoti Bank',
-						'$Reciept_No',
-						'$amount',
-						'$TxId'
-						
-					)";
-		
-					if (mysqli_query($conn, $credit)) {
-									
-						echo '<script language="javascript">';
-						echo 'alert("Successfully Created"); location.href="invoice.php?Rno='.$Reciept_No.'"';
-						echo '</script>';
-						
-					}
-				}elseif($payMethod == 'ebl'){
-		
-					$credit = "INSERT INTO `bank`(				
-						`bankId`,
-						`bankname`,				
-						`TxType`,
-						`credit`,
-						`creditComment`
-						
-					)
-					VALUES(
-						'BNK-009',
-						'Estern Bank Limited',
-						'$Reciept_No',
-						'$amount',
-						'$TxId'
-						
-					)";
-		
-					if (mysqli_query($conn, $credit)) {									
-						echo '<script language="javascript">';
-						echo 'alert("Successfully Created"); location.href="invoice.php?Rno='.$Reciept_No.'"';
-						echo '</script>';
-						
-					}
-				}
 			
 		
 			}elseif($payWay == 'cash'){
@@ -536,16 +325,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 																		<option value="" disabled selected>Select Payment Method</option>
 																		<option value="cash">Cash</option>
 																		<option value="ssl_commerce">SSL_commerce</option>
-																		<option value="city">City Bank Limited</option>	
-																		<option value="brac">Brac Bank </option>	
-																		<option value="islami">Islami Bank</option>	
-																		<option value="sonali">Sonali Bank</option>	
-																		<option value="dutch">Dutch Bangla Bank</option>	
-																		<option value="commercial">Commercial Bank</option>	
-																		<option value="ncc">NCC Bank</option>	
-																		<option value="modhumoti">Modhumoti Bank</option>
-																		<option value="ebl">Estern Bank</option>		
-																		<option value="mobile_banking">Mobile Banking</option>
+                                                                        <option value="mobile_banking">Mobile Banking</option>
+                                                                        
+																		<?php
+
+                                                                        $sql = "SELECT DISTINCT id, bankId, bankname FROM bank GROUP BY bankId";
+                                                                        $result = $conn->query($sql);
+                                                                        if ($result->num_rows > 0) {
+                                                                        while($row = $result->fetch_assoc()) {	
+                                                                            $bankgetID = $row["bankId"];
+                                                                            echo "<option value=\"$bankgetID\">".$row['bankname']."</option>";
+                                                                            
+                                                                            }
+                                                                        }
+                                                                        ?>	
+																		
 																		
 
 																	</select>
