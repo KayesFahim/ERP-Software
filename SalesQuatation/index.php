@@ -72,7 +72,7 @@ include('../session.php');
                                                         createdDate,
                                                         createdBy,
                                                         clientName,
-                                                        pax, SUM(cost)   as Cost                                                     
+                                                        totalPax, SUM(cost)   as Cost                                                     
                                                     FROM
                                                         `salesqutation`
                                                     GROUP BY
@@ -88,7 +88,7 @@ include('../session.php');
 														 		<td>".$row["Cost"]."</td>
 																<td>".$row["createdBy"]."</td>
 																<td>".$row["clientName"]."</td>
-																<td>".$row["pax"]."</td>
+																<td>".$row["totalPax"]."</td>
 																<td><a href='AirTicketDetails.php?SQT=$SQT' class='btn btn-primary'> View </a></td>																
 																 </tr>";   											
 												  }

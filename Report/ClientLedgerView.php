@@ -46,11 +46,6 @@ include('../session.php');
 					</div>
 					<div class="col-md-12">
 							<div class="card">
-								<div class="card-header">
-									<div class="text-right">
-										<a href="AddCustomer.php" class="btn btn-primary"> Add +</a>
-									</div>
-								</div>
 								
 								<div class="card-body">
 									<div class="table-responsive">
@@ -58,13 +53,13 @@ include('../session.php');
 											<thead>
 												<tr>
 													<th>Date</th>
-													<th>Type</th>
+													<th>Tx Type</th>
+													<th>Purpose</th>
 													<th>Details</th>
                                                     <th>Service</th>
 													<th>Cost</th>
 													<th>Deposit</th>
 													<th>Last Balanced</th>
-                                                    <th></th>
 
 												</tr>
 											</thead>
@@ -83,20 +78,20 @@ include('../session.php');
 
                                                         $Client_Id = $decryption;
 
-												$sql = "SELECT * FROM `client_ledger` WHERE CSR_ID='$Client_Id' Order By DateTime DESC";
+												$sql = "SELECT * FROM `client_ledger` WHERE CSR_ID='$Client_Id' Order By id DESC LIMIT 1000";
 												$result = $conn->query($sql);
 
 												if ($result->num_rows > 0) {
   												while($row = $result->fetch_assoc()) {													  
 													  
 													echo "<tr><td>".$row["DateTime"]."</td>
-																<td>".$row["TxType"]."</td> 
+																<td>".$row["TxType"]."</td>
+																<td>".$row["type"]."</td> 
 														 		<td>".$row["Details"]."</td>
 																<td>".$row["serviceType"]."</td>
 														 		<td>".$row["cost"]."</td>
                                                                 <td>".$row["deposit"]."</td>
                                                                 <td>".$row["Balance"]."</td>
-                                                                <td> </td>
                                                                 </tr>";   											
 												  }
 												} 

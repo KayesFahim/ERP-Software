@@ -2,6 +2,7 @@
 
 include '../config.php';
 include('../session.php');
+include '../header.php';
 
 
 //Reciept No
@@ -89,10 +90,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 					)";
 		
 					if (mysqli_query($conn, $credit)) {
-									
-						echo '<script language="javascript">';
-                        echo 'alert("Successfully Created"); location.href="invoice.php?Rno='.$Reciept_No.'"';
-                        echo '</script>';
+															
+						echo "<script language=\"javascript\">";
+						echo "swal({";
+						echo "title: \"Success!\",";
+						echo "text: \"Sales Quatation Created Successfully!\",";
+						echo "type: \"success\",";
+						echo "confirmButtonText: \"Cool\"";
+						echo "},";
+						echo "function(){";
+						echo "window.location='preschooler_profile.php?p_id=$p_id'";
+						echo "});";
+						echo "</script>";
 						
 					}
 		
@@ -189,7 +198,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 ?>
 
 <!------------  Header ----------->
-<?php include '../header.php'; ?>
+
 <!------------  Header ----------->
 
 		

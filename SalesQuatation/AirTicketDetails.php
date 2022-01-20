@@ -58,7 +58,8 @@ $SQT = $_GET['SQT'];
 										<table class="datatable table table-stripped">
 											<thead>
 												<tr>
-													<th>Issue Date</th>
+                                                    <th>Pax No</th>	
+													<th>Issue Date</th>                                                   
 													<th>Pax Name</th>													
 													<th>Airlines</th>
 													<th>From</th>
@@ -78,20 +79,23 @@ $SQT = $_GET['SQT'];
                                                         sqNo,
                                                         clientName,
                                                         csrId,
+                                                        id,paxNo,invoice,
                                                         createdDate,
                                                         PaxName,
                                                         Airlines,
                                                         placeFrom, placeTo, ticketType, cost, way                                                     
                                                     FROM
                                                         `salesqutation`
-                                                    GROUP BY
-                                                        id ASC";
+                                                    wHERE sqNo = '$SQT'                                                   
+                                                    ORDER BY paxNo";
 
 												$result = $conn->query($sql);
 
 												if ($result->num_rows > 0) {
   												while($row = $result->fetch_assoc()) {	
 													$SQT = $row["sqNo"];
+                                                    $PaxNo = $row["paxNo"];
+                                                    $Invoice = $row["invoice"];
                                                     $ClientName = $row["clientName"];
                                                     $Client_Id = $row["csrId"];
                                                     $PaxName = $row["PaxName"];
@@ -103,9 +107,11 @@ $SQT = $_GET['SQT'];
                                                     $Way = $row["way"];
 
 
-                                                    $Param = "SQT=$SQT&ClientName=$ClientName&Client_Id=$Client_Id&PaxName=$PaxName&Airlines=$Airlines&From=$From&To=$To&Type=$Type&Cost=$Cost&Way=$Way";
+                                                    $Param = "SQT=$SQT&PaxNo=$PaxNo&ClientName=$ClientName&Client_Id=$Client_Id&PaxName=$PaxName&Airlines=$Airlines&From=$From&To=$To&Type=$Type&Cost=$Cost&Way=$Way";
+
+
                                                     
-													echo "<tr>
+													echo "<tr><td>".$row["paxNo"]."</td>
 																<td>".$row["createdDate"]."</td> 
 														 		<td>".$row["PaxName"]."</td>																
 																<td>".$row["Airlines"]."</td>
@@ -113,14 +119,18 @@ $SQT = $_GET['SQT'];
 																<td>".$row["placeTo"]."</td>
 																<td>".$row["ticketType"]."</td>
 																<td>".$row["cost"]."</td>
-                                                                <td>".$row["way"]."</td>
-																<td><a href='../AirInvoice/Issue.php?$Param' class='btn btn-primary'> Make Invoice </a></td>
-                                                                
-																 </tr>";   											
+                                                                <td>".$row["way"]."</td>";
+                                                    
+
+                                                    if($Invoice == 'yes'){
+                                                        echo "<td><a href=' ' class='btn btn-danger disabled'> Invoiced </a></td></tr>";   
+
+                                                    }else{
+                                                        echo "<td><a href='../AirInvoice/Issue.php?$Param' class='btn btn-primary'> Make Invoice </a></td></tr>";   
+                                                    }
+											
 												  }
-												} else {
-  												
-											    }
+												}
 												?>
 											</tbody>
 										</table>

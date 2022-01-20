@@ -157,8 +157,7 @@ if (mysqli_query($conn, $invoice)) {
         
         $Balanced = $row['Balance'] - (int)$price1;
         
-
-        $ClientLedger ="INSERT INTO `client_ledger`(`TxType`,`type`, `CSR_ID`, `PaxName`, `serviceType`, `Details`, `cost`, `Balance`)
+        $ClientLedger ="INSERT INTO `client_ledger`(`TxType`,`type`, `CSR_ID`, `PaxName`, `serviceType`,`Details`,`cost`,`Balance`)
                          VALUES ('$INV_No','Second Segment','$csrId','$pax','$type1','$pnr1 $ticket1 $airlines1 $way1 $to-$from','$price1',' $Balanced')";
 
         if (mysqli_query($conn, $ClientLedger)) {
@@ -168,7 +167,6 @@ if (mysqli_query($conn, $invoice)) {
             
 
             $vBalanced = (int)$row1['balance'] - (int)$vprice1;
-
 
              $vendorLedger ="INSERT INTO `vendor_ledger`(`txType`,`type`, `VDR_ID`, `pax`, `pnr`, `ticket`, `serviceType`, `details`, `cost`,`balance`)
              VALUES ('$INV_No','Second Segment','$vendor1','$pax','$pnr1','$ticket1','$type1','$airlines1 ' \n ' $way1 ' \n ' $to-$from','$vendorBalance','$vBalanced')";
@@ -194,9 +192,9 @@ if (mysqli_query($conn, $invoice)) {
 ?>
 
 	
-<! ------------  Header ----------->
+<!------------  Header ----------->
 <?php include '../header.php'; ?>
-<! ------------  Header ----------->
+<!------------  Header ----------->
 
         <?php
         include '../sidebar.php';

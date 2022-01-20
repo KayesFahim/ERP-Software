@@ -27,65 +27,6 @@ if (array_key_exists("pax",$_GET)){
     $pax = 1;
 }
 
-
- if ($_SERVER["REQUEST_METHOD"] == "POST") { 	
-	 
-	$Client_Id = $_POST['client'];
-
-    $ses_sql = mysqli_query($conn,"select * from customer where CustomerId = '$Client_Id' "); 
-    $row = mysqli_fetch_array($ses_sql,MYSQLI_ASSOC);   
-    $Client_Name = $row['name'];
-
-
-    for($i= 1; $i <= $pax ; $i++){
-        $paxName = "pax".$i;
-        $Airlines = "airlines".$i;
-        $from = "from".$i;
-        $to = "to".$i;
-        $type = "tickettype".$i;
-        $price = "price".$i;
-        $way = "way".$i;
-            
-            
-        $mrgenerate = "INSERT INTO `salesqutation`(
-            `sqNo`,
-            `createdBy`,
-            `clientName`,
-            `csrId`,
-            `pax`,
-            `PaxName`,
-            `Airlines`,
-            `from`,
-            `to`,
-            `type`,
-            `cost`,	
-            `way`
-        )
-        VALUES(
-            '$SQT_No',
-            '$userName',
-            '$Client_Name',
-            '$Client_Id',
-            '$pax',
-            '$_POST[$paxName]',
-            '$_POST[$Airlines]',
-            '$_POST[$from]',
-            '$_POST[$to]',
-            '$_POST[$type]',
-            '$_POST[$price]',        
-            '$_POST[$way]'
-            
-        )";
-    
-        if (mysqli_query($conn, $mrgenerate)) {
-            echo "Data Added";		
-        }
-
-    }
-	 
-}	
-                                                                           
-
 ?>
 
 <!------------  Header ----------->
@@ -307,6 +248,84 @@ if (array_key_exists("pax",$_GET)){
 							</div>
 						</div>
 					</div>
+
+                    <?php
+
+                        if ($_SERVER["REQUEST_METHOD"] == "POST") { 	
+                            
+                            $Client_Id = $_POST['client'];
+
+                            $ses_sql = mysqli_query($conn,"select * from customer where CustomerId = '$Client_Id' "); 
+                            $row = mysqli_fetch_array($ses_sql,MYSQLI_ASSOC);   
+                            $Client_Name = $row['name'];
+
+
+                            for($i= 1; $i <= $pax ; $i++){
+                                $paxName = "pax".$i;
+                                $Airlines = "airlines".$i;
+                                $from = "from".$i;
+                                $to = "to".$i;
+                                $type = "tickettype".$i;
+                                $price = "price".$i;
+                                $way = "way".$i;
+                                    
+                                    
+                                $mrgenerate = "INSERT INTO `salesqutation`(
+                                    `sqNo`,
+                                    `createdBy`,
+                                    `clientName`,
+                                    `csrId`,
+                                    `pax`,
+                                    `PaxName`,
+                                    `Airlines`,
+                                    `placeFrom`,
+                                    `placeTo`,
+                                    `ticketType`,
+                                    `cost`,	
+                                    `way`
+                                )
+                                VALUES(
+                                    '$SQT_No',
+                                    '$userName',
+                                    '$Client_Name',
+                                    '$Client_Id',
+                                    '$pax',
+                                    '$_POST[$paxName]',
+                                    '$_POST[$Airlines]',
+                                    '$_POST[$from]',
+                                    '$_POST[$to]',
+                                    '$_POST[$type]',
+                                    '$_POST[$price]',        
+                                    '$_POST[$way]'
+                                    
+                                )";
+                            
+                                if (mysqli_query($conn, $mrgenerate)) {
+                                                
+                                }
+
+                            }
+
+                        print '<script>
+                                    swal({
+                                    title: "Success!",
+                                    text: "Sales Quatation Created Successfully!",
+                                    type: "success",
+                                    confirmButtonText: "Cool"
+                                    },
+                                    function(){
+                                        window.location=\'Invoice.php?SQT='.$SQT_No.'\'
+                                        });
+                                    </script>';
+                            
+                        }	
+                                                                                                
+
+                        ?>
+
+
+
+
 														
 					<!-- End Contant -->
 					</div>			
@@ -331,4 +350,4 @@ if (array_key_exists("pax",$_GET)){
 <?php include '../footer.php'; ?>
 <!------------  Header -----------> 
 			
-			
+		

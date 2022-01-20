@@ -13,28 +13,9 @@ while($row1 = $result1->fetch_assoc()) {
   $Client_Name = $row1['clientName'];
   $Created_Date = $row1['createdDate'];
   $Created_By = $row1['createdBy'];
-  $Pax_No = $row1['pax'];
+  $Pax_No = $row1['totalPax'];
 
   }
-}
-
-//Table Data
-
-$sql = "SELECT *  FROM `salesqutation` where sqNo='$STQ'";
-$result = $conn->query($sql);
-
-if ($result->num_rows > 0) {
-while($row = $result->fetch_assoc()) {	
-		//Pax
-        $pax1 = $row['PaxName1'];
-        $Airlines1 = $row['Airlines1'];       
-        $from1 = $row['from1'];
-        $to1 = $row['to1'];
-        $type1= $row['type1'];
-        $way1= $row['way1'];  
-        $price1 = $row['cost1']; 
-    						
-	}
 }
 
 
@@ -96,61 +77,38 @@ while($row = $result->fetch_assoc()) {
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                            <th scope="row"><?php echo $pax1; ?></th>
-                            <td><?php echo $Airlines1; ?></td>
-                            <td><?php echo $from1; ?></td>
-                            <td><?php echo $to1; ?></td>
-                            <td><?php echo $type1; ?></td>
-                            <td><?php echo $way1; ?></td>
-                            <td><?php echo $price1; ?></td>
-                            </tr>
 
-                            <tr>
-                            <th scope="row"><?php echo $pax2; ?></th>
-                            <td><?php echo $Airlines2; ?></td>
-                            <td><?php echo $from2; ?></td>
-                            <td><?php echo $to2; ?></td>
-                            <td><?php echo $type2; ?></td>
-                            <td><?php echo $way2; ?></td>
-                            <td><?php echo $price2; ?></td>
-                            </tr>
-                            <tr>
-                            <th scope="row"><?php echo $pax3; ?></th>
-                            <td><?php echo $Airlines3; ?></td>
-                            <td><?php echo $from3; ?></td>
-                            <td><?php echo $to3; ?></td>
-                            <td><?php echo $type3; ?></td>
-                            <td><?php echo $way3; ?></td>
-                            <td><?php echo $price3; ?></td>
-                            </tr>
-                            <tr>
-                            <th scope="row"><?php echo $pax4; ?></th>
-                            <td><?php echo $Airlines4; ?></td>
-                            <td><?php echo $from4; ?></td>
-                            <td><?php echo $to4; ?></td>
-                            <td><?php echo $type4; ?></td>
-                            <td><?php echo $way4; ?></td>
-                            <td><?php echo $price4; ?></td>
-                            </tr>
-                            <tr>
-                            <th scope="row"><?php echo $pax5; ?></th>
-                            <td><?php echo $Airlines5; ?></td>
-                            <td><?php echo $from5; ?></td>
-                            <td><?php echo $to5; ?></td>
-                            <td><?php echo $type5; ?></td>
-                            <td><?php echo $way5; ?></td>
-                            <td><?php echo $price5; ?></td>
-                            </tr>
+                        <?php 
+                          $Total=0;
+                          $sql = "SELECT *  FROM `salesqutation` where sqNo='$STQ'";
+                          $result = $conn->query($sql);
+
+                          if ($result->num_rows > 0) {
+                          while($row = $result->fetch_assoc()) {	
+                              
+                              $Total += $row["cost"];
+                              echo "<tr>
+                              <th scope='row'>".$row["PaxName"]."</th>                              																
+                              <td>".$row["Airlines"]."</td>
+                              <td>".$row["placeFrom"]."</td>
+                              <td>".$row["placeTo"]."</td>
+                              <td>".$row["ticketType"]."</td>
+                              <td>".$row["way"]."</td>
+                              <td>".number_format($row["cost"], 2)."</td></tr>";
+                                          
+                            }
+                          }
+
+
+                        ?>
+
+                            
                             
                             <tr>
                             
                             <td rowspan="3" colspan="5" style="text-align:center; color:red;">Air Ticket fair Will Be chnage after 15 minutes</td>
                             <td>Total</td>
-                            <td><?php $Total = $price1 + $price2 + $price3 + $price4 + $price5;
-                              echo number_format($Total, 2)
-                            
-                            ?></td>
+                            <td><?php echo number_format($Total, 2); ?></td>
                             </tr>
                             <tr>
                             <td>Discount</td>
