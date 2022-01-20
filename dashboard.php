@@ -799,6 +799,7 @@ $Cashequvalent = $Bank_Amount + $MobileBanking_Amount + $SSL_Amount + $Cash;
                                         <option>Today Bank Statement</option>
                                         <?php
 
+                                        $BankTotal = 0;
                                         $sql = "SELECT DISTINCT id, bankId, bankname,bankaccno, branchname, SUM(credit-debit) as Amount FROM bank GROUP BY bankname";
                                         $result = $conn->query($sql);
                                         if ($result->num_rows > 0) {

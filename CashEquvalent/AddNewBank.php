@@ -3,10 +3,6 @@ include '../config.php';
 include('../session.php');
 
 
-$success ="";
-$error ="";
-
-$BankId ="";
 $sql = "SELECT * FROM bank ORDER BY bankId DESC LIMIT 1";
 $result = $conn->query($sql);
 if ($result->num_rows > 0) {
@@ -15,43 +11,11 @@ if ($result->num_rows > 0) {
 		$BankId = "BNK-00".(int)$outputString + 1 ;									
  }
 } else {
-echo "0 results";
+	$BankId = "BNK-001";
  }
 
- if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $bname = $_POST['bankname'];
-    $brname = $_POST['branchname'];
-    $accno = $_POST['accno'];
-    $credit = $_POST['credit'];
-    $creditDate = date("d/m/Y");
-    $creditdt = $_POST['creditdt']; 
 
-    $sqlquery = "INSERT INTO `bank`(                                            
-        `bankId`,
-        `bankname`,
-        `branchname`,
-        `bankaccno`,
-        `credit`,
-        `creditDate`,
-        `creditComment`
-    )
-    VALUES(
-        '$BankId',
-        '$bname',
-        '$brname',
-        '$accno',
-        '$credit',
-        '$creditDate',
-        '$creditdt'
-    )";
-        
-        if ($conn->query($sqlquery) === TRUE) {
-            $success = "Record inserted successfully";
-        } else {
-            $error = "Error: " . $sqlquery . "<br>" . $conn->error;
-        }
-                                                                                       
-}
+ 
 
 											
 ?>
@@ -97,14 +61,8 @@ echo "0 results";
 									<div class="card-header">
 										<h4 class="text-danger card-title">Bank Information</h4>
 									</div>
-                                    <div class="alert alert-success" role="alert">
-                                                <?php echo $success; ?>
-                                        </div>
-                                        <div class="alert alert-danger" role="alert">
-                                                <?php echo $error; ?>
-                                        </div>
-
-
+                                    
+                                        
 									<div class="card-body">
 										<form action="#" method='post'>
 											<div class="row">
@@ -149,7 +107,7 @@ echo "0 results";
 														</div>
 											</div>
 											<div class="text-right">
-												<button type="submit" class="btn btn-primary"> Create </button>
+												<button type="submit" class="btn btn-primary"> Add Bank </button>
 											</div>
 										</form>
 									</div>
@@ -157,6 +115,56 @@ echo "0 results";
 							</div>
 
                             <!-- Contact Personal Info  --->
+
+							<?php
+
+									if ($_SERVER["REQUEST_METHOD"] == "POST") {
+										$bname = $_POST['bankname'];
+										$brname = $_POST['branchname'];
+										$accno = $_POST['accno'];
+										$credit = $_POST['credit'];
+										$creditDate = date("d/m/Y");
+										$creditdt = $_POST['creditdt']; 
+
+										$sqlquery = "INSERT INTO `bank`(                                            
+											`bankId`,
+											`bankname`,
+											`branchname`,
+											`bankaccno`,
+											`credit`,
+											`creditDate`,
+											`creditComment`
+										)
+										VALUES(
+											'$BankId',
+											'$bname',
+											'$brname',
+											'$accno',
+											'$credit',
+											'$creditDate',
+											'$creditdt'
+										)";
+											
+											if ($conn->query($sqlquery) === TRUE) {
+
+												print '<script>
+														swal({
+														title: "Success!",
+														text: "Bank Account Added Successfully!",
+														type: "success",
+														confirmButtonText: "Cool"
+														},
+														function(){
+															window.location=\'Bank.php\'
+															});
+														</script>';
+												
+
+											}
+																														
+									}
+
+							?>
             
 						</div>
 
