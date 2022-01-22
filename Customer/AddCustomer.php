@@ -92,17 +92,14 @@ if ($result->num_rows > 0) {
 
 				<!-- Contant -->
 				<div class="row">					
-					<div class="col-md-4">
+					<div class="col-md-12">
 						<div class="row">
 							<div class="col-md-12">
 								<div class="card">
 									<div class="card-header">
 										<h4 class="text-danger card-title">Customer Information</h4>
 									</div>
-                                    <?php if(isset($success)){
-                                        echo "<div class='alert alert-success' role='alert'> $success  </div> ";
-                                            }
-                                      ?>
+                                    
 
 
 									<div class="card-body">
@@ -110,15 +107,15 @@ if ($result->num_rows > 0) {
 											<div class="row">
 												<div class="col-md-12">
 													<div class="row">
-														<div class="col-md-12">
+														<div class="col-md-6">
 															<div class="form-group">
 																<label>Customer ID</label>
 																<input type="text" value="<?php echo $CustomerId ?>" class="form-control" disabled>
 															</div>
 														</div>
-													</div>
-													<div class="row">	
-														<div class="col-md-12">
+													
+													
+														<div class="col-md-6">
 															<div class="form-group">
 																<label>Customer Name</label>
 																<input type="text" name="cname" class="form-control">
@@ -126,15 +123,14 @@ if ($result->num_rows > 0) {
 														</div>
 													</div>
 													<div class="row">
-														<div class="col-md-12">
+														<div class="col-md-6">
 															<div class="form-group">
 																<label>Customer Email</label>
 																<input type="email" name="cemail" class="form-control">
 															</div>
 														</div>
-													</div>
-													<div class="row">
-                                                        <div class="col-md-12">
+													
+                                                        <div class="col-md-6">
 															<div class="form-group">
 																<label>Customer Phone</label>
 																<input type="number" name="cphone" class="form-control">
@@ -142,23 +138,21 @@ if ($result->num_rows > 0) {
 														</div>
 													</div>
 													<div class="row">
-                                                        <div class="col-md-12">
+                                                        <div class="col-md-4">
 															<div class="form-group">
 																<label>Address</label>
 																<input type="text"name="caddress" class="form-control">
 															</div>
 														</div>
-													</div>
-													<div class="row">	
-                                                        <div class="col-md-12">
+													
+                                                        <div class="col-md-4">
 															<div class="form-group">
 																<label>NID / Passport No</label>
 																<input type="text" name="cnid" class="form-control">
 															</div>
 														</div>
-													</div>
-													<div class="row">	
-														<div class="col-md-12">
+														
+														<div class="col-md-4">
 															<div class="form-group">
 																<label>Opening Balance</label>
 																<input type="number" name="balance" class="form-control">

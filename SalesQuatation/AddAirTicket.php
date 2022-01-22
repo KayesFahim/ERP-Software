@@ -268,6 +268,7 @@ if (array_key_exists("pax",$_GET)){
                                 $type = "tickettype".$i;
                                 $price = "price".$i;
                                 $way = "way".$i;
+                                
                                     
                                     
                                 $mrgenerate = "INSERT INTO `salesqutation`(
@@ -275,7 +276,8 @@ if (array_key_exists("pax",$_GET)){
                                     `createdBy`,
                                     `clientName`,
                                     `csrId`,
-                                    `pax`,
+                                    `totalPax`,
+                                    `paxNo`,
                                     `PaxName`,
                                     `Airlines`,
                                     `placeFrom`,
@@ -290,6 +292,7 @@ if (array_key_exists("pax",$_GET)){
                                     '$Client_Name',
                                     '$Client_Id',
                                     '$pax',
+                                    '$i',
                                     '$_POST[$paxName]',
                                     '$_POST[$Airlines]',
                                     '$_POST[$from]',
@@ -301,12 +304,7 @@ if (array_key_exists("pax",$_GET)){
                                 )";
                             
                                 if (mysqli_query($conn, $mrgenerate)) {
-                                                
-                                }
-
-                            }
-
-                        print '<script>
+                                    print '<script>
                                     swal({
                                     title: "Success!",
                                     text: "Sales Quatation Created Successfully!",
@@ -319,6 +317,10 @@ if (array_key_exists("pax",$_GET)){
                                     </script>';
                             
                         }	
+                                                
+                                }
+
+                            }
                                                                                                 
 
                         ?>

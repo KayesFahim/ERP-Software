@@ -54,10 +54,20 @@ if ($result->num_rows > 0) {
                          VALUES ('Open','$Vendor_Id','Account Open','Opening Balanced','$Balance','$Balance')";
 
 		if ($conn->query($ClientLedger) === TRUE) {
+
+			print '<script>
+                                    swal({
+                                    title: "Success!",
+                                    text: "Vendor Added Successfully!",
+                                    type: "success",
+                                    confirmButtonText: "Cool"
+                                    },
+                                    function(){
+                                        window.location=\'index.php\'
+                                        });
+                                    </script>';
 			
-			echo '<script language="javascript">';
-			echo 'alert("Successfully Created"); location.href="index.php"';
-			echo '</script>';
+			
 		}
        
     }
@@ -155,7 +165,7 @@ if ($result->num_rows > 0) {
 														</div>
                                                         <div class="col-md-4">
 															<div class="form-group">
-																<label>Balance</label>
+																<label>Opening Balance</label>
 																<input type="number" name="balance" class="form-control" required>
 															</div>
 														</div>
