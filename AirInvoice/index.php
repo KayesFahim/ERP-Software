@@ -78,7 +78,7 @@ include('../session.php');
 														invoice.clientName,
 														airticket.cost1
 														FROM invoice
-														INNER JOIN airticket ON invoice.invNo = airticket.invNo
+														INNER JOIN airticket ON invoice.id = airticket.id
 														Group By id DESC";
 
 												$result = $conn->query($sql);

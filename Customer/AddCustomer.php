@@ -15,47 +15,6 @@ if ($result->num_rows > 0) {
 	$CustomerId = "CSR-1000";
  }
 
- if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $cName = $_POST['cname'];
-    $CEmail = $_POST['cemail'];
-    $cPhone = $_POST['cphone'];
-    $cAddress = $_POST['caddress'];
-    $cRegDate = date("d/m/Y");
-    $creditdt = $_POST['cnid'];
-	$balance = $_POST['balance']; 
-
-    $sqlquery = "INSERT INTO `customer`(                                            
-        `CustomerId`,
-		`name`,
-		`phone`,
-		`email`,
-		`address`
-    )
-    VALUES(
-        '$CustomerId',
-        '$cName',
-        '$cPhone',
-        '$CEmail',
-        '$cAddress'
-    )";
-        
-    if ($conn->query($sqlquery) === TRUE) {
-
-			$ClientLedger ="INSERT INTO `client_ledger`(`TxType`, `CSR_ID`, `PaxName`, `serviceType`, `Details`, `deposit`, `Balance`)
-                         VALUES ('Open','$CustomerId',' ','Account Open','Opening Balanced','$balance','$balance')";
-
-        if (mysqli_query($conn, $ClientLedger)) {
-
-			echo '<script language="javascript">';
-		    echo 'alert("Successfully Created"); location.href="index.php"';
-		    echo '</script>';
-
-		}
-           
-	 }
-                                                                                       
-}
-
 
 											
 ?>
@@ -118,7 +77,7 @@ if ($result->num_rows > 0) {
 														<div class="col-md-6">
 															<div class="form-group">
 																<label>Customer Name</label>
-																<input type="text" name="cname" class="form-control">
+																<input type="text" name="cname" class="form-control" required>
 															</div>
 														</div>
 													</div>
@@ -126,14 +85,14 @@ if ($result->num_rows > 0) {
 														<div class="col-md-6">
 															<div class="form-group">
 																<label>Customer Email</label>
-																<input type="email" name="cemail" class="form-control">
+																<input type="email" name="cemail" class="form-control" required>
 															</div>
 														</div>
 													
                                                         <div class="col-md-6">
 															<div class="form-group">
 																<label>Customer Phone</label>
-																<input type="number" name="cphone" class="form-control">
+																<input type="number" name="cphone" class="form-control" required>
 															</div>
 														</div>
 													</div>
@@ -141,21 +100,21 @@ if ($result->num_rows > 0) {
                                                         <div class="col-md-4">
 															<div class="form-group">
 																<label>Address</label>
-																<input type="text"name="caddress" class="form-control">
+																<input type="text"name="caddress" class="form-control" required>
 															</div>
 														</div>
 													
                                                         <div class="col-md-4">
 															<div class="form-group">
 																<label>NID / Passport No</label>
-																<input type="text" name="cnid" class="form-control">
+																<input type="text" name="cnid" class="form-control" required>
 															</div>
 														</div>
 														
 														<div class="col-md-4">
 															<div class="form-group">
 																<label>Opening Balance</label>
-																<input type="number" name="balance" class="form-control">
+																<input type="number" name="balance" class="form-control" required>
 															</div>
 														</div>													
 													</div>
@@ -168,6 +127,58 @@ if ($result->num_rows > 0) {
 							</div>
 
                             <!-- Contact Personal Info  --->
+							<?php
+
+									if ($_SERVER["REQUEST_METHOD"] == "POST") {
+										$cName = $_POST['cname'];
+										$CEmail = $_POST['cemail'];
+										$cPhone = $_POST['cphone'];
+										$cAddress = $_POST['caddress'];
+										$cRegDate = date("d/m/Y");
+										$creditdt = $_POST['cnid'];
+										$balance = $_POST['balance']; 
+
+										$sqlquery = "INSERT INTO `customer`(                                            
+											`CustomerId`,
+											`name`,
+											`phone`,
+											`email`,
+											`address`
+										)
+										VALUES(
+											'$CustomerId',
+											'$cName',
+											'$cPhone',
+											'$CEmail',
+											'$cAddress'
+										)";
+											
+										if ($conn->query($sqlquery) === TRUE) {
+
+												$ClientLedger ="INSERT INTO `client_ledger`(`TxType`, `CSR_ID`, `PaxName`, `serviceType`, `Details`, `deposit`, `Balance`)
+															VALUES ('Open','$CustomerId',' ','Account Open','Opening Balanced','$balance','$balance')";
+
+											if (mysqli_query($conn, $ClientLedger)) {
+
+												print '<script>
+												swal({
+												title: "Success!",
+												text: "Vendor Added Successfully!",
+												type: "success",
+												confirmButtonText: "Cool"
+												},
+												function(){
+													window.location=\'index.php\'
+													});
+												</script>';
+
+											}
+											
+										}
+																														
+									}
+
+							?>
             
 						</div>
 
@@ -181,6 +192,6 @@ if ($result->num_rows > 0) {
 			</div>
 			<!-- /Main Wrapper -->
 			
-<! ------------  Footer ----------->
+<!------------  Footer ----------->
 <?php include '../footer.php'; ?>
-<! ------------  Footer ----------->
+<!------------  Footer ----------->

@@ -17,64 +17,7 @@ if ($result->num_rows > 0) {
 
 }
 
- if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $vName = $_POST['vname'];
-    $vEmail = $_POST['vemail'];
-    $vPhone = $_POST['vphone'];
-    $vAddress = $_POST['vaddress'];
-    $Balance = $_POST['balance']; 
-	$Comname = $_POST['vcname'];
-	$CoName = $_POST['cpname'];
-	$CoPhone = $_POST['cpphone'];
-
-
-    $sqlquery = "INSERT INTO `vendor`(                                            
-        `vendorId`,
-		`email`,
-		`name`,
-		`phone`,
-		`company`,		
-		`address`,
-		`conPername`,
-		`conPerPhone`
-    )
-    VALUES(
-        '$Vendor_Id',
-        '$vEmail',
-        '$vName',
-        '$vPhone',
-        '$Comname',
-        '$vAddress',
-		'$CoName',
-        '$CoPhone'
-    )";
-        
-        if ($conn->query($sqlquery) === TRUE) {
-			$ClientLedger ="INSERT INTO `vendor_ledger`(`txType`, `VDR_ID`,`serviceType`, `details`,`deposit`,`balance`)
-                         VALUES ('Open','$Vendor_Id','Account Open','Opening Balanced','$Balance','$Balance')";
-
-		if ($conn->query($ClientLedger) === TRUE) {
-
-			print '<script>
-                                    swal({
-                                    title: "Success!",
-                                    text: "Vendor Added Successfully!",
-                                    type: "success",
-                                    confirmButtonText: "Cool"
-                                    },
-                                    function(){
-                                        window.location=\'index.php\'
-                                        });
-                                    </script>';
-			
-			
-		}
-       
-    }
-                                                                                       
-}
-
-
+ 
 											
 ?>
 
@@ -157,12 +100,7 @@ if ($result->num_rows > 0) {
 																<input type="text"name="vaddress" class="form-control" required>
 															</div>
 														</div>
-                                                        <div class="col-md-4">
-															<div class="form-group">
-																<label>Company Name</label>
-																<input type="text" name="vcname" class="form-control" required>
-															</div>
-														</div>
+                                                        
                                                         <div class="col-md-4">
 															<div class="form-group">
 																<label>Opening Balance</label>
@@ -191,6 +129,64 @@ if ($result->num_rows > 0) {
 							</div>
 
                             <!-- Contact Personal Info  --->
+
+							<?php
+
+								if ($_SERVER["REQUEST_METHOD"] == "POST") {
+									$vName = $_POST['vname'];
+									$vEmail = $_POST['vemail'];
+									$vPhone = $_POST['vphone'];
+									$vAddress = $_POST['vaddress'];
+									$Balance = $_POST['balance']; 
+									$CoName = $_POST['cpname'];
+									$CoPhone = $_POST['cpphone'];
+
+
+									$sqlquery = "INSERT INTO `vendor`(                                            
+										`vendorId`,
+										`email`,
+										`name`,
+										`phone`,		
+										`address`,
+										`conPername`,
+										`conPerPhone`
+									)
+									VALUES(
+										'$Vendor_Id',
+										'$vEmail',
+										'$vName',
+										'$vPhone',
+										'$vAddress',
+										'$CoName',
+										'$CoPhone'
+									)";
+										
+										if ($conn->query($sqlquery) === TRUE) {
+											$VendorLedger ="INSERT INTO `vendor_ledger`(`txType`, `VDR_ID`,`serviceType`, `details`,`deposit`,`balance`)
+														VALUES ('Open','$Vendor_Id','Account Open','Opening Balanced','$Balance','$Balance')";
+
+										if ($conn->query($VendorLedger) === TRUE) {
+
+											print '<script>
+																	swal({
+																	title: "Success!",
+																	text: "Vendor Added Successfully!",
+																	type: "success",
+																	confirmButtonText: "Cool"
+																	},
+																	function(){
+																		window.location=\'index.php\'
+																		});
+																	</script>';
+											
+											
+										}
+									
+									}
+																													
+								}
+
+							?>
             
 						</div>
 

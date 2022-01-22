@@ -3,6 +3,7 @@
 include '../config.php';
 include('../session.php');
 
+
 $bank = "SELECT SUM(credit - debit) as amount from bank";
 $mobilebanking = "SELECT SUM(cashIn - cashOut) as amount from mobile_banking GROUP By mb_number";
 $ssl = "SELECT id, Sum(amount) as balance FROM `ssl_commerce`";
@@ -23,6 +24,8 @@ if ($result->num_rows > 0) {
 	while($row = $result->fetch_assoc()) {
 		$Bank_Amount = $row["amount"];
 	}
+}else{
+	
 }
 
 // Mobile banking
@@ -32,6 +35,8 @@ if ($result1->num_rows > 0) {
 	$MobileBanking_Amount = $row["amount"];
 		
 	}
+}else{
+	$MobileBanking_Amount = 0 ;
 }
 
 //Portal Balanced
@@ -39,9 +44,6 @@ if ($result1->num_rows > 0) {
 if ($result2->num_rows > 0) {
 	while($row = $result2->fetch_assoc()) {
 		$SSL_Amount = $row["balance"];
-
-
-
 	}
 }else{
 	$SSL_Amount = 0;
@@ -61,9 +63,9 @@ if ($result3->num_rows > 0) {
 ?>
 
 
-<!------------  Header ----------->
-<?php include '../header.php'; ?>
-<!------------  Header ----------->
+	<!------------  Header ----------->
+	<?php include '../header.php'; ?>
+	<!------------  Header ----------->
 
 		<?php
         	include '../sidebar.php';

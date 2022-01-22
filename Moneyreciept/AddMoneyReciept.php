@@ -73,8 +73,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			if($payWay == 'bank'){
 
                 		
-					$credit = "INSERT INTO `bank`(
-						
+					$credit = "INSERT INTO `bank`(						
 						`bankId`,
 						`bankname`,				
 						`TxType`,
@@ -91,17 +90,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		
 					if (mysqli_query($conn, $credit)) {
 															
-						echo "<script language=\"javascript\">";
-						echo "swal({";
-						echo "title: \"Success!\",";
-						echo "text: \"Sales Quatation Created Successfully!\",";
-						echo "type: \"success\",";
-						echo "confirmButtonText: \"Cool\"";
-						echo "},";
-						echo "function(){";
-						echo "window.location='preschooler_profile.php?p_id=$p_id'";
-						echo "});";
-						echo "</script>";
+						print '<script>
+                                    swal({
+                                    title: "Success!",
+                                    text: "Money Reciept Created Successfully!",
+                                    type: "success",
+                                    confirmButtonText: "Cool"
+                                    },
+                                    function(){
+                                        window.location=\'invoice.php?Rno='.$Reciept_No.'\'
+                                        });
+                                    </script>';
 						
 					}
 		
@@ -115,43 +114,66 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		
 							`TxType`,
 							`cashIn`,
-							`cashInTxId`
+							`cashInTxId`,
+							`cashIndescription`
 						)
 						VALUES(
 							'$Reciept_No',
 							'$amount',
-							'$TxId'
+							'$TxId',
+							'$comment'
 						)";
 		
 				if (mysqli_query($conn, $credit)) {						
-					echo '<script language="javascript">';
-					echo 'alert("Successfully Created"); location.href="invoice.php?Rno='.$Reciept_No.'"';
-					echo '</script>';
+					print '<script>
+                                    swal({
+                                    title: "Success!",
+                                    text: "Money Reciept Created Successfully!",
+                                    type: "success",
+                                    confirmButtonText: "Cool"
+                                    },
+                                    function(){
+                                        window.location=\'invoice.php?Rno='.$Reciept_No.'\'
+                                        });
+                                    </script>';
 					
 				}
 			}
 		
 		
 			}elseif($payWay == 'mobile_banking'){
-				if($payMethod == 'mobile_banking'){
+				
 					$credit = "INSERT INTO `mobile_banking`(
 						`MB_ID`,
 						`cashIn`,
-						`TxType`
+						`TxType`,
+						`cashInTxId`,
+						`cashInComment`
 					)
 					VALUES(
 		
-						'$TxId',
+						'$payMethod',
 						'$amount',
-						'$Reciept_No'
+						'$Reciept_No',
+						'$TxId',
+						'$comment'
+
 					)";
 			
 					if (mysqli_query($conn, $credit)) {						
-						echo '<script language="javascript">';
-						echo 'alert("Successfully Created"); location.href="invoice.php?Rno='.$Reciept_No.'"';
-						echo '</script>';
+						print '<script>
+                                    swal({
+                                    title: "Success!",
+                                    text: "Money Reciept Created Successfully!",
+                                    type: "success",
+                                    confirmButtonText: "Cool"
+                                    },
+                                    function(){
+                                        window.location=\'invoice.php?Rno='.$Reciept_No.'\'
+                                        });
+                                    </script>';
 						
-					}
+					
 		
 				}
 
@@ -174,9 +196,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 					)";
 			
 					if (mysqli_query($conn, $credit)) {						
-						echo '<script language="javascript">';
-						echo 'alert("Successfully Created"); location.href="invoice.php?Rno='.$Reciept_No.'"';
-						echo '</script>';
+						print '<script>
+                                    swal({
+                                    title: "Success!",
+                                    text: "Money Reciept Created Successfully!",
+                                    type: "success",
+                                    confirmButtonText: "Cool"
+                                    },
+                                    function(){
+                                        window.location=\'invoice.php?Rno='.$Reciept_No.'\'
+                                        });
+                                    </script>';
 						
 					}
 		
@@ -334,7 +364,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 																		<option value="" disabled selected>Select Payment Method</option>
 																		<option value="cash">Cash</option>
 																		<option value="ssl_commerce">SSL_commerce</option>
-                                                                        <option value="mobile_banking">Mobile Banking</option>
+
+																		<?php
+
+                                                                        $sql = "SELECT * FROM mobile_banking GROUP BY MB_ID";
+                                                                        $result = $conn->query($sql);
+                                                                        if ($result->num_rows > 0) {
+                                                                        while($row = $result->fetch_assoc()) {	
+                                                                            $MBKID = $row["MB_ID"];
+                                                                            echo "<option value=\"$MBKID\">".$row['mb_operator']." - ".$row['mb_number']."</option>";
+                                                                            
+                                                                            }
+                                                                        }
+                                                                        ?>
                                                                         
 																		<?php
 

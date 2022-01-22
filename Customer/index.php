@@ -56,9 +56,7 @@ include('../session.php');
 													<th>Name</th>
 													<th>Balance</th>
 													<th>Phone</th>
-													<th>Company</th>
 													<th>Action</th>
-                                                    <th></th>
 												</tr>
 											</thead>
 											<tbody>

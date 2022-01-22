@@ -16,6 +16,7 @@ print "<div class='modal fade bd-example-modal-lg' id='exampleModal' tabindex='-
         <div class='container-fluid'>
             <div class='row'>
                 <div class='col-md-6'>
+                <h4> Add New Stuff</h4>
                     <div  class='sidebar-menu'>
                         <a href='../SalesQuatation/AddAirTicket.php'><i class='fe fe-plus'> </i> <span> Sales Quatation</span></a><br/>
                         <a href='../AirInvoice/AirTicket.php'><i class='fe fe-plus'> </i> <span> Invoice</span></a><br/>
@@ -24,6 +25,17 @@ print "<div class='modal fade bd-example-modal-lg' id='exampleModal' tabindex='-
                         <a href='../Customer/AddCustomer.php'><i class='fe fe-plus'> </i> <span> Add Customer</span></a><br/>
                         <a href='../Vendors/AddVendor.php'><i class='fe fe-plus'> </i> <span> Add Vendor</span></a><br/>
                         <a href='../Employee/AddEmployee.php'><i class='fe fe-plus'> </i> <span> Add Employee</span></a><br/>
+                    </div>
+
+                </div>
+                <div class='col-md-6'>
+                <h4> Setup Cash Equvalent</h4>
+                    <div  class='sidebar-menu'>
+                        <a href='../CashEquvalent/AddNewBank.php'><i class='fe fe-plus'> </i> <span> Add Bank</span></a><br/>
+                        <a href='../CashEquvalent/AddMobileBanking.php'><i class='fe fe-plus'> </i> <span> Add Mobile Banking</span></a><br/>
+                        <a href='../CashEquvalent/AddSSL.php'><i class='fe fe-plus'> </i> <span> Setup SSL</span></a><br/>
+                        <a href='../CashEquvalent/AddCash.php'><i class='fe fe-plus'> </i> <span> Add Cash</span></a><br/>
+                        
                     </div>
 
                 </div>
@@ -135,16 +147,14 @@ if($userRole == 'reservation'){
                   <a data-toggle='dropdown'><i class='fe fe-layout'></i> <span>Invoice</span></a>
                       <ul>
                          <li><a href='../AirInvoice'><i class='fe fe-layout'> </i> <span> Air Ticket</span></a></li>
-                          <li><a href='access.php'><i class='fe fe-layout'> </i> <span> Visa</span></a> </li>
-                         <li><a href='#'><i class='fe fe-layout'></i> Others</a></li>
+                          
                       </ul>
                      </li>
              <li>
                  <a data-toggle='dropdown'><i class='fe fe-layout'></i> <span>Accounting</span></a>
                      <ul>
                          <li><a href='../CashEquvalent'><i class='fe fe-layout'></i> <span>Cash And Cash</span></a></li>
-                         <li><a href='access.php'><i class='fe fe-layout'></i> <span>Acces control</span></a> </li>
-                         <li><a href='#'><i class='fe fe-layout'></i> Portal</a></li>
+                         
                      </ul>
              </li>
              <li>
@@ -162,8 +172,11 @@ if($userRole == 'reservation'){
                      <ul>
                          <li><a href='../Report/ClientLedger.php'><i class='fe fe-layout'></i> <span>Client Report</span></a></li>
                          <li><a href='../Report/VendorLedger.php'><i class='fe fe-layout'></i> <span>Vendor Report</span></a> </li>
-                         
+                         <li><a href='../Report/UnSettle.php'><i class='fe fe-layout'></i> <span>Unsettle Report</span></a> </li>                        
                      </ul>
+             </li>
+             <li>
+                <a href='../Role'><i class='fe fe-layout'></i> <span>Role</span></a>
              </li>
              <li>
                  <a href='../Salary'><i class='fe fe-layout'></i> <span>Salary</span></a>

@@ -37,6 +37,7 @@ if ($result1->num_rows > 0) {
 	$MobileBanking_Amount = $row["amount"];
 		
 	}
+    $MobileBanking_Amount = 0;
 }
 
 //Portal Balanced
@@ -206,21 +207,33 @@ $Cashequvalent = $Bank_Amount + $MobileBanking_Amount + $SSL_Amount + $Cash;
                     </div>
                     <div class='modal-body'>
                         <div class='container-fluid'>
-                            <div class='row'>
-                                <div class='col-md-6'>
-                                    <div  class='sidebar-menu'>
-                                        <a href='SalesQuatation/AddAirTicket.php'><i class='fe fe-plus'> </i> <span> Sales Quatation</span></a><br/>
-                                        <a href='AirInvoice/AirTicket.php'><i class='fe fe-plus'> </i> <span> Invoice</span></a><br/>
-                                        <a href='Moneyreciept/AddMoneyReciept.php'><i class='fe fe-plus'> </i> <span> Money Reciept</span></a><br/>
-                                        <a href='Bill/AddBill.php'><i class='fe fe-plus'> </i> <span> Bill</span></a><br/>
-                                        <a href='Customer/AddCustomer.php'><i class='fe fe-plus'> </i> <span> Add Customer</span></a><br/>
-                                        <a href='Vendors/AddVendor.php'><i class='fe fe-plus'> </i> <span> Add Vendor</span></a><br/>
-                                        <a href='Employee/AddEmployee.php'><i class='fe fe-plus'> </i> <span> Add Employee</span></a><br/>
-                                    </div>
-
-                                </div>
+                        <div class='row'>
+                        <div class='col-md-6'>
+                        <h4> Add New Stuff</h4>
+                            <div  class='sidebar-menu'>
+                                <a href='SalesQuatation/AddAirTicket.php'><i class='fe fe-plus'> </i> <span> Sales Quatation</span></a><br/>
+                                <a href='AirInvoice/AirTicket.php'><i class='fe fe-plus'> </i> <span> Invoice</span></a><br/>
+                                <a href='MoneyReciept/AddMoneyReciept.php'><i class='fe fe-plus'> </i> <span> Money Reciept</span></a><br/>
+                                <a href='Bill/AddBill.php'><i class='fe fe-plus'> </i> <span> Bill</span></a><br/>
+                                <a href='Customer/AddCustomer.php'><i class='fe fe-plus'> </i> <span> Add Customer</span></a><br/>
+                                <a href='Vendors/AddVendor.php'><i class='fe fe-plus'> </i> <span> Add Vendor</span></a><br/>
+                                <a href='Employee/AddEmployee.php'><i class='fe fe-plus'> </i> <span> Add Employee</span></a><br/>
+                            </div>
+        
+                        </div>
+                        <div class='col-md-6'>
+                        <h4> Setup Cash Equvalent</h4>
+                            <div  class='sidebar-menu'>
+                                <a href='CashEquvalent/AddNewBank.php'><i class='fe fe-plus'> </i> <span> Add Bank</span></a><br/>
+                                <a href='CashEquvalent/AddMobileBanking.php'><i class='fe fe-plus'> </i> <span> Add Mobile Banking</span></a><br/>
+                                <a href='CashEquvalent/AddSSL.php'><i class='fe fe-plus'> </i> <span> Setup SSL</span></a><br/>
+                                <a href='CashEquvalent/AddCash.php'><i class='fe fe-plus'> </i> <span> Add Cash</span></a><br/>
                                 
                             </div>
+        
+                        </div>
+                        
+                    </div>
                         </div>
                     </div>
                     <div class='modal-footer'>
@@ -328,15 +341,14 @@ $Cashequvalent = $Bank_Amount + $MobileBanking_Amount + $SSL_Amount + $Cash;
                                 <a data-toggle='dropdown'><i class='fe fe-layout'></i> <span>Invoice</span></a>
                                     <ul>
                                         <li><a href='AirInvoice'><i class='fe fe-layout'> </i> <span> Air Ticket</span></a></li>
-                                        <li><a href='access.php'><i class='fe fe-layout'> </i> <span> Visa</span></a> </li>
-                                        <li><a href='#'><i class='fe fe-layout'></i> Others</a></li>
+                                        
                                     </ul>
                                     </li>
                             <li>
                                 <a data-toggle='dropdown'><i class='fe fe-layout'></i> <span>Accounting</span></a>
                                     <ul>
                                         <li><a href='CashEquvalent'><i class='fe fe-layout'></i> <span>Cash And Cash</span></a></li>
-                                        <li><a href='access.php'><i class='fe fe-layout'></i> <span>Acces control</span></a> </li>
+                                        <li><a href='setup.php'><i class='fe fe-layout'></i> <span>Acces control</span></a> </li>
                                         <li><a href='#'><i class='fe fe-layout'></i> Portal</a></li>
                                     </ul>
                             </li>
@@ -355,11 +367,15 @@ $Cashequvalent = $Bank_Amount + $MobileBanking_Amount + $SSL_Amount + $Cash;
                                     <ul>
                                         <li><a href='Report/ClientLedger.php'><i class='fe fe-layout'></i> <span>Client Report</span></a></li>
                                         <li><a href='Report/VendorLedger.php'><i class='fe fe-layout'></i> <span>Vendor Report</span></a> </li>
+                                        <li><a href='Report/UnSettle.php'><i class='fe fe-layout'></i> <span>Unsettle Report</span></a> </li>
                                         
                                     </ul>
                             </li>
                             <li>
                                 <a href='Salary'><i class='fe fe-layout'></i> <span>Salary</span></a>
+                            </li>
+                            <li>
+                                <a href='Role'><i class='fe fe-layout'></i> <span>Role</span></a>
                             </li>
                             
                             <li>
@@ -610,9 +626,8 @@ $Cashequvalent = $Bank_Amount + $MobileBanking_Amount + $SSL_Amount + $Cash;
                                                     $csrId = $row['vendorId'];
                                                     $PrePaid += $row['Total'];
                                                     echo "<option value=\"$csrId\">".$row['name']." (".$row['Total']." Taka)</option>";
-                                                    
-                                                                                    
-                                                }
+                                                                                          
+                                                    }
                                                 }
 
                                                 ?>
@@ -821,7 +836,7 @@ $Cashequvalent = $Bank_Amount + $MobileBanking_Amount + $SSL_Amount + $Cash;
                                 <div class='form-group row'>
                                     <div class='col-lg-12 '>
                                         <select class='select form-control'>
-                                            <option>Portal Balanced</option>
+                                            <option disabled selected>Portal Balanced</option>
                                             <?php
                                             
                                                 $Today = date("Y-m-d");
@@ -868,10 +883,12 @@ $Cashequvalent = $Bank_Amount + $MobileBanking_Amount + $SSL_Amount + $Cash;
                                                 while($row = $result->fetch_assoc()) {	
                                                     $Mobile_Banking += $row['balance'];
                                                    
-                                                    echo "<option>".$row['mb_number']." To ( ".$row['balance']." Taka )</option>";
+                                                    echo "<option>".$row['mb_operator']." - ".$row['mb_number']." To ( ".$row['balance']." Taka )</option>";
                                                     
  											
                                                     }
+                                                }else{
+                                                    $Mobile_Banking = 0;
                                                 }
                                                 ?>
                                             
@@ -884,17 +901,19 @@ $Cashequvalent = $Bank_Amount + $MobileBanking_Amount + $SSL_Amount + $Cash;
                                 <div class='form-group row'>
                                     <div class='col-lg-12'>
                                         <select class='select form-control'>
-                                            <option>Cash Balanced</option>
+                                            <option disabled selected>Cash Balanced</option>
                                             <?php
                                             
                                                 $Today = date("Y-m-d");
-                                                $sql = "SELECT SUM(cashIn - cashOut) as amount from cash";
+                                                $sql = "SELECT SUM(cashIn - cashOut) as amount from cash ";
                                                 $result = $conn->query($sql);
                                                 if ($result->num_rows > 0) {
                                                 while($row = $result->fetch_assoc()) {	                                                  
                                                     echo "<option>".$row['amount']." Taka </option>";                                                   
 
                                                     }
+                                                }else{
+                                                    echo "<option>0 Taka </option>";
                                                 }
                                                 ?>
                                             
@@ -906,6 +925,68 @@ $Cashequvalent = $Bank_Amount + $MobileBanking_Amount + $SSL_Amount + $Cash;
 
                         </div>
                         <hr>
+
+                       
+                        <div class='row'>
+                            <div class='col-md-4'>
+                            <h6> Air Ticket Vendor Unsettle Amount:  <?php echo "$Cashequvalent Taka" ?></h6>
+                                <div class='form-group row'>
+                                    <div class='col-lg-12'>
+                                        <select class='select form-control'>
+                                        <option>Ticket Voided Amount</option>
+                                        <option>Ticket Refunded Amount</option>
+                                        
+                                            
+                                        </select>
+                                    </div>
+                                </div>
+                                <h6 class='text-center'><b style="color:red;"><?php echo "$BankTotal Taka" ?></b></h6>
+                            </div>
+                            <div class='col-md-4'>
+                            <h6> Air Ticket Client Unsettle Amount:  <?php echo "$Cashequvalent Taka" ?></h6>
+                                <div class='form-group row'>
+                                    <div class='col-lg-12'>
+                                        <select class='select form-control'>
+                                        <option>Ticket Voided Amount</option>
+                                        <option>Ticket Refunded Amount</option>
+                                        
+                                            
+                                        </select>
+                                    </div>
+                                </div>
+                                <h6 class='text-center'><b style="color:red;"><?php echo "$BankTotal Taka" ?></b></h6>
+                            </div>
+                            <div class='col-md-4'>
+                            <h6> Cash And Cash Equivalents Unsettle Amount:  <?php echo "$Cashequvalent Taka" ?></h6>
+                                <div class='form-group row'>
+                                    <div class='col-lg-12'>
+                                        <select class='select form-control'>
+                                       
+                                        <?php
+
+                                        $BankTotal = 0;
+                                        $sql = "SELECT DISTINCT id, bankId, bankname,bankaccno, branchname, SUM(credit-debit) as Amount FROM bank GROUP BY bankname";
+                                        $result = $conn->query($sql);
+                                        if ($result->num_rows > 0) {
+                                        while($row = $result->fetch_assoc()) {	
+                                            $bankgetID = $row["bankId"];
+                                            $BankTotal += $row['Amount'];
+                                            echo "<option value=\"$bankgetID\">".$row['bankname']." ( ".$row['Amount']." Taka )</option>";
+                                            
+                                            }
+                                        }
+                                        ?>
+                                                                                   
+                                        </select>
+                                    </div>
+                                </div>
+                                <h6 class='text-center'><b style="color:red;"><?php echo "$BankTotal Taka" ?></b></h6>
+                            </div>
+                                                        
+
+                        </div>
+
+                        
                         
                         
                         </div>

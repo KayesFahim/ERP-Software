@@ -57,7 +57,6 @@ include('../session.php');
 													<th>Vendor ID</th>
 													<th>Name</th>
 													<th>Phone</th>
-													<th>Company</th>
 													<th>Action</th>
                                                     <th></th>
 												</tr>
@@ -82,8 +81,7 @@ include('../session.php');
 
 													echo "<tr><td>".$row["vendorId"]."</td>
 																<td>".$row["name"]."</td> 
-																<td>".$row["phone"]."</td>
-														 		<td>".$row["company"]."</td>
+																<td>".$row["phone"]."</td>														 		
 																<td><a href='EditVendor.php?vId=$encryption' class='btn btn-primary'> View </a><td>
 																 </tr>";   											
 												  }

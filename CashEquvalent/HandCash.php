@@ -30,7 +30,7 @@ include('../session.php');
 							<h3 class="page-title">Hand Cash </h3>
 							<ul class="breadcrumb">
 								<li class="breadcrumb-item"><a href="Employees.php">Dashboard</a></li>
-								<li class="breadcrumb-item active">Portal</li>
+								<li class="breadcrumb-item active">Cash</li>
 							</ul>
 						</div>
 					</div>
@@ -44,8 +44,9 @@ include('../session.php');
 					<div class="col-md-12">
 							<div class="card">
 								<div class="card-header">
-									<h4 class="card-title">Hand Cash Detail</h4>
-									
+									<div class="text-right">
+										<a href="AddCash.php" class="btn btn-primary"> Add +</a>
+									</div>
 								</div>
 								
 								<div class="card-body">
@@ -63,7 +64,7 @@ include('../session.php');
 											<tbody>
 
 											<?php												
-												$sql = "SELECT `id`, `TxType`,`dateTime`,`createdBy`, SUM(cashIn - cashOut) as amount from cash";
+												$sql = "SELECT `id`, `TxType`,`dateTime`,`createdBy`, SUM(cashIn - cashOut) as amount from cash Group BY id DESC";
 												$result = $conn->query($sql);
 												if ($result->num_rows > 0) {
   												while($row = $result->fetch_assoc()) {

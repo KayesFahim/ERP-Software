@@ -47,7 +47,7 @@ include('../session.php');
 								<div class="card-header">
 									<h4 class="card-title">Portal Detail</h4>
 									<div class="text-right">
-										<a href="AddEmployee.php" class="btn btn-primary"> Add +</a>
+										<a href="AddSSL.php" class="btn btn-primary"> Add +</a>
 									</div>
 								</div>
 								

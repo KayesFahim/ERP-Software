@@ -46,7 +46,7 @@ include('../session.php');
 								<div class="card-header">
 									<h4 class="card-title">Mobile Banking Detail</h4>
 									<div class="text-right">
-										<a href="AddEmployee.php" class="btn btn-primary"> Add +</a>
+										<a href="AddMobileBanking.php" class="btn btn-primary"> Add +</a>
 									</div>
 								</div>
 								
@@ -94,6 +94,6 @@ include('../session.php');
 			</div>
 			<!-- /Main Wrapper -->
 			
-<! ------------  Footer ----------->
+<!------------  Footer ----------->
 <?php include '../footer.php'; ?>
-<! ------------  Footer ----------->
+<!------------  Footer ----------->
