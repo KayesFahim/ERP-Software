@@ -28,10 +28,10 @@ include('../session.php');
 				<div class="page-header">
 					<div class="row">
 						<div class="col-sm-12">
-							<h3 class="page-title">Portal </h3>
+							<h3 class="page-title">SSL Commerce</h3>
 							<ul class="breadcrumb">
 								<li class="breadcrumb-item"><a href="Employees.php">Dashboard</a></li>
-								<li class="breadcrumb-item active">Portal</li>
+								<li class="breadcrumb-item active">SSL Commerce</li>
 							</ul>
 						</div>
 					</div>
@@ -45,7 +45,7 @@ include('../session.php');
 					<div class="col-md-12">
 							<div class="card">
 								<div class="card-header">
-									<h4 class="card-title">Portal Detail</h4>
+								
 									<div class="text-right">
 										<a href="AddSSL.php" class="btn btn-primary"> Add +</a>
 									</div>
@@ -56,36 +56,41 @@ include('../session.php');
 										<table class="datatable table table-stripped">
 											<thead>
 												<tr>
-													<th>SSL No:</th>
-													<th>invoiceId</th>
+													<th>Type</th>
+													<th>Recipant</th>
 													<th>Amount</th>
                                                     <th>Username</th>
 													<th>createdDate</th>
-													<th>Action</th>
 												</tr>
 											</thead>
 											<tbody>
 
 											<?php												
-												$sql = "SELECT DISTINCT id, sslId, invoiceId, customerId, createdBy, SUM(amount) as Amount FROM ssl_commerce GROUP BY sslId";
+												$sql = "SELECT DISTINCT
+																		id,
+																		userId,
+																		TxType,
+																		createdDate,
+																		createdBy,
+																		SUM(amount) AS Amount
+																	FROM
+																		ssl_commerce
+																	GROUP BY
+																		id
+																	DESC";
 												$result = $conn->query($sql);
 												if ($result->num_rows > 0) {
   												while($row = $result->fetch_assoc()) {
-                                                      $sslId = 	$row["sslId"];
-
 													echo "<tr>
-															<td>".$row["sslId"]."</td> 
-														 	<td>".$row["invoiceId"]."</td>
-															<td>".$row["customerId"]."</td>
+														 	<td>".$row["TxType"]."</td>
+															<td>".$row["userId"]."</td>
 														 	<td>".$row["Amount"]."</td>
                                                             <td>".$row["createdBy"]."</td>
                                                             <td>".$row["createdDate"]."</td>
-                                                            <td><a href='BankDebitEdit.php?getSslId=$sslId' class='btn btn-success'> Edit </a><td>
+                                                            
 															</tr>";   											
 												  }
-												} else {
-  												echo "0 results";
-											    }
+												}
 											?>
 
 

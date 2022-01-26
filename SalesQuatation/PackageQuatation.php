@@ -28,10 +28,10 @@ include('../session.php');
 				<div class="page-header">
 					<div class="row">
 						<div class="col-sm-12">
-							<h3 class="page-title">AirTicket Quatation</h3>
+							<h3 class="page-title">Package Sales Quatation</h3>
 							<ul class="breadcrumb">
 								<li class="breadcrumb-item"><a href="Employees.php">Dashboard</a></li>
-								<li class="breadcrumb-item active">AirTicket Quatation</li>
+								<li class="breadcrumb-item active">Package Sales Quatation</li>
 							</ul>
 						</div>
 					</div>
@@ -46,7 +46,7 @@ include('../session.php');
 							<div class="card">
 								<div class="card-header">
 									<div class="text-right">
-										<a href="AddAirTicket.php" class="btn btn-primary"> Create +</a>
+										<a href="AddPackageQuatation.php" class="btn btn-primary"> Create +</a>
 									</div>
 								</div>
 								
@@ -72,9 +72,10 @@ include('../session.php');
                                                         createdDate,
                                                         createdBy,
                                                         clientName,
-                                                        totalPax, SUM(cost)   as Cost                                                     
+                                                        totalPax,
+														cost,paxNo                                                   
                                                     FROM
-                                                        `salesqutation`
+                                                        `packagequatation`
                                                     GROUP BY
                                                         sqNo DESC";
 
@@ -83,18 +84,17 @@ include('../session.php');
 												if ($result->num_rows > 0) {
   												while($row = $result->fetch_assoc()) {	
 													$SQT = $row["sqNo"];
-													echo "<tr><td><a href='AirTicketDetails.php?SQT=$SQT'> ".$row["sqNo"]." </a></td>
+													$PaxNo = $row["paxNo"];
+													echo "<tr><td><a href='PackageDetails.php?SQT=$SQT'> ".$row["sqNo"]." </a></td>
 																<td>".$row["createdDate"]."</td> 
-														 		<td>".$row["Cost"]."</td>
+														 		<td>".$row["cost"]."</td>
 																<td>".$row["createdBy"]."</td>
 																<td>".$row["clientName"]."</td>
 																<td>".$row["totalPax"]."</td>
-																<td><a href='Invoice.php?SQT=$SQT' class='btn btn-primary'> View </a></td>																
+																<td><a href='PackageInvoice.php?SQT=$SQT' class='btn btn-primary'> View </a></td>																
 																 </tr>";   											
 												  }
-												} else {
-  												
-											    }
+												}
 												?>
 											</tbody>
 										</table>

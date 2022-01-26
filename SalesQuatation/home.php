@@ -68,7 +68,7 @@ include('../session.php');
 											<?php
 
 												$sql = "SELECT
-                                                        sqNo,
+                                                        id,sqNo,
                                                         createdDate,
                                                         createdBy,
                                                         clientName,
@@ -82,19 +82,26 @@ include('../session.php');
 
 												if ($result->num_rows > 0) {
   												while($row = $result->fetch_assoc()) {	
+                                                      $id = $row['id'];
 													$SQT = $row["sqNo"];
-													echo "<tr><td><a href='AirTicketDetails.php?SQT=$SQT'> ".$row["sqNo"]." </a></td>
-																<td>".$row["createdDate"]."</td> 
-														 		<td>".$row["Cost"]."</td>
-																<td>".$row["createdBy"]."</td>
-																<td>".$row["clientName"]."</td>
-																<td>".$row["totalPax"]."</td>
-																<td><a href='Invoice.php?SQT=$SQT' class='btn btn-primary'> View </a></td>																
-																 </tr>";   											
+													echo " <div class='panel-group' id='accordion'>
+                                                                <div class='panel panel-default'>
+                                                                    <div class='panel-heading'>
+                                                                        <h4 class='panel-title'>
+                                                                        <a data-toggle='collapse' data-parent='#accordion' href='#collapse$id'>Collapsible Group 1</a>
+                                                                        </h4>
+                                                                    </div>
+                                                                    <div id='collapse$id' class='panel-collapse collapse in'>
+                                                                        <div class='panel-body'>Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+                                                                        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                                                                        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>";
+
+                                                    
 												  }
-												} else {
-  												
-											    }
+												} 
 												?>
 											</tbody>
 										</table>

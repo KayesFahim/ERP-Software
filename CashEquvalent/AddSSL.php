@@ -1,22 +1,6 @@
 <?php
 include '../config.php';
 include('../session.php');
-
-
-$sql = "SELECT * FROM bank ORDER BY bankId DESC LIMIT 1";
-$result = $conn->query($sql);
-if ($result->num_rows > 0) {
-	while($row = $result->fetch_assoc()) {
-        $outputString = preg_replace('/[^0-9]/', '', $row["bankId"]);
-		$BankId = "BNK-00".(int)$outputString + 1 ;									
- }
-} else {
-	$BankId = "BNK-001";
- }
-
-
- 
-
 											
 ?>
 
@@ -111,7 +95,7 @@ if ($result->num_rows > 0) {
 											'$creditdt',
 											'$credit',
 											'Opening Balance',
-											'$username'
+											'$userName'
 										)";
 											
 											if ($conn->query($credit) === TRUE) {
@@ -124,7 +108,7 @@ if ($result->num_rows > 0) {
 														confirmButtonText: "Cool"
 														},
 														function(){
-															window.location=\'Bank.php\'
+															window.location=\'SSLCommerce.php\'
 															});
 														</script>';
 												

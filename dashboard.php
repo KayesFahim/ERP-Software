@@ -18,7 +18,7 @@ $result3 = $conn->query($cash);
 
 
 $Bank_Amount;
-$MobileBanking_Amount;
+$MobileBanking_Amount=0;
 $SSL_Amount;
 $Cash;
 
@@ -36,8 +36,7 @@ if ($result1->num_rows > 0) {
 
 	$MobileBanking_Amount = $row["amount"];
 		
-	}
-    $MobileBanking_Amount = 0;
+	} 
 }
 
 //Portal Balanced
@@ -212,7 +211,8 @@ $Cashequvalent = $Bank_Amount + $MobileBanking_Amount + $SSL_Amount + $Cash;
                         <h4> Add New Stuff</h4>
                             <div  class='sidebar-menu'>
                                 <a href='SalesQuatation/AddAirTicket.php'><i class='fe fe-plus'> </i> <span> Sales Quatation</span></a><br/>
-                                <a href='AirInvoice/AirTicket.php'><i class='fe fe-plus'> </i> <span> Invoice</span></a><br/>
+                                <a href='SalesQuatation/AddPackageQuatation.php'><i class='fe fe-plus'> </i> <span> Package Quatation</span></a><br/>
+                                <a href='AirInvoice/AirTicket.php'><i class='fe fe-plus'> </i> <span> Air Ticket Invoice</span></a><br/>
                                 <a href='MoneyReciept/AddMoneyReciept.php'><i class='fe fe-plus'> </i> <span> Money Reciept</span></a><br/>
                                 <a href='Bill/AddBill.php'><i class='fe fe-plus'> </i> <span> Bill</span></a><br/>
                                 <a href='Customer/AddCustomer.php'><i class='fe fe-plus'> </i> <span> Add Customer</span></a><br/>
@@ -335,8 +335,13 @@ $Cashequvalent = $Bank_Amount + $MobileBanking_Amount + $SSL_Amount + $Cash;
                                 <a href='Dashboard.php'><i class='fe fe-home'></i> <span>Dashboard</span></a>
                             </li>
                             <li>
-                                <a href='SalesQuatation'><i class='fe fe-layout'></i> <span>Sales Quotation</span></a>
-                            </li>
+                                <a data-toggle='dropdown'><i class='fe fe-layout'></i> <span>Sales Quatation</span></a>
+                                    <ul>
+                                        <li><a href='SalesQuatation'><i class='fe fe-layout'> </i> <span> Air Ticket</span></a></li> 
+                                        <li><a href='SalesQuatation/PackageQuatation.php'><i class='fe fe-layout'> </i> <span> Package</span></a></li>                                       
+                                    </ul>
+                                    </li>
+                            <li>
                             <li>
                                 <a data-toggle='dropdown'><i class='fe fe-layout'></i> <span>Invoice</span></a>
                                     <ul>
