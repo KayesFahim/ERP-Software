@@ -168,7 +168,7 @@ if(array_key_exists("Id",$_GET) && array_key_exists("status",$_GET)){
                                     confirmButtonText: "Ohooo"
                                     },
                                     function(){
-                                        window.location=\'ClientUnSettle.php\'
+                                        window.location=\'VendorUnSettle.php\'
                                         });
                                     </script>';
                         

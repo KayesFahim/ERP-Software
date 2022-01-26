@@ -52,7 +52,7 @@ include('../session.php');
 								
 								<div class="card-body">
 									<div class="table-responsive">
-										<table class="datatable table table-stripped">
+										<table class="datatable table table-stripped" id="table"  data-order=''>
 											<thead>
 												<tr>
 													<th>Date</th>
