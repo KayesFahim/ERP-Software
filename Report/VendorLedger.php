@@ -71,7 +71,7 @@ include('../session.php');
 							<div class="card">
 								<div class="card-header">
 									<div class="text-right">
-										<a href="AddVendor.php" class="btn btn-primary"> Add +</a>
+										<a href="VendorUnSettle.php" class="btn btn-primary"> Un Settle Statement</a>
 									</div>
 								</div>
 								
@@ -132,6 +132,6 @@ include('../session.php');
 			</div>
 			<!-- /Main Wrapper -->
 			
-<! ------------  Footer ----------->
+<!------------  Footer ----------->
 <?php include '../footer.php'; ?>
-<! ------------  Footer ----------->
+<!------------  Footer ----------->

@@ -372,8 +372,7 @@ $Cashequvalent = $Bank_Amount + $MobileBanking_Amount + $SSL_Amount + $Cash;
                                     <ul>
                                         <li><a href='Report/ClientLedger.php'><i class='fe fe-layout'></i> <span>Client Report</span></a></li>
                                         <li><a href='Report/VendorLedger.php'><i class='fe fe-layout'></i> <span>Vendor Report</span></a> </li>
-                                        <li><a href='Report/UnSettle.php'><i class='fe fe-layout'></i> <span>Unsettle Report</span></a> </li>
-                                        
+                                                                               
                                     </ul>
                             </li>
                             <li>
@@ -939,7 +938,23 @@ $Cashequvalent = $Bank_Amount + $MobileBanking_Amount + $SSL_Amount + $Cash;
                                     <div class='col-lg-12'>
                                         <select class='select form-control'>
                                         <option>Ticket Voided Amount</option>
-                                        <option>Ticket Refunded Amount</option>
+
+
+                                        <?php
+
+                                                        
+												$sql = "SELECT * FROM `unsettle_vendor_leadger` Order By DateTime DESC";
+												$result = $conn->query($sql);
+                                                $Vendor_Refunded=0;
+												if ($result->num_rows > 0) {
+  												while($row = $result->fetch_assoc()) {													  
+													$Vendor_Refunded += $row['amount'];
+													   											
+												  }
+												} 
+
+												?>
+                                        <option>Ticket Refunded Amount : <?php echo $Vendor_Refunded ?></option>
                                         
                                             
                                         </select>
@@ -953,7 +968,22 @@ $Cashequvalent = $Bank_Amount + $MobileBanking_Amount + $SSL_Amount + $Cash;
                                     <div class='col-lg-12'>
                                         <select class='select form-control'>
                                         <option>Ticket Voided Amount</option>
-                                        <option>Ticket Refunded Amount</option>
+
+                                        <?php
+
+                                                        
+												$sql = "SELECT * FROM `client_unsettle_ledger` Order By DateTime DESC";
+												$result = $conn->query($sql);
+
+												if ($result->num_rows > 0) {
+  												while($row = $result->fetch_assoc()) {													  
+													$Client_Refunded = $row['amount'];
+													   											
+												  }
+												} 
+
+												?>
+                                        <option>Ticket Refunded Amount : <?php echo $Client_Refunded ?></option>
                                         
                                             
                                         </select>

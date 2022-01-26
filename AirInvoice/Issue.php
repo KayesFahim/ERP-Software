@@ -25,6 +25,7 @@ if ($result->num_rows > 0) {
 } else {
     $INV_No ="INV-1000";
  }
+
  $price1;
 
  if (array_key_exists("SQT",$_GET) && array_key_exists("PaxNo",$_GET)  && array_key_exists("PaxName",$_GET) && array_key_exists("Airlines",$_GET) 
@@ -42,11 +43,10 @@ if ($result->num_rows > 0) {
     $price1 = $_GET['Cost'];
     $Way = $_GET['Way'];
 
-}else if(array_key_exists("SQT",$_GET) && array_key_exists("PaxNo",$_GET)  && array_key_exists("PaxName",$_GET)
- && array_key_exists("ClientName",$_GET) && array_key_exists("Client_Id",$_GET)){
-
 }else{
     $PaxName = " ";
+    $SQT = " ";
+    $PaxNo= " ";
 
 }
 
@@ -164,7 +164,7 @@ if ($result->num_rows > 0) {
                                                             <div class="col-md-2">
                                                                 <div class="form-group">
                                                                     <label>Reservation officer</label>
-                                                                    <input type="name" name="revofficer" class="form-control"  required>
+                                                                    <input type="name" name="revofficer" value="<?php echo $userName; ?>" class="form-control"  disabled>
                                                                 </div>
                                                             </div>
 														
@@ -411,10 +411,6 @@ if ($result->num_rows > 0) {
                         if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
-
-
-
-
                             $date = date("Y/m/d h:m:i");
 
                             $text = "https://erp.flyfar.tech/AirInvoice/IssueInvoice.php?INV=$INV_No";
@@ -436,8 +432,6 @@ if ($result->num_rows > 0) {
                             $Vendor_Name = $row['name'];
 
                             $System =  $_POST['system'];
-                            $Rev_Officer = $_POST['revofficer'];
-
                             $sales = "UPDATE `salesqutation` SET `invoice`='yes' WHERE sqNo='$SQT' AND  PaxNo='$PaxNo'";
 
 
@@ -467,7 +461,7 @@ if ($result->num_rows > 0) {
                                 '$Vendor_Name',
                                 '$csrId',
                                 '$System',
-                                '$Rev_Officer',
+                                '$userName',
                                 '$userName'
                             )";
 
@@ -482,8 +476,7 @@ if ($result->num_rows > 0) {
                             $from1 = $_POST['from1'];
                             $to1 = $_POST['to1'];
                             $way1= $_POST['way1'];
-                            $type1= $_POST['type1'];
-                            
+                            $type1= $_POST['type1'];                           
                             $vendor1 = $_POST['vendor1'];
                             $vprice1 = $_POST['vprice1'];
                             $date = $_POST['date'];
@@ -501,6 +494,7 @@ if ($result->num_rows > 0) {
                             
                             $mrgenerate = "INSERT INTO `airticket`(
                                 `invNo`,
+                                `type`,
                                 `csrId`,
                                 `PaxName1`,
                                 `PNR1`,
@@ -518,6 +512,7 @@ if ($result->num_rows > 0) {
                             )
                             VALUES(
                                 '$INV_No',
+                                'Issue',
                                 '$csrId',
                                 '$pax1',
                                 '$pnr1',

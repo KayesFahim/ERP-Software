@@ -60,7 +60,7 @@ while($row = $result->fetch_assoc()) {
     <div class="container" style="background: url(../assets/img/pdfbg.jpeg); background-repeat: no-repeat; background-size: cover; height: 100%;">
     <div class="d-flex flex-column">
 
-        <h1 style="text-align:center;margin-top: 220px;"><u>INVOICE</u></h2>
+        <h1 style="text-align:center;margin-top: 220px;"><u>Refund INVOICE</u></h2>
 
 
         <!-- .row -->
@@ -94,7 +94,7 @@ while($row = $result->fetch_assoc()) {
                             <th scope="col">Place To</th>
                             <th scope="col">Place From</th>
                             <th scope="col">Way</th>
-                            <th scope="col">Price</th>
+                            <th scope="col">Deal Price</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -107,27 +107,24 @@ while($row = $result->fetch_assoc()) {
                             <td><?php echo $to1; ?></td>
                             <td><?php echo $from1; ?></td>
                             <td><?php echo $way1; ?></td>
-                            <td><?php echo $price1; ?></td>
+                            <td><?php $DealPrice= $_GET['DealPrice']; echo number_format($DealPrice, 2) ?></td>
                             </tr>
 
                             
                             
                             <tr>                           
-                            <td rowspan="3" colspan="7" style="text-align:left;">
+                            <td rowspan="3" colspan="7" style="text-align:center; color:red;">Refund Processing may take 7 working days. It will automatically updated on your Ledger.<br>
                             <?php echo "<left><img src='images/$INV_No.png'></left>"; ?> </td>
-                            <td>Total</td>
-                            <td><?php $Total = $price1;
-                              echo number_format($Total, 2)
-                            
-                            ?></td>
+                            <td>Airlines Penalty</td>
+                            <td><?php $Penalty= $_GET['Penalty']; echo number_format($Penalty, 2) ?></td>
                             </tr>
                             <tr>
-                            <td>Discount</td>
-                            <td>0.00</td>
+                            <td>Service Charge</td>
+                            <td><?php $Service= $_GET['Service']; echo number_format($Service, 2) ?></td>
                             </tr>
                             <tr>
-                            <td>Due</td>
-                            <td><?php  echo number_format($Total, 2) ?></td>
+                            <td>Total Refund</td>
+                            <td><?php  echo number_format($DealPrice - ($Penalty + $Service), 2) ?></td>
                             </tr>
                         </tbody>
                         </table>
@@ -139,11 +136,6 @@ while($row = $result->fetch_assoc()) {
 
     <!-- Optional JavaScript -->
 
-    <script type="text/javascript">
-    <!--
-    window.print();
-    //-->
-    </script>
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>

@@ -49,7 +49,7 @@ include('../session.php');
 								
 								<div class="card-body">
 									<div class="table-responsive">
-										<table class="datatable table table-stripped">
+										<table class="datatable table table-stripped"  id="table"  data-order=''>
 											<thead>
 												<tr>
 													<th>Date</th>
@@ -78,7 +78,7 @@ include('../session.php');
 
                                                         $Client_Id = $decryption;
 
-												$sql = "SELECT * FROM `client_ledger` WHERE CSR_ID='$Client_Id' Order By id DESC LIMIT 1000";
+												$sql = "SELECT * FROM `client_ledger` WHERE CSR_ID='$Client_Id' Order By id DESC";
 												$result = $conn->query($sql);
 
 												if ($result->num_rows > 0) {

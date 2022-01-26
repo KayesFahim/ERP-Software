@@ -83,9 +83,7 @@ include('../session.php');
 																<td>".$row["email"]."</td>
 																<td><a href='EditCustomer.php?cId=$encryption' class='btn btn-primary'> View </a><td>
 																</tr>";   											
-												}
-												} else {
-
+													}
 												}
 												?>
 

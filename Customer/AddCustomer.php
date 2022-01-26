@@ -163,7 +163,7 @@ if ($result->num_rows > 0) {
 												print '<script>
 												swal({
 												title: "Success!",
-												text: "Vendor Added Successfully!",
+												text: "Customer Added Successfully!",
 												type: "success",
 												confirmButtonText: "Cool"
 												},

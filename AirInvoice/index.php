@@ -86,6 +86,7 @@ include('../session.php');
 												if ($result->num_rows > 0) {
   												while($row = $result->fetch_assoc()) {	
 													$INV = $row["invNo"];
+													$Type = $row["type"];
 													$Profit = $row['cost1'] -  $row['vPrice1'];
 
 													date_default_timezone_set('Asia/Dhaka');
@@ -103,32 +104,32 @@ include('../session.php');
 																<td>".$row["clientName"]."</td>";
 
 																if($row["type"] == 'Issue'){														
-																	echo "<td><a href='IssueInvoice.php?INV=$INV' class='btn btn-primary'> View </a> ";
-																	echo "<a href='ReIssue.php?INV=$INV' class='btn btn-primary'> ReIssue </a> ";
+																	echo "<td><a href='IssueInvoice.php?INV=$INV&Type=$Type' class='btn btn-primary'> View </a> ";
+																	echo "<a href='ReIssue.php?INV=$INV&Type=$Type' class='btn btn-primary'> ReIssue </a> ";
 																	echo "<a href='SecondSegment.php?INV=$INV' class='btn btn-primary'> Second Segment </a> ";
-																	echo "<a href='Refund.php?INV=$INV' class='btn btn-primary'> Refund </a> ";
+																	echo "<a href='Refund.php?INV=$INV&Type=$Type' class='btn btn-primary'> Refund </a> ";
 																	if($dataDate == $endTime){														
-																		echo "<a href='Void.php?INV=$INV' class='btn btn-primary'> Void </a> </td>";																
+																		echo "<a href='Void.php?INV=$INV&Type=$Type' class='btn btn-primary'> Void </a> </td>";																
 																	}															
 																}else if ($row["type"] == 'Void'){														
-																	echo "<td><a href='VoidInvoice.php?INV=$INV' class='btn btn-primary'> View </a> ";
+																	echo "<td><a href='VoidInvoice.php?INV=$INV&Type=$Type' class='btn btn-primary'> View </a> ";
 																	
 																}else if ($row["type"] == 'Refund'){														
-																	echo "<td><a href='IssueInvoice.php?INV=$INV' class='btn btn-primary'> View </a> ";
+																	echo "<td><a href='IssueInvoice.php?INV=$INV&Type=$Type' class='btn btn-primary'> View </a> ";
 																}else if($row["type"] == 'ReIssue'){														
-																	echo "<td><a href='ReIssueInvoice.php?INV=$INV' class='btn btn-primary'> View </a> ";
-																	echo "<a href='ReIssue.php?INV=$INV' class='btn btn-primary'> ReIssue </a> ";
-																	echo "<a href='SecondSegment.php?INV=$INV' class='btn btn-primary'> Second Segment </a> ";
-																	echo "<a href='Refund.php?INV=$INV' class='btn btn-primary'> Refund </a> ";
+																	echo "<td><a href='ReIssueInvoice.php?INV=$INV&Type=$Type' class='btn btn-primary'> View </a> ";
+																	echo "<a href='ReIssue.php?INV=$INV&Type=$Type' class='btn btn-primary'> ReIssue </a> ";
+																	echo "<a href='SecondSegment.php?INV=$INV&Type=$Type' class='btn btn-primary'> Second Segment </a> ";
+																	echo "<a href='Refund.php?INV=$INV&Type=$Type' class='btn btn-primary'> Refund </a> ";
 																	if($dataDate == $endTime){														
-																		echo "<a href='Void.php?INV=$INV' class='btn btn-primary'> Void </a> </td>";																
+																		echo "<a href='Void.php?INV=$INV&Type=$Type' class='btn btn-primary'> Void </a> </td>";																
 																	}
 																}else if($row["type"] == 'Second Segment'){														
-																	echo "<td><a href='SecondSegmentInvoice.php?INV=$INV' class='btn btn-primary'> View </a> ";
-																	echo "<a href='ReIssue.php?INV=$INV' class='btn btn-primary'> ReIssue </a> ";
-																	echo "<a href='Refund.php?INV=$INV' class='btn btn-primary'> Refund </a> ";
+																	echo "<td><a href='SecondSegmentInvoice.php?INV=$INV&Type=$Type' class='btn btn-primary'> View </a> ";
+																	echo "<a href='ReIssue.php?INV=$INV&Type=$Type' class='btn btn-primary'> ReIssue </a> ";
+																	echo "<a href='Refund.php?INV=$INV&Type=$Type' class='btn btn-primary'> Refund </a> ";
 																	if($dataDate == $endTime){														
-																		echo "<a href='Void.php?INV=$INV' class='btn btn-primary'> Void </a> </td>";																
+																		echo "<a href='Void.php?INV=$INV&Type=$Type' class='btn btn-primary'> Void </a> </td>";																
 																	}
 																}		
 																																	

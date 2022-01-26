@@ -19,6 +19,7 @@ $vendor1;
 $Rev_Officer;
 
 $INV_No= $_GET['INV'];
+$Type = $_GET['Type'];
 
 $sql1 = "SELECT
                 invoice.invNo,
@@ -42,7 +43,7 @@ $sql1 = "SELECT
                 invoice.recofficer
                 FROM invoice
                 INNER JOIN airticket ON invoice.invNo = airticket.invNo
-                WHERE invoice.type = 'Issue' AND invoice.invNo = '$INV_No'";
+                WHERE airticket.type = '$Type' AND invoice.invNo = '$INV_No'";
 $return = $conn->query($sql1);
 if ($return->num_rows > 0) {
 	while($data = $return->fetch_assoc()) {
@@ -67,138 +68,13 @@ if ($return->num_rows > 0) {
 }
 
 
-
-// Generate PDF
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
-    $date = date("Y/m/d h:m:i");
-
-    $text = "https://erp.flyfar.tech/AirInvoice/IssueInvoice.php?INV=$INV_No";
-    $path = 'images/';
-    $file = $path.$INV_No.".png";
-    $ecc = 'L';
-    $pixel_Size = 5;
-    
-    QRcode::png($text, $file, $ecc, $pixel_Size);
-
-    $Refund_Charge = $_POST['refund'];
-    $Service_Charge = $_POST['service'];
-    $Vendor_Charge = $_POST['vendorcharge'];
-    $Type = $_POST['type'];
-    $Comment = $_POST['comment'];
-
-
-
-    $invoice = "INSERT INTO `invoice`(
-        `invNo`,
-        `type`,
-        `clientName`,
-        `vendorName`,
-        `csrId`,
-        `system`,
-        `recofficer`,
-        `createdBy`
-    )
-    VALUES(
-        '$INV_No',
-        'Refund',
-        '$Client_Name',
-        '$Vendor_Name',
-        '$csrId',
-        ' ',
-        '$Rev_Officer',
-        '$userName'
-    )";
-
-if (mysqli_query($conn, $invoice)) {
-    		
-	
-    $mrgenerate = "INSERT INTO `airticket`(
-        `invNo`,
-        `csrId`,
-        `PaxName1`,
-        `PNR1`,
-        `TicketNo1`,
-        `Airlines1`,
-        `placeTo1`,
-        `placeFrom1`,
-        `cost1`,
-        `vendor1`,
-        `vPrice1`,       
-        `way1`,
-        `ticketType1`,       
-        `flight1`
-
-    )
-    VALUES(
-        '$INV_No',
-        '$csrId',
-        '$pax1',
-        '$pnr1',
-        '$ticket1',
-        '$airlines1',
-        '$from1',
-        '$to1',
-        '$Service_Charge',
-        '$vendor1',
-        '0',
-        '$way1',
-        '$type1',
-        '$flight1'
-        
-    )";
-
-	if (mysqli_query($conn, $mrgenerate)) {
-
-        $ses_sql = mysqli_query($conn,"SELECT * FROM client_ledger where CSR_ID='$csrId' ORDER BY DateTime DESC LIMIT 1");
-        $row = mysqli_fetch_array($ses_sql,MYSQLI_ASSOC);
-        
-
-        $Balance_After_refund = $price1 - ((int)$Refund_Charge + (int)$Service_Charge + (int)$Vendor_Charge);
-        $Balanced = $row['Balance'] + (int)$Balance_After_refund;
-        
-
-        $ClientLedger ="INSERT INTO `client_ledger`(`TxType`,`type`, `CSR_ID`, `PaxName`, `serviceType`, `Details`, `deposit`, `Balance`)
-                         VALUES ('$INV_No','$Type Refund','$csrId','$pax1','$type1','$pnr1 $ticket1 $airlines1 $way1 $from1-$to1','$Balance_After_refund','$Balanced')";
-
-        if (mysqli_query($conn, $ClientLedger)) {
-
-            $ses_sql1 = mysqli_query($conn,"SELECT * FROM vendor_ledger where VDR_ID='$vendor1' ORDER BY DateTime DESC LIMIT 1");
-            $row1 = mysqli_fetch_array($ses_sql1,MYSQLI_ASSOC);
-            
-            $vendorBalance = $vprice1 - ((int)$airlines1 + (int)$Vendor_Charge);
-            $vBalanced = (int)$row1['balance'] - (int)$vendorBlaance;
-
-
-             $vendorLedger ="INSERT INTO `vendor_ledger`(`txType`,`type`, `VDR_ID`, `pax`, `pnr`, `ticket`, `serviceType`, `details`, `deposit`,`balance`)
-             VALUES ('$INV_No','$Type Refund','$vendor1','$pax1','$pnr1','$ticket1','$type1','$airlines1 ' \n ' $way1 ' \n ' $from1-$to1','$vendorBalance','$vBalanced')";
-
-            if (mysqli_query($conn, $vendorLedger)) {
-
-                            echo '<script language="javascript">';
-		                    echo 'alert("Successfully Created"); location.href="IssueInvoice.php?INV='.$INV_No.'"';
-		                    echo '</script>';
-          
-                
-            }
-            
-             
-        }
-        
-        
-	}
-}
-
-} 
-
 	
 ?>
 
 
-<! ------------  Header ----------->
+<!------------  Header ----------->
 <?php include '../header.php'; ?>
-<! ------------  Header ----------->
+<!------------  Header ----------->
 
         <?php
         include '../sidebar.php';
@@ -405,6 +281,135 @@ if (mysqli_query($conn, $invoice)) {
 							</div>
 						</div>
                          <!---- Pax 1 -->
+
+
+                         <?php
+                        
+                        // Generate PDF
+
+                        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+                            $date = date("Y/m/d h:m:i");
+
+                            $text = "https://erp.flyfar.tech/AirInvoice/IssueInvoice.php?INV=$INV_No";
+                            $path = 'images/';
+                            $file = $path.$INV_No.".png";
+                            $ecc = 'L';
+                            $pixel_Size = 5;
+                            
+                            QRcode::png($text, $file, $ecc, $pixel_Size);
+
+                            $Refund_Charge = $_POST['refund'];
+                            $Service_Charge = $_POST['service'];
+                            $Vendor_Charge = $_POST['vendorcharge'];
+                            $Type = $_POST['type'];
+                            $Comment = $_POST['comment'];
+
+
+
+                            $invoice = "INSERT INTO `invoice`(
+                                `invNo`,
+                                `type`,
+                                `clientName`,
+                                `vendorName`,
+                                `csrId`,
+                                `system`,
+                                `recofficer`,
+                                `createdBy`
+                            )
+                            VALUES(
+                                '$INV_No',
+                                'Refund',
+                                '$Client_Name',
+                                '$Vendor_Name',
+                                '$csrId',
+                                ' ',
+                                '$Rev_Officer',
+                                '$userName'
+                            )";
+
+                        if (mysqli_query($conn, $invoice)) {
+                                    
+                            
+                            $mrgenerate = "INSERT INTO `airticket`(
+                                `invNo`,
+                                `type`,
+                                `csrId`,
+                                `PaxName1`,
+                                `PNR1`,
+                                `TicketNo1`,
+                                `Airlines1`,
+                                `placeTo1`,
+                                `placeFrom1`,
+                                `cost1`,
+                                `vendor1`,
+                                `vPrice1`,       
+                                `way1`,
+                                `ticketType1`,       
+                                `flight1`
+
+                            )
+                            VALUES(
+                                '$INV_No',
+                                'Refund',
+                                '$csrId',
+                                '$pax1',
+                                '$pnr1',
+                                '$ticket1',
+                                '$airlines1',
+                                '$from1',
+                                '$to1',
+                                '$Service_Charge',
+                                '$vendor1',
+                                '0',
+                                '$way1',
+                                '$type1',
+                                '$flight1'
+                                
+                            )";
+
+                            if (mysqli_query($conn, $mrgenerate)) {
+
+
+                                $Balance_After_refund = $price1 - ((int)$Refund_Charge + (int)$Service_Charge + (int)$Vendor_Charge);
+                               
+                                $ClientLedger ="INSERT INTO `client_unsettle_ledger`(`TxType`,`type`, `CSR_ID`, `PaxName`, `serviceType`, `Details`, `amount`)
+                                                VALUES ('$INV_No','$Type Refund','$csrId','$pax1','$type1','$pnr1 $ticket1 $airlines1 $way1 $from1-$to1','$Balance_After_refund')";
+
+                                if (mysqli_query($conn, $ClientLedger)) {
+
+                                    
+                                    $vendorBalance = $vprice1 - ((int)$airlines1 + (int)$Vendor_Charge);
+
+                                    $vendorLedger ="INSERT INTO `unsettle_vendor_leadger`(`txType`,`type`, `VDR_ID`, `pax`, `pnr`, `ticket`, `serviceType`, `details`, `amount`)
+                                    VALUES ('$INV_No','$Type Refund','$vendor1','$pax1','$pnr1','$ticket1','$type1','$airlines1 ' \n ' $way1 ' \n ' $from1-$to1','$vendorBalance')";
+
+                                    if (mysqli_query($conn, $vendorLedger)) {
+
+                                        print '<script>
+                                        swal({
+                                        title: "Success!",
+                                        text: "Refund Invoice Created Successfully!",
+                                        type: "success",
+                                        confirmButtonText: "Cool"
+                                        },
+                                        function(){
+                                            window.location=\'RefundInvoice.php?INV='.$INV_No.'&DealPrice='.$price1.'&Penalty='.$Refund_Charge+$Vendor_Charge.'&Service='.$Service_Charge.'\'
+                                            });
+                                        </script>';
+                                
+                                        
+                                    }
+                                    
+                                    
+                                }
+                                
+                                
+                            }
+                        }
+
+                        } 
+                         ?>
                          
 
                         

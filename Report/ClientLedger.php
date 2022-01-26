@@ -166,13 +166,13 @@ include('../session.php');
 							<div class="card">
 								<div class="card-header">
 									<div class="text-right">
-										<a href="AddCustomer.php" class="btn btn-primary"> Add +</a>
+										<a href="ClientUnSettle.php" class="btn btn-primary"> Un Settle Statement</a>
 									</div>
 								</div>
 								
 								<div class="card-body">
 									<div class="table-responsive">
-										<table class="datatable table table-stripped">
+										<table class="datatable table table-stripped"  id="table"  data-order=''>
 											<thead>
 												<tr>
 													<th>Client ID</th>

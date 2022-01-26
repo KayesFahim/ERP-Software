@@ -142,13 +142,13 @@ if($userRole == 'reservation'){
                  <a href='../Dashboard.php'><i class='fe fe-home'></i> <span>Dashboard</span></a>
              </li>
              <li>
-                                <a data-toggle='dropdown'><i class='fe fe-layout'></i> <span>Sales Quatation</span></a>
-                                    <ul>
-                                        <li><a href='../SalesQuatation'><i class='fe fe-layout'> </i> <span> Air Ticket</span></a></li> 
-                                        <li><a href='../SalesQuatation/PackageQuatation.php'><i class='fe fe-layout'> </i> <span> Package</span></a></li>                                       
-                                    </ul>
-                                    </li>
-                            <li>
+              <a data-toggle='dropdown'><i class='fe fe-layout'></i> <span>Sales Quatation</span></a>
+               <ul>
+                    <li><a href='../SalesQuatation'><i class='fe fe-layout'> </i> <span> Air Ticket</span></a></li> 
+                    <li><a href='../SalesQuatation/PackageQuatation.php'><i class='fe fe-layout'> </i> <span> Package</span></a></li>                                       
+                    </ul>
+                    </li>
+                    <li>
              <li>
                   <a data-toggle='dropdown'><i class='fe fe-layout'></i> <span>Invoice</span></a>
                       <ul>
@@ -177,8 +177,7 @@ if($userRole == 'reservation'){
                  <a data-toggle='dropdown'><i class='fe fe-layout'></i> <span> Report</span></a>
                      <ul>
                          <li><a href='../Report/ClientLedger.php'><i class='fe fe-layout'></i> <span>Client Report</span></a></li>
-                         <li><a href='../Report/VendorLedger.php'><i class='fe fe-layout'></i> <span>Vendor Report</span></a> </li>
-                         <li><a href='../Report/UnSettle.php'><i class='fe fe-layout'></i> <span>Unsettle Report</span></a> </li>                        
+                         <li><a href='../Report/VendorLedger.php'><i class='fe fe-layout'></i> <span>Vendor Report</span></a> </li>                      
                      </ul>
              </li>
              <li>
