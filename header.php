@@ -29,6 +29,24 @@
 
     <script src="https://common.olemiss.edu/_js/sweet-alert/sweet-alert.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://common.olemiss.edu/_js/sweet-alert/sweet-alert.css">
+
+    <style>
+        .dot {
+        height: 25px;
+        width: 25px;
+        background-color: red;
+        border-radius: 50%;
+        display: inline-block;
+        }
+
+        .dot1 {
+        height: 25px;
+        width: 25px;
+        background-color: green;
+        border-radius: 50%;
+        display: inline-block;
+        }
+    </style>
    
 
 </head>
@@ -121,6 +139,7 @@
                         </div>
                         <a class="dropdown-item" href="">My Profile</a>
                         <a class="dropdown-item" href="">Settings</a>
+                        <a class="dropdown-item" href="../Chat">Chat</a>
                         <a class="dropdown-item" href="../logout.php">Logout</a>
                     </div>
                 </li>

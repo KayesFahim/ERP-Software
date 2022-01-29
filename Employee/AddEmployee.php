@@ -3,15 +3,13 @@ include '../config.php';
 require '../session.php';
 
 $EmployeeId;
-
-
 $sql = "SELECT * FROM employee ORDER BY id DESC LIMIT 1";
 $result = $conn->query($sql);
 if ($result->num_rows > 0) {
 	while($row = $result->fetch_assoc()) {
 		$outputString = preg_replace('/[^0-9]/', '', $row["EMP_ID"]);
         $number= (int)$outputString + 1;
-		$EmployeeId = "FFI-$number";
+				$EmployeeId = "FFI-$number";
  }
 } else {
 	$EmployeeId ="FFI-1000";
@@ -32,17 +30,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $Blood  = $_POST['blood'];
     $HomePhone = $_POST['telephone'];
     $BirthDate = $_POST['birthday'];
-	$TemporaryAddress = $_POST['tAddress'];
-	$ParmanentAddress = $_POST['pAddress'];
-	$NID = $_POST['nid'];
-	$Passport = $_POST['passport'];
-	$Insurance = $_POST['insuranc'];
+	  $TemporaryAddress = $_POST['tAddress'];
+  	$ParmanentAddress = $_POST['pAddress'];
+	  $NID = $_POST['nid'];
+	  $Passport = $_POST['passport'];
+	  $Insurance = $_POST['insuranc'];
 
 
-	$BankName = $_POST['bname'];
+  	$BankName = $_POST['bname'];
     $BankAcc = $_POST['bAccount'];
     $BankBrunch= $_POST['bBranch'];
-	$PFBrunch= $_POST['pfAcc'];
+	  $PFBrunch= $_POST['pfAcc'];
 
 
     $JobType = $_POST['jobtype'];
@@ -55,31 +53,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $SalaryIncrement = $_POST['salaryincrement'];
 
 
-	$Company = $_POST['company'];
-	$CompanyResign = $_POST['time'];
-	$CompanyIssue = $_POST['issue'];
+		$Company = $_POST['company'];
+		$CompanyResign = $_POST['time'];
+		$CompanyIssue = $_POST['issue'];
 
 
     $UniversityName  = $_POST['uvname'];
     $UvPassingYear = $_POST['uvpassingyear'];
     $UvResult = $_POST['uvresult'];
-	$UvYear = $_POST['uvyear'];
+		$UvYear = $_POST['uvyear'];
 
-	$CollegeName  = $_POST['collegename'];
+		$CollegeName  = $_POST['collegename'];
     $CollegePassingYear = $_POST['collegepassingyear'];
     $CollegeResult = $_POST['collegeresult'];
-	$CollegeYear = $_POST['collegeyear'];
+		$CollegeYear = $_POST['collegeyear'];
 
-	$SchoolName  = $_POST['schoolname'];
+		$SchoolName  = $_POST['schoolname'];
     $SchoolPassingYear = $_POST['schoolpassingyear'];
     $SchoolResult = $_POST['schoolresult'];
-	$SchoolYear = $_POST['schoolyear'];
+		$SchoolYear = $_POST['schoolyear'];
 
     $NomineeName = $_POST['nomineename'];
     $NomineePhone = $_POST['nomineephone'];
     $Relation  = $_POST['nomineerelation'];
     $NomineeTAddress = $_POST['nomineeTAddress'];
-	$NomineePAddress = $_POST['nomineePAddress'];
+		$NomineePAddress = $_POST['nomineePAddress'];
     $NomineeBirthDay = $_POST['nomineebirth'];
 
 
@@ -190,7 +188,7 @@ VALUES(
 	'$NomineePhone',
 	'$NomineePAddress'
 
-    
+
 )";
 
 if (mysqli_query($conn, $sql)) {
@@ -265,32 +263,32 @@ if (mysqli_query($conn, $sql)) {
 														</div>
 														<div class="col-md-2">
 															<div class="form-group">
-																<label>Email </label> <b style="color:red;">*</b> 
+																<label>Email </label> <b style="color:red;">*</b>
 																<input type="email" name="email" class="form-control" required>
 															</div>
 														</div>
 														<div class="col-md-2">
 															<div class="form-group">
-																<label>Full Name</label> <b style="color:red;">*</b> 
+																<label>Full Name</label> <b style="color:red;">*</b>
 																<input type="text" name="name" class="form-control"required>
 															</div>
 														</div>
                                                         <div class="col-md-2">
 															<div class="form-group">
-																<label>Phone</label> <b style="color:red;">*</b> 
+																<label>Phone</label> <b style="color:red;">*</b>
 																<input type="text" name="phone" class="form-control" required>
 															</div>
 														</div>
                                                         <div class="col-md-2">
 															<div class="form-group">
-																<label>Department :</label> <b style="color:red;">*</b> 
+																<label>Department :</label> <b style="color:red;">*</b>
 																<input type="text" name="department" class="form-control" required>
 															</div>
 													    </div>
 
                                                         <div class="col-md-2">
 															<div class="form-group">
-																<label>Password :</label> <b style="color:red;">*</b> 
+																<label>Password :</label> <b style="color:red;">*</b>
 																<input type="password" name="password" class="form-control" required>
 															</div>
 														</div>
@@ -324,31 +322,31 @@ if (mysqli_query($conn, $sql)) {
 													<div class="row">
 														<div class="col-md-2">
 															<div class="form-group">
-																<label>Father Name</label> <b style="color:red;">*</b> 
+																<label>Father Name</label> <b style="color:red;">*</b>
 																<input type="text" name="fname" class="form-control" required>
 															</div>
 														</div>
 														<div class="col-md-2">
 															<div class="form-group">
-																<label>Mother Name</label> <b style="color:red;">*</b> 
+																<label>Mother Name</label> <b style="color:red;">*</b>
 																<input type="text" name="mname" class="form-control" required>
 															</div>
 														</div>
 														<div class="col-md-2">
 															<div class="form-group">
-																<label>Religion</label> <b style="color:red;">*</b> 
+																<label>Religion</label> <b style="color:red;">*</b>
 																<input type="text" name="religion" class="form-control" required>
 															</div>
 														</div>
                                                         <div class="col-md-2">
 															<div class="form-group">
-																<label>Marital Status</label> <b style="color:red;">*</b> 
+																<label>Marital Status</label> <b style="color:red;">*</b>
 																<input type="text" name="marital" class="form-control" required>
 															</div>
 														</div>
                                                         <div class="col-md-2">
 															<div class="form-group">
-																<label>Blood Group :</label> <b style="color:red;">*</b> 
+																<label>Blood Group :</label> <b style="color:red;">*</b>
 																<input type="text" name="blood" class="form-control" required>
 															</div>
 														</div>
@@ -363,19 +361,19 @@ if (mysqli_query($conn, $sql)) {
 													<div class="row">
 														<div class="col-md-4">
 															<div class="form-group">
-																<label>Birth Date :</label> <b style="color:red;">*</b> 
+																<label>Birth Date :</label> <b style="color:red;">*</b>
 																<input type="date" name="birthday" class="form-control" required>
 															</div>
 														</div>
                                                         <div class="col-md-4">
 															<div class="form-group">
-																<label>Temporary Address:</label> <b style="color:red;">*</b> 
+																<label>Temporary Address:</label> <b style="color:red;">*</b>
 																<input type="text" name="tAddress" class="form-control" required>
 															</div>
 														</div>
                                                         <div class="col-md-4">
 															<div class="form-group">
-																<label>Parmanent Address:</label> <b style="color:red;">*</b> 
+																<label>Parmanent Address:</label> <b style="color:red;">*</b>
 																<input type="text" name="pAddress" class="form-control" required>
 															</div>
 														</div>
@@ -383,7 +381,7 @@ if (mysqli_query($conn, $sql)) {
 													<div class="row">
 														<div class="col-md-4">
 															<div class="form-group">
-																<label>NID</label><i style="color:red;">*</i> 
+																<label>NID</label><i style="color:red;">*</i>
 																<input type="text" name="nid" class="form-control" required>
 															</div>
 														</div>
@@ -481,25 +479,25 @@ if (mysqli_query($conn, $sql)) {
 													<div class="row">
 														<div class="col-md-3">
 															<div class="form-group">
-																<label>Job Type</label> <b style="color:red;">*</b> 
+																<label>Job Type</label> <b style="color:red;">*</b>
 																<input type="text" name="jobtype" class="form-control" required>
 															</div>
 														</div>
 														<div class="col-md-3">
 															<div class="form-group">
-																<label>Designation</label> <b style="color:red;">*</b> 
+																<label>Designation</label> <b style="color:red;">*</b>
 																<input type="text" name="designation" class="form-control" required>
 															</div>
 														</div>
 														<div class="col-md-3">
 															<div class="form-group">
-																<label>Salary</label> <b style="color:red;">*</b> 
+																<label>Salary</label> <b style="color:red;">*</b>
 																<input type="number" name="salary" class="form-control" required>
 															</div>
 														</div>
                                                         <div class="col-md-3">
 															<div class="form-group">
-																<label>Registration Date :</label> <b style="color:red;">*</b> 
+																<label>Registration Date :</label> <b style="color:red;">*</b>
 																<input type="date" name="regDate" class="form-control" required>
 															</div>
 													    </div>
@@ -508,7 +506,7 @@ if (mysqli_query($conn, $sql)) {
 													<div class="row">
                                                     <div class="col-md-3">
 															<div class="form-group">
-																<label>Join Date :</label> <i style="color:red;">*</i> 
+																<label>Join Date :</label> <i style="color:red;">*</i>
 																<input type="date" name="joinDate" class="form-control" required>
 															</div>
 													</div>
@@ -568,7 +566,7 @@ if (mysqli_query($conn, $sql)) {
 																<input type="text" name="company" class="form-control">
                                                             </div>
                                                         </div>
-                                                       
+
 
                                                         <div class="col-md-2">
                                                             <div class="form-group">
@@ -714,19 +712,19 @@ if (mysqli_query($conn, $sql)) {
 													<div class="row">
 														<div class="col-md-4">
 															<div class="form-group">
-																<label>Nominee Name</label> <b style="color:red;">*</b> 
+																<label>Nominee Name</label> <b style="color:red;">*</b>
 																<input type="text" name="nomineename" class="form-control" required>
 															</div>
 														</div>
 														<div class="col-md-4">
 															<div class="form-group">
-																<label>Relation</label> <b style="color:red;">*</b> 
+																<label>Relation</label> <b style="color:red;">*</b>
 																<input type="name" name="nomineerelation" class="form-control" required>
 															</div>
 														</div>
 														<div class="col-md-4">
 															<div class="form-group">
-																<label>Address</label> <b style="color:red;">*</b> 
+																<label>Address</label> <b style="color:red;">*</b>
 																<input type="text" name="nomineeTAddress" class="form-control" required>
 															</div>
 														</div>
@@ -736,19 +734,19 @@ if (mysqli_query($conn, $sql)) {
 													<div class="row">
 														<div class="col-md-4">
 															<div class="form-group">
-																<label>Birth Date :</label> <b style="color:red;">*</b> 
+																<label>Birth Date :</label> <b style="color:red;">*</b>
 																<input type="date" name="nomineebirth" class="form-control" required>
 															</div>
 														</div>
                                                         <div class="col-md-4">
 															<div class="form-group">
-																<label>Phone</label> <b style="color:red;">*</b> 
+																<label>Phone</label> <b style="color:red;">*</b>
 																<input type="text" name="nomineephone" class="form-control" required>
 															</div>
 														</div>
                                                         <div class="col-md-4">
 															<div class="form-group">
-																<label>Parmanent Address:</label> <b style="color:red;">*</b> 
+																<label>Parmanent Address:</label> <b style="color:red;">*</b>
 																<input type="text" name="nomineePAddress" class="form-control" required>
 															</div>
 														</div>
@@ -773,7 +771,7 @@ if (mysqli_query($conn, $sql)) {
 			</form>
 			</div>
 			<!-- /Main Wrapper -->
-			
+
 <!------------  Footer ----------->
 <?php include '../footer.php'; ?>
 <!------------  Footer ----------->

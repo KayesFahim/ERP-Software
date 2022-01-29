@@ -120,6 +120,9 @@ $Cashequvalent = $Bank_Amount + $MobileBanking_Amount + $SSL_Amount + $Cash;
             <!-- Header Right Menu -->
             <ul class="nav user-menu">
 
+        
+
+
                 <!-- Notifications -->
 				<li class="nav-item dropdown noti-dropdown">
 					<a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
@@ -174,6 +177,7 @@ $Cashequvalent = $Bank_Amount + $MobileBanking_Amount + $SSL_Amount + $Cash;
                         </div>
                         <a class="dropdown-item" href="">My Profile</a>
                         <a class="dropdown-item" href="">Settings</a>
+                        <a class="dropdown-item" href="Chat">Chatting</a>
                         <a class="dropdown-item" href="logout.php">Logout</a>
                     </div>
                 </li>
@@ -387,6 +391,13 @@ $Cashequvalent = $Bank_Amount + $MobileBanking_Amount + $SSL_Amount + $Cash;
                             </li>
                             <li>
                                 <a href='Customer'><i class='fe fe-layout'></i> <span>Customer</span></a>
+                            </li>
+
+                            <li>
+                            <a type='button' class='btn btn-primary' data-toggle='modal' data-target='#myModal2'>
+                                    ChatRoom
+                                </a>
+                           
                             </li>
                             
                         </ul>
@@ -1034,6 +1045,51 @@ $Cashequvalent = $Bank_Amount + $MobileBanking_Amount + $SSL_Amount + $Cash;
         </div>
 
         <!-- /Page Wrapper -->
+
+        <!-- Modal -->
+        <div class="modal right fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel2">All Peps</h4>
+                    </div>
+
+                    <div class="modal-body">
+                    <div class="card" style="width: 29rem;">
+                    <div class="card-header">
+                        <h3>Peoples Available For Chat</h3>
+                    </div>
+                        <ul class="list-group list-group-flush">
+                            <?php
+
+                                    $sql = "SELECT *  FROM `users` ORDER BY id DESC";
+                                    $result = $conn->query($sql);
+                                    $id = $row['id'];
+                                    if ($result->num_rows > 0) {
+                                    while($row = $result->fetch_assoc()) {	
+                                        
+                                        echo  "<a href='Chat/chat.php?$id'><li class='list-group-item'>
+                                                    <h4>".$row["fname"]. " ".$row["lname"]."</h4>";
+                                                if($row['status'] == 'Active Now'){  
+                                                    echo"<span class='dot'></span> <i style='color:green;''>".$row['status']."</i></li>";
+                                                }else{
+                                                    echo"<span class='dot1'></span> <i style='color:red;''>".$row['status']."</i></li>";
+                                                }                                       
+                                    }
+                                }
+                                    ?>
+                            
+                        </ul>
+                    </div>
+                        
+                    </div>
+
+                </div><!-- modal-content -->
+            </div><!-- modal-dialog -->
+        </div><!-- modal -->
+
 
         <!-- FOOTER -->
     
