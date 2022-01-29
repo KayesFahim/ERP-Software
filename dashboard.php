@@ -110,13 +110,7 @@ $Cashequvalent = $Bank_Amount + $MobileBanking_Amount + $SSL_Amount + $Cash;
                 <i class="fe fe-text-align-left"></i>
             </a>
 
-            <div class="top-nav-search">
-                <form>
-                    <input type="text" class="form-control" placeholder="Search here">
-                    <button class="btn" type="submit"><i class="fa fa-search"></i></button>
-                </form>
-            </div>
-
+            
             <!-- Mobile Menu Toggle -->
             <a class="mobile_btn" id="mobile_btn">
                 <i class="fa fa-bars"></i>
@@ -942,25 +936,24 @@ $Cashequvalent = $Bank_Amount + $MobileBanking_Amount + $SSL_Amount + $Cash;
 
                                         <?php
 
-                                                        
-												$sql = "SELECT * FROM `unsettle_vendor_leadger` Order By DateTime DESC";
-												$result = $conn->query($sql);
-                                                $Vendor_Refunded=0;
-												if ($result->num_rows > 0) {
-  												while($row = $result->fetch_assoc()) {													  
-													$Vendor_Refunded += $row['amount'];
-													   											
-												  }
-												} 
+                                            $sql = "SELECT * FROM `unsettle_vendor_leadger` Order By DateTime DESC";
+                                            $result = $conn->query($sql);
+                                            $Vendor_Refunded=0;
+                                            if ($result->num_rows > 0) {
+                                                while($row = $result->fetch_assoc()) {													  
+                                                    $Vendor_Refunded = $row['amount'];
+                                                                                                
+                                                }
+                                            }
 
-												?>
+										?>
                                         <option>Ticket Refunded Amount : <?php echo $Vendor_Refunded ?></option>
                                         
                                             
                                         </select>
                                     </div>
                                 </div>
-                                <h6 class='text-center'><b style="color:red;"><?php echo "$BankTotal Taka" ?></b></h6>
+                                <h6 class='text-center'><b style="color:red;"><?php echo "$Vendor_Refunded Taka" ?></b></h6>
                             </div>
                             <div class='col-md-4'>
                             <h6> Air Ticket Client Unsettle Amount:  <?php echo "$Cashequvalent Taka" ?></h6>
@@ -970,11 +963,10 @@ $Cashequvalent = $Bank_Amount + $MobileBanking_Amount + $SSL_Amount + $Cash;
                                         <option>Ticket Voided Amount</option>
 
                                         <?php
-
                                                         
 												$sql = "SELECT * FROM `client_unsettle_ledger` Order By DateTime DESC";
 												$result = $conn->query($sql);
-
+                                                $Client_Refunded = 0;
 												if ($result->num_rows > 0) {
   												while($row = $result->fetch_assoc()) {													  
 													$Client_Refunded = $row['amount'];
@@ -982,7 +974,7 @@ $Cashequvalent = $Bank_Amount + $MobileBanking_Amount + $SSL_Amount + $Cash;
 												  }
 												} 
 
-												?>
+										?>
                                         <option>Ticket Refunded Amount : <?php echo $Client_Refunded ?></option>
                                         
                                             
@@ -1021,19 +1013,30 @@ $Cashequvalent = $Bank_Amount + $MobileBanking_Amount + $SSL_Amount + $Cash;
 
                         </div>
 
-                        
-                        
-                        
+                                               
                         </div>
+                        
                     </div>
+
+                    
+
+
                 </div>
+                <footer class="container" style="margin-top: 100px;">                           
+                            <p align="center"><b>&copy; 2021-2022 All Right Reserved || Developed By Fly Far Tech. </b></p>
+                </footer>
+
                 
+                               
             </div>
+
+                      
         </div>
 
         <!-- /Page Wrapper -->
 
-
+        <!-- FOOTER -->
+    
 
     </div>
     <!-- /Main Wrapper -->
