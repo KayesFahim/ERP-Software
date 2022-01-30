@@ -177,7 +177,7 @@ $Cashequvalent = $Bank_Amount + $MobileBanking_Amount + $SSL_Amount + $Cash;
                         </div>
                         <a class="dropdown-item" href="">My Profile</a>
                         <a class="dropdown-item" href="">Settings</a>
-                        <a class="dropdown-item" href="Chat">Chatting</a>
+                        <a href="Chat" class="dropdown-item" href="Chat">ChatRoom</a>
                         <a class="dropdown-item" href="logout.php">Logout</a>
                     </div>
                 </li>
@@ -504,21 +504,32 @@ $Cashequvalent = $Bank_Amount + $MobileBanking_Amount + $SSL_Amount + $Cash;
                 <div class='row'>
                     <div class='col-sm-12'>
                         <div class='row'>
-                            <div class='col-md-8'>
-                                <h6>Balance Sheet Information</h6>
-                            </div>
-                            <div class='col-md-4'>
-                                <div class='row'>
-                                    <label class='col-lg-12 col-form-label'> Cash And Cash Equivalents:  <b><span
-                                                    style='color:red; font-size: 20px;'><?php echo "$Cashequvalent Taka" ?></span></b></label>
+                            <div class='col-md-3'>
+                                <div class="d-flex justify-content-center">
+                                    <button class="btn btn-secondary"> Balance Sheet Information</button>
                                 </div>
+                            </div>
+                            <div class='col-md-3'>
+                                <div class="d-flex justify-content-center">
+                                    <button class="btn btn-secondary">Income Statement Information</button>
+                                </div>
+                            </div>
+                            <div class='col-md-3'>
+                                <div class="d-flex justify-content-center">
+                                    <button class="btn btn-secondary">Cash And Cash Equivalents Information</button>
+                            </div>
+                            </div>
+                            <div class='col-md-3'>
+                                <div class="d-flex justify-content-center">
+                                    <button class="btn btn-secondary">Un Settle Amount Information</button>
+                                </diV>
                             </div>
                         </div>
                         <hr>
 
                         <div class='row'>
                             <div class='col-md-3'>
-                                <div class='form-group row'>
+                            <div class='form-group row'>
                                     <div class='col-lg-12'>
                                         <select class='select form-control'>
                                             <option>Total Payable</option>
@@ -534,9 +545,8 @@ $Cashequvalent = $Bank_Amount + $MobileBanking_Amount + $SSL_Amount + $Cash;
                                             while($row = $result->fetch_assoc()) {
                                                 $csrId = $row['vendorId'];
                                                 $Payable += $row['Total'];
-                                                echo "<option value=\"$csrId\">".$row['name']." (".$row['Total']." Taka)</option>";
-												  
-                                                    							
+                                                echo "<option value=\"$csrId\">".$row['name']." (".$row['Total']." Taka)</option>";												  
+                                                   							
                                                 }
                                             }
 
@@ -545,115 +555,9 @@ $Cashequvalent = $Bank_Amount + $MobileBanking_Amount + $SSL_Amount + $Cash;
                                     </div>
                                 </div>
                                 <h6 class='text-center'><b style="color:red;"><?php echo "$Payable Taka" ?></b></h6>
+                                                            
                             </div>
                             <div class='col-md-3'>
-                                
-                                <div class='form-group row'>
-                                    <div class='col-lg-12 '>
-                                        <select class='select form-control'>                                       
-                                            <option>Total Receivable</option>
-                                            <?php
-
-                                            $recvList = 'SELECT customer.name, SUM(deposit-cost) as Total FROM client_ledger
-                                            INNER JOIN customer ON client_ledger.CSR_ID=customer.CustomerId                                        
-                                            GROUP BY client_ledger.CSR_ID
-                                            HAVING Total < 0';
-                                            $result = $conn->query($recvList);
-                                            $Rcv = 0;
-                                            if ($result->num_rows > 0) {    
-                                            while($row = $result->fetch_assoc()){
-                                                $csrId = $row['CustomerId'];
-                                                $Rcv += $row['Total'];
-                                                echo "<option value=\"$csrId\">".$row['name']." (".$row['Total']." Taka)</option>";
-												                                                     							
-                                                }
-                                            }
-
-                                            ?>
-                                        </select>
-                                    </div>
-                                </div>
-                                <h6 class='text-center'><b style="color:red;"><?php echo "$Rcv Taka" ?></b></h6>
-                            </div>
-                            <div class='col-md-2'>
-                                <div class='form-group row'>
-                                    <div class='col-lg-12'>
-                                        <select class='select form-control'>
-                                            <option>Unearned Revenue</option>
-                                            <?php
-
-                                            $recvList = 'SELECT customer.name, SUM(deposit-cost) as Total FROM client_ledger
-                                            INNER JOIN customer ON client_ledger.CSR_ID=customer.CustomerId 
-                                            GROUP BY client_ledger.CSR_ID
-                                            Having Total >  0';
-                                            $result = $conn->query($recvList);
-                                            $UnEarned = 0;
-                                            if ($result->num_rows > 0) {
-                                            while($row = $result->fetch_assoc()) {
-                                                $csrId = $row['CustomerId'];
-                                                $UnEarned += $row['Total'];
-                                                echo "<option value=\"$csrId\">".$row['name']." (".$row['Total']." Taka)</option>";
-												  
-                                                    							
-                                                }
-                                            }
-
-                                            ?>
-                                        </select>
-                                    </div>
-                                </div>
-                                <h6 class='text-center'><b style="color:red;"><?php echo "$UnEarned Taka" ?> </b></h6>
-                            </div>
-                            <div class='col-md-2'>
-                                <div class='form-group row'>
-                                    <div class='col-lg-12'>
-                                        <select class='select form-control'>
-                                            <option>Total Liabilities</option>
-                                            <option value='1'><?php echo "Payable ( $Payable Taka )"?></option>
-                                            <option value='2'><?php echo "Unearned ( $UnEarned Taka )" ?></option>
-                                            
-                                        </select>
-                                    </div>
-                                </div>
-                                <h6 class='text-center'><b style="color:red;"><?php $TotalLib  = $Payable + $UnEarned; echo "$TotalLib Taka" ?> </b></h6>
-                            </div>
-                            <div class='col-md-2'>
-                                <div class='form-group row'>
-                                    <div class='col-lg-12'>
-                                        <select class='select form-control'>
-                                            <option>Total Pre-Paid</option>
-                                            <?php
-
-                                                $payList = "SELECT vendor.vendorId, vendor.name, SUM(deposit-cost) as Total FROM vendor_ledger
-                                                INNER JOIN vendor ON vendor_ledger.VDR_ID=vendor.vendorId
-                                                GROUP BY vendor_ledger.VDR_ID
-                                                HAVING Total > 0";
-                                                $result = $conn->query($payList);
-                                                $PrePaid = 0;
-                                                if ($result->num_rows > 0) {
-                                                while($row = $result->fetch_assoc()) {
-                                                    $csrId = $row['vendorId'];
-                                                    $PrePaid += $row['Total'];
-                                                    echo "<option value=\"$csrId\">".$row['name']." (".$row['Total']." Taka)</option>";
-                                                                                          
-                                                    }
-                                                }
-
-                                                ?>
-                                            
-                                        </select>
-                                    </div>
-                                </div>
-                                <h6 class='text-center'><b style="color:red;"><?php echo "$PrePaid Taka"; ?> </b></h6>
-                            </div>
-                                                      
-                        </div>
-
-                        <hr>
-                        <h6>Income Statement Information</h6>
-                        <div class='row'>
-                            <div class='col-md-3'>
-
                                 <div class='form-group row'>
                                     <div class='col-lg-12'>
                                         <select class='select form-control'>
@@ -690,7 +594,96 @@ $Cashequvalent = $Bank_Amount + $MobileBanking_Amount + $SSL_Amount + $Cash;
                                         </select>
                                     </div>
                                 </div>
-                                <h6 class='text-center'><b style="color:red;"><?php echo "$Sales Taka" ?></b></h6>
+                                <h6 class='text-center'><b style="color:red;"><?php echo "$Sales Taka" ?></b></h6>  
+                                            
+                            </div>
+                            <div class='col-md-3'>
+                                <div class='form-group row'>
+                                    <div class='col-lg-12'>
+                                        <select class='select form-control'>
+                                        <option>Today Bank Statement</option>
+                                        <?php
+
+                                        $BankTotal = 0;
+                                        $sql = "SELECT DISTINCT id, bankId, bankname,bankaccno, branchname, SUM(credit-debit) as Amount FROM bank GROUP BY bankname";
+                                        $result = $conn->query($sql);
+                                        if ($result->num_rows > 0) {
+                                        while($row = $result->fetch_assoc()) {	
+                                            $bankgetID = $row["bankId"];
+                                            $BankTotal += $row['Amount'];
+                                            echo "<option value=\"$bankgetID\">".$row['bankname']." ( ".$row['Amount']." Taka )</option>";
+                                            
+                                            }
+                                        }
+                                        ?>
+                                            
+                                        </select>
+                                    </div>
+                                </div>
+                                <h6 class='text-center'><b style="color:red;"><?php echo "$BankTotal Taka" ?></b></h6>
+                            </div>
+                            <div class='col-md-3'>
+                                <div class='form-group row'>
+                                    <div class='col-lg-12'>
+                                        <select class='select form-control'>
+                                        <option>Vendor Ticket Voided Amount</option>
+                                        <option>Vendor Ticket Voided Amount</option>
+
+
+                                        <?php
+
+                                            $sql = "SELECT * FROM `unsettle_vendor_leadger` Order By DateTime DESC";
+                                            $result = $conn->query($sql);
+                                            $Vendor_Refunded=0;
+                                            if ($result->num_rows > 0) {
+                                                while($row = $result->fetch_assoc()) {													  
+                                                    $Vendor_Refunded = $row['amount'];
+                                                                                                
+                                                }
+                                            }
+
+										?>
+                                        <option>Vendor Ticket Refunded Amount : <?php echo $Vendor_Refunded ?></option>
+                                        
+                                            
+                                        </select>
+                                    </div>
+                                </div>
+                                <h6 class='text-center'><b style="color:red;"><?php echo "$Vendor_Refunded Taka" ?></b></h6>
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <div class='row'>
+                            <div class='col-md-3'>
+                                <div class='form-group row'>
+                                    <div class='col-lg-12 '>
+                                        <select class='select form-control'>                                       
+                                            <option>Total Receivable</option>
+                                            <?php
+
+                                            $recvList = 'SELECT customer.name, SUM(deposit-cost) as Total FROM client_ledger
+                                            INNER JOIN customer ON client_ledger.CSR_ID=customer.CustomerId                                        
+                                            GROUP BY client_ledger.CSR_ID
+                                            HAVING Total < 0';
+                                            $result = $conn->query($recvList);
+                                            $Rcv = 0;
+                                            if ($result->num_rows > 0) {    
+                                            while($row = $result->fetch_assoc()){
+                                                $csrId = $row['CustomerId'];
+                                                $Rcv += $row['Total'];
+                                                echo "<option value=\"$csrId\">".$row['name']." (".$row['Total']." Taka)</option>";
+												                                                     							
+                                                }
+                                            }
+
+                                            ?>
+                                        </select>
+                                    </div>
+                                </div>
+                                <h6 class='text-center'><b style="color:red;"><?php echo "$Rcv Taka" ?></b></h6>
+                                                           
                             </div>
                             <div class='col-md-3'>
                                 <div class='form-group row'>
@@ -730,6 +723,110 @@ $Cashequvalent = $Bank_Amount + $MobileBanking_Amount + $SSL_Amount + $Cash;
                                     </div>
                                 </div>
                                 <h6 class='text-center'><b style="color:red;"><?php echo "$Purchase Taka" ?></b></h6>
+                                
+                                                                  
+                                            
+                            </div>
+                            <div class='col-md-3'>
+                             <div class='form-group row'>
+                                    <div class='col-lg-12 '>
+                                        <select class='select form-control'>
+                                            <option disabled selected>Portal Balanced</option>
+                                            <?php
+                                            
+                                                $Today = date("Y-m-d");
+                                                $sql = "SELECT
+                                                invoice.invNo,
+                                                invoice.createdtime,
+                                                invoice.vendorName,
+                                                invoice.type,
+                                                airticket.vPrice1 AS vCost,
+                                                invoice.clientName,
+                                                airticket.cost1 AS Amount
+                                            FROM
+                                                invoice
+                                            INNER JOIN airticket ON invoice.invNo = airticket.invNo
+                                            WHERE invoice.createdtime LIKE '$Today%'";
+                                                $result = $conn->query($sql);
+                                                if ($result->num_rows > 0) {
+                                                while($row = $result->fetch_assoc()) {	
+                                                    $INV_NO = $row["invNo"];
+                                                    $Purchase += $row['vCost'];
+                                                    echo "<option value=\"$INV_NO\">".$row['vendorName']." From ( ".$row['vCost']." Taka )</option>";
+                                                    
+ 											
+                                                    }
+                                                }
+                                                ?>
+                                            
+                                        </select>
+                                    </div>
+                                </div>
+                                <h6 class='text-center'><b style="color:red;"><?php echo "$Purchase Taka" ?></b></h6>
+                                
+                                
+                            </div>
+                            <div class='col-md-3'>
+                                <div class='form-group row'>
+                                    <div class='col-lg-12'>
+                                        <select class='select form-control'>
+                                        <option>Clients Ticket Voided Amount</option>
+
+                                        <?php
+                                                        
+												$sql = "SELECT * FROM `client_unsettle_ledger` Order By DateTime DESC";
+												$result = $conn->query($sql);
+                                                $Client_Refunded = 0;
+												if ($result->num_rows > 0) {
+  												while($row = $result->fetch_assoc()) {													  
+													$Client_Refunded = $row['amount'];
+													   											
+												  }
+												} 
+
+										?>
+                                        <option>Clients Ticket Refunded Amount : <?php echo $Client_Refunded ?></option>
+                                        
+                                            
+                                        </select>
+                                    </div>
+                                </div>
+                                <h6 class='text-center'><b style="color:red;"><?php echo "$BankTotal Taka" ?></b></h6>
+                                
+                            </div>
+                        </div>
+                        <hr>
+
+                        <div class='row'>
+                            <div class='col-md-3'>
+                                <div class='form-group row'>
+                                    <div class='col-lg-12'>
+                                        <select class='select form-control'>
+                                            <option>Unearned Revenue</option>
+                                            <?php
+
+                                            $recvList = 'SELECT customer.name, SUM(deposit-cost) as Total FROM client_ledger
+                                            INNER JOIN customer ON client_ledger.CSR_ID=customer.CustomerId 
+                                            GROUP BY client_ledger.CSR_ID
+                                            Having Total >  0';
+                                            $result = $conn->query($recvList);
+                                            $UnEarned = 0;
+                                            if ($result->num_rows > 0) {
+                                            while($row = $result->fetch_assoc()) {
+                                                $csrId = $row['CustomerId'];
+                                                $UnEarned += $row['Total'];
+                                                echo "<option value=\"$csrId\">".$row['name']." (".$row['Total']." Taka)</option>";
+												  
+                                                    							
+                                                }
+                                            }
+
+                                            ?>
+                                        </select>
+                                    </div>
+                                </div>
+                                <h6 class='text-center'><b style="color:red;"><?php echo "$UnEarned Taka" ?> </b></h6>
+                              
                             </div>
                             <div class='col-md-3'>
                                 <div class='form-group row'>
@@ -771,6 +868,83 @@ $Cashequvalent = $Bank_Amount + $MobileBanking_Amount + $SSL_Amount + $Cash;
                                     </div>
                                 </div>
                                 <h6 class='text-center'><b style="color:red;"><?php echo "$TotalProfit Taka" ?></b></h6>
+                                
+                                                                                                                                        
+                            </div>
+                            <div class='col-md-3'>
+                                <div class='form-group row'>
+                                    <div class='col-lg-12'>
+                                        <select class='select form-control'>
+                                            <option>Mobile Banking Balanced</option>
+                                            <?php
+                                            
+                                                $Today = date("Y-m-d");
+                                                $sql = "SELECT id, MB_ID, mb_operator, mb_number, SUM(cashIn-cashOut) as balance FROM `mobile_banking` GROUP By MB_ID";
+                                                $result = $conn->query($sql);
+                                                if ($result->num_rows > 0) {
+                                                while($row = $result->fetch_assoc()) {	
+                                                    $Mobile_Banking += $row['balance'];
+                                                   
+                                                    echo "<option>".$row['mb_operator']." - ".$row['mb_number']." To ( ".$row['balance']." Taka )</option>";
+                                                    
+ 											
+                                                    }
+                                                }else{
+                                                    $Mobile_Banking = 0;
+                                                }
+                                                ?>
+                                            
+                                        </select>
+                                    </div>
+                                </div>
+                                <h6 class='text-center'><b style="color:red;"><?php echo "$Mobile_Banking Taka" ?></b></h6>
+                                
+                            </div>
+                            <div class='col-md-3'>                               
+                                    <div class='form-group row'>
+                                        <div class='col-lg-12'>
+                                            <select class='select form-control'>
+                                            <option>Bank Unsettle Amount</option>
+                                            <?php
+
+                                            $BankTotal = 0;
+                                            $sql = "SELECT DISTINCT id, bankId, bankname,bankaccno, branchname, SUM(credit-debit) as Amount FROM bank GROUP BY bankname";
+                                            $result = $conn->query($sql);
+                                            if ($result->num_rows > 0) {
+                                            while($row = $result->fetch_assoc()) {	
+                                                $bankgetID = $row["bankId"];
+                                                $BankTotal += $row['Amount'];
+                                                echo "<option value=\"$bankgetID\">".$row['bankname']." ( ".$row['Amount']." Taka )</option>";
+                                                
+                                                }
+                                            }
+                                            ?>
+                                                                                    
+                                            </select>
+                                        </div>
+                                    </div>
+                                <h6 class='text-center'><b style="color:red;"><?php echo "$BankTotal Taka" ?></b></h6>
+
+                                
+                            </div>
+                        </div>
+                        <hr>
+
+                        <div class='row'>
+                            <div class='col-md-3'>
+                            <div class='form-group row'>
+                                    <div class='col-lg-12'>
+                                        <select class='select form-control'>
+                                            <option>Total Liabilities</option>
+                                            <option value='1'><?php echo "Payable ( $Payable Taka )"?></option>
+                                            <option value='2'><?php echo "Unearned ( $UnEarned Taka )" ?></option>
+                                            
+                                        </select>
+                                    </div>
+                                </div>
+                                <h6 class='text-center'><b style="color:red;"><?php $TotalLib  = $Payable + $UnEarned; echo "$TotalLib Taka" ?> </b></h6>
+
+                                
                             </div>
                             <div class='col-md-3'>
                                 <div class='form-group row'>
@@ -808,103 +982,8 @@ $Cashequvalent = $Bank_Amount + $MobileBanking_Amount + $SSL_Amount + $Cash;
                                     </div>
                                 </div>
                                 <h6 class='text-center'><b style="color:red;"><?php echo "$Todayexpense Taka" ?></b></h6>
-                            </div>
 
-                        </div>
-                        <hr>
-
-                        <h6> Cash And Cash Equivalents: <?php echo "$Cashequvalent Taka" ?></h6>
-                        <div class='row'>
-                            <div class='col-md-3'>
-
-                                <div class='form-group row'>
-                                    <div class='col-lg-12'>
-                                        <select class='select form-control'>
-                                        <option>Today Bank Statement</option>
-                                        <?php
-
-                                        $BankTotal = 0;
-                                        $sql = "SELECT DISTINCT id, bankId, bankname,bankaccno, branchname, SUM(credit-debit) as Amount FROM bank GROUP BY bankname";
-                                        $result = $conn->query($sql);
-                                        if ($result->num_rows > 0) {
-                                        while($row = $result->fetch_assoc()) {	
-                                            $bankgetID = $row["bankId"];
-                                            $BankTotal += $row['Amount'];
-                                            echo "<option value=\"$bankgetID\">".$row['bankname']." ( ".$row['Amount']." Taka )</option>";
                                             
-                                            }
-                                        }
-                                        ?>
-                                            
-                                        </select>
-                                    </div>
-                                </div>
-                                <h6 class='text-center'><b style="color:red;"><?php echo "$BankTotal Taka" ?></b></h6>
-                            </div>
-                            <div class='col-md-3'>
-                                <div class='form-group row'>
-                                    <div class='col-lg-12 '>
-                                        <select class='select form-control'>
-                                            <option disabled selected>Portal Balanced</option>
-                                            <?php
-                                            
-                                                $Today = date("Y-m-d");
-                                                $sql = "SELECT
-                                                invoice.invNo,
-                                                invoice.createdtime,
-                                                invoice.vendorName,
-                                                invoice.type,
-                                                airticket.vPrice1 AS vCost,
-                                                invoice.clientName,
-                                                airticket.cost1 AS Amount
-                                            FROM
-                                                invoice
-                                            INNER JOIN airticket ON invoice.invNo = airticket.invNo
-                                            WHERE invoice.createdtime LIKE '$Today%'";
-                                                $result = $conn->query($sql);
-                                                if ($result->num_rows > 0) {
-                                                while($row = $result->fetch_assoc()) {	
-                                                    $INV_NO = $row["invNo"];
-                                                    $Purchase += $row['vCost'];
-                                                    echo "<option value=\"$INV_NO\">".$row['vendorName']." From ( ".$row['vCost']." Taka )</option>";
-                                                    
- 											
-                                                    }
-                                                }
-                                                ?>
-                                            
-                                        </select>
-                                    </div>
-                                </div>
-                                <h6 class='text-center'><b style="color:red;"><?php echo "$Purchase Taka" ?></b></h6>
-                            </div>
-                            <div class='col-md-3'>
-                                <div class='form-group row'>
-                                    <div class='col-lg-12'>
-                                        <select class='select form-control'>
-                                            <option>Mobile Banking Balanced</option>
-                                            <?php
-                                            
-                                                $Today = date("Y-m-d");
-                                                $sql = "SELECT id, MB_ID, mb_operator, mb_number, SUM(cashIn-cashOut) as balance FROM `mobile_banking` GROUP By MB_ID";
-                                                $result = $conn->query($sql);
-                                                if ($result->num_rows > 0) {
-                                                while($row = $result->fetch_assoc()) {	
-                                                    $Mobile_Banking += $row['balance'];
-                                                   
-                                                    echo "<option>".$row['mb_operator']." - ".$row['mb_number']." To ( ".$row['balance']." Taka )</option>";
-                                                    
- 											
-                                                    }
-                                                }else{
-                                                    $Mobile_Banking = 0;
-                                                }
-                                                ?>
-                                            
-                                        </select>
-                                    </div>
-                                </div>
-                                <h6 class='text-center'><b style="color:red;"><?php echo "$Mobile_Banking Taka" ?></b></h6>
                             </div>
                             <div class='col-md-3'>
                                 <div class='form-group row'>
@@ -915,6 +994,7 @@ $Cashequvalent = $Bank_Amount + $MobileBanking_Amount + $SSL_Amount + $Cash;
                                             
                                                 $Today = date("Y-m-d");
                                                 $sql = "SELECT SUM(cashIn - cashOut) as amount from cash ";
+                                                $HandCash = 0;
                                                 $result = $conn->query($sql);
                                                 if ($result->num_rows > 0) {
                                                 while($row = $result->fetch_assoc()) {	                                                  
@@ -922,114 +1002,91 @@ $Cashequvalent = $Bank_Amount + $MobileBanking_Amount + $SSL_Amount + $Cash;
 
                                                     }
                                                 }else{
-                                                    echo "<option>0 Taka </option>";
+                                                    echo "<option> 0 Taka </option>";
                                                 }
                                                 ?>
                                             
                                         </select>
                                     </div>
                                 </div>
-                                <h6 class='text-center'><b style="color:red;"><?php echo "$Cash Taka" ?></b></h6>
-                            </div>
+                                <h6 class='text-center'><b style="color:red;"><?php echo "$HandCash Taka" ?></b></h6>
 
+                                
+                            </div>
+                            <div class='col-md-3'>
+                                <div class='form-group row'>
+                                        <div class='col-lg-12'>
+                                            <select class='select form-control'>
+                                            <option>Cash Unsettle Amount</option>
+                                            <?php
+
+                                            $BankTotal = 0;
+                                            $sql = "SELECT DISTINCT id, bankId, bankname,bankaccno, branchname, SUM(credit-debit) as Amount FROM bank GROUP BY bankname";
+                                            $result = $conn->query($sql);
+                                            if ($result->num_rows > 0) {
+                                            while($row = $result->fetch_assoc()) {	
+                                                $bankgetID = $row["bankId"];
+                                                $BankTotal += $row['Amount'];
+                                                echo "<option value=\"$bankgetID\">".$row['bankname']." ( ".$row['Amount']." Taka )</option>";
+                                                
+                                                }
+                                            }
+                                            ?>
+                                                                                    
+                                            </select>
+                                        </div>
+                                    </div>
+                                <h6 class='text-center'><b style="color:red;"><?php echo "$BankTotal Taka" ?></b></h6>
+                                
+                            </div>
                         </div>
                         <hr>
 
-                       
                         <div class='row'>
-                            <div class='col-md-4'>
-                            <h6> Air Ticket Vendor Unsettle Amount:  <?php echo "$Cashequvalent Taka" ?></h6>
+                            <div class='col-md-3'>
                                 <div class='form-group row'>
                                     <div class='col-lg-12'>
                                         <select class='select form-control'>
-                                        <option>Ticket Voided Amount</option>
+                                            <option>Total Pre-Paid</option>
+                                            <?php
 
-
-                                        <?php
-
-                                            $sql = "SELECT * FROM `unsettle_vendor_leadger` Order By DateTime DESC";
-                                            $result = $conn->query($sql);
-                                            $Vendor_Refunded=0;
-                                            if ($result->num_rows > 0) {
-                                                while($row = $result->fetch_assoc()) {													  
-                                                    $Vendor_Refunded = $row['amount'];
-                                                                                                
+                                                $payList = "SELECT vendor.vendorId, vendor.name, SUM(deposit-cost) as Total FROM vendor_ledger
+                                                INNER JOIN vendor ON vendor_ledger.VDR_ID=vendor.vendorId
+                                                GROUP BY vendor_ledger.VDR_ID
+                                                HAVING Total > 0";
+                                                $result = $conn->query($payList);
+                                                $PrePaid = 0;
+                                                if ($result->num_rows > 0) {
+                                                while($row = $result->fetch_assoc()) {
+                                                    $csrId = $row['vendorId'];
+                                                    $PrePaid += $row['Total'];
+                                                    echo "<option value=\"$csrId\">".$row['name']." (".$row['Total']." Taka)</option>";
+                                                                                          
+                                                    }
                                                 }
-                                            }
 
-										?>
-                                        <option>Ticket Refunded Amount : <?php echo $Vendor_Refunded ?></option>
-                                        
+                                                ?>
                                             
                                         </select>
                                     </div>
                                 </div>
-                                <h6 class='text-center'><b style="color:red;"><?php echo "$Vendor_Refunded Taka" ?></b></h6>
+                                <h6 class='text-center'><b style="color:red;"><?php echo "$PrePaid Taka"; ?> </b></h6>
+                                
                             </div>
-                            <div class='col-md-4'>
-                            <h6> Air Ticket Client Unsettle Amount:  <?php echo "$Cashequvalent Taka" ?></h6>
-                                <div class='form-group row'>
-                                    <div class='col-lg-12'>
-                                        <select class='select form-control'>
-                                        <option>Ticket Voided Amount</option>
-
-                                        <?php
-                                                        
-												$sql = "SELECT * FROM `client_unsettle_ledger` Order By DateTime DESC";
-												$result = $conn->query($sql);
-                                                $Client_Refunded = 0;
-												if ($result->num_rows > 0) {
-  												while($row = $result->fetch_assoc()) {													  
-													$Client_Refunded = $row['amount'];
-													   											
-												  }
-												} 
-
-										?>
-                                        <option>Ticket Refunded Amount : <?php echo $Client_Refunded ?></option>
-                                        
+                            <div class='col-md-3'>
+                                                               
                                             
-                                        </select>
-                                    </div>
-                                </div>
-                                <h6 class='text-center'><b style="color:red;"><?php echo "$BankTotal Taka" ?></b></h6>
                             </div>
-                            <div class='col-md-4'>
-                            <h6> Cash And Cash Equivalents Unsettle Amount:  <?php echo "$Cashequvalent Taka" ?></h6>
-                                <div class='form-group row'>
-                                    <div class='col-lg-12'>
-                                        <select class='select form-control'>
-                                       
-                                        <?php
-
-                                        $BankTotal = 0;
-                                        $sql = "SELECT DISTINCT id, bankId, bankname,bankaccno, branchname, SUM(credit-debit) as Amount FROM bank GROUP BY bankname";
-                                        $result = $conn->query($sql);
-                                        if ($result->num_rows > 0) {
-                                        while($row = $result->fetch_assoc()) {	
-                                            $bankgetID = $row["bankId"];
-                                            $BankTotal += $row['Amount'];
-                                            echo "<option value=\"$bankgetID\">".$row['bankname']." ( ".$row['Amount']." Taka )</option>";
-                                            
-                                            }
-                                        }
-                                        ?>
-                                                                                   
-                                        </select>
-                                    </div>
-                                </div>
-                                <h6 class='text-center'><b style="color:red;"><?php echo "$BankTotal Taka" ?></b></h6>
+                            <div class='col-md-3'>
+                               
                             </div>
-                                                        
-
+                            <div class='col-md-3'>
+                                
+                            </div>
                         </div>
 
-                                               
-                        </div>
                         
                     </div>
-
-                    
 
 
                 </div>
